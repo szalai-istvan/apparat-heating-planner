@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>APPARAT mennyezetfűtés-hűtés kalkulátor</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body id="body" class="drawing-area">
+        <div class="side-panel">
+            <label for="imageInput" class="button">Fájlfeltöltés</label>
+            <input type="file" id="imageInput" accept="image/jpeg, image/png" hidden />
+            <button class="button" id="startScaling">Méretarány felvétele</button>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+        <script>
+            function loadScripts() {
+                let directory = 'js/';
+                let extension = '.js';
+                let files = ['displayContext', 'utilities', 'blueprintImage', 'fileUpload', 'panels', 'scalingTool', 'index'];
+                for (var file of files){ 
+                    const path = directory + file + extension; 
+                    const script = document.createElement("script");
+                    script.src = path;
+                    document.body.appendChild(script);
+                }
+            }
+            loadScripts();
+        </script>
+    </body>
+</html>
