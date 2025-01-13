@@ -5,25 +5,88 @@
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body id="body" class="drawing-area">
+        <!-- buttons -->
         <div class="side-panel">
             <label for="imageInput" class="button">Fájlfeltöltés</label>
             <input type="file" id="imageInput" accept="image/jpeg, image/png" hidden />
             <button class="button" id="startScaling">Méretarány felvétele</button>
+            <button class="button" id="manageRooms">Helyiségek kezelése</button>
+            <button class="button" id="addPanelGroup">Panelcsoport hozzáadása</button>
         </div>
+
+        <!-- dialogs -->
+        <dialog id="errorDialog">
+            <p id="errorMessage"></p>
+            <form method="dialog">
+                <button>OK</button>
+            </form>
+        </dialog>
+
+        <dialog id="scalingDialog">
+            <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
+            <p>
+                <label>Hossz: </label><input type="text" id="scalingInput">
+            </p>
+
+            <button id="scalingDialogCloseButton">OK</button>
+        </dialog>
+
+        <dialog id="manageRoomsDialog">
+            <p><label for="addRoomInput">Szoba hozzáadása: </label><input type="text" id="addRoomInput"></p>
+            <button id="addRoomButton">Szoba hozzáadása</button>
+            <hr>
+            <p><label for="removeRoomSelect">Szoba eltávolítása: </label>
+                <select id="removeRoomSelect"></select>
+            </p>
+            <button id="removeRoomButton">Szoba Eltávolítása</button>
+            <hr>
+            <button id="closeManageRoomsDialog">Bezárás</button>
+        </dialog>
+
+        <dialog id="addPanelDialog">
+            <p>Adja meg a felvenni kívánt panelcsoport adatait:</p>
+            <p>
+                <label for="addPanelAmountTextbox">Mennyiség (db):</label><input type="number" id="addPanelAmountTextbox">
+            </p>
+            <p>
+                <label for="addPanelRoomSelect">Szoba:</label><select id="addPanelRoomSelect"></select>
+            </p>
+            <p>
+                <label for="addPanelTypeSelect">Panel típus:</label><select id="addPanelTypeSelect"></select>
+            </p>
+
+            <button id="addPanelDialogCloseButton">Hozzáadás</button>
+        </dialog>
+
+        <dialog id="manageRoomsDialog">
+            <p><label for="addRoomInput">Szoba hozzáadása: </label><input type="text" id="addRoomInput"></p>
+            <button id="addRoomButton">Szoba hozzáadása</button>
+            <hr>
+            <p><label for="removeRoomSelect">Szoba eltávolítása: </label>
+                <select id="removeRoomSelect">
+                </select>
+            </p>
+            <button id="removeRoomButton">Szoba Eltávolítása</button>
+            <hr>
+            <button id="closeManageRoomsDialog">Hozzáadás</button>
+        </dialog>
+
+        <!-- scripts -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
         <script>
             function loadScripts() {
                 let directory = 'js/';
                 let extension = '.js';
-                let files = ['displayContext', 'utilities', 'blueprintImage', 'fileUpload', 'panels', 'scalingTool', 'index'];
+                let files = ['components', 'displayContext', 'utilities', 'blueprintImage', 'fileUpload', 'panels', 'scalingTool', 'index', 'dialogs', 'rooms'];
                 for (var file of files){ 
                     const path = directory + file + extension; 
                     const script = document.createElement("script");
                     script.src = path;
+                    script.async = false;
                     document.body.appendChild(script);
                 }
             }
             loadScripts();
         </script>
-    </body>
+</body>
 </html>

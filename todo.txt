@@ -1,0 +1,10 @@
+- Panel hozzáadása gomb létrehozása és funkció implementálása.
+- Panel mozgatás, forgatás implementálása.
+- Panel módosítás implementálása (db, type, room, alignment)
+- Panelek csoportba rendezése.
+- Panel törlés implementálása.
+- Árajánlat kalkuláció implementálása.
+- Széppé tenni
+- APPARAT logó
+- Kurzor tooltip implementálása.
+- Több soros hibaüzenet lehetősége.

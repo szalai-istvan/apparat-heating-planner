@@ -4,6 +4,7 @@ function setup() {
   const docSize = documentDimensions();
   canvas = createCanvas(docSize.vw * 0.9, window.innerHeight);
   canvas.parent("body");
+  angleMode(DEGREES);
 }
 
 function draw() {

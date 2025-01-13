@@ -33,3 +33,16 @@ canvas {
     padding: 0px;
     cursor: crosshair;
 }
+
+dialog {
+    margin-top: 35vh;
+    padding: 8px;
+}
+
+select {
+    width: 150px;
+}
+
+input[type="text"] {
+    width: 150px;
+}

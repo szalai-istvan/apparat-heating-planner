@@ -1,6 +1,3 @@
-var imageInput = 'imageInput';
-var startScaling = 'startScaling';
-
 function documentDimensions() {
     return {
         vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),

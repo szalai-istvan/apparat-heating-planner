@@ -1,10 +1,7 @@
-setTimeout(
-  () => document.getElementById(imageInput).addEventListener('change', handleFileSelect, false),
-  1_000
-);
+imageInput.addEventListener('change', handleFileSelect, false);
 
 function upload() {
-    document.getElementById(imageInput).click();
+  imageInput.click();
 }
 
 function handleFileSelect(event) {

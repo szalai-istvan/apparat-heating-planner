@@ -1,7 +1,4 @@
-setTimeout(
-    () => document.getElementById(startScaling).addEventListener('click', startScalingFunc),
-    1_000
-);
+startScaling.addEventListener('click', startScalingFunc);
 
 var scalingContext = {
     scalingInProgress: false,
@@ -19,15 +16,7 @@ var scalingContext = {
             this.referencePoints.beginning = referencePoint;
         } else if (!this.referencePoints.end.set) {
             this.referencePoints.end = referencePoint;
-            
-            while (!this.referenceLength > 0) {
-                const referenceLength = prompt('Adja meg a kijelölt szakasz hosszát, méter mértékegységben:');
-                this.referenceLength = Number(referenceLength.replace(",", "."));
-            }
-            this.scalingInProgress = false;
-
-            const referencePointDistance = distance(this.referencePoints.beginning, this.referencePoints.end);
-            this.pixelsPerMetersRatio = referencePointDistance / this.referenceLength / displayContext.zoom;
+            showScalingDialog();
         }
     },
 
@@ -37,11 +26,29 @@ var scalingContext = {
         }
 
         const beginningPoint = this.referencePoints.beginning;
+        const endPoint = this.referencePoints.end;
         if (!beginningPoint.set) {
             return;
         }
+        
+        if (!endPoint.set) {
+            line(beginningPoint.x, beginningPoint.y, mouseX, mouseY);
+        } else {
+            line(beginningPoint.x, beginningPoint.y, endPoint.x, endPoint.y);
+        }
+    },
 
-        line(beginningPoint.x, beginningPoint.y, mouseX, mouseY);
+    processScalingValue: function(scalingValue) {
+        const scalingValueNumber = Number(scalingValue);
+        if (scalingValueNumber > 0) {
+            this.referenceLength = scalingValueNumber;
+            this.scalingInProgress = false;
+            const referencePointDistance = distance(this.referencePoints.beginning, this.referencePoints.end);
+            scalingContext.pixelsPerMetersRatio = referencePointDistance / this.referenceLength / displayContext.zoom;
+            scalingDialog.close();
+        } else {
+            displayErrorMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');
+        }
     }
 };
 
