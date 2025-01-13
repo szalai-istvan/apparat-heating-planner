@@ -1,10 +1,14 @@
-- Panel hozzáadása gomb létrehozása és funkció implementálása.
-- Panel mozgatás, forgatás implementálása.
-- Panel módosítás implementálása (db, type, room, alignment)
-- Panelek csoportba rendezése.
-- Panel törlés implementálása.
+- Panel mozgatás implementálása.
+    - Blokk kijelölés egér elengedéskor, ha kicsi a drag. Utána megkülönböztető szín és a blokk mozog a kurzorral.
+    - Újabb klikk esetén elengedés.
+- Panel módosítás implementálása (db, type, room, alignment, forgatás, törlés)
+    - Jobb klikk kiválasztott panelblokk esetén opciók felhozása.
 - Árajánlat kalkuláció implementálása.
+- pdf feltöltés
+
 - Széppé tenni
 - APPARAT logó
 - Kurzor tooltip implementálása.
 - Több soros hibaüzenet lehetősége.
+- window resize
+- Szoba törlése validáció

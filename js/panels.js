@@ -1,3 +1,5 @@
+var ellipseRadius = 0.24;
+
 var panelInformation = {
     panelBlocks: [],
     addToPanels: function(type, room, pieces) {
@@ -11,25 +13,60 @@ var panelInformation = {
         this.panelBlocks.forEach(panelBlock => this.drawPanelBlock(panelBlock));
     },
 
-    drawPanelBlock: function(panel) {
-        const screenCoordinates = displayContext.withDragOffsetAdded(panel.getTopLeftCoordinates());
+    drawPanelBlock: function(panelBlock) {
+        const centerPosition = displayContext.adjustCenterCoordinates(panelBlock);
 
-        rect(
-            screenCoordinates.x,
-            screenCoordinates.y, 
-            panel.dimensions.length * displayContext.zoom * scalingContext.pixelsPerMetersRatio, 
-            panel.dimensions.width * displayContext.zoom * scalingContext.pixelsPerMetersRatio);       
+        const topLeftPosition = {
+            x: centerPosition.x - 0.5 * panelBlock.dimensions.length * displayContext.zoom,
+            y: centerPosition.y - 0.5 * panelBlock.dimensions.width * displayContext.zoom
+        };
+        const screenCoordinates = displayContext.withDragOffsetAdded(topLeftPosition);
+
+        for (let i = 0; i < panelBlock.pieces; i++) {
+            drawPanel(panelBlock, screenCoordinates, i);
+        }
     },
 
     offsetCenterPosition: function(offset) {
         this.panelBlocks.forEach(panelBlock => {
-            panelBlock.centerPositison = {
-                x: panelBlock.centerPositison.x + offset.x,
-                y: panelBlock.centerPositison.y + offset.y,
+            panelBlock.centerPosition = {
+                x: panelBlock.centerPosition.x + offset.x,
+                y: panelBlock.centerPosition.y + offset.y,
             };
         });
     }
 };
+
+function drawPanel(panelBlock, screenCoordinates, i) {
+    const zoomTimesRatio = displayContext.zoom * scalingContext.pixelsPerMetersRatio;
+    const coordinates = {
+        x: screenCoordinates.x, 
+        y: screenCoordinates.y + panelBlock.dimensions.width * zoomTimesRatio * i
+    };
+    const length = panelBlock.dimensions.length;
+    const width = panelBlock.dimensions.width;
+    
+    strokeWeight(3);
+    rect(
+        coordinates.x,
+        coordinates.y, 
+        panelBlock.dimensions.length * zoomTimesRatio,
+        panelBlock.dimensions.width * zoomTimesRatio);
+    
+    strokeWeight(0.5);
+    const step = width * zoomTimesRatio / 9;
+    for (let tube = step; tube < width * zoomTimesRatio; tube += step) {
+        line(coordinates.x, coordinates.y + tube, coordinates.x + length * zoomTimesRatio, coordinates.y + tube);
+    }
+    arc(
+        coordinates.x, 
+        coordinates.y + width * 0.5 * zoomTimesRatio, 
+        2 * ellipseRadius * zoomTimesRatio, 
+        width * zoomTimesRatio * 7/9, 
+        90, 
+        270
+    );
+}
 
 function createPanelBlock(type, room, pieces) {
     return {
@@ -37,19 +74,13 @@ function createPanelBlock(type, room, pieces) {
         room: room,
         pieces: pieces,
         alignment: 0,
-        centerPositison: {
+        centerPosition: {
             x: canvas.width / 2,
             y: canvas.height / 2
         },
         dimensions: {
             length: panelTypes[type].length,
             width: panelTypes[type].width
-        },
-        getTopLeftCoordinates: function() {
-            return {
-                x: this.centerPositison.x - 0.5 * this.dimensions.length * displayContext.zoom,
-                y: this.centerPositison.y - 0.5 * this.dimensions.width * displayContext.zoom
-            };
         }
     }
 }

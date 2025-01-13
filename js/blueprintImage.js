@@ -7,10 +7,11 @@ var blueprintImageData = {
 
     draw: function() {
         if (this.data) {
+            const centerPosition = displayContext.adjustCenterCoordinates(this);
 
             const topLeftPosition = {
-                x: this.centerPosition.x - 0.5 * displayContext.zoom * this.data.width,
-                y: this.centerPosition.y - 0.5 * displayContext.zoom * this.data.height
+                x: centerPosition.x - 0.5 * displayContext.zoom * this.data.width,
+                y: centerPosition.y - 0.5 * displayContext.zoom * this.data.height
             };
             const screenCoordinates = displayContext.withDragOffsetAdded(topLeftPosition);
 

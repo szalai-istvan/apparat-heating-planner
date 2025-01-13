@@ -13,8 +13,23 @@ var displayContext = {
 
     withDragOffsetAdded: function(coordinates) {
         return {
-            x: coordinates.x + dragContext.offset.x,
-            y: coordinates.y + dragContext.offset.y
+            x: coordinates.x + dragContext.offset.x * displayContext.zoom,
+            y: coordinates.y + dragContext.offset.y * displayContext.zoom
+        };
+    },
+
+    adjustCenterCoordinates: function(obj) {
+        const canvasCenter = {x: canvas.width / 2, y: canvas.height / 2};
+        const objCenter = obj.centerPosition;
+
+        const difference = {
+            x: objCenter.x - canvasCenter.x,
+            y: objCenter.y - canvasCenter.y
+        };
+        
+        return {
+            x: canvasCenter.x + difference.x * this.zoom,
+            y: canvasCenter.y + difference.y * this.zoom
         };
     }
 };
@@ -51,8 +66,8 @@ var dragContext = {
     recalculateDragOffset: function() {
         if (this.drag) {
             this.offset = {
-                x: mouseX - this.dragStartPosition.x, 
-                y: mouseY - this.dragStartPosition.y
+                x: (mouseX - this.dragStartPosition.x) / displayContext.zoom, 
+                y: (mouseY - this.dragStartPosition.y) / displayContext.zoom
             };
         }
     }
