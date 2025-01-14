@@ -39,32 +39,44 @@ var panelInformation = {
 
 function drawPanel(panelBlock, screenCoordinates, i) {
     const zoomTimesRatio = displayContext.zoom * scalingContext.pixelsPerMetersRatio;
+    const length = panelBlock.dimensions.length * zoomTimesRatio;
+    const width = panelBlock.dimensions.width * zoomTimesRatio;
+
     const coordinates = {
         x: screenCoordinates.x, 
-        y: screenCoordinates.y + panelBlock.dimensions.width * zoomTimesRatio * i
+        y: screenCoordinates.y + width * i
     };
-    const length = panelBlock.dimensions.length;
-    const width = panelBlock.dimensions.width;
+
     
     strokeWeight(3);
     rect(
         coordinates.x,
         coordinates.y, 
-        panelBlock.dimensions.length * zoomTimesRatio,
-        panelBlock.dimensions.width * zoomTimesRatio);
+        length,
+        width);
     
     strokeWeight(0.5);
-    const step = width * zoomTimesRatio / 9;
-    for (let tube = step; tube < width * zoomTimesRatio; tube += step) {
-        line(coordinates.x, coordinates.y + tube, coordinates.x + length * zoomTimesRatio, coordinates.y + tube);
+    const step = width / 9;
+    for (let tube = step; tube < width; tube += step) {
+        line(coordinates.x, coordinates.y + tube, coordinates.x + length, coordinates.y + tube);
     }
+
     arc(
         coordinates.x, 
-        coordinates.y + width * 0.5 * zoomTimesRatio, 
+        coordinates.y + width * 0.5, 
         2 * ellipseRadius * zoomTimesRatio, 
-        width * zoomTimesRatio * 7/9, 
+        width * 7/9, 
         90, 
         270
+    );
+
+    arc(
+        coordinates.x + length, 
+        coordinates.y + width * 0.5, 
+        2 * ellipseRadius * zoomTimesRatio, 
+        width * 7/9, 
+        -90, 
+        90
     );
 }
 
