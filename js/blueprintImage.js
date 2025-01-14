@@ -7,7 +7,7 @@ var blueprintImageData = {
 
     draw: function() {
         if (this.data) {
-            const centerPosition = displayContext.adjustCenterCoordinates(this);
+            const centerPosition = displayContext.calculateAdjustedCenterCoordinates(this);
 
             const topLeftPosition = {
                 x: centerPosition.x - 0.5 * displayContext.zoom * this.data.width,

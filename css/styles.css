@@ -1,17 +1,14 @@
 .side-panel {
-    background-color: red;
     height: 100vh;
     width: 10vw;
     min-width: 150px;
     display: table;
-}
-
-.drawing-area {
-    background-color: green;
+    border: solid 1px black;
+    background-color: gray;
 }
 
 .button {
-    background-color: lightgreen;
+    background-color: lightgray;
     border: solid 1px black;
     border-radius: 10px;
     margin: 0px;

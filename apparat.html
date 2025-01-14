@@ -4,7 +4,7 @@
         <title>APPARAT mennyezetfűtés-hűtés kalkulátor</title>
         <link rel="stylesheet" href="css/styles.css">
     </head>
-    <body id="body" class="drawing-area">
+    <body id="body">
         <!-- buttons -->
         <div class="side-panel">
             <label for="imageInput" class="button">Fájlfeltöltés</label>
@@ -77,7 +77,21 @@
             function loadScripts() {
                 let directory = 'js/';
                 let extension = '.js';
-                let files = ['components', 'displayContext', 'utilities', 'blueprintImage', 'fileUpload', 'panels', 'scalingTool', 'index', 'dialogs', 'rooms'];
+                let files = [
+                    'init', 
+                    'components', 
+                    'displayContext', 
+                    'dragContext', 
+                    'utilities', 
+                    'blueprintImage', 
+                    'fileUpload', 
+                    'panels', 
+                    'panelSelectionContext', 
+                    'scalingTool', 
+                    'index', 
+                    'dialogs', 
+                    'rooms', 
+                    'test'];
                 for (var file of files){ 
                     const path = directory + file + extension; 
                     const script = document.createElement("script");

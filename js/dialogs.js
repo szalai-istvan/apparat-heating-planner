@@ -45,8 +45,12 @@ function addPanels() {
     if (amount > 0) {
         const room = addPanelRoomSelect.value;
         const type = addPanelTypeSelect.value;
-        panelInformation.addToPanels(type, room, amount);
-        addPanelDialog.close();
+        if (type && room) {
+            panelInformation.addToPanels(type, room, amount);
+            addPanelDialog.close();    
+        } else {
+            displayErrorMessage('Hiányzó adat.');
+        }
     } else {
         displayErrorMessage(`Érvénytelen darabszám: ${amount}. Csak pozitív egész szám adható meg.`);
     }

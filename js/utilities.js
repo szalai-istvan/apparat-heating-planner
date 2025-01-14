@@ -10,3 +10,12 @@ function distance(p1, p2) {
     const deltaY = p2.y - p1.y;
     return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 }
+
+function circle(position, diameter) {
+    diameter *= displayContext.zoom;
+    ellipse(position.x, position.y, diameter, diameter);
+}
+
+function getMousePosition() {
+    return {x: mouseX, y: mouseY};
+}

@@ -10,12 +10,14 @@ function setup() {
 function draw() {
   background(255);
   dragContext.recalculateDragOffset();
+  panelDragContext.recalculateDragOffset();
 
   blueprintImageData.draw();
   scalingContext.draw();
   panelInformation.drawPanels();
 }
 
+// Mouse events
 function mousePressed() {
   if (scalingContext.scalingInProgress) {
     scalingContext.addReferencePoint();
@@ -25,6 +27,7 @@ function mousePressed() {
 }
 
 function mouseReleased() {
+  panelSelectionContext.selectPanel();
   dragContext.stopDragging();
 }
 
