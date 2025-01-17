@@ -12,7 +12,7 @@ function showScalingDialog() {
 
 scalingDialogCloseButton.addEventListener('click', (event) => {
     const scalingValue = scalingInput.value.replace(",", ".");
-    scalingContext.processScalingValue(scalingValue);
+    scaleContext.processScalingValue(scalingValue);
 });
 
 // manage rooms dialog

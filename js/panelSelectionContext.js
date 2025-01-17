@@ -4,7 +4,7 @@ var panelSelectionContext = {
     selectedPanelBlock: null,
 
     selectPanel: function() {
-        if (distance({x: 0, y: 0}, dragContext.offset) > 5) {
+        if (calculateDistance({x: 0, y: 0}, dragContext.offset) > 5) {
             return;
         }
 
@@ -23,8 +23,8 @@ var panelSelectionContext = {
         let adjustedMousePosition = displayContext.calculateAdjustedCenterCoordinates({centerPosition: mousePosition});
 
         const sortedByDistance = [...panelInformation.panelBlocks].sort((b1, b2) => {
-            const d1 = distance(mousePosition, b1.centerPosition);
-            const d2 = distance(mousePosition, b2.centerPosition);
+            const d1 = calculateDistance(mousePosition, b1.centerPosition);
+            const d2 = calculateDistance(mousePosition, b2.centerPosition);
             if (d1 < d2) {
                 return -1;
             }
@@ -34,7 +34,7 @@ var panelSelectionContext = {
         const min = sortedByDistance[0];
         const adjustedCenter = displayContext.calculateAdjustedCenterCoordinates(min);
 
-        if (min && (distance(mousePosition, adjustedCenter) < PANEL_SELECTION_THRESHOLD * displayContext.zoom)) {
+        if (min && (calculateDistance(mousePosition, adjustedCenter) < PANEL_SELECTION_THRESHOLD * displayContext.zoom)) {
             this.selectedPanelBlock = min;
             panelDragContext.startDragging();
         }

@@ -6,13 +6,14 @@
     </head>
     <body id="body">
         <!-- buttons -->
+         <div hidden>
         <div class="side-panel">
             <label for="imageInput" class="button">Fájlfeltöltés</label>
             <input type="file" id="imageInput" accept="image/jpeg, image/png" hidden />
             <button class="button" id="startScaling">Méretarány felvétele</button>
             <button class="button" id="manageRooms">Helyiségek kezelése</button>
             <button class="button" id="addPanelGroup">Panelcsoport hozzáadása</button>
-        </div>
+        </div></div>
 
         <!-- dialogs -->
         <dialog id="errorDialog">
@@ -72,35 +73,25 @@
         </dialog>
 
         <!-- scripts -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-        <script>
-            function loadScripts() {
-                let directory = 'js/';
-                let extension = '.js';
-                let files = [
-                    'init', 
-                    'components', 
-                    'displayContext', 
-                    'dragContext', 
-                    'utilities', 
-                    'blueprintImage', 
-                    'fileUpload', 
-                    'panels', 
-                    'panelSelectionContext', 
-                    'scalingTool', 
-                    'index', 
-                    'dialogs', 
-                    'rooms', 
-                    'test'];
-                for (var file of files){ 
-                    const path = directory + file + extension; 
-                    const script = document.createElement("script");
-                    script.src = path;
-                    script.async = false;
-                    document.body.appendChild(script);
-                }
-            }
-            loadScripts();
-        </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+        
+        <script type="text/javascript" src="js/v2/classes/Renderer.js"></script>
+        <script type="text/javascript" src="js/v2/classes/ScreenContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/Blueprint.js"></script>
+        <script type="text/javascript" src="js/v2/classes/ScaleContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/ButtonWrapper.js"></script>
+        
+        <script type="text/javascript" src="js/v2/components/components.js"></script>
+        <script type="text/javascript" src="js/v2/components/dialogs.js"></script>
+
+        <script type="text/javascript" src="js/v2/buttons/fileUploadButton.js"></script>
+        <script type="text/javascript" src="js/v2/buttons/buttons.js"></script>
+        <script type="text/javascript" src="js/v2/helpers/helpers.js"></script>
+
+        <script type="text/javascript" src="js/v2/p5/setup.js"></script>
+        <script type="text/javascript" src="js/v2/p5/draw.js"></script>
+        <script type="text/javascript" src="js/v2/p5/mousePressed.js"></script>
+        <script type="text/javascript" src="js/v2/p5/mouseReleased.js"></script>
+        <script type="text/javascript" src="js/v2/p5/mouseWheel.js"></script>
 </body>
 </html>

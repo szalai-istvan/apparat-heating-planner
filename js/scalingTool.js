@@ -43,7 +43,7 @@ var scalingContext = {
         if (scalingValueNumber > 0) {
             this.referenceLength = scalingValueNumber;
             this.scalingInProgress = false;
-            const referencePointDistance = distance(this.referencePoints.beginning, this.referencePoints.end);
+            const referencePointDistance = calculateDistance(this.referencePoints.beginning, this.referencePoints.end);
             scalingContext.pixelsPerMetersRatio = referencePointDistance / this.referenceLength / displayContext.zoom;
             scalingDialog.close();
         } else {
