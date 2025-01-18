@@ -65,6 +65,9 @@ class ScaleContext {
         
     }
 
+    ratioIsSet() {
+        return Boolean(this.#pixelsPerMetersRatio);
+    }
     // private
 
 }

@@ -1,7 +1,7 @@
 const buttonSize = {x: 120, y: 40};
 
-function position(x) {
-    return {x: 20 + x * (30 + buttonSize.x), y: 20};
+function position(col, row = 0) {
+    return {x: 20 + col * (30 + buttonSize.x), y: 20 + row * (30 + buttonSize.y)};
 }
 
 function createButtons() {
@@ -19,5 +19,21 @@ function createButtons() {
         position: position(1),
         onClick: () => scaleContext.startScaling(),
         shouldBeRendered: () => blueprint.dataIsPresent()
+    });
+
+    addRoomsButton = new ButtonWrapper({
+        text: 'Szoba felvétele',
+        size: buttonSize,
+        position: position(2),
+        onClick: () => showAddRoomDialog(),
+        shouldBeRendered: () => scaleContext.ratioIsSet()
+    });
+
+    deleteRoomButton = new ButtonWrapper({
+        text: 'Szoba törlése',
+        size: buttonSize,
+        position: position(0, 1),
+        onClick: () => roomContext.removeSelected(),
+        shouldBeRendered: () => roomContext.displayDeleteButton()
     });
 }

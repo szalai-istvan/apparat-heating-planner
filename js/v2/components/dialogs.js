@@ -1,36 +1,12 @@
-// error dialog
+const errorDialog = document.getElementById('errorDialog');
+const errorMessageParagraph = document.getElementById('errorMessageParagraph');
+
 function displayErrorMessage(text) {
-    errorMessage.innerHTML = text;
+    errorMessageParagraph.innerHTML = text;
     errorDialog.showModal();
 }
 
-// scaling dialog
-function showScalingDialog() {
-    scalingInput.value = '';
-    scalingDialog.showModal();
-}
-
-scalingDialogCloseButton.addEventListener('click', (event) => {
-    const scalingValue = scalingInput.value.replace(",", ".");
-    scaleContext.processScalingValue(scalingValue);
-});
-
-// manage rooms dialog
-manageRooms.addEventListener('click', () => showManageRoomsDialog());
-addRoomButton.addEventListener('click', () => {
-    roomsContext.addRoom(addRoomInput.value);
-    addRoomInput.value = '';
-});
-removeRoomButton.addEventListener('click', () => roomsContext.removeRoom(removeRoomSelect.value));
-closeManageRoomsDialog.addEventListener('click', () => manageRoomsDialog.close());
-
-function showManageRoomsDialog() {
-    addRoomInput.value = '';
-    manageRoomsDialog.showModal();
-}
-
 // add panels dialog
-addPanelGroup.addEventListener('click', () => showAddPanelDialog());
 addPanelDialogCloseButton.addEventListener('click', () => addPanels());
 
 function showAddPanelDialog() {

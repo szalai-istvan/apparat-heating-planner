@@ -1,8 +1,11 @@
 function draw() {
     background(255);
-    screenContext.translate(1);
+
+    drawCoordinates();
     
+    screenContext.translate();
     renderer.render();
+
     drawAxis();
 }
 
@@ -20,7 +23,15 @@ function drawAxis() {
     }
     line(0, 10_000, 0, -10_000);
     line(-10_000, 0, 10_000, 0);
+}
 
+function drawCoordinates() {
     const mouse = screenContext.getMousePositionAbsolute();
-    text(`x: ${mouse.x}\ny: ${mouse.y}\nzoom: ${screenContext.zoom}`, 50, 50);
+    textAlign(LEFT, TOP);
+    text(`x: ${roundNumber(mouse.x, 1)}\ny: ${roundNumber(mouse.y, 1)}\nzoom: ${roundNumber(screenContext.zoom, 1)}\nfps: ${roundNumber(frameRate(), 1)}`, mouseX + 20, mouseY + 20);
+}
+
+function roundNumber(number, decimals) {
+    const x = 10**decimals;
+    return Math.round(number * x) / x;
 }

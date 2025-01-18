@@ -10,14 +10,11 @@
         <div class="side-panel">
             <label for="imageInput" class="button">Fájlfeltöltés</label>
             <input type="file" id="imageInput" accept="image/jpeg, image/png" hidden />
-            <button class="button" id="startScaling">Méretarány felvétele</button>
-            <button class="button" id="manageRooms">Helyiségek kezelése</button>
-            <button class="button" id="addPanelGroup">Panelcsoport hozzáadása</button>
         </div></div>
 
         <!-- dialogs -->
         <dialog id="errorDialog">
-            <p id="errorMessage"></p>
+            <p id="errorMessageParagraph"></p>
             <form method="dialog">
                 <button>OK</button>
             </form>
@@ -25,23 +22,17 @@
 
         <dialog id="scalingDialog">
             <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
-            <p>
-                <label>Hossz: </label><input type="text" id="scalingInput">
-            </p>
+            <p><label>Hossz:</label><input type="text" id="scalingInput"></p>
 
             <button id="scalingDialogCloseButton">OK</button>
         </dialog>
 
-        <dialog id="manageRoomsDialog">
-            <p><label for="addRoomInput">Szoba hozzáadása: </label><input type="text" id="addRoomInput"></p>
+        <dialog id="addRoomDialog">
+            <p><label for="addRoomInput">Szoba hozzáadása:</label><input type="text" id="addRoomInput"></p>
+            
+            <hr>
             <button id="addRoomButton">Szoba hozzáadása</button>
-            <hr>
-            <p><label for="removeRoomSelect">Szoba eltávolítása: </label>
-                <select id="removeRoomSelect"></select>
-            </p>
-            <button id="removeRoomButton">Szoba Eltávolítása</button>
-            <hr>
-            <button id="closeManageRoomsDialog">Bezárás</button>
+            <button id="closeRoomDialogButton">Bezárás</button>
         </dialog>
 
         <dialog id="addPanelDialog">
@@ -59,19 +50,6 @@
             <button id="addPanelDialogCloseButton">Hozzáadás</button>
         </dialog>
 
-        <dialog id="manageRoomsDialog">
-            <p><label for="addRoomInput">Szoba hozzáadása: </label><input type="text" id="addRoomInput"></p>
-            <button id="addRoomButton">Szoba hozzáadása</button>
-            <hr>
-            <p><label for="removeRoomSelect">Szoba eltávolítása: </label>
-                <select id="removeRoomSelect">
-                </select>
-            </p>
-            <button id="removeRoomButton">Szoba Eltávolítása</button>
-            <hr>
-            <button id="closeManageRoomsDialog">Hozzáadás</button>
-        </dialog>
-
         <!-- scripts -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
         
@@ -80,12 +58,18 @@
         <script type="text/javascript" src="js/v2/classes/Blueprint.js"></script>
         <script type="text/javascript" src="js/v2/classes/ScaleContext.js"></script>
         <script type="text/javascript" src="js/v2/classes/ButtonWrapper.js"></script>
+        <script type="text/javascript" src="js/v2/classes/Room.js"></script>
+        <script type="text/javascript" src="js/v2/classes/RoomContext.js"></script>
         
         <script type="text/javascript" src="js/v2/components/components.js"></script>
         <script type="text/javascript" src="js/v2/components/dialogs.js"></script>
 
         <script type="text/javascript" src="js/v2/buttons/fileUploadButton.js"></script>
+        <script type="text/javascript" src="js/v2/buttons/scaleButton.js"></script>
+        <script type="text/javascript" src="js/v2/buttons/addRoomsButton.js"></script>
+        <script type="text/javascript" src="js/v2/buttons/deleteRoomsButton.js"></script>
         <script type="text/javascript" src="js/v2/buttons/buttons.js"></script>
+
         <script type="text/javascript" src="js/v2/helpers/helpers.js"></script>
 
         <script type="text/javascript" src="js/v2/p5/setup.js"></script>

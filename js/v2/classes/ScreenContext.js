@@ -20,11 +20,9 @@ class ScreenContext {
         this.#canvas = canvas;
     }
 
-    translate(multiplier) {
-        multiplier = multiplier ?? 1;
-
+    translate() {
         const canvasSize = this.#getCanvasSize();
-        translate(multiplier * 0.5 * canvasSize.x, multiplier * 0.5 * canvasSize.y);
+        translate(0.5 * canvasSize.x, 0.5 * canvasSize.y);
         scale(this.zoom);
 
         const sumDrag = this.#sumDrag;
@@ -33,8 +31,8 @@ class ScreenContext {
         if (this.#draggingInProgress) {
             const currentDragValue = this.#getCurrentDragValue();
             translate(
-                multiplier * currentDragValue.x / this.zoom, 
-                multiplier * currentDragValue.y / this.zoom
+                currentDragValue.x / this.zoom, 
+                currentDragValue.y / this.zoom
             );
         }
     }

@@ -9,3 +9,6 @@ function disableContextMenu() {
       element.addEventListener("contextmenu", (e) => e.preventDefault());
     }
 }
+
+const minimumFunction = (a, b) => a < b ? a : b;
+const maximumFunction = (a, b) => a > b ? a : b;

@@ -17,6 +17,10 @@ class Renderer {
         renderObjects.filter(x => x).forEach(x => x.draw());
     }
 
+    remove(obj) {
+        this.#objectsToRender = this.#objectsToRender.filter(x => x !== obj);
+    }
+
     // private
     #className(obj) {
         if (!obj || typeof(obj) !== 'object') {

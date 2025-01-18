@@ -1,3 +1,5 @@
+const imageInput = document.getElementById('imageInput');
+
 var fileUploadButton;
 
 imageInput.addEventListener('change', handleFileSelect);
