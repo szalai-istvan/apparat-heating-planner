@@ -32,10 +32,10 @@ class RoomContext {
         this.#selectedRoom = room;
     }
 
-    deselect() {
+    deselect(contextReset = true) {
         if (this.#selectedRoom && this.#selectedRoom.roomIsConfigured()) {
             this.#selectedRoom.deselect();
-            this.#selectedRoom = null;    
+            this.#selectedRoom = null;
         }
     }
     
@@ -52,7 +52,7 @@ class RoomContext {
         if (room) {
             room.remove();
             this.#rooms = this.#rooms.filter(r => r !== room);
-            this.deselect();
+            selectionContext.deselect();
         }
     }
 
@@ -61,7 +61,7 @@ class RoomContext {
     }
 
     thereAreRooms() {
-        return this.#rooms.length > 0;
+        return this.#rooms.length > 0 && this.#rooms[0].roomIsConfigured();
     }
 
     // private

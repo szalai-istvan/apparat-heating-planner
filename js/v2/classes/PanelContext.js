@@ -7,20 +7,25 @@ class PanelContext {
     addPanel(type) {
         const panel = new Panel(type);
         this.#panels.push(panel);
-        selectionContext.selectObject(panel);
     }
 
     select(panel) {
+        if (panel === this.#selectedPanel) {
+            panel.selectForDrag();
+            return;
+        }
         this.deselect();
 
         panel.select();
         this.#selectedPanel = panel;
     }
 
-    deselect() {
+    deselect(contextReset = true) {
         if (this.#selectedPanel) {
             this.#selectedPanel.deselect();
-            this.#selectedPanel = null;
+            if (contextReset) {
+                this.#selectedPanel = null;
+            }
         }
     }
 
@@ -30,6 +35,30 @@ class PanelContext {
         if (panel) {
             return panel;
         }
+    }
+
+    removeSelected() {
+        const panel = this.#selectedPanel;
+        if (panel) {
+            panel.remove();
+            this.#panels = this.#panels.filter(r => r !== panel);
+            selectionContext.deselect();
+        }
+    }
+
+    rotateSelected() {
+        const panel = this.#selectedPanel;
+        if (panel) {
+            panel.rotate();
+        }
+    }
+
+    addToSelectedAsGroup() {
+        // TODO
+    }
+
+    removeFromSelectedAsGroup() {
+        // TODO
     }
 }
 

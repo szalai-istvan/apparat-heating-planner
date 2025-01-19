@@ -6,7 +6,7 @@
 - pdf feltöltés
 - pdf letöltése
 
-- Széppé tenni
+- Széppé tenni a dialogokat.
 - APPARAT logó
 - Kurzor tooltip implementálása.
 - window resize

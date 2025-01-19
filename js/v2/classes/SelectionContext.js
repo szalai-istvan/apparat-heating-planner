@@ -31,18 +31,23 @@ class SelectionContext {
         this.#lastSelectingContext.select(obj);
     }
 
-    deselect() {
+    deselect(contextReset = true) {
         const lastSelectingContext = this.#lastSelectingContext;
         if (lastSelectingContext) {
-            lastSelectingContext.deselect();
+            lastSelectingContext.deselect(contextReset);
             this.#selectedObject = null;
         }
     }
 
+    isAnyThingSelected() {
+        return Boolean(this.#selectedObject);
+    }
+    
     // private
     #runSelection(context) {
         const selectableObject = context.checkForSelection();
         if (selectableObject) {
+            this.deselect(false);
             context.select(selectableObject);
             this.#lastSelectingContext = context;
             return selectableObject;

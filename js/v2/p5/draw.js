@@ -1,12 +1,20 @@
 function draw() {
     background(255);
 
-    drawCoordinates();
-    
+    drawCursorDebugInfo();
+    push();
     screenContext.translate();
     renderer.render();
 
     drawAxis();
+    pop();
+    drawUiBackground();    
+}
+
+function drawCursorDebugInfo() {
+    const mouse = screenContext.getMousePositionAbsolute();
+    textAlign(LEFT, TOP);
+    text(`x: ${roundNumber(mouse.x, 1)}\ny: ${roundNumber(mouse.y, 1)}\nzoom: ${roundNumber(screenContext.zoom, 1)}\nfps: ${roundNumber(frameRate(), 1)}`, mouseX + 20, mouseY + 20);
 }
 
 function drawAxis() {
@@ -25,10 +33,21 @@ function drawAxis() {
     line(-10_000, 0, 10_000, 0);
 }
 
-function drawCoordinates() {
-    const mouse = screenContext.getMousePositionAbsolute();
-    textAlign(LEFT, TOP);
-    text(`x: ${roundNumber(mouse.x, 1)}\ny: ${roundNumber(mouse.y, 1)}\nzoom: ${roundNumber(screenContext.zoom, 1)}\nfps: ${roundNumber(frameRate(), 1)}`, mouseX + 20, mouseY + 20);
+function drawUiBackground() {
+    push();
+    fill('lightgrey');
+    noStroke();
+    rect(0, 0, docSize.vw, 60);
+    rect(0, 60, 100, docSize.vh - 60);
+    stroke(3);
+    line(100, 60, docSize.vw, 60);
+    line(100, 60, 100, docSize.vh);
+
+    if (selectionContext.isAnyThingSelected()) {
+        line(0, 370, 100, 370);
+    }
+    
+    pop();
 }
 
 function roundNumber(number, decimals) {

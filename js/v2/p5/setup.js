@@ -1,6 +1,8 @@
+var docSize;
+
 function setup() {
     disableContextMenu();
-    const docSize = getDocumentDimensions();
+    docSize = getDocumentDimensions();
     const canvas = createCanvas(docSize.vw, window.innerHeight);
     canvas.parent("body");
     screenContext.setCanvas(canvas);
