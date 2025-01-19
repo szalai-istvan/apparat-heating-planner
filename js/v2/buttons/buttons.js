@@ -36,4 +36,15 @@ function createButtons() {
         onClick: () => roomContext.removeSelected(),
         shouldBeRendered: () => roomContext.displayDeleteButton()
     });
+    
+    let row = 2;
+    for (let type in panelTypes) {
+        addPanelButtons.push(new ButtonWrapper({
+            text: type,
+            size: buttonSize,
+            position: position(0, row++),
+            onClick: () => panelContext.addPanel(type),
+            shouldBeRendered: () => roomContext.thereAreRooms()
+        }));
+    }
 }

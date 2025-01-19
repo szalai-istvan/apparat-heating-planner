@@ -1,5 +1,3 @@
 function mouseReleased() {
-  if (mouseButton === 'left') {
-    screenContext.stopDragging();
-  }
+  screenContext.stopDragging();
 }

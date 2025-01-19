@@ -1,5 +1,8 @@
-- Panel módosítás implementálása (db, type, room, alignment, forgatás, törlés)
-    - Jobb klikk kiválasztott panelblokk esetén opciók felhozása.
+- Panel mozgatás és törlés implementálása.
+- Selection kontextus általános megoldás.
+- Panel sokszorosítás megoldása.
+- Panel forgathatóság megoldása.
+
 - Árajánlat kalkuláció implementálása.
 - pdf feltöltés
 
@@ -7,4 +10,3 @@
 - APPARAT logó
 - Kurzor tooltip implementálása.
 - window resize
-- Szoba törlése validáció

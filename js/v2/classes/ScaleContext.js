@@ -3,7 +3,7 @@ class ScaleContext {
     #secondPoint = null;
     scalingInProgress = false;
     #referenceLength = null;
-    #pixelsPerMetersRatio = null;
+    pixelsPerMetersRatio = null;
 
     constructor() {
         renderer.register(this);
@@ -35,7 +35,7 @@ class ScaleContext {
             this.#referenceLength = scalingValueNumber;
             this.scalingInProgress = false;
             const referencePointDistance = calculateDistance(firstPoint, secondPoint);
-            this.#pixelsPerMetersRatio = referencePointDistance / this.#referenceLength / screenContext.zoom;
+            this.pixelsPerMetersRatio = referencePointDistance / this.#referenceLength;
             
             scalingDialog.close();
         } else {
@@ -66,7 +66,7 @@ class ScaleContext {
     }
 
     ratioIsSet() {
-        return Boolean(this.#pixelsPerMetersRatio);
+        return Boolean(this.pixelsPerMetersRatio);
     }
     // private
 

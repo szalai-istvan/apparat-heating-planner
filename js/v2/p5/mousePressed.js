@@ -4,8 +4,10 @@ function mousePressed() {
       scaleContext.addReferencePoint();
     }
     roomContext.addPoint();
+    selectionContext.deselect();
+    
   } else if (mouseButton === 'left') {
     screenContext.startDragging();
-    roomContext.checkForSelection();
+    selectionContext.select();
   }
 }

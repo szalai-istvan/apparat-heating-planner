@@ -15,12 +15,12 @@ class Room {
         const mousePosition = screenContext.getMousePositionAbsolute();
         
         if (points.length >= 2) {
-            this.deSelect();
+            return;
         } else {
             points.push(mousePosition);
             if (points.length >= 2) {
                 this.#middlePoint = this.#getMiddlePoint();
-                this.deSelect();
+                selectionContext.deselect();
             }
         }
     }
@@ -57,12 +57,10 @@ class Room {
 
     select() {
         this.#isSelected = true;
-        roomContext.selectRoom(this);
     }
 
-    deSelect() {
+    deselect() {
         this.#isSelected = false;
-        roomContext.deselectRoom();
     }
 
     remove() {
