@@ -136,7 +136,7 @@ class Room {
         textAlign(CENTER, CENTER);
         if (this.pointIsInsideText()) {
             fill('red');
-            textSize(36);
+            textSize(28);
         } else {
             textSize(24);
         }

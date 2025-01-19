@@ -64,6 +64,7 @@ class Panel {
             -90, 
             90
         );
+        this.#drawType();
         pop();
     }
 
@@ -76,12 +77,48 @@ class Panel {
         this.#position = this.#mousePositionToPosition();
     }
 
+    pointIsInsideText() {
+        const point = screenContext.getMousePositionAbsolute();
+        const x = point.x;
+        const y = point.y;
+        const middlePoint = this.#getCenterPosition();
+
+        const width = textWidth(this.#type);
+        const minX = middlePoint.x - width / 2;
+        const maxX = middlePoint.x + width / 2;
+
+        const minY = middlePoint.y - 12;
+        const maxY = middlePoint.y + 12;
+
+        return x > minX && x < maxX && y > minY && y < maxY;
+    }
+
     // private
     #mousePositionToPosition() {
         const mousePosition = screenContext.getMousePositionAbsolute();
         return {
             x: mousePosition.x - this.#lengthInMeters / 2,
             y: mousePosition.y - this.#widthInMeters / 2
+        };
+    }
+
+    #drawType() {
+        textAlign(CENTER, CENTER);
+        if (this.pointIsInsideText()) {
+            fill('red');
+            textSize(28);
+        } else {
+            textSize(24);
+        }
+        const coordinates = this.#isSelected ? screenContext.getMousePositionAbsolute() : this.#getCenterPosition();
+        text(this.#type, coordinates.x, coordinates.y);
+    }
+
+    #getCenterPosition() {
+        const position = this.#position;
+        return {
+            x: position.x + this.#lengthInMeters / 2,
+            y: position.y + this.#widthInMeters / 2
         };
     }
 }

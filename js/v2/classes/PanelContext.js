@@ -25,7 +25,11 @@ class PanelContext {
     }
 
     checkForSelection() {
-        return null; // TODO
+        const selection = this.#panels.filter(p => p.pointIsInsideText());
+        const panel = selection[0];
+        if (panel) {
+            return panel;
+        }
     }
 }
 
