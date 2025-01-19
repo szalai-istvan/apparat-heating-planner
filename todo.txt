@@ -1,10 +1,10 @@
-- Panel mozgatás és törlés implementálása.
-- Selection kontextus általános megoldás.
+- Panel forgatás implementálása.
+- Panel törlés megoldása.
 - Panel sokszorosítás megoldása.
-- Panel forgathatóság megoldása.
 
 - Árajánlat kalkuláció implementálása.
 - pdf feltöltés
+- pdf letöltése
 
 - Széppé tenni
 - APPARAT logó
