@@ -9,6 +9,7 @@ class Panel {
     #isSelected;
     #isSelectedForDrag;
     #alignment = 0;
+    #numberOfPanelsInGroup = 1;
 
     constructor(type) {
         this.#details = panelTypes[type];
@@ -35,22 +36,15 @@ class Panel {
         const coordinates = this.#isSelectedForDrag ? this.#mousePositionToPosition() : this.#position;
 
         push();
-        strokeWeight(3);
         translate(coordinates.x, coordinates.y);
         rotate(this.#alignment * 90);
-        rect(0, 0, length, width);
 
-        strokeWeight(0.5);
-
-        const step = width / 9;
-        for (let tube = step; tube < width; tube += step) {
-            line(0, tube, length, tube);
+        for(let offset = 0; offset < this.#numberOfPanelsInGroup; offset++) {
+            this.#drawWithOffset({ratio, length, width, offset});
         }
 
-        arc(0, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, 90, 270);
-        arc(length, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, -90, 90);
-        this.#drawType();
         translate(-coordinates.x, -coordinates.y);
+        this.#drawType();
         pop();
     }
 
@@ -74,7 +68,7 @@ class Panel {
         const point = screenContext.getMousePositionAbsolute();
         const x = point.x;
         const y = point.y;
-        const middlePoint = this.#getCenterPosition();
+        const middlePoint = this.#getCenterPositionAbsolute();
 
         const width = textWidth(this.#type);
         let minX, maxX, minY, maxY;
@@ -103,18 +97,26 @@ class Panel {
         this.#alignment = (this.#alignment + 1) % 2;
     }
 
+    addToGroup() {
+        this.#numberOfPanelsInGroup += 1;
+    }
+
+    removeFromGroup() {
+        this.#numberOfPanelsInGroup = Math.max(this.#numberOfPanelsInGroup - 1, 1);
+    }
+
     // private
     #mousePositionToPosition() {
         const mousePosition = screenContext.getMousePositionAbsolute();
         if (this.#alignment) {
             return {
-                x: mousePosition.x + this.#widthInMeters / 2,
+                x: mousePosition.x + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup,
                 y: mousePosition.y - this.#lengthInMeters / 2
             };    
         }
         return {
             x: mousePosition.x - this.#lengthInMeters / 2,
-            y: mousePosition.y - this.#widthInMeters / 2
+            y: mousePosition.y - this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
         };
     }
 
@@ -126,21 +128,58 @@ class Panel {
         }
 
         textSize(24 + this.#isSelected * 4 + pointIsInsideText * 4);
-        const coordinates = this.#isSelected ? screenContext.getMousePositionAbsolute() : this.#getCenterPosition();
-        text(this.#type, this.#lengthInMeters / 2, this.#widthInMeters / 2);
+        
+        const coordinates = this.#getTextCenter();
+        text(this.#type, coordinates.x, coordinates.y);
+    }
+
+    #getCenterPositionAbsolute() {
+        const position = this.#position;
+        if (this.#alignment) {
+            return {
+                x: position.x - this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup,
+                y: position.y + this.#lengthInMeters * 0.5
+            };
+        }
+        return {
+            x: position.x + this.#lengthInMeters * 0.5,
+            y: position.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
+        };
     }
 
     #getCenterPosition() {
         const position = this.#position;
-        if (this.#alignment) {
-            return {
-                x: position.x - this.#widthInMeters / 2,
-                y: position.y + this.#lengthInMeters / 2
-            };
-        }
         return {
-            x: position.x + this.#lengthInMeters / 2,
-            y: position.y + this.#widthInMeters / 2
+            x: position.x + this.#lengthInMeters * 0.5,
+            y: position.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
         };
     }
+
+    #getTextCenter() {
+        const coordinates = this.#isSelectedForDrag ? this.#mousePositionToPosition() : this.#position;
+        return {
+            x: coordinates.x + this.#lengthInMeters * 0.5,
+            y: coordinates.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
+        };
+    }
+
+    #drawWithOffset({ratio, length, width, offset}) {
+        const widthOffset = width * offset;
+
+        strokeWeight(3);
+        translate(0, widthOffset);
+        rect(0, 0, length, width);
+
+        strokeWeight(0.5);
+        const step = width / 9;
+        for (let tube = step; tube < width; tube += step) {
+            line(0, tube, length, tube);
+        }
+
+        arc(0, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, 90, 270);
+        arc(length, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, -90, 90);
+
+        translate(0, -widthOffset);
+    }
+
 }

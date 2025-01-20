@@ -1,7 +1,3 @@
-- Panel forgatás implementálása.
-- Panel törlés megoldása.
-- Panel sokszorosítás megoldása.
-
 - Árajánlat kalkuláció implementálása.
 - pdf feltöltés
 - pdf letöltése

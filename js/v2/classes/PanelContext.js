@@ -53,12 +53,20 @@ class PanelContext {
         }
     }
 
-    addToSelectedAsGroup() {
-        // TODO
+    addToSelectedGroup() {
+        if (this.#selectedPanel) {
+            this.#selectedPanel.addToGroup();
+        }
     }
 
-    removeFromSelectedAsGroup() {
-        // TODO
+    removeFromSelectedGroup() {
+        if (this.#selectedPanel) {
+            this.#selectedPanel.removeFromGroup();
+        }
+    }
+
+    hasSelectedPanel() {
+        return Boolean(this.#selectedPanel);
     }
 }
 

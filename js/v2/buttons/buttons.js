@@ -52,4 +52,38 @@ function createButtons() {
             shouldBeRendered: () => roomContext.thereAreRooms()
         }));
     }
+
+    row++;
+    editPanelButtons.rotate = new ButtonWrapper({
+        text: 'Forgatás',
+        size: smallButtonSize,
+        position: sidePanelButtonPosition(row++),
+        onClick: () => panelContext.rotateSelected(),
+        shouldBeRendered: () => panelContext.hasSelectedPanel()
+    });
+
+    editPanelButtons.subtract = new ButtonWrapper({
+        text: '-',
+        size: {x: 40, y: 30},
+        position: sidePanelButtonPosition(row),
+        onClick: () => panelContext.removeFromSelectedGroup(),
+        shouldBeRendered: () => panelContext.hasSelectedPanel()
+    });
+
+    editPanelButtons.add = new ButtonWrapper({
+        text: '+',
+        size: {x: 40, y: 30},
+        position: {x: 50, y: 70 + row++ * (smallButtonSize.y + 5)},
+        onClick: () => panelContext.addToSelectedGroup(),
+        shouldBeRendered: () => panelContext.hasSelectedPanel()
+    });
+
+    editPanelButtons.delete = new ButtonWrapper({
+        text: 'Törlés',
+        size: smallButtonSize,
+        position: sidePanelButtonPosition(row++),
+        onClick: () => panelContext.removeSelected(),
+        shouldBeRendered: () => panelContext.hasSelectedPanel()
+    });
+
 }

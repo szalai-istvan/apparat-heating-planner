@@ -1,12 +1,12 @@
 function draw() {
     background(255);
 
-    drawCursorDebugInfo();
+    //drawCursorDebugInfo();
     push();
     screenContext.translate();
     renderer.render();
 
-    drawAxis();
+    //drawAxis();
     pop();
     drawUiBackground();    
 }
