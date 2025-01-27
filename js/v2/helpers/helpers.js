@@ -12,3 +12,14 @@ function disableContextMenu() {
 
 const minimumFunction = (a, b) => a < b ? a : b;
 const maximumFunction = (a, b) => a > b ? a : b;
+
+function disableEscapeButton() {
+  for (let element of document.getElementsByTagName('dialog')) {
+    element.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+    }
+    });
+  }
+}

@@ -2,6 +2,8 @@ var docSize;
 
 function setup() {
     disableContextMenu();
+    disableEscapeButton();
+    
     docSize = getDocumentDimensions();
     const canvas = createCanvas(docSize.vw, window.innerHeight);
     canvas.parent("body");

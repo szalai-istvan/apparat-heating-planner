@@ -15,24 +15,27 @@
         <!-- dialogs -->
         <dialog id="errorDialog">
             <p id="errorMessageParagraph"></p>
+            <hr>
             <form method="dialog">
-                <button>OK</button>
+                <div class="center"><button>OK</button></div>
             </form>
         </dialog>
 
         <dialog id="scalingDialog">
             <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
             <p><label>Hossz:</label><input type="text" id="scalingInput"></p>
-
-            <button id="scalingDialogCloseButton">OK</button>
+            <hr>
+            <div class="center"><button id="scalingDialogCloseButton">OK</button></div>
         </dialog>
 
         <dialog id="addRoomDialog">
             <p><label for="addRoomInput">Szoba hozzáadása:</label><input type="text" id="addRoomInput"></p>
             
             <hr>
+            <div class="center">
             <button id="addRoomButton">Szoba hozzáadása</button>
             <button id="closeRoomDialogButton">Bezárás</button>
+            </div>
         </dialog>
 
         <dialog id="addPanelDialog">
@@ -46,8 +49,10 @@
             <p>
                 <label for="addPanelTypeSelect">Panel típus:</label><select id="addPanelTypeSelect"></select>
             </p>
-
+            <hr>
+            <div class="center">
             <button id="addPanelDialogCloseButton">Hozzáadás</button>
+            </div>
         </dialog>
 
         <!-- scripts -->
