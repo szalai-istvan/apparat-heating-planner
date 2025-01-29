@@ -19,6 +19,9 @@ function handleFileSelect(event) {
     const img = new Image();
     img.src = event.target.result;
     blueprint.setBlueprintData(loadImage(img.src));
+    scaleContext.clear();
+
+    tooltip.displayTooltip(SCALING_0);
   };
   reader.readAsDataURL(file);
 }

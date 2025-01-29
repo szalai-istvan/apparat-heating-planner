@@ -1,8 +1,6 @@
 - Árajánlat kalkuláció implementálása.
 - pdf feltöltés
 - pdf letöltése
-
-- Széppé tenni a dialogokat.
 - APPARAT logó
-- Kurzor tooltip implementálása.
-- window resize
+- Tooltip-ek megírása
+- Renderer refactor

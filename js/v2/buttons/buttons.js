@@ -1,14 +1,3 @@
-const regularButtonSize = {x: 100, y: 40};
-const smallButtonSize = {x: 80, y: 30};
-
-function topRibbonButtonPosition(col) {
-    return {x: -20 + col * (20 + regularButtonSize.x), y: 10};
-}
-
-function sidePanelButtonPosition(row) {
-    return {x: 10, y: 70 + row * (smallButtonSize.y + 5)};
-}
-
 function createButtons() {
     fileUploadButton = new ButtonWrapper({
         text: 'Fájl feltöltése',

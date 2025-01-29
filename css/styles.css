@@ -76,3 +76,7 @@ dialog {
     padding: 8px;
     border-radius: 16px;
 }
+
+dialog::backdrop {
+    backdrop-filter: blur(2px);
+}

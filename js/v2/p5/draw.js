@@ -8,7 +8,8 @@ function draw() {
 
     //drawAxis();
     pop();
-    drawUiBackground();    
+    drawUiBackground();
+    tooltip.draw();
 }
 
 function drawCursorDebugInfo() {
@@ -42,6 +43,8 @@ function drawUiBackground() {
     stroke(3);
     line(100, 60, docSize.vw, 60);
     line(100, 60, 100, docSize.vh);
+
+    line(450, 0, 450, 60);
 
     if (selectionContext.isAnyThingSelected()) {
         line(0, 370, 100, 370);

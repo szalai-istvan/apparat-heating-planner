@@ -1,16 +1,22 @@
 var docSize;
+var canvas;
 
 function setup() {
     disableContextMenu();
     disableEscapeButton();
+    handleWindowResize();
     
     docSize = getDocumentDimensions();
-    const canvas = createCanvas(docSize.vw, window.innerHeight);
+    canvas = createCanvas(docSize.vw, window.innerHeight);
     canvas.parent("body");
     screenContext.setCanvas(canvas);
     
     angleMode(DEGREES);
     createButtons();
+
+
+    tooltip.displayTooltip(WELCOME);
+    setTimeout(() => tooltip.displayTooltipIf(WELCOME, DRAWING_UPLOAD), 4_000);
 }
 
 function getDocumentDimensions() {
