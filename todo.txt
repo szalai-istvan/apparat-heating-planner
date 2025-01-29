@@ -4,3 +4,4 @@
 - APPARAT logó
 - Tooltip-ek megírása
 - Renderer refactor
+- rescale paneleken
