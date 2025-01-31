@@ -125,6 +125,8 @@ class Panel {
         const pointIsInsideText = this.pointIsInsideText();
         if (pointIsInsideText || (this.#isSelected && !this.#isSelectedForDrag)) {
             fill('red');
+        } else {
+            fill('black');
         }
 
         textSize(24 + this.#isSelected * 4 + pointIsInsideText * 4);
@@ -167,6 +169,7 @@ class Panel {
         const widthOffset = width * offset;
 
         strokeWeight(3);
+        fill('white');
         translate(0, widthOffset);
         rect(0, 0, length, width);
 
