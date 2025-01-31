@@ -21,6 +21,7 @@ class Room {
             if (points.length >= 2) {
                 this.#middlePoint = this.#getMiddlePoint();
                 selectionContext.deselect();
+                tooltip.roomAddingFinished();
             }
         }
     }

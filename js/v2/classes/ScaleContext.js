@@ -11,16 +11,20 @@ class ScaleContext {
 
     // public
     startScaling() {
-        this.scalingInProgress = true;
-        this.clear();
-        tooltip.displayCursorTooltip(SCALING_1);
+        if (!roomContext.thereAreRooms()) {
+            this.scalingInProgress = true;
+            this.clear();
+            tooltip.scalingStarted();
+        } else {
+            scalingDialogConfirm.showModal();
+        }
     }
 
     addReferencePoint() {
         const point = screenContext.getMousePositionAbsolute();
         if (!this.#firstPoint) {
             this.#firstPoint = point;
-            tooltip.displayCursorTooltip(SCALING_2);
+            tooltip.firstReferencePointAdded();
         } else if (!this.#secondPoint) {
             this.#secondPoint = point;
             tooltip.clearCursorTooltip();
@@ -40,7 +44,7 @@ class ScaleContext {
             this.pixelsPerMetersRatio = referencePointDistance / this.#referenceLength;
             
             scalingDialog.close();
-            tooltip.displayTooltip(ROOM_ADD);
+            tooltip.scalingFinished();
         } else {
             displayErrorMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');
         }
@@ -76,6 +80,7 @@ class ScaleContext {
         this.#firstPoint = null;
         this.#secondPoint = null;
         this.pixelsPerMetersRatio = null;
+        roomContext.clear();
     }
 
 }

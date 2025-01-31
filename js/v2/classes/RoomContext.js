@@ -10,12 +10,14 @@ class RoomContext {
 
         if (this.#roomNameAlreadyExists(name)) {
             displayErrorMessage(`${name} nevű szoba már létezik. Egyedi nevet kell megadni.`);
-            return;
+            return false;
         }
         const room = new Room(name);
         this.#rooms.push(room);
 
+        tooltip.roomAddingStarted();
         selectionContext.selectObject(room);
+        return true;
     }
 
     addPoint() {
@@ -30,12 +32,17 @@ class RoomContext {
 
         room.select();
         this.#selectedRoom = room;
+
+        if (room.roomIsConfigured()) {
+            tooltip.roomSelected();
+        }
     }
 
     deselect(contextReset = true) {
         if (this.#selectedRoom && this.#selectedRoom.roomIsConfigured()) {
             this.#selectedRoom.deselect();
             this.#selectedRoom = null;
+            tooltip.roomDeselected();
         }
     }
     
@@ -43,8 +50,12 @@ class RoomContext {
         const selection = this.#rooms.filter(r => r.pointIsInsideText());
         const room = selection[0];
         if (room) {
+            if (room !== this.#selectedRoom) {
+                tooltip.roomNameHovered();
+            }
             return room;
         }
+        tooltip.roomNameUnhovered();
     }
 
     removeSelected() {
@@ -62,6 +73,13 @@ class RoomContext {
 
     thereAreRooms() {
         return this.#rooms.length > 0 && this.#rooms[0].roomIsConfigured();
+    }
+
+    clear() {
+        this.#rooms.forEach(room => room.remove());
+        this.#rooms = [];
+        selectionContext.deselect();
+        panelContext.clear();
     }
 
     // private

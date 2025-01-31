@@ -9,6 +9,7 @@ function draw() {
     //drawAxis();
     pop();
     drawUiBackground();
+    roomContext.checkForSelection();
     tooltip.draw();
 }
 

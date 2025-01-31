@@ -13,10 +13,8 @@ function setup() {
     
     angleMode(DEGREES);
     createButtons();
-
-
-    tooltip.displayTooltip(WELCOME);
-    setTimeout(() => tooltip.displayTooltipIf(WELCOME, DRAWING_UPLOAD), 4_000);
+    
+    tooltip.applicationStarted();
 }
 
 function getDocumentDimensions() {

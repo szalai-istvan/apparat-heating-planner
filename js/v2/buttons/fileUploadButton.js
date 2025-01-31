@@ -1,12 +1,28 @@
 const imageInput = document.getElementById('imageInput');
 
+const fileUploadDialogConfirm = document.getElementById('fileUploadDialogConfirm');
+const fileUploadDialogConfirmButton = document.getElementById('fileUploadDialogConfirmButton');
+const fileUploadDialogCancelButton = document.getElementById('fileUploadDialogCancelButton');
+
+
 var fileUploadButton;
 
 imageInput.addEventListener('change', handleFileSelect);
 
 function upload() {
-  imageInput.click();
+  if (scaleContext.ratioIsSet()) {
+    fileUploadDialogConfirm.showModal();
+  } else {
+    imageInput.click();
+  }
 }
+
+fileUploadDialogConfirmButton.addEventListener('click', () => {
+  fileUploadDialogConfirm.close();
+  imageInput.click();
+});
+
+fileUploadDialogCancelButton.addEventListener('click', () => fileUploadDialogConfirm.close());
 
 function handleFileSelect(event) {
   const file = event.target.files[0];
@@ -21,7 +37,7 @@ function handleFileSelect(event) {
     blueprint.setBlueprintData(loadImage(img.src));
     scaleContext.clear();
 
-    tooltip.displayTooltip(SCALING_0);
+    tooltip.fileIsUploaded();
   };
   reader.readAsDataURL(file);
 }

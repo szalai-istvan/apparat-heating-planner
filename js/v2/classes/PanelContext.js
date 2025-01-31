@@ -7,6 +7,7 @@ class PanelContext {
     addPanel(type) {
         const panel = new Panel(type);
         this.#panels.push(panel);
+        tooltip.panelAdded();
     }
 
     select(panel) {
@@ -67,6 +68,12 @@ class PanelContext {
 
     hasSelectedPanel() {
         return Boolean(this.#selectedPanel);
+    }
+
+    clear() {
+        this.#panels.forEach(panel => panel.remove());
+        this.#panels = [];
+        selectionContext.deselect();
     }
 }
 

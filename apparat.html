@@ -21,6 +21,24 @@
             </form>
         </dialog>
 
+        <dialog id="fileUploadDialogConfirm">
+            <p>Új fájl feltöltése törölni fogja a meglévő skálázást, a korábban felvett szobákat és paneleket. Folytatja?</p>
+            <hr>
+            <div class="center">
+                <button id="fileUploadDialogConfirmButton">Igen</button>
+                <button id="fileUploadDialogCancelButton">Nem</button>
+            </div>
+        </dialog>
+
+        <dialog id="scalingDialogConfirm">
+            <p>A rajz újraskálázása törölni fogja a korábban felvett szobákat és paneleket. Folytatja?</p>
+            <hr>
+            <div class="center">
+                <button id="scalingDialogConfirmButton">Igen</button>
+                <button id="scalingDialogCancelButton">Nem</button>
+            </div>
+        </dialog>
+
         <dialog id="scalingDialog">
             <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
             <p><label>Hossz:</label><input type="text" id="scalingInput"></p>
@@ -29,7 +47,7 @@
         </dialog>
 
         <dialog id="addRoomDialog">
-            <p><label for="addRoomInput">Szoba hozzáadása:</label><input type="text" id="addRoomInput"></p>
+            <p><label for="addRoomInput">Szoba neve:</label><input type="text" id="addRoomInput"></p>
             
             <hr>
             <div class="center">
