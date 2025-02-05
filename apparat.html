@@ -56,44 +56,28 @@
             </div>
         </dialog>
 
-        <dialog id="addPanelDialog">
-            <p>Adja meg a felvenni kívánt panelcsoport adatait:</p>
-            <p>
-                <label for="addPanelAmountTextbox">Mennyiség (db):</label><input type="number" id="addPanelAmountTextbox">
-            </p>
-            <p>
-                <label for="addPanelRoomSelect">Szoba:</label><select id="addPanelRoomSelect"></select>
-            </p>
-            <p>
-                <label for="addPanelTypeSelect">Panel típus:</label><select id="addPanelTypeSelect"></select>
-            </p>
-            <hr>
-            <div class="center">
-            <button id="addPanelDialogCloseButton">Hozzáadás</button>
-            </div>
-        </dialog>
-
         <!-- scripts -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 
         <script type="text/javascript" src="js/v2/helpers/helpers.js"></script>
+        <script type="text/javascript" src="js/v2/helpers/errordialog.js"></script>
+        <script type="text/javascript" src="js/v2/helpers/debug.js"></script>
+
         <script type="text/javascript" src="js/v2/appdata/appdata.js"></script>
+        <script type="text/javascript" src="js/v2/appdata/tooltips.js"></script>
 
         <script type="text/javascript" src="js/v2/classes/Renderer.js"></script>
-        <script type="text/javascript" src="js/v2/classes/ScreenContext.js"></script>
-        <script type="text/javascript" src="js/v2/classes/Blueprint.js"></script>
-        <script type="text/javascript" src="js/v2/classes/ScaleContext.js"></script>
-        <script type="text/javascript" src="js/v2/classes/ButtonWrapper.js"></script>
-        <script type="text/javascript" src="js/v2/classes/Room.js"></script>
-        <script type="text/javascript" src="js/v2/classes/RoomContext.js"></script>
-        <script type="text/javascript" src="js/v2/classes/Panel.js"></script>
-        <script type="text/javascript" src="js/v2/classes/PanelContext.js"></script>
-        <script type="text/javascript" src="js/v2/classes/SelectionContext.js"></script>
-        <script type="text/javascript" src="js/v2/classes/Tooltip.js"></script>
+        <script type="text/javascript" src="js/v2/classes/contexts/ScreenContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/rendered/Blueprint.js"></script>
+        <script type="text/javascript" src="js/v2/classes/contexts/ScaleContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/rendered/ButtonWrapper.js"></script>
+        <script type="text/javascript" src="js/v2/classes/rendered/Room.js"></script>
+        <script type="text/javascript" src="js/v2/classes/contexts/RoomContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/rendered/Panel.js"></script>
+        <script type="text/javascript" src="js/v2/classes/contexts/PanelContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/contexts/SelectionContext.js"></script>
+        <script type="text/javascript" src="js/v2/classes/rendered/Tooltip.js"></script>
         
-        <script type="text/javascript" src="js/v2/components/components.js"></script>
-        <script type="text/javascript" src="js/v2/components/dialogs.js"></script>
-
         <script type="text/javascript" src="js/v2/buttons/fileUploadButton.js"></script>
         <script type="text/javascript" src="js/v2/buttons/scaleButton.js"></script>
         <script type="text/javascript" src="js/v2/buttons/addRoomsButton.js"></script>

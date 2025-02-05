@@ -87,21 +87,16 @@ class Room {
     }
 
     pointIsInsideText() {
-        const point = screenContext.getMousePositionAbsolute();
-        const x = point.x;
-        const y = point.y;
-
         if (this.#points.length < 2) {
             return false;
         }
 
-        const minX = this.#middlePoint.x - textWidth(this.#name) / 2;
-        const maxX = this.#middlePoint.x + textWidth(this.#name) / 2;
-
-        const minY = this.#middlePoint.y - 12;
-        const maxY = this.#middlePoint.y + 12;
-
-        return x > minX && x < maxX && y > minY && y < maxY;
+        return pointIsInside(
+            screenContext.getMousePositionAbsolute(),
+            this.#middlePoint, 
+            textWidth(this.#name),
+            24
+        );
     }
 
     roomIsConfigured() {
@@ -160,5 +155,13 @@ class Room {
         pointsToDraw.push({x: p1.x, y: p0.y});
 
         return pointsToDraw;
+    }
+
+    #getWidth() {
+        return Math.abs(this.#points[0].x - this.#points[1].x);
+    }
+
+    #getHeight() {
+        return Math.abs(this.#points[0].y - this.#points[1].y);
     }
 }

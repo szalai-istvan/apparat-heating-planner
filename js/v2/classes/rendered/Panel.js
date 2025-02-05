@@ -65,28 +65,13 @@ class Panel {
     }
 
     pointIsInsideText() {
-        const point = screenContext.getMousePositionAbsolute();
-        const x = point.x;
-        const y = point.y;
-        const middlePoint = this.#getCenterPositionAbsolute();
-
         const width = textWidth(this.#type);
-        let minX, maxX, minY, maxY;
-        if (this.#alignment) {
-            minX = middlePoint.x - 12;
-            maxX = middlePoint.x + 12;
-
-            minY = middlePoint.y - width / 2;
-            maxY = middlePoint.y + width / 2;
-        } else {
-            minX = middlePoint.x - width / 2;
-            maxX = middlePoint.x + width / 2;
-
-            minY = middlePoint.y - 12;
-            maxY = middlePoint.y + 12;
-        } 
-
-        return x > minX && x < maxX && y > minY && y < maxY;
+        return pointIsInside(
+            screenContext.getMousePositionAbsolute(),
+            this.#getCenterPositionAbsolute(), 
+            this.#alignment ? 24 : width,
+            this.#alignment ? width : 24
+        );
     }
 
     remove() {

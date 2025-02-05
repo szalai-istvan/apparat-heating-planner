@@ -36,8 +36,6 @@ function handleFileSelect(event) {
     img.src = event.target.result;
     blueprint.setBlueprintData(loadImage(img.src));
     scaleContext.clear();
-
-    tooltip.fileIsUploaded();
   };
   reader.readAsDataURL(file);
 }

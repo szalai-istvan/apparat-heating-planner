@@ -6,6 +6,7 @@ class Tooltip {
 
     constructor(position) {
         this.#position = position;
+        renderer.register(this);
     }
 
     // public
@@ -69,6 +70,7 @@ class Tooltip {
     }
 
     scalingStarted() {
+        this.displayTooltip(SCALING_0);
         this.displayCursorTooltip(SCALING_1);
     }
 
@@ -89,11 +91,6 @@ class Tooltip {
         this.displayTooltip(ROOM_1);
     }
 
-    panelAdded() {
-        this.displayTooltip(PANEL_0);
-        this.displayCursorTooltip(PANEL_1);
-    }
-
     roomNameHovered() {
         this.displayCursorTooltip(ROOM_HOVER);
     }
@@ -112,6 +109,29 @@ class Tooltip {
         this.clearCursorTooltip();
     }
     
+    panelAdded() {
+        this.displayTooltip(PANEL_0);
+        this.displayCursorTooltip(PANEL_1);
+    }
+
+    panelHovered() {
+        this.displayCursorTooltip(PANEL_HOVER);
+    }
+
+    panelUnhovered() {
+        if (this.#cursorText === tooltipText[PANEL_HOVER]) {
+            this.clearCursorTooltip();
+        }
+    }
+
+    panelSelected() {
+        this.displayCursorTooltip(PANEL_SELECT);
+    }
+
+    panelSelectedForDrag() {
+        this.displayCursorTooltip(PANEL_1);
+    }
+
     // private
     #numberOfLineBreaks(text) {
         return text.split('\n').length - 1;

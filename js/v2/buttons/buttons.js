@@ -42,7 +42,7 @@ function createButtons() {
         }));
     }
 
-    row++;
+    row+=2;
     editPanelButtons.rotate = new ButtonWrapper({
         text: 'Forgatás',
         size: smallButtonSize,

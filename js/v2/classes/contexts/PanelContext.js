@@ -1,9 +1,11 @@
 class PanelContext {
+    #cachedSelection = null;
     #selectedPanel = null;
     #panels = [];
 
     constructor() {}
 
+    // public
     addPanel(type) {
         const panel = new Panel(type);
         this.#panels.push(panel);
@@ -13,29 +15,44 @@ class PanelContext {
     select(panel) {
         if (panel === this.#selectedPanel) {
             panel.selectForDrag();
+            tooltip.panelSelectedForDrag();
             return;
         }
         this.deselect();
 
         panel.select();
         this.#selectedPanel = panel;
+        tooltip.panelSelected();
     }
 
-    deselect(contextReset = true) {
+    deselect(selectedObject) {
         if (this.#selectedPanel) {
             this.#selectedPanel.deselect();
-            if (contextReset) {
+            if (selectedObject !== this.#selectedPanel) {
                 this.#selectedPanel = null;
             }
         }
     }
 
     checkForSelection() {
+        if (this.#cachedSelection) {
+            return this.#cachedSelection;
+        }
+
         const selection = this.#panels.filter(p => p.pointIsInsideText());
         const panel = selection[0];
         if (panel) {
+            if (panel !== this.#selectedPanel) {
+                tooltip.panelHovered();
+            }
+            this.#cachedSelection = panel;
             return panel;
         }
+        tooltip.panelUnhovered();
+    }
+
+    clearSelectionCache() {
+        this.#cachedSelection = null;
     }
 
     removeSelected() {
@@ -44,6 +61,7 @@ class PanelContext {
             panel.remove();
             this.#panels = this.#panels.filter(r => r !== panel);
             selectionContext.deselect();
+            tooltip.clearCursorTooltip();
         }
     }
 
@@ -72,6 +90,7 @@ class PanelContext {
 
     clear() {
         this.#panels.forEach(panel => panel.remove());
+        tooltip.clearCursorTooltip();
         this.#panels = [];
         selectionContext.deselect();
     }

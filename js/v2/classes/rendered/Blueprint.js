@@ -8,6 +8,7 @@ class Blueprint {
     // public
     setBlueprintData(data) {
         this.#data = data;
+        tooltip.fileIsUploaded();
     }
 
     draw() {

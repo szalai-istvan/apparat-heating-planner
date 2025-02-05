@@ -1,4 +1,5 @@
 class RoomContext {
+    #cachedSelection = null;
     #selectedRoom = null;
     #rooms = [];
 
@@ -38,7 +39,7 @@ class RoomContext {
         }
     }
 
-    deselect(contextReset = true) {
+    deselect(selectedObject) {
         if (this.#selectedRoom && this.#selectedRoom.roomIsConfigured()) {
             this.#selectedRoom.deselect();
             this.#selectedRoom = null;
@@ -47,15 +48,24 @@ class RoomContext {
     }
     
     checkForSelection() {
+        if (this.#cachedSelection) {
+            return this.#cachedSelection;
+        }
+
         const selection = this.#rooms.filter(r => r.pointIsInsideText());
         const room = selection[0];
         if (room) {
             if (room !== this.#selectedRoom) {
                 tooltip.roomNameHovered();
             }
+            this.#cachedSelection = room;
             return room;
         }
         tooltip.roomNameUnhovered();
+    }
+
+    clearSelectionCache() {
+        this.#cachedSelection = null;
     }
 
     removeSelected() {
@@ -64,6 +74,9 @@ class RoomContext {
             room.remove();
             this.#rooms = this.#rooms.filter(r => r !== room);
             selectionContext.deselect();
+        }
+        if (this.#rooms.length === 0) {
+            tooltip.scalingFinished();
         }
     }
 

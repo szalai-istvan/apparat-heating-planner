@@ -1,12 +1,15 @@
 class SelectionContext {
     #lastSelectingContext = null;
     #selectedObject = null;
+    #contexts = [];
 
-    constructor() {}
+    constructor() {
+        this.#contexts = [panelContext, roomContext];
+    }
 
     // public
     select() {
-        const contexts = [panelContext, roomContext];
+        const contexts = this.#contexts;
 
         let selectedObject = undefined;
         let i = 0;
@@ -31,10 +34,10 @@ class SelectionContext {
         this.#lastSelectingContext.select(obj);
     }
 
-    deselect(contextReset = true) {
+    deselect(selectedObject) {
         const lastSelectingContext = this.#lastSelectingContext;
         if (lastSelectingContext) {
-            lastSelectingContext.deselect(contextReset);
+            lastSelectingContext.deselect(selectedObject);
             this.#selectedObject = null;
         }
     }
@@ -47,7 +50,7 @@ class SelectionContext {
     #runSelection(context) {
         const selectableObject = context.checkForSelection();
         if (selectableObject) {
-            this.deselect(false);
+            this.deselect(selectableObject);
             context.select(selectableObject);
             this.#lastSelectingContext = context;
             return selectableObject;
