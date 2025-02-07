@@ -9,7 +9,7 @@
          <div hidden>
         <div class="side-panel">
             <label for="imageInput" class="button">Fájlfeltöltés</label>
-            <input type="file" id="imageInput" accept="image/jpeg, image/png" hidden />
+            <input type="file" id="imageInput" accept="image/jpeg, image/png, application/pdf" hidden />
         </div></div>
 
         <!-- dialogs -->
@@ -56,8 +56,16 @@
             </div>
         </dialog>
 
+        <dialog id="pdfUploadDialog">
+            <p id="pdfUploadDialogParagraph"></p>
+            <p><label>Oldalszám:</label><input type="text" id="pdfUploadDialogInput"></p>
+            <hr>
+            <div class="center"><button id="pdfUploadDialogCloseButton">OK</button></div>
+        </dialog>
+
         <!-- scripts -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
         <script type="text/javascript" src="js/v2/helpers/helpers.js"></script>
         <script type="text/javascript" src="js/v2/helpers/errordialog.js"></script>

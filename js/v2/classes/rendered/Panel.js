@@ -10,6 +10,7 @@ class Panel {
     #isSelectedForDrag;
     #alignment = 0;
     #numberOfPanelsInGroup = 1;
+    #textWidth;
 
     constructor(type) {
         this.#details = panelTypes[type];
@@ -18,6 +19,7 @@ class Panel {
         }
         
         this.#type = type;
+        this.#textWidth = textWidth(this.#type);
         this.#position = screenContext.getMousePositionAbsolute();
         const ratio = scaleContext.pixelsPerMetersRatio;
         this.#lengthInMeters = this.#details.length * ratio;
@@ -64,7 +66,7 @@ class Panel {
     }
 
     pointIsInsideText() {
-        const width = textWidth(this.#type);
+        const width = this.#textWidth;
         const height = this.#widthInMeters * this.#numberOfPanelsInGroup * 0.8;
         return pointIsInside(
             screenContext.getMousePositionAbsolute(),
