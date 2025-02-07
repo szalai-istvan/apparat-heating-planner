@@ -23,3 +23,7 @@ function drawAxis() {
     line(0, 10_000, 0, -10_000);
     line(-10_000, 0, 10_000, 0);
 }
+
+function toggleDisplayDebugInfo() {
+    debugEnabled = !debugEnabled;
+}

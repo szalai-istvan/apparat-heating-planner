@@ -44,7 +44,6 @@ class Panel {
         }
 
         translate(-coordinates.x, -coordinates.y);
-        this.#drawType();
         pop();
     }
 
@@ -66,11 +65,12 @@ class Panel {
 
     pointIsInsideText() {
         const width = textWidth(this.#type);
+        const height = this.#widthInMeters * this.#numberOfPanelsInGroup * 0.8;
         return pointIsInside(
             screenContext.getMousePositionAbsolute(),
             this.#getCenterPositionAbsolute(), 
-            this.#alignment ? 24 : width,
-            this.#alignment ? width : 24
+            this.#alignment ? height : width,
+            this.#alignment ? width : height
         );
     }
 
@@ -105,7 +105,7 @@ class Panel {
         };
     }
 
-    #drawType() {
+    #drawType(offset) {
         textAlign(CENTER, CENTER);
         const pointIsInsideText = this.pointIsInsideText();
         if (pointIsInsideText || (this.#isSelected && !this.#isSelectedForDrag)) {
@@ -116,7 +116,7 @@ class Panel {
 
         textSize(24 + this.#isSelected * 4 + pointIsInsideText * 4);
         
-        const coordinates = this.#getTextCenter();
+        const coordinates = this.#getTextCenter(offset);
         text(this.#type, coordinates.x, coordinates.y);
     }
 
@@ -142,11 +142,10 @@ class Panel {
         };
     }
 
-    #getTextCenter() {
-        const coordinates = this.#isSelectedForDrag ? this.#mousePositionToPosition() : this.#position;
+    #getTextCenter(offset) {
         return {
-            x: coordinates.x + this.#lengthInMeters * 0.5,
-            y: coordinates.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
+            x: this.#lengthInMeters * 0.5,
+            y: this.#widthInMeters * (0.5 + offset)
         };
     }
 
@@ -166,8 +165,8 @@ class Panel {
 
         arc(0, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, 90, 270);
         arc(length, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, -90, 90);
-
         translate(0, -widthOffset);
+        this.#drawType(offset);
     }
 
 }
