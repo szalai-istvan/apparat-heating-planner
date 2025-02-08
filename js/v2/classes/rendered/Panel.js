@@ -92,6 +92,25 @@ class Panel {
         this.#numberOfPanelsInGroup = Math.max(this.#numberOfPanelsInGroup - 1, 1);
     }
 
+    calculateQuotePanelArray() {
+        let i = 0;
+        const firstPosition = this.#getFirstCenterPositionAbsolute();
+
+        const quotePanels = [];
+        while (i < this.#numberOfPanelsInGroup) {
+            const offsetPosition = {
+                x: firstPosition.x - i * (this.#alignment ? this.#widthInMeters : 0),
+                y: firstPosition.y + i * (this.#alignment ? 0 : this.#widthInMeters)
+            };
+
+            const room = roomContext.getRoomContainingPoint(offsetPosition);
+
+            quotePanels.push(new QuotePanel(this.#type, room));
+            i++;
+        }
+        return quotePanels;
+    }
+
     // private
     #mousePositionToPosition() {
         const mousePosition = screenContext.getMousePositionAbsolute();
@@ -122,6 +141,20 @@ class Panel {
         text(this.#type, coordinates.x, coordinates.y);
     }
 
+    #getFirstCenterPositionAbsolute() {
+        const position = this.#position;
+        if (this.#alignment) {
+            return {
+                x: position.x - this.#widthInMeters * 0.5,
+                y: position.y + this.#lengthInMeters * 0.5
+            };
+        }
+        return {
+            x: position.x + this.#lengthInMeters * 0.5,
+            y: position.y + this.#widthInMeters * 0.5
+        };
+    }
+
     #getCenterPositionAbsolute() {
         const position = this.#position;
         if (this.#alignment) {
@@ -130,14 +163,6 @@ class Panel {
                 y: position.y + this.#lengthInMeters * 0.5
             };
         }
-        return {
-            x: position.x + this.#lengthInMeters * 0.5,
-            y: position.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
-        };
-    }
-
-    #getCenterPosition() {
-        const position = this.#position;
         return {
             x: position.x + this.#lengthInMeters * 0.5,
             y: position.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup

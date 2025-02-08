@@ -68,8 +68,8 @@ class Room {
         renderer.remove(this);
     }
 
-    pointIsInsideRoom() {
-        const point = screenContext.getMousePositionAbsolute();
+    pointIsInsideRoom(point = undefined) {
+        point = point || screenContext.getMousePositionAbsolute();
         const x = point.x;
         const y = point.y;
         

@@ -95,6 +95,18 @@ class RoomContext {
         panelContext.clear();
     }
 
+    getRoomContainingPoint(point) {
+        const room = this.#rooms.filter(r => r.pointIsInsideRoom(point))[0];
+        if (room) {
+            return room.getName();
+        }
+        return null;
+    }
+
+    getRoomNames() {
+        return this.#rooms.map(r => r.getName());
+    }
+
     // private
     #roomNameAlreadyExists(name) {
         return this.#rooms.map(room => room.getName().toLowerCase()).includes(name.toLowerCase());

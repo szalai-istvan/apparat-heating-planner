@@ -67,3 +67,11 @@ function pointIsInside(point, middlePoint, areaWidth, areaHeight) {
 
   return x > minX && x < maxX && y > minY && y < maxY;
 }
+
+function getClassName(obj) {
+  if (!obj || typeof(obj) !== 'object') {
+      return null;
+  }
+
+  return obj.constructor.name;
+}

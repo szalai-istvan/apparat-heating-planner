@@ -10,7 +10,7 @@ class Renderer {
 
     // public
     register(obj) {
-        const className = this.#className(obj);
+        const className = getClassName(obj);
         if (!className) {
             return;
         }
@@ -43,7 +43,7 @@ class Renderer {
     }
 
     remove(obj) {
-        const className = this.#className(obj);
+        const className = getClassName(obj);
         if (!className) {
             return;
         }
@@ -58,14 +58,6 @@ class Renderer {
     }
 
     // private
-    #className(obj) {
-        if (!obj || typeof(obj) !== 'object') {
-            return null;
-        }
-
-        return obj.constructor.name;
-    }
-
     #getTranslatedRenderObjects() {
         return [this.#bluePrint, ...this.#panels, ...this.#rooms, this.#scaleContext, ...this.#buttons];
     }

@@ -94,6 +94,14 @@ class PanelContext {
         this.#panels = [];
         selectionContext.deselect();
     }
+
+    calculateQuotePanelArray() {
+        let quotePanelArray = [];
+        for (let panel of this.#panels) {
+            quotePanelArray = [...quotePanelArray, ...panel.calculateQuotePanelArray()];
+        }
+        return quotePanelArray;
+    }
 }
 
 const panelContext = new PanelContext();

@@ -25,7 +25,7 @@ class SelectionContext {
     selectObject(obj) {
         this.deselect();
         this.#selectedObject = obj;
-        const className = obj.constructor.name;
+        const className = getClassName(obj);
         if (className === 'Panel') {
             this.#lastSelectingContext = panelContext;
         } else if (className === 'Room') {
