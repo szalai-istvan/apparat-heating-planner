@@ -11,6 +11,7 @@ class Panel {
     #alignment = 0;
     #numberOfPanelsInGroup = 1;
     #textWidth;
+    #textSize;
 
     constructor(type) {
         this.#details = panelTypes[type];
@@ -19,9 +20,11 @@ class Panel {
         }
         
         this.#type = type;
+        const ratio = scaleContext.pixelsPerMetersRatio;
+        this.#textSize = 0.2 * ratio;
+        textSize(this.#textSize);
         this.#textWidth = textWidth(this.#type);
         this.#position = screenContext.getMousePositionAbsolute();
-        const ratio = scaleContext.pixelsPerMetersRatio;
         this.#lengthInMeters = this.#details.length * ratio;
         this.#widthInMeters = this.#details.width * ratio;
         
@@ -105,7 +108,7 @@ class Panel {
 
             const room = roomContext.getRoomContainingPoint(offsetPosition);
 
-            quotePanels.push(new QuotePanel(this.#type, room));
+            quotePanels.push(new QuotePanel(this.#type, this.#details, room));
             i++;
         }
         return quotePanels;
@@ -135,7 +138,7 @@ class Panel {
             fill('black');
         }
 
-        textSize(24 + this.#isSelected * 4 + pointIsInsideText * 4);
+        textSize(this.#textSize * (1 + 0.1 * this.#isSelected + 0.1 * pointIsInsideText));
         
         const coordinates = this.#getTextCenter(offset);
         text(this.#type, coordinates.x, coordinates.y);

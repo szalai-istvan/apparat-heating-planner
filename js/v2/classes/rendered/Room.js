@@ -103,6 +103,15 @@ class Room {
         return this.#points.length === 2;
     }
 
+    getSizeInMeters() {
+        const width = Math.abs(this.#points[0].x - this.#points[1].x);
+        const height = Math.abs(this.#points[0].y - this.#points[1].y);
+        return {
+            x: width * scaleContext.pixelsPerMetersRatio,
+            height: height * scaleContext.pixelsPerMetersRatio
+        };
+    }
+
     // private
     #getMiddlePoint() {
         const points = this.#getPointsToDraw();

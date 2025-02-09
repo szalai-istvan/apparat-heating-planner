@@ -7,7 +7,7 @@ class SummaryCalculator {
         const invalidPanels = this.#searchForInvalidPositionPanels(quotePanelArray);
         if (invalidPanels) {
             displayErrorMessage('A rajzon nem minden panel tartozik szobához. Kérem nézze át a panelek elhelyezését.');
-            return invalidPanels;
+            return null;
         }
 
         const roomNames = roomContext.getRoomNames();
@@ -16,32 +16,20 @@ class SummaryCalculator {
 
     calculateSummaryAndMapToHtml() {
         const summary = this.calculateSummary();
+        if (!summary) return null;
 
-        const table = document.createElement('table');
+        const table = createTable();
         for (let room in summary) {
+            if (typeof(summary[room]) !== 'object') continue;
+            addHeaderRow(table, room, 2);
+
             const roomSummary = summary[room];
-            const titleTr = document.createElement('tr');
-            table.appendChild(titleTr);
-
-            const titleTd = document.createElement('td');
-            titleTd.colspan = 2;
-            titleTr.appendChild(titleTd);
-
-            titleTd.innerHTML = room;
-
             for (let type in roomSummary) {
-                if (type === 'length') {
+                if (type[0] !== 'F') {
                     continue;
                 }
                 const count = roomSummary[type];
-                const tr = document.createElement('tr');
-                table.appendChild(tr);
-                const td1 = document.createElement('td');
-                tr.appendChild(td1);
-                const td2 = document.createElement('td');
-                tr.appendChild(td2);
-                td1.innerHTML = type;
-                td2.innerHTML = `${count} db`;
+                addRow(table, [type, `${count} db`]);
             }
         }
 
@@ -63,10 +51,19 @@ class SummaryCalculator {
 
     #summarizeByRoom(quotePanelArray, roomNames) {
         const summary = {};
+        let totalRounds = 0;
+        let totalCount = 0;
+
         for (let room of roomNames) {
             const panelsInRoom = quotePanelArray.filter(p => p.getRoom() === room);
-            summary[room] = this.#summarizePanelCounts(panelsInRoom);
+            const roomSummary = this.#summarizePanelCounts(panelsInRoom);
+            summary[room] = roomSummary;
+            totalRounds += roomSummary.numberOfRounds;
+            totalCount += roomSummary.count;
         }
+
+        summary.count = totalCount;
+        summary.numberOfRounds = totalRounds;
         return summary;
     }
 
@@ -77,8 +74,21 @@ class SummaryCalculator {
             const count = (summary[type] || 0) + 1;
             summary[type] = count;
         });
-        summary.length = quotePanelArray.length;
+
+        summary.count = quotePanelArray.length;
+        summary.numberOfRounds = this.#getNumberOfRounds(summary);
         return summary;
+    }
+
+    #getNumberOfRounds(summary) {
+        let totalPipeLength = 0;
+        for (let type in panelTypes) {
+            const count = summary[type] || 0;
+            const pipeLength = panelTypes[type].pipeLength;
+            totalPipeLength += count * pipeLength;
+        }
+
+        return Math.ceil(totalPipeLength / 130);
     }
 }
 

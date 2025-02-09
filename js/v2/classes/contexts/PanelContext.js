@@ -102,6 +102,10 @@ class PanelContext {
         }
         return quotePanelArray;
     }
+
+    thereArePanels() {
+        return this.#panels.length > 0;
+    }
 }
 
 const panelContext = new PanelContext();

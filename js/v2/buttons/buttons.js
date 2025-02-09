@@ -75,4 +75,12 @@ function createButtons() {
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
 
+    displaySummaryTableButton = new ButtonWrapper({
+        text: 'Rendelés összesítő',
+        size: smallButtonSize,
+        position: sidePanelButtonPosition(row++),
+        onClick: () => openSummaryTableDialog(),
+        shouldBeRendered: () => panelContext.thereArePanels()
+    });
+
 }

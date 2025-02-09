@@ -1,9 +1,11 @@
 class QuotePanel {
     #type;
     #room;
+    #details;
 
-    constructor(type, room) {
+    constructor(type, details, room) {
         this.#type = type;
+        this.#details = details;
         this.#room = room;
     }
     
@@ -15,4 +17,7 @@ class QuotePanel {
         return this.#room;
     }
     
+    getDetails() {
+        return this.#details;
+    }
 }
