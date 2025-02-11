@@ -1,5 +1,4 @@
 szoba overlap megoldása
-vonalvastagság megoldása
 
 Gomb -> anyaglista, szobánként panelok idomok, körök száma és csővezeték, osztókörök
     idomok, osztókörök, árak legvégén

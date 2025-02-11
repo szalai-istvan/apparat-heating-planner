@@ -3,10 +3,16 @@ class Room {
     #points = [];
     #isSelected = false;
     #middlePoint;
+    #textSize;
+    #lineWeight;
 
     constructor(name) {
         this.#name = name || '';
         renderer.register(this);
+
+        const ratio = scaleContext.pixelsPerMetersRatio;
+        this.#textSize = ROOM_TEXT_SIZE_IN_METERS * ratio;
+        this.#lineWeight = ROOM_LINE_WEIGHT_IN_METERS * ratio;
     }
 
     // public
@@ -95,7 +101,7 @@ class Room {
             screenContext.getMousePositionAbsolute(),
             this.#middlePoint, 
             textWidth(this.#name),
-            24
+            this.#textSize
         );
     }
 
@@ -110,6 +116,10 @@ class Room {
             x: width * scaleContext.pixelsPerMetersRatio,
             height: height * scaleContext.pixelsPerMetersRatio
         };
+    }
+
+    getPoints() {
+        return this.#points.map(p => ({x: p.x, y: p.y}));
     }
 
     // private
@@ -129,21 +139,21 @@ class Room {
     #updateDrawingSettings() {
         push();
         if (this.#isSelected) {
-            stroke('red');
+            stroke(SELECTED_TEXT_COLOR);
         } else {
-            stroke('black');
+            stroke(DEFAULT_TEXT_COLOR);
         }
-        strokeWeight(3);
+        strokeWeight(this.#lineWeight);
     }
 
     #updateTextSettings() {
         push();
         textAlign(CENTER, CENTER);
         if (this.pointIsInsideText()) {
-            fill('red');
-            textSize(28);
+            fill(SELECTED_TEXT_COLOR);
+            textSize(this.#textSize * ROOM_TEXT_POP_FACTOR);
         } else {
-            textSize(24);
+            textSize(this.#textSize);
         }
     }
 

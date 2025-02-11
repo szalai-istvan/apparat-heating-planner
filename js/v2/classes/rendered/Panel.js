@@ -1,5 +1,3 @@
-var ellipseRadius = 0.24;
-
 class Panel {
     #type;
     #details;
@@ -12,6 +10,8 @@ class Panel {
     #numberOfPanelsInGroup = 1;
     #textWidth;
     #textSize;
+    #countourLineWeight;
+    #lineWeight;
 
     constructor(type) {
         this.#details = panelTypes[type];
@@ -21,7 +21,11 @@ class Panel {
         
         this.#type = type;
         const ratio = scaleContext.pixelsPerMetersRatio;
-        this.#textSize = 0.2 * ratio;
+        
+        this.#countourLineWeight = PANEL_CONTOUR_LINE_THICKNESS * ratio;
+        this.#lineWeight = PANEL_LINE_THICKNESS * ratio;
+        
+        this.#textSize = PANEL_TEXT_SIZE_IN_METERS * ratio;
         textSize(this.#textSize);
         this.#textWidth = textWidth(this.#type);
         this.#position = screenContext.getMousePositionAbsolute();
@@ -70,7 +74,7 @@ class Panel {
 
     pointIsInsideText() {
         const width = this.#textWidth;
-        const height = this.#widthInMeters * this.#numberOfPanelsInGroup * 0.8;
+        const height = this.#widthInMeters * this.#numberOfPanelsInGroup * PANEL_SELECTION_MULTIPLIER;
         return pointIsInside(
             screenContext.getMousePositionAbsolute(),
             this.#getCenterPositionAbsolute(), 
@@ -133,12 +137,13 @@ class Panel {
         textAlign(CENTER, CENTER);
         const pointIsInsideText = this.pointIsInsideText();
         if (pointIsInsideText || (this.#isSelected && !this.#isSelectedForDrag)) {
-            fill('red');
+            fill(SELECTED_TEXT_COLOR);
         } else {
-            fill('black');
+            fill(DEFAULT_TEXT_COLOR);
         }
 
-        textSize(this.#textSize * (1 + 0.1 * this.#isSelected + 0.1 * pointIsInsideText));
+        const p = PANEL_TEXT_POP_FACTOR;
+        textSize(this.#textSize * (1 + p * this.#isSelected + p * pointIsInsideText));
         
         const coordinates = this.#getTextCenter(offset);
         text(this.#type, coordinates.x, coordinates.y);
@@ -182,19 +187,19 @@ class Panel {
     #drawWithOffset({ratio, length, width, offset}) {
         const widthOffset = width * offset;
 
-        strokeWeight(3);
-        fill('white');
+        strokeWeight(this.#countourLineWeight);
+        fill(PANEL_FILL_COLOR);
         translate(0, widthOffset);
         rect(0, 0, length, width);
 
-        strokeWeight(0.5);
+        strokeWeight(this.#lineWeight);
         const step = width / 9;
         for (let tube = step; tube < width; tube += step) {
             line(0, tube, length, tube);
         }
 
-        arc(0, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, 90, 270);
-        arc(length, width * 0.5, 2 * ellipseRadius * ratio, width * 7/9, -90, 90);
+        arc(0, width * 0.5, 2 * PANEL_ELLIPSE_RADIUS * ratio, width * 7/9, 90, 270);
+        arc(length, width * 0.5, 2 * PANEL_ELLIPSE_RADIUS * ratio, width * 7/9, -90, 90);
         translate(0, -widthOffset);
         this.#drawType(offset);
     }

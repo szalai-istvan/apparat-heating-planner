@@ -17,6 +17,7 @@ class ScaleContext {
             tooltip.scalingStarted();
         } else {
             scalingDialogConfirm.showModal();
+            screenContext.disableControls();
         }
     }
 
@@ -44,6 +45,7 @@ class ScaleContext {
             this.pixelsPerMetersRatio = referencePointDistance / this.#referenceLength;
             
             scalingDialog.close();
+            screenContext.enableControls();
             tooltip.scalingFinished();
         } else {
             displayErrorMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');

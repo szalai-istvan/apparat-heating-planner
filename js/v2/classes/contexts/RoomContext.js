@@ -23,7 +23,7 @@ class RoomContext {
 
     addPoint() {
         const selectedRoom = this.#selectedRoom;
-        if (selectedRoom && this.#pointIsNotInAnyRoom()) {
+        if (selectedRoom && this.#pointIsValid()) {
             selectedRoom.addPoint();
         }
     }
@@ -80,8 +80,20 @@ class RoomContext {
         }
     }
 
-    displayDeleteButton() {
+    selectedRoomIsConfiguredOrNoRoomIsSelected() {
+        if (!this.#selectedRoom) {
+            return true;
+        }
+
+        return this.selectedRoomIsConfigured();
+    }
+
+    selectedRoomIsConfigured() {
         return this.#selectedRoom && this.#selectedRoom.roomIsConfigured();
+    }
+
+    displayDeleteButton() {
+        return this.selectedRoomIsConfigured();
     }
 
     thereAreRooms() {
@@ -112,8 +124,12 @@ class RoomContext {
         return this.#rooms.map(room => room.getName().toLowerCase()).includes(name.toLowerCase());
     }
 
-    #pointIsNotInAnyRoom() {
-        return this.#rooms.filter(r => r.pointIsInsideRoom()).length === 0;
+    #pointIsValid() {
+        const pointIsNotInAnyRooms = this.#rooms.filter(r => r.pointIsInsideRoom()).length === 0;
+        if (!pointIsNotInAnyRooms) {
+            return false;
+        }
+        return true;
     }
 }
 

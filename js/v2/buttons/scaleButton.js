@@ -11,6 +11,7 @@ var scaleButton;
 function showScalingDialog() {
     scalingInput.value = '';
     scalingDialog.showModal();
+    screenContext.disableControls();
 }
 
 scalingDialogCloseButton.addEventListener('click', (event) => {
@@ -20,8 +21,12 @@ scalingDialogCloseButton.addEventListener('click', (event) => {
 
 scalingDialogConfirmButton.addEventListener('click', () => {
     scalingDialogConfirm.close();
+    screenContext.enableControls();
     scaleContext.clear();
     scaleContext.startScaling();
 });
 
-scalingDialogCancelButton.addEventListener('click', () => scalingDialogConfirm.close());
+scalingDialogCancelButton.addEventListener('click', () => {
+    scalingDialogConfirm.close();
+    screenContext.enableControls();
+});

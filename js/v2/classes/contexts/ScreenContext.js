@@ -13,6 +13,9 @@ class ScreenContext {
     // zoom
     zoom = 1;
 
+    // controls
+    #controlsAreEnabled = true;
+
     constructor() {}
 
     // public
@@ -68,6 +71,18 @@ class ScreenContext {
             x: (mouseX - currentDragValue.x * this.zoom - sumDrag.x * this.zoom - canvasSize.x / 2) / this.zoom, 
             y: (mouseY - currentDragValue.y * this.zoom - sumDrag.y * this.zoom - canvasSize.y / 2) / this.zoom
         };
+    }
+
+    enableControls() {
+        this.#controlsAreEnabled = true;
+    }
+
+    disableControls() {
+        this.#controlsAreEnabled = false;
+    }
+
+    controlsAreEnabled() {
+        return this.#controlsAreEnabled;
     }
 
     // private

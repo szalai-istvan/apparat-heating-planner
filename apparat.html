@@ -16,9 +16,7 @@
         <dialog id="errorDialog">
             <p id="errorMessageParagraph" style="max-width: 450px;"></p>
             <hr>
-            <form method="dialog">
-                <div class="center"><button>OK</button></div>
-            </form>
+            <div class="center"><button id="errorMessageOkButton">OK</button></div>
         </dialog>
 
         <dialog id="fileUploadDialogConfirm">
@@ -64,7 +62,7 @@
         </dialog>
 
         <dialog id="summaryTableDialog" class="big-dialog">
-            <div id="summaryTableDialogTablePlaceHolder"></div>
+            <div id="summaryTableDialogTablePlaceHolder" class="big-dialog-div"></div>
             <hr>
             <div class="center"><button id="summaryTableDialogCloseButton">Bezárás</button></div>
         </dialog>
@@ -78,8 +76,12 @@
         <script type="text/javascript" src="js/v2/helpers/debug.js"></script>
         <script type="text/javascript" src="js/v2/helpers/tableHelper.js"></script>
 
-        <script type="text/javascript" src="js/v2/appdata/appdata.js"></script>
+        <script type="text/javascript" src="js/v2/appdata/panelTypes.js"></script>
         <script type="text/javascript" src="js/v2/appdata/tooltips.js"></script>
+        <script type="text/javascript" src="js/v2/appdata/constants.js"></script>
+        <script type="text/javascript" src="js/v2/appdata/prices.js"></script>
+        <script type="text/javascript" src="js/v2/appdata/translations.js"></script>
+        <script type="text/javascript" src="js/v2/appdata/units.js"></script>
 
         <script type="text/javascript" src="js/v2/classes/Renderer.js"></script>
         <script type="text/javascript" src="js/v2/classes/contexts/ScreenContext.js"></script>

@@ -6,11 +6,17 @@ const addRoomButton = document.getElementById('addRoomButton');
 const closeRoomDialogButton = document.getElementById('closeRoomDialogButton');
 
 function showAddRoomDialog() {
-    addRoomInput.value = '';
-    addRoomDialog.showModal();
+    if (roomContext.selectedRoomIsConfiguredOrNoRoomIsSelected()) {
+        addRoomInput.value = '';
+        addRoomDialog.showModal();
+        screenContext.disableControls();
+    }
 }
 
-closeRoomDialogButton.addEventListener('click', () => addRoomDialog.close());
+closeRoomDialogButton.addEventListener('click', () => {
+    addRoomDialog.close();
+    screenContext.enableControls();
+});
 
 addRoomButton.addEventListener('click', () => {
     const roomName = addRoomInput.value;
@@ -19,6 +25,7 @@ addRoomButton.addEventListener('click', () => {
         const addingSuccessful = roomContext.createRoom(roomName);
         if (addingSuccessful) {
             addRoomDialog.close();
+            screenContext.enableControls();
         }
     }
 });

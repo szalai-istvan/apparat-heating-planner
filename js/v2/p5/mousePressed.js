@@ -1,4 +1,8 @@
 function mousePressed() {
+  if (!screenContext.controlsAreEnabled()) {
+    return;
+  }
+  
   if (mouseButton === 'right') {
     if (scaleContext.scalingInProgress) {
       scaleContext.addReferencePoint();

@@ -11,6 +11,10 @@ function openSummaryTableDialog() {
     if (!summaryTable) return;
     summaryTableDialogTablePlaceHolder.appendChild(summaryTable);
     summaryTableDialog.showModal();
+    screenContext.disableControls();
 }
 
-summaryTableDialogCloseButton.addEventListener('click', () => summaryTableDialog.close());
+summaryTableDialogCloseButton.addEventListener('click', () => {
+    summaryTableDialog.close();
+    screenContext.enableControls();
+});

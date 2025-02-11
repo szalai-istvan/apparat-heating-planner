@@ -38,20 +38,17 @@ function handleWindowResize() {
 const minimumFunction = (a, b) => a < b ? a : b;
 const maximumFunction = (a, b) => a > b ? a : b;
 
-const regularButtonSize = {x: 100, y: 40};
-const smallButtonSize = {x: 80, y: 30};
-
 function topRibbonButtonPosition(col) {
-    return {x: -20 + col * (20 + regularButtonSize.x), y: 10};
+    return {x: -20 + col * (20 + REGULAR_BUTTON_SIZE.x), y: 10};
 }
 
 function sidePanelButtonPosition(row) {
-    return {x: 10, y: 70 + row * (smallButtonSize.y + 5)};
+    return {x: 10, y: 70 + row * (SMALL_BUTTON_SIZE.y + 5)};
 }
 
 function tooltipPosition() {
   const button4Position = topRibbonButtonPosition(4);
-  return {x: button4Position.x, y: button4Position.y + regularButtonSize.y / 2};
+  return {x: button4Position.x, y: button4Position.y + REGULAR_BUTTON_SIZE.y / 2};
 }
 
 function pointIsInside(point, middlePoint, areaWidth, areaHeight) {
@@ -74,4 +71,11 @@ function getClassName(obj) {
   }
 
   return obj.constructor.name;
+}
+
+const nfObject = new Intl.NumberFormat('en-US')
+function formatNumber(num) {
+  if (!num) return num;
+  if (typeof(num) !== 'number') return num;
+  return nfObject.format(num).replaceAll(',', ' ');
 }

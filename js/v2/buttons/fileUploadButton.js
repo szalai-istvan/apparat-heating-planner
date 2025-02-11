@@ -17,6 +17,7 @@ imageInput.addEventListener('change', handleFileSelect);
 function upload() {
   if (scaleContext.ratioIsSet()) {
     fileUploadDialogConfirm.showModal();
+    screenContext.disableControls();
   } else {
     imageInput.click();
   }
@@ -24,10 +25,14 @@ function upload() {
 
 fileUploadDialogConfirmButton.addEventListener('click', () => {
   fileUploadDialogConfirm.close();
+  screenContext.enableControls();
   imageInput.click();
 });
 
-fileUploadDialogCancelButton.addEventListener('click', () => fileUploadDialogConfirm.close());
+fileUploadDialogCancelButton.addEventListener('click', () => {
+  fileUploadDialogConfirm.close();
+  screenContext.enableControls();
+});
 
 function handleFileSelect(event) {
   const file = event.target.files[0];
@@ -71,6 +76,7 @@ async function readPdfFile(reader) {
 function displayPageSelector(numberOfPages) {
   pdfUploadDialogParagraph.innerHTML = `Adja meg, hogy hanyadik oldalt szeretné beolvasni (maximum: ${numberOfPages}):`;
   pdfUploadDialog.showModal();
+  screenContext.disableControls();
 }
 
 pdfUploadDialogCloseButton.addEventListener('click', async () => {
@@ -83,6 +89,7 @@ pdfUploadDialogCloseButton.addEventListener('click', async () => {
   pdfUploadDialogInput.value = '';
   parsePdfPage(pageNumber);
   pdfUploadDialog.close();
+  screenContext.enableControls();
 });
 
 async function parsePdfPage(pageNumber) {
