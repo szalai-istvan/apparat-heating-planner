@@ -9,8 +9,6 @@ Gomb -> Árajánlat, anyaglistát számol és ár, amit egy fájlból kell kiné
     Gipszkarton profil ki kell számolni hogy mennyi kell. UD30(300/m) a szoba kerületén. CD30/60(500/m) minden panel közé plusz még méterenként keresztbe.
     Meg kell adnia az e-mail címét telefonszámát árajánlat kalkuláció előtt. 
 
-Meg kellene tudni, hogy a panelhosszok így jók-e
-
 Jegyzetek:
 - Egy szobában a körök száma: roundUp(csőhossz/130)
 - T-idomok: Összes panel * 2 - Összes osztókör * 2
@@ -18,7 +16,14 @@ Jegyzetek:
 - Osztógyüjtők: Összes körök száma
 - Gerinc cső + héj: Körök száma * 20
 - Eurokónusz: Körök száma * 2
-- UD30: Szoba kerülete
-- CD30/60: Minden panel között plusz méterenként keresztbe
+- UD30: Szoba kerülete TODO
+- CD30/60: Minden panel között plusz méterenként keresztbe TODO
 
-Küldjön e-mailt az embernek és az APPARAT-nak a képet, és az árajánlatot. -> ilyet nem lehetséges
+Kristóf excelét kell reprodukálnia
+Excel letölthető
+Kék kör anemosztát, piros kör szpot (D=15cm)
+CD profilok faltól falig és jelenlenek is meg a rajzon
+Szobában merőleges panelok nem lehetnek
+Panelek neve félkövér
+Panelek rajzát lehet-e dwg-ből
+Panelek hossza
