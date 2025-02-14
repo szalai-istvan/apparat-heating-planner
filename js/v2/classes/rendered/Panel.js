@@ -134,6 +134,18 @@ class Panel {
     }
 
     #drawType(offset) {
+        const coordinates = this.#getTextCenter(offset);
+        stroke('black');
+        fill(PANEL_FILL_COLOR);
+        const rectWidth = this.#textWidth * PANEL_TEXT_RECT_SIZE_MUL;
+        const rectHeight = this.#widthInMeters * 0.5 * PANEL_TEXT_RECT_SIZE_MUL;
+        rect(
+            coordinates.x - rectWidth / 2,
+            coordinates.y - rectHeight / 2,
+            rectWidth,
+            rectHeight
+        );
+
         textAlign(CENTER, CENTER);
         const pointIsInsideText = this.pointIsInsideText();
         if (pointIsInsideText || (this.#isSelected && !this.#isSelectedForDrag)) {
@@ -144,8 +156,6 @@ class Panel {
 
         const p = PANEL_TEXT_POP_FACTOR;
         textSize(this.#textSize * (1 + p * this.#isSelected + p * pointIsInsideText));
-        
-        const coordinates = this.#getTextCenter(offset);
         text(this.#type, coordinates.x, coordinates.y);
     }
 
@@ -193,15 +203,90 @@ class Panel {
         rect(0, 0, length, width);
 
         strokeWeight(this.#lineWeight);
-        const step = width / 9;
-        for (let tube = step; tube < width; tube += step) {
-            line(0, tube, length, tube);
+
+        const i = width / 9;
+        for (let pipeNumber = i; pipeNumber < width; pipeNumber += i) {
+            line(0, pipeNumber, length, pipeNumber);
         }
 
-        arc(0, width * 0.5, 2 * PANEL_ELLIPSE_RADIUS * ratio, width * 7/9, 90, 270);
-        arc(length, width * 0.5, 2 * PANEL_ELLIPSE_RADIUS * ratio, width * 7/9, -90, 90);
+        this.#drawTubes({ratio, length, width, offset});
         translate(0, -widthOffset);
         this.#drawType(offset);
     }
 
+    #drawTubes({ratio, length, width, offset}) {
+        const panelTubeExtraLength = PANEL_TUBE_EXTRA_LENGTH_PER_SIDE * scaleContext.pixelsPerMetersRatio;
+        const panelStep = PANEL_TUBE_EXTRA_LENGTH_STEP * scaleContext.pixelsPerMetersRatio;
+
+        fill(PANEL_FILL_COLOR);
+        strokeWeight(this.#lineWeight);
+
+        this.#drawOneTube({
+            endpoint1: 3,
+            endpoint2: 8,
+            length: panelTubeExtraLength,
+            side: 0
+        });
+        this.#drawOneTube({
+            endpoint1: 4,
+            endpoint2: 7,
+            length: panelTubeExtraLength - panelStep,
+            side: 0
+        });
+        this.#drawOneTube({
+            endpoint1: 5,
+            endpoint2: 6,
+            length: panelTubeExtraLength - 2 * panelStep,
+            side: 0
+        });
+
+        this.#drawOneTube({
+            endpoint1: 1,
+            endpoint2: 8,
+            length: panelTubeExtraLength,
+            side: 1
+        });
+        this.#drawOneTube({
+            endpoint1: 2,
+            endpoint2: 7,
+            length: panelTubeExtraLength - panelStep,
+            side: 1
+        });
+        this.#drawOneTube({
+            endpoint1: 3,
+            endpoint2: 6,
+            length: panelTubeExtraLength - 2 * panelStep,
+            side: 1
+        });
+        this.#drawOneTube({
+            endpoint1: 4,
+            endpoint2: 5,
+            length: panelTubeExtraLength - 3 * panelStep,
+            side: 1
+        });
+
+        const y1 = this.#widthInMeters / 9;
+        const y2 = 2 * y1;
+        const x2 = -panelTubeExtraLength;
+        line(0, y1, x2, y1);
+        line(0, y2, x2, y2);
+    }
+
+    #drawOneTube({endpoint1, endpoint2, length, side}) {
+        const diameter = Math.abs(endpoint2 - endpoint1) * this.#widthInMeters / 9;
+        const straightLength = length - diameter / 2;
+
+        const x1 = side ? this.#lengthInMeters : 0;
+        const x2 = side ? this.#lengthInMeters + straightLength : -straightLength;
+        const y1 = endpoint1 * this.#widthInMeters / 9;
+        const y2 = endpoint2 * this.#widthInMeters / 9;
+        const centerY = (y1 + y2) / 2;
+
+        line(x1, y1, x2, y1);
+        line(x1, y2, x2, y2);
+
+        const angle1 = side ? -90 : 90;
+        const angle2 = side ? 90 : 270;
+        arc(x2, centerY, diameter, diameter, angle1, angle2);
+    }
 }
