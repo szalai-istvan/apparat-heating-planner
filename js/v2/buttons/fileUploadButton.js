@@ -41,7 +41,7 @@ function handleFileSelect(event) {
   }
   const fileType = file.type;
 
-  if (['image/jpeg', 'image/png'].includes(fileType)) {
+  if (IMAGE_CONTENT_TYPES.includes(fileType)) {
     const reader = new FileReader();
     reader.onload = function (event) {
       const img = new Image();
@@ -50,7 +50,7 @@ function handleFileSelect(event) {
       scaleContext.clear();
     };
     reader.readAsDataURL(file);
-  } else if (fileType === 'application/pdf') {
+  } else if (fileType === PDF_CONTENT_TYPE) {
     const reader = new FileReader();
     reader.onload = async function () {
       readPdfFile(reader, 1);

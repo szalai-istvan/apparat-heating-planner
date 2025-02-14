@@ -27,3 +27,17 @@ Szobában merőleges panelok nem lehetnek
 Panelek neve félkövér
 Panelek rajzát lehet-e dwg-ből
 Panelek hossza
+
+panel csövek:
+- 1
+- 2
+- 3-8
+- 4-7
+- 5-6
+
+- 1-8
+- 2-7
+- 3-6
+- 4-5
+
+legkülső 300 mm-el lóg ki, 30-30 mm-el beljebb a belsőbbek

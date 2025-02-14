@@ -16,3 +16,6 @@ const ROOM_LINE_WEIGHT_IN_METERS = 0.017;
 
 const DEFAULT_TEXT_COLOR = 'black';
 const SELECTED_TEXT_COLOR = 'red';
+
+const IMAGE_CONTENT_TYPES = ['image/jpeg', 'image/png'];
+const PDF_CONTENT_TYPE = 'application/pdf';
