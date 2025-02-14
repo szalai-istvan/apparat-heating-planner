@@ -29,7 +29,7 @@ class RoomContext {
     }
 
     select(room) {
-        this.deselect();
+        this.deselect({});
 
         room.select();
         this.#selectedRoom = room;
@@ -39,7 +39,7 @@ class RoomContext {
         }
     }
 
-    deselect(selectedObject) {
+    deselect({selectedObject, skipValidation}) {
         if (this.#selectedRoom && this.#selectedRoom.roomIsConfigured()) {
             this.#selectedRoom.deselect();
             this.#selectedRoom = null;
@@ -117,6 +117,26 @@ class RoomContext {
 
     getRoomNames() {
         return this.#rooms.map(r => r.getName());
+    }
+
+    registerRelocatedPanelGroup(panel) {
+        const boundaryPoints = panel.getBoundaryPoints();
+        const p1 = boundaryPoints.p1;
+        const p2 = boundaryPoints.p2;
+
+        const room = this.#rooms.filter(room => room.pointIsInsideRoom(p1) && room.pointIsInsideRoom(p2))[0];
+        if (!room) {
+            displayErrorMessage('A panelcsoport része vagy egésze szobán kívül van!\nHelyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
+            return false;
+        }
+        
+        const successfulRegister = room.registerPanelGroup(panel);
+        if (!successfulRegister) {
+            displayErrorMessage('Egy adott szobában nem helyezhet el különböző irányban álló paneleket!');
+            return false;
+        }
+
+        return room;
     }
 
     // private

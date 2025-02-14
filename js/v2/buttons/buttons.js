@@ -37,7 +37,7 @@ function createButtons() {
             text: type,
             size: SMALL_BUTTON_SIZE,
             position: sidePanelButtonPosition(row++),
-            onClick: () => panelContext.addPanel(type),
+            onClick: () => panelContext.addPanel(type), // TODO: lehessen átméretezésre is használni
             shouldBeRendered: () => roomContext.thereAreRooms()
         }));
     }

@@ -5,6 +5,7 @@ class Renderer {
     #panels = [];
     #rooms = [];
     #buttons = [];
+    #beams = [];
 
     constructor() {}
 
@@ -27,8 +28,10 @@ class Renderer {
             this.#buttons.push(obj);
         } else if (className === 'Tooltip') {
             this.#tooltip = obj;
+        } else if (className === 'StructureElementsInRoom') {
+            this.#beams.push(obj);
         } else {
-            throw new Error(`Unexpected render type: ${className}`);
+            throw new Error(`Attempt to register unexpected render type: ${className}`);
         }
     }
 
@@ -52,8 +55,10 @@ class Renderer {
             this.#panels = this.#panels.filter(x => x !== obj); 
         } else if (className === 'Room') {
             this.#rooms = this.#rooms.filter(x => x !== obj); 
+        } else if (className === 'StructureElementsInRoom') {
+            this.#beams = this.#beams.filter(x => x !== obj); 
         } else {
-            throw new Error(`Deleting of object of type ${className} is unspecified.`);
+            throw new Error(`Deleting render object of type ${className} is unspecified.`);
         }
     }
 

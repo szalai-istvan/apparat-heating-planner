@@ -1,0 +1,16 @@
+Kalkuláció részletek:
+- Egy szobában a körök száma: roundUp(csőhossz/130)
+- T-idomok: Összes panel * 2 - Összes osztókör * 2
+- Szűkítők: Összes panel * 2 - T-idomok
+- Osztógyüjtők: Összes körök száma
+- Gerinc cső + héj: Körök száma * 20
+- Eurokónusz: Körök száma * 2
+- UD30: Szoba kerülete
+- CD30/60: Minden panel között plusz méterenként keresztbe
+
+Gomb -> kalorikus értékek, ami szobánként fűtés-hűtés értékek, tudja változtatni a fűtővíz hűtővíz és szoba hőmérsékletet
+Gomb -> Harmatpont kalkulátor, beírja a %-os párát és hőmérsékletet, és kiírja a harmatponti hőmérsékletet
+    harmatponti értékek
+Gomb -> Árajánlat, anyaglistát számol és ár, amit egy fájlból kell kinéznie. Be kell írnia, hogy kér-e szállítást vagy személyes átvételt akar, és ha igen hány km. (10.000 + 305 / km)
+    Gipszkarton profil ki kell számolni hogy mennyi kell. UD30(300/m) a szoba kerületén. CD30/60(500/m) minden panel közé plusz még méterenként keresztbe.
+    Meg kell adnia az e-mail címét telefonszámát árajánlat kalkuláció előtt. 

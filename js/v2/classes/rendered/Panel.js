@@ -1,9 +1,9 @@
 class Panel {
     #type;
     #details;
-    #lengthInMeters;
-    #widthInMeters;
-    #position;
+    #lengthInPixels;
+    #widthInPixels;
+    #position; // top left corner coordinates
     #isSelected;
     #isSelectedForDrag;
     #alignment = 0;
@@ -12,26 +12,14 @@ class Panel {
     #textSize;
     #countourLineWeight;
     #lineWeight;
+    #room;
 
     constructor(type) {
-        this.#details = panelTypes[type];
-        if (!this.#details) {
-            throw new Error(`Unknown panel type: ${type}`);
-        }
-        
-        this.#type = type;
         const ratio = scaleContext.pixelsPerMetersRatio;
-        
         this.#countourLineWeight = PANEL_CONTOUR_LINE_THICKNESS * ratio;
         this.#lineWeight = PANEL_LINE_THICKNESS * ratio;
-        
         this.#textSize = PANEL_TEXT_SIZE_IN_METERS * ratio;
-        textSize(this.#textSize);
-        this.#textWidth = textWidth(this.#type);
-        this.#position = screenContext.getMousePositionAbsolute();
-        this.#lengthInMeters = this.#details.length * ratio;
-        this.#widthInMeters = this.#details.width * ratio;
-        
+        this.setType(type);        
         selectionContext.selectObject(this);
         this.selectForDrag();
         renderer.register(this);
@@ -40,8 +28,8 @@ class Panel {
     // public
     draw() {
         const ratio = scaleContext.pixelsPerMetersRatio;
-        const length = this.#lengthInMeters;
-        const width = this.#widthInMeters;
+        const length = this.#lengthInPixels;
+        const width = this.#widthInPixels;
         const coordinates = this.#isSelectedForDrag ? this.#mousePositionToPosition() : this.#position;
 
         push();
@@ -62,22 +50,34 @@ class Panel {
 
     selectForDrag() {
         this.#isSelectedForDrag = true;
+        this.#room && this.#room.removePanelFromRoom(this);
+        this.#room = undefined;
     }
 
-    deselect() {
+    deselect(skipValidation) {
+        if (!skipValidation) {
+            const destinationRoom = roomContext.registerRelocatedPanelGroup(this);
+            if (!destinationRoom) {
+                return false;
+            }
+            this.#room = destinationRoom;    
+        }
+
         if (this.#isSelectedForDrag) {
             this.#position = this.#mousePositionToPosition();
         }
         this.#isSelected = false;
         this.#isSelectedForDrag = false;
+
+        return true;
     }
 
     pointIsInsideText() {
         const width = this.#textWidth;
-        const height = this.#widthInMeters * this.#numberOfPanelsInGroup * PANEL_SELECTION_MULTIPLIER;
+        const height = this.#widthInPixels * this.#numberOfPanelsInGroup * PANEL_SELECTION_MULTIPLIER;
         return pointIsInside(
             screenContext.getMousePositionAbsolute(),
-            this.#getCenterPositionAbsolute(), 
+            this.#getGroupCenterPositionAbsolute(), 
             this.#alignment ? height : width,
             this.#alignment ? width : height
         );
@@ -85,14 +85,30 @@ class Panel {
 
     remove() {
         renderer.remove(this);
+        this.#room && this.#room.removePanelFromRoom(this);
+        this.#room = undefined;
     }
 
     rotate() {
-        this.#alignment = (this.#alignment + 1) % 2;
+        const newAlignment = (this.#alignment + 1) % 2;
+        const boundaryPoints = this.getBoundaryPoints(this.#numberOfPanelsInGroup, newAlignment);
+        if (this.#validateBoundaryPoints(boundaryPoints)) {
+            if ((!this.#room) || (this.#room && this.#room.registerRotation(this))) {
+                this.#alignment = newAlignment;
+            } 
+        } else {
+            displayErrorMessage('A forgatás hatására a panelcsoport egy része szobán kívülre kerülne!\nHelyezze át, mielőtt elforgatja!');
+        }
     }
 
     addToGroup() {
-        this.#numberOfPanelsInGroup += 1;
+        const newGroupNumber = (this.#numberOfPanelsInGroup + 1);
+        const boundaryPoints = this.getBoundaryPoints(newGroupNumber, this.#alignment);
+        if (this.#validateBoundaryPoints(boundaryPoints)) {
+            this.#numberOfPanelsInGroup = newGroupNumber;
+        } else {
+            displayErrorMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!\nHelyezze át, mielőtt hozzáad a csoporthoz!');
+        }
     }
 
     removeFromGroup() {
@@ -101,13 +117,13 @@ class Panel {
 
     calculateQuotePanelArray() {
         let i = 0;
-        const firstPosition = this.#getFirstCenterPositionAbsolute();
+        const firstPosition = this.getFirstCenterPositionAbsolute();
 
         const quotePanels = [];
         while (i < this.#numberOfPanelsInGroup) {
             const offsetPosition = {
-                x: firstPosition.x - i * (this.#alignment ? this.#widthInMeters : 0),
-                y: firstPosition.y + i * (this.#alignment ? 0 : this.#widthInMeters)
+                x: firstPosition.x - i * (this.#alignment ? this.#widthInPixels : 0),
+                y: firstPosition.y + i * (this.#alignment ? 0 : this.#widthInPixels)
             };
 
             const room = roomContext.getRoomContainingPoint(offsetPosition);
@@ -118,18 +134,88 @@ class Panel {
         return quotePanels;
     }
 
+    getFirstCenterPositionAbsolute() {
+        const position = this.#position;
+        if (this.#alignment) {
+            return {
+                x: position.x - this.#widthInPixels * 0.5,
+                y: position.y + this.#lengthInPixels * 0.5
+            };
+        }
+        return {
+            x: position.x + this.#lengthInPixels * 0.5,
+            y: position.y + this.#widthInPixels * 0.5
+        };
+    }
+
+    getBoundaryPoints(numberOfPanels = undefined, alignment = undefined) {
+        numberOfPanels = numberOfPanels || this.#numberOfPanelsInGroup;
+        alignment = alignment || this.#alignment;
+
+        const coordinates = this.#isSelectedForDrag ? this.#mousePositionToPosition() : this.#position;
+        const extraLength = PANEL_TUBE_EXTRA_LENGTH_PER_SIDE * scaleContext.pixelsPerMetersRatio;
+
+        let p1;
+        let p2;
+        if (!alignment) {
+            p1 = {
+                x: coordinates.x - extraLength,
+                y: coordinates.y
+            };
+            p2 = {
+                x: coordinates.x + this.#lengthInPixels + extraLength,
+                y: coordinates.y + this.#widthInPixels * numberOfPanels
+            };
+        } else {
+            p1 = {
+                x: coordinates.x,
+                y: coordinates.y - extraLength
+            };
+            p2 = {
+                x: coordinates.x - this.#widthInPixels * numberOfPanels,
+                y: coordinates.y + this.#lengthInPixels + extraLength
+            };
+        }
+
+        return {p1, p2};
+    }
+
+    getAlignment() {
+        return this.#alignment;
+    }
+
+    setType(type) {
+        const ratio = scaleContext.pixelsPerMetersRatio;
+
+        this.#details = panelTypes[type];
+        if (!this.#details) {
+            throw new Error(`Unknown panel type: ${type}`);
+        }
+        
+        this.#type = type;
+        textSize(this.#textSize);
+        this.#textWidth = textWidth(this.#type);
+        this.#position = screenContext.getMousePositionAbsolute();
+        this.#lengthInPixels = this.#details.length * ratio;
+        this.#widthInPixels = this.#details.width * ratio;
+    }
+
+    isSelectedForDrag() {
+        return this.#isSelectedForDrag;
+    }
+
     // private
     #mousePositionToPosition() {
         const mousePosition = screenContext.getMousePositionAbsolute();
         if (this.#alignment) {
             return {
-                x: mousePosition.x + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup,
-                y: mousePosition.y - this.#lengthInMeters / 2
+                x: mousePosition.x + this.#widthInPixels * 0.5 * this.#numberOfPanelsInGroup,
+                y: mousePosition.y - this.#lengthInPixels / 2
             };    
         }
         return {
-            x: mousePosition.x - this.#lengthInMeters / 2,
-            y: mousePosition.y - this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
+            x: mousePosition.x - this.#lengthInPixels / 2,
+            y: mousePosition.y - this.#widthInPixels * 0.5 * this.#numberOfPanelsInGroup
         };
     }
 
@@ -138,7 +224,7 @@ class Panel {
         stroke('black');
         fill(PANEL_FILL_COLOR);
         const rectWidth = this.#textWidth * PANEL_TEXT_RECT_SIZE_MUL;
-        const rectHeight = this.#widthInMeters * 0.5 * PANEL_TEXT_RECT_SIZE_MUL;
+        const rectHeight = this.#widthInPixels * 0.5 * PANEL_TEXT_RECT_SIZE_MUL;
         rect(
             coordinates.x - rectWidth / 2,
             coordinates.y - rectHeight / 2,
@@ -159,38 +245,24 @@ class Panel {
         text(this.#type, coordinates.x, coordinates.y);
     }
 
-    #getFirstCenterPositionAbsolute() {
+    #getGroupCenterPositionAbsolute() {
         const position = this.#position;
         if (this.#alignment) {
             return {
-                x: position.x - this.#widthInMeters * 0.5,
-                y: position.y + this.#lengthInMeters * 0.5
+                x: position.x - this.#widthInPixels * 0.5 * this.#numberOfPanelsInGroup,
+                y: position.y + this.#lengthInPixels * 0.5
             };
         }
         return {
-            x: position.x + this.#lengthInMeters * 0.5,
-            y: position.y + this.#widthInMeters * 0.5
-        };
-    }
-
-    #getCenterPositionAbsolute() {
-        const position = this.#position;
-        if (this.#alignment) {
-            return {
-                x: position.x - this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup,
-                y: position.y + this.#lengthInMeters * 0.5
-            };
-        }
-        return {
-            x: position.x + this.#lengthInMeters * 0.5,
-            y: position.y + this.#widthInMeters * 0.5 * this.#numberOfPanelsInGroup
+            x: position.x + this.#lengthInPixels * 0.5,
+            y: position.y + this.#widthInPixels * 0.5 * this.#numberOfPanelsInGroup
         };
     }
 
     #getTextCenter(offset) {
         return {
-            x: this.#lengthInMeters * 0.5,
-            y: this.#widthInMeters * (0.5 + offset)
+            x: this.#lengthInPixels * 0.5,
+            y: this.#widthInPixels * (0.5 + offset)
         };
     }
 
@@ -265,7 +337,7 @@ class Panel {
             side: 1
         });
 
-        const y1 = this.#widthInMeters / 9;
+        const y1 = this.#widthInPixels / 9;
         const y2 = 2 * y1;
         const x2 = -panelTubeExtraLength;
         line(0, y1, x2, y1);
@@ -273,13 +345,13 @@ class Panel {
     }
 
     #drawOneTube({endpoint1, endpoint2, length, side}) {
-        const diameter = Math.abs(endpoint2 - endpoint1) * this.#widthInMeters / 9;
+        const diameter = Math.abs(endpoint2 - endpoint1) * this.#widthInPixels / 9;
         const straightLength = length - diameter / 2;
 
-        const x1 = side ? this.#lengthInMeters : 0;
-        const x2 = side ? this.#lengthInMeters + straightLength : -straightLength;
-        const y1 = endpoint1 * this.#widthInMeters / 9;
-        const y2 = endpoint2 * this.#widthInMeters / 9;
+        const x1 = side ? this.#lengthInPixels : 0;
+        const x2 = side ? this.#lengthInPixels + straightLength : -straightLength;
+        const y1 = endpoint1 * this.#widthInPixels / 9;
+        const y2 = endpoint2 * this.#widthInPixels / 9;
         const centerY = (y1 + y2) / 2;
 
         line(x1, y1, x2, y1);
@@ -288,5 +360,12 @@ class Panel {
         const angle1 = side ? -90 : 90;
         const angle2 = side ? 90 : 270;
         arc(x2, centerY, diameter, diameter, angle1, angle2);
+    }
+
+    #validateBoundaryPoints(boundaryPoints) {
+        if (!this.#room || this.#isSelectedForDrag) {
+            return true;
+        }
+        return this.#room.pointIsInsideRoom(boundaryPoints.p1) && this.#room.pointIsInsideRoom(boundaryPoints.p2);
     }
 }

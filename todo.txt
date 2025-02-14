@@ -1,43 +1,9 @@
 szoba overlap megoldása
 
-Gomb -> anyaglista, szobánként panelok idomok, körök száma és csővezeték, osztókörök
-    idomok, osztókörök, árak legvégén
-Gomb -> kalorikus értékek, ami szobánként fűtés-hűtés értékek, tudja változtatni a fűtővíz hűtővíz és szoba hőmérsékletet
-Gomb -> Harmatpont kalkulátor, beírja a %-os párát és hőmérsékletet, és kiírja a harmatponti hőmérsékletet
-    harmatponti értékek
-Gomb -> Árajánlat, anyaglistát számol és ár, amit egy fájlból kell kinéznie. Be kell írnia, hogy kér-e szállítást vagy személyes átvételt akar, és ha igen hány km. (10.000 + 305 / km)
-    Gipszkarton profil ki kell számolni hogy mennyi kell. UD30(300/m) a szoba kerületén. CD30/60(500/m) minden panel közé plusz még méterenként keresztbe.
-    Meg kell adnia az e-mail címét telefonszámát árajánlat kalkuláció előtt. 
-
-Jegyzetek:
-- Egy szobában a körök száma: roundUp(csőhossz/130)
-- T-idomok: Összes panel * 2 - Összes osztókör * 2
-- Szűkítők: Összes panel * 2 - T-idomok
-- Osztógyüjtők: Összes körök száma
-- Gerinc cső + héj: Körök száma * 20
-- Eurokónusz: Körök száma * 2
-- UD30: Szoba kerülete TODO
-- CD30/60: Minden panel között plusz méterenként keresztbe TODO
-
 Kristóf excelét kell reprodukálnia
 Excel letölthető
+
 Kék kör anemosztát, piros kör szpot (D=15cm)
-CD profilok faltól falig és jelenlenek is meg a rajzon
+
+CD profilok faltól falig és jelenlenek is meg a rajzon, panelek mellett, és panelekre merőlegesen méterenként
 Szobában merőleges panelok nem lehetnek
-Panelek neve félkövér
-Panelek rajzát lehet-e dwg-ből
-Panelek hossza
-
-panel csövek:
-- 1
-- 2
-- 3-8
-- 4-7
-- 5-6
-
-- 1-8
-- 2-7
-- 3-6
-- 4-5
-
-legkülső 300 mm-el lóg ki, 30-30 mm-el beljebb a belsőbbek

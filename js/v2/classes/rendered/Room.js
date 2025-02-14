@@ -5,6 +5,7 @@ class Room {
     #middlePoint;
     #textSize;
     #lineWeight;
+    #structureElementsInRoom;
 
     constructor(name) {
         this.#name = name || '';
@@ -13,6 +14,8 @@ class Room {
         const ratio = scaleContext.pixelsPerMetersRatio;
         this.#textSize = ROOM_TEXT_SIZE_IN_METERS * ratio;
         this.#lineWeight = ROOM_LINE_WEIGHT_IN_METERS * ratio;
+
+        this.#structureElementsInRoom = new StructureElementsInRoom();
     }
 
     // public
@@ -72,6 +75,8 @@ class Room {
 
     remove() {
         renderer.remove(this);
+        renderer.remove(this.#structureElementsInRoom);
+        this.#structureElementsInRoom.clear();
     }
 
     pointIsInsideRoom(point = undefined) {
@@ -109,17 +114,36 @@ class Room {
         return this.#points.length === 2;
     }
 
-    getSizeInMeters() {
-        const width = Math.abs(this.#points[0].x - this.#points[1].x);
-        const height = Math.abs(this.#points[0].y - this.#points[1].y);
-        return {
-            x: width * scaleContext.pixelsPerMetersRatio,
-            height: height * scaleContext.pixelsPerMetersRatio
-        };
-    }
-
     getPoints() {
         return this.#points.map(p => ({x: p.x, y: p.y}));
+    }
+
+    getWidthInMeters() {
+        return Math.abs(this.#points[0].x - this.#points[1].x) / scaleContext.pixelsPerMetersRatio;
+    }
+
+    getHeightInMeters() {
+        return Math.abs(this.#points[0].y - this.#points[1].y) / scaleContext.pixelsPerMetersRatio;
+    }
+
+    getArea() {
+        return this.getWidthInMeters() * this.getHeightInMeters();
+    }
+
+    getCircumference() {
+        return 2 * (this.getWidthInMeters() + this.getHeightInMeters());
+    }
+
+    registerPanelGroup(panel) {
+        return this.#structureElementsInRoom.addPanelGroup(panel);
+    }
+
+    removePanelFromRoom(panel) {
+        this.#structureElementsInRoom.removePanelGroup(panel);
+    }
+
+    registerRotation(panel) {
+        return this.#structureElementsInRoom.registerRotation(panel);
     }
 
     // private
@@ -174,13 +198,5 @@ class Room {
         pointsToDraw.push({x: p1.x, y: p0.y});
 
         return pointsToDraw;
-    }
-
-    #getWidth() {
-        return Math.abs(this.#points[0].x - this.#points[1].x);
-    }
-
-    #getHeight() {
-        return Math.abs(this.#points[0].y - this.#points[1].y);
     }
 }

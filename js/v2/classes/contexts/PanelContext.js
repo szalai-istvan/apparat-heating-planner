@@ -7,9 +7,13 @@ class PanelContext {
 
     // public
     addPanel(type) {
-        const panel = new Panel(type);
-        this.#panels.push(panel);
-        tooltip.panelAdded();
+        if (this.#selectedPanel && this.#selectedPanel.isSelectedForDrag()) {
+            this.#selectedPanel.setType(type);
+        } else {
+            const panel = new Panel(type);
+            this.#panels.push(panel);
+            tooltip.panelAdded();    
+        }
     }
 
     select(panel) {
@@ -18,16 +22,20 @@ class PanelContext {
             tooltip.panelSelectedForDrag();
             return;
         }
-        this.deselect();
+        this.deselect({selectedObject: undefined, skipValidation: false});
 
         panel.select();
         this.#selectedPanel = panel;
         tooltip.panelSelected();
     }
 
-    deselect(selectedObject) {
+    deselect({selectedObject, skipValidation}) {
         if (this.#selectedPanel) {
-            this.#selectedPanel.deselect();
+            const successfulDeselect = this.#selectedPanel.deselect(skipValidation);
+            if (!successfulDeselect) {
+                return;
+            }
+
             if (selectedObject !== this.#selectedPanel) {
                 this.#selectedPanel = null;
             }
@@ -59,6 +67,7 @@ class PanelContext {
         const panel = this.#selectedPanel;
         if (panel) {
             panel.remove();
+            this.#selectedPanel = undefined;
             this.#panels = this.#panels.filter(r => r !== panel);
             selectionContext.deselect();
             tooltip.clearCursorTooltip();

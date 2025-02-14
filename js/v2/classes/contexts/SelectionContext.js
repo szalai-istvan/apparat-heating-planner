@@ -37,7 +37,7 @@ class SelectionContext {
     deselect(selectedObject) {
         const lastSelectingContext = this.#lastSelectingContext;
         if (lastSelectingContext) {
-            lastSelectingContext.deselect(selectedObject);
+            lastSelectingContext.deselect({selectedObject: selectedObject, skipValidation: false});
             this.#selectedObject = null;
         }
     }
