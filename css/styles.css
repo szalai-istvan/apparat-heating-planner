@@ -17,6 +17,15 @@
     text-decoration: none;
     display: inline-block;
     margin: 10px;
+    user-select: none;
+}
+
+button {
+    user-select: none;
+}
+
+p {
+    user-select: none;
 }
 
 body {

@@ -42,10 +42,12 @@ class StructureElementsInRoom {
             this.#alignment = (panel.getAlignment() + 1) % 2;
             return true;
         }
+        displayErrorMessage('A panel elforgatásának hatására egymásra merőleges panelek szerepelnének a szobában!\nMozgasson, vagy távolítson el paneleket, mielőtt elforgatja!');
         return false;
     }
 
     clear() {
+        this.#panels.forEach(p => p.remove());
         this.#panels = [];
         this.#alignedBeams = [];
         this.#crossBeams = [];
