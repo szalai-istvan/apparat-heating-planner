@@ -22,3 +22,6 @@ const SELECTED_TEXT_COLOR = 'red';
 
 const IMAGE_CONTENT_TYPES = ['image/jpeg', 'image/png'];
 const PDF_CONTENT_TYPE = 'application/pdf';
+
+const BEAM_COLOR = 'lightgrey';
+const BEAM_WIDTH_METER = 0.06;

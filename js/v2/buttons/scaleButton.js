@@ -11,6 +11,7 @@ var scaleButton;
 function showScalingDialog() {
     scalingInput.value = '';
     scalingDialog.showModal();
+    setTimeout(() => scalingInput.focus(), 200);
     screenContext.disableControls();
 }
 

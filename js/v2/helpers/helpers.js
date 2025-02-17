@@ -35,6 +35,17 @@ function handleWindowResize() {
   });
 }
 
+const ENTERABLE_BUTTONS = [errorMessageOkButton, fileUploadDialogConfirmButton, scalingDialogConfirmButton, scalingDialogCloseButton, addRoomButton, pdfUploadDialogCloseButton];
+function enableEnterForConfirm() {
+  window.addEventListener('keypress', event => {
+    if (event.key !== 'Enter') {
+      return;
+    };
+
+    ENTERABLE_BUTTONS.filter(e => e.checkVisibility())[0].click();
+  });
+}
+
 const minimumFunction = (a, b) => a < b ? a : b;
 const maximumFunction = (a, b) => a > b ? a : b;
 

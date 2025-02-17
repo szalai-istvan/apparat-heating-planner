@@ -64,7 +64,11 @@ class Renderer {
 
     // private
     #getTranslatedRenderObjects() {
-        return [this.#bluePrint, ...this.#panels, ...this.#rooms, this.#scaleContext, ...this.#buttons];
+        const StructureElementsRenderObjects = this.#rooms.map(room => room.getStructuralElementRenderObjects());
+        const alignedRenders = StructureElementsRenderObjects.map(x => x.alignedBeams);
+        const crossedRenders = StructureElementsRenderObjects.map(x => x.crossBeams);
+
+        return [this.#bluePrint, ...alignedRenders, ...this.#panels, ...crossedRenders, ...this.#rooms, this.#scaleContext, ...this.#buttons];
     }
 
     #getAbsoluteRenderObjects() {

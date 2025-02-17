@@ -15,7 +15,7 @@ class Room {
         this.#textSize = ROOM_TEXT_SIZE_IN_METERS * ratio;
         this.#lineWeight = ROOM_LINE_WEIGHT_IN_METERS * ratio;
 
-        this.#structureElementsInRoom = new StructureElementsInRoom();
+        this.#structureElementsInRoom = new StructureElementsInRoom(this);
     }
 
     // public
@@ -59,6 +59,7 @@ class Room {
             text(this.#name, middlePoint.x, middlePoint.y);
             pop();
         }
+        this.#structureElementsInRoom.draw();
     }
 
     getName() {
@@ -146,6 +147,14 @@ class Room {
         return this.#structureElementsInRoom.registerRotation(panel);
     }
 
+    recalculateBeams() {
+        this.#structureElementsInRoom.recalculateBeams();
+    }
+
+    getStructuralElementRenderObjects() {
+        return this.#structureElementsInRoom.getRenderObjects();
+    }
+
     // private
     #getMiddlePoint() {
         const points = this.#getPointsToDraw();
@@ -177,6 +186,7 @@ class Room {
             fill(SELECTED_TEXT_COLOR);
             textSize(this.#textSize * ROOM_TEXT_POP_FACTOR);
         } else {
+            fill(DEFAULT_TEXT_COLOR);
             textSize(this.#textSize);
         }
     }

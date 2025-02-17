@@ -16,14 +16,14 @@
         <dialog id="errorDialog">
             <p id="errorMessageParagraph" style="max-width: 450px;"></p>
             <hr>
-            <div class="center"><button id="errorMessageOkButton">OK</button></div>
+            <div class="center"><button id="errorMessageOkButton">OK (Enter)</button></div>
         </dialog>
 
         <dialog id="fileUploadDialogConfirm">
             <p>Új fájl feltöltése törölni fogja a meglévő skálázást, a korábban felvett szobákat és paneleket. Folytatja?</p>
             <hr>
             <div class="center">
-                <button id="fileUploadDialogConfirmButton">Igen</button>
+                <button id="fileUploadDialogConfirmButton">Igen (Enter)</button>
                 <button id="fileUploadDialogCancelButton">Nem</button>
             </div>
         </dialog>
@@ -32,24 +32,23 @@
             <p>A rajz újraskálázása törölni fogja a korábban felvett szobákat és paneleket. Folytatja?</p>
             <hr>
             <div class="center">
-                <button id="scalingDialogConfirmButton">Igen</button>
+                <button id="scalingDialogConfirmButton">Igen (Enter)</button>
                 <button id="scalingDialogCancelButton">Nem</button>
             </div>
         </dialog>
 
         <dialog id="scalingDialog">
             <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
-            <p><label>Hossz:</label><input type="text" id="scalingInput"></p>
+            <p><label for="scalingInput">Hossz:</label><input type="text" id="scalingInput"></p>
             <hr>
-            <div class="center"><button id="scalingDialogCloseButton">OK</button></div>
+            <div class="center"><button id="scalingDialogCloseButton">OK (Enter)</button></div>
         </dialog>
 
         <dialog id="addRoomDialog">
             <p><label for="addRoomInput">Szoba neve:</label><input type="text" id="addRoomInput"></p>
-            
             <hr>
             <div class="center">
-            <button id="addRoomButton">Szoba hozzáadása</button>
+            <button id="addRoomButton">Szoba hozzáadása (Enter)</button>
             <button id="closeRoomDialogButton">Bezárás</button>
             </div>
         </dialog>
@@ -58,7 +57,7 @@
             <p id="pdfUploadDialogParagraph"></p>
             <p><label>Oldalszám:</label><input type="text" id="pdfUploadDialogInput"></p>
             <hr>
-            <div class="center"><button id="pdfUploadDialogCloseButton">OK</button></div>
+            <div class="center"><button id="pdfUploadDialogCloseButton">OK (Enter)</button></div>
         </dialog>
 
         <dialog id="summaryTableDialog" class="big-dialog">

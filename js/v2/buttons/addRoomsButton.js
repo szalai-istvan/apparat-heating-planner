@@ -8,6 +8,7 @@ const closeRoomDialogButton = document.getElementById('closeRoomDialogButton');
 function showAddRoomDialog() {
     if (roomContext.selectedRoomIsConfiguredOrNoRoomIsSelected()) {
         addRoomInput.value = '';
+        addRoomInput.focus();
         addRoomDialog.showModal();
         screenContext.disableControls();
     }
@@ -27,5 +28,7 @@ addRoomButton.addEventListener('click', () => {
             addRoomDialog.close();
             screenContext.enableControls();
         }
+    } else {
+        displayErrorMessage('Név nélkül nem vehető fel szoba!');
     }
 });

@@ -68,8 +68,8 @@ class ScreenContext {
         const canvasSize = this.#getCanvasSize();
 
         return {
-            x: (mouseX - currentDragValue.x * this.zoom - sumDrag.x * this.zoom - canvasSize.x / 2) / this.zoom, 
-            y: (mouseY - currentDragValue.y * this.zoom - sumDrag.y * this.zoom - canvasSize.y / 2) / this.zoom
+            x: (mouseX - currentDragValue.x - sumDrag.x * this.zoom - canvasSize.x / 2) / this.zoom, 
+            y: (mouseY - currentDragValue.y - sumDrag.y * this.zoom - canvasSize.y / 2) / this.zoom
         };
     }
 

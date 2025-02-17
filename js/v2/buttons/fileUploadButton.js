@@ -57,7 +57,7 @@ function handleFileSelect(event) {
     };
     reader.readAsArrayBuffer(file);
   } else {
-    displayErrorMessage(`Váratlan fájl típus: ${fileType}.\nVálasszon jpg, png vagy pdf fájlt a folytatáshoz.`);
+    displayErrorMessage(`Váratlan fájl típus: ${fileType}.<br/>Válasszon jpg, png vagy pdf fájlt a folytatáshoz.`);
   }
 }
 

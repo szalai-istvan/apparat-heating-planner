@@ -126,7 +126,7 @@ class RoomContext {
 
         const room = this.#rooms.filter(room => room.pointIsInsideRoom(p1) && room.pointIsInsideRoom(p2))[0];
         if (!room) {
-            displayErrorMessage('A panelcsoport része vagy egésze szobán kívül van!\nHelyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
+            displayErrorMessage('A panelcsoport része vagy egésze szobán kívül van!<br/>Helyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
             return false;
         }
         
