@@ -1,5 +1,5 @@
 function draw() {
-    roomContext.clearSelectionCache();
+    roomContext.clearSelectionCache(); // TODO behúzni selectionContext-be
     panelContext.clearSelectionCache();
     
     background(255);
@@ -12,7 +12,7 @@ function draw() {
 
     drawCursorDebugInfo();
     drawUiBackground();
-    roomContext.checkForSelection();
+    roomContext.checkForSelection(); // TODO behúzni selectionContext-be
     panelContext.checkForSelection();
     renderer.renderAbsolutePositionObjects();
 }

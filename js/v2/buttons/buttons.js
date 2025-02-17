@@ -27,7 +27,7 @@ function createButtons() {
         text: 'Szoba törl.',
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(9),
-        onClick: () => roomContext.removeSelected(),
+        onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => roomContext.displayDeleteButton()
     });
     
@@ -37,7 +37,7 @@ function createButtons() {
             text: type,
             size: SMALL_BUTTON_SIZE,
             position: sidePanelButtonPosition(row++),
-            onClick: () => panelContext.addPanel(type), // TODO: lehessen átméretezésre is használni
+            onClick: () => panelContext.createOrReplacePanel(type),
             shouldBeRendered: () => roomContext.thereAreRooms()
         }));
     }
@@ -73,7 +73,7 @@ function createButtons() {
         text: 'Törlés',
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(row++),
-        onClick: () => panelContext.removeSelected(),
+        onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
 

@@ -1,9 +1,9 @@
 szoba overlap megoldása
 
-Kristóf excelét kell reprodukálnia
-Excel letölthető
-
 Kék kör anemosztát, piros kör szpot (D=15cm)
 
 CD profilok faltól falig és jelenlenek is meg a rajzon, panelek mellett, és panelekre merőlegesen méterenként
 Szobában merőleges panelok nem lehetnek
+
+Kristóf excelét kell reprodukálnia
+Excel letölthető

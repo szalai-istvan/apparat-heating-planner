@@ -19,14 +19,17 @@ class Panel {
         this.#countourLineWeight = PANEL_CONTOUR_LINE_THICKNESS * ratio;
         this.#lineWeight = PANEL_LINE_THICKNESS * ratio;
         this.#textSize = PANEL_TEXT_SIZE_IN_METERS * ratio;
-        this.setType(type);        
-        selectionContext.selectObject(this);
+
+        this.setType(type);
         this.selectForDrag();
         renderer.register(this);
     }
 
     // public
     draw() {
+        this.getBoundaryPoints();
+        this.getBoundaryPoints(this.#numberOfPanelsInGroup, (this.#alignment + 1) % 2);
+
         const ratio = scaleContext.pixelsPerMetersRatio;
         const length = this.#lengthInPixels;
         const width = this.#widthInPixels;
@@ -150,7 +153,7 @@ class Panel {
 
     getBoundaryPoints(numberOfPanels = undefined, alignment = undefined) {
         numberOfPanels = numberOfPanels || this.#numberOfPanelsInGroup;
-        alignment = alignment || this.#alignment;
+        alignment = alignment ?? this.#alignment;
 
         const coordinates = this.#isSelectedForDrag ? this.#mousePositionToPosition() : this.#position;
         const extraLength = PANEL_TUBE_EXTRA_LENGTH_PER_SIDE * scaleContext.pixelsPerMetersRatio;
@@ -177,6 +180,10 @@ class Panel {
             };
         }
 
+        // TODO delete this
+        fill('transparent');
+        rect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+        
         return {p1, p2};
     }
 

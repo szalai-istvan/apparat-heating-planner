@@ -6,39 +6,52 @@ class PanelContext {
     constructor() {}
 
     // public
-    addPanel(type) {
+    // selection context methods
+    createOrReplacePanel(type) {
         if (this.#selectedPanel && this.#selectedPanel.isSelectedForDrag()) {
             this.#selectedPanel.setType(type);
         } else {
             const panel = new Panel(type);
             this.#panels.push(panel);
-            tooltip.panelAdded();    
+            tooltip.panelAdded();
+            selectionContext.selectObject(panel);
         }
     }
 
-    select(panel) {
+    select(panel = undefined) {
+        panel = panel || this.checkForSelection();
+        if (!panel) return;
+
         if (panel === this.#selectedPanel) {
             panel.selectForDrag();
             tooltip.panelSelectedForDrag();
             return;
         }
-        this.deselect({selectedObject: undefined, skipValidation: false});
 
+        this.deselect();
         panel.select();
         this.#selectedPanel = panel;
         tooltip.panelSelected();
     }
 
-    deselect({selectedObject, skipValidation}) {
-        if (this.#selectedPanel) {
-            const successfulDeselect = this.#selectedPanel.deselect(skipValidation);
-            if (!successfulDeselect) {
-                return;
-            }
+    deselect() {
+        if (!this.#selectedPanel) {
+            return;
+        }
 
-            if (selectedObject !== this.#selectedPanel) {
-                this.#selectedPanel = null;
-            }
+        const successfulDeselect = this.#selectedPanel.deselect();
+        if (successfulDeselect) {
+            this.#selectedPanel = null;
+        }
+    }
+
+    removeSelected() {
+        const panel = this.#selectedPanel;
+        if (panel) {
+            panel.remove();
+            this.#panels = this.#panels.filter(r => r !== panel);
+            this.#selectedPanel = undefined;
+            tooltip.clearCursorTooltip();
         }
     }
 
@@ -63,15 +76,12 @@ class PanelContext {
         this.#cachedSelection = null;
     }
 
-    removeSelected() {
-        const panel = this.#selectedPanel;
-        if (panel) {
-            panel.remove();
-            this.#selectedPanel = undefined;
-            this.#panels = this.#panels.filter(r => r !== panel);
-            selectionContext.deselect();
-            tooltip.clearCursorTooltip();
-        }
+    // Context specific public methods
+    clear() {
+        this.#panels.forEach(panel => panel.remove());
+        tooltip.clearCursorTooltip();
+        this.#panels = [];
+        selectionContext.deselect();
     }
 
     rotateSelected() {
@@ -95,13 +105,6 @@ class PanelContext {
 
     hasSelectedPanel() {
         return Boolean(this.#selectedPanel);
-    }
-
-    clear() {
-        this.#panels.forEach(panel => panel.remove());
-        tooltip.clearCursorTooltip();
-        this.#panels = [];
-        selectionContext.deselect();
     }
 
     calculateQuotePanelArray() {

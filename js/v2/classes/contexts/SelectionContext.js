@@ -8,17 +8,13 @@ class SelectionContext {
     }
 
     // public
-    select() {
+    searchSelectableObject() {
         const contexts = this.#contexts;
 
         let selectedObject = undefined;
         let i = 0;
         while ((!selectedObject) && contexts[i]) {
             selectedObject = this.#runSelection(contexts[i++]);
-        }
-
-        if (selectedObject) {
-            this.#selectedObject = selectedObject;
         }
     }
 
@@ -30,7 +26,10 @@ class SelectionContext {
             this.#lastSelectingContext = panelContext;
         } else if (className === 'Room') {
             this.#lastSelectingContext = roomContext;
+        } else {
+            throw new Error(`Unexpected class of selected object: ${className}`);
         }
+
         this.#lastSelectingContext.select(obj);
     }
 
@@ -42,6 +41,11 @@ class SelectionContext {
         }
     }
 
+    removeSelected() {
+        this.#lastSelectingContext.removeSelected();
+        this.deselect();
+    }
+
     isAnyThingSelected() {
         return Boolean(this.#selectedObject);
     }
@@ -50,9 +54,12 @@ class SelectionContext {
     #runSelection(context) {
         const selectableObject = context.checkForSelection();
         if (selectableObject) {
-            this.deselect(selectableObject);
-            context.select(selectableObject);
+            if (context !== this.#lastSelectingContext) {
+                this.#lastSelectingContext.deselect();
+            }
+            context.select();
             this.#lastSelectingContext = context;
+            this.#selectedObject = selectableObject
             return selectableObject;
         }
         return undefined;

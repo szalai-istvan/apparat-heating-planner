@@ -12,6 +12,6 @@ function mousePressed() {
     
   } else if (mouseButton === 'left') {
     screenContext.startDragging();
-    selectionContext.select();
+    selectionContext.searchSelectableObject();
   }
 }

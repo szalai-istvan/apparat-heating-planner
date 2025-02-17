@@ -6,6 +6,7 @@ class RoomContext {
     constructor() {}
 
     // public
+    // selection context methods
     createRoom(name) {
         name = name.trim();
 
@@ -20,17 +21,12 @@ class RoomContext {
         selectionContext.selectObject(room);
         return true;
     }
+    
+    select(room = undefined) {
+        room = room || this.checkForSelection();
+        if (!room) return;
 
-    addPoint() {
-        const selectedRoom = this.#selectedRoom;
-        if (selectedRoom && this.#pointIsValid()) {
-            selectedRoom.addPoint();
-        }
-    }
-
-    select(room) {
-        this.deselect({});
-
+        this.deselect();
         room.select();
         this.#selectedRoom = room;
 
@@ -38,8 +34,8 @@ class RoomContext {
             tooltip.roomSelected();
         }
     }
-
-    deselect({selectedObject, skipValidation}) {
+    
+    deselect() {
         if (this.#selectedRoom && this.#selectedRoom.roomIsConfigured()) {
             this.#selectedRoom.deselect();
             this.#selectedRoom = null;
@@ -47,6 +43,18 @@ class RoomContext {
         }
     }
     
+    removeSelected() {
+        const room = this.#selectedRoom;
+        if (room) {
+            room.remove();
+            this.#rooms = this.#rooms.filter(r => r !== room);
+            this.#selectedRoom = undefined;
+        }
+        if (this.#rooms.length === 0) {
+            tooltip.scalingFinished();
+        }
+    }
+
     checkForSelection() {
         if (this.#cachedSelection) {
             return this.#cachedSelection;
@@ -68,15 +76,18 @@ class RoomContext {
         this.#cachedSelection = null;
     }
 
-    removeSelected() {
-        const room = this.#selectedRoom;
-        if (room) {
-            room.remove();
-            this.#rooms = this.#rooms.filter(r => r !== room);
-            selectionContext.deselect();
-        }
-        if (this.#rooms.length === 0) {
-            tooltip.scalingFinished();
+    // Context specific public methods
+    clear() {
+        this.#rooms.forEach(room => room.remove());
+        this.#rooms = [];
+        selectionContext.deselect();
+        panelContext.clear();
+    }
+
+    addPoint() {
+        const selectedRoom = this.#selectedRoom;
+        if (selectedRoom && this.#pointIsValid()) {
+            selectedRoom.addPoint();
         }
     }
 
@@ -85,26 +96,15 @@ class RoomContext {
             return true;
         }
 
-        return this.selectedRoomIsConfigured();
-    }
-
-    selectedRoomIsConfigured() {
-        return this.#selectedRoom && this.#selectedRoom.roomIsConfigured();
+        return this.#selectedRoom.roomIsConfigured();
     }
 
     displayDeleteButton() {
-        return this.selectedRoomIsConfigured();
+        return this.#selectedRoom && this.#selectedRoom.roomIsConfigured();
     }
 
     thereAreRooms() {
         return this.#rooms.length > 0 && this.#rooms[0].roomIsConfigured();
-    }
-
-    clear() {
-        this.#rooms.forEach(room => room.remove());
-        this.#rooms = [];
-        selectionContext.deselect();
-        panelContext.clear();
     }
 
     getRoomContainingPoint(point) {
@@ -150,6 +150,7 @@ class RoomContext {
             return false;
         }
         return true;
+        // TODO ...
     }
 }
 

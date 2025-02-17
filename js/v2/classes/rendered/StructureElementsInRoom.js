@@ -19,8 +19,10 @@ class StructureElementsInRoom {
         const panelAlignment = panel.getAlignment();
         if (this.#alignment === undefined || panelAlignment === this.#alignment) {
             this.#alignment = panelAlignment;
-            this.#panels.push(panel);
-            this.#recalculateBeams();
+            if (!this.#panels.includes(panel)) {
+                this.#panels.push(panel);
+                this.#recalculateBeams();    
+            }
             return true;
         }
         return false;

@@ -4,7 +4,6 @@ const summaryTableDialog = document.getElementById('summaryTableDialog');
 const summaryTableDialogTablePlaceHolder = document.getElementById('summaryTableDialogTablePlaceHolder');
 const summaryTableDialogCloseButton = document.getElementById('summaryTableDialogCloseButton');
 
-
 function openSummaryTableDialog() {
     summaryTableDialogTablePlaceHolder.innerHTML = '';
     const summaryTable = summaryCalculator.calculateSummaryAndMapToHtml();
