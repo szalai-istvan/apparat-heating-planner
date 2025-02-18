@@ -46,6 +46,11 @@ function enableEnterForConfirm() {
   });
 }
 
+const MODALS = [errorDialog, fileUploadDialogConfirm, scalingDialogConfirm, scalingDialog, addRoomDialog, pdfUploadDialog, summaryTableDialog];
+function noModalsAreOpened() {
+  return MODALS.filter(modal => modal.getAttribute('open') !== null).length === 0;
+}
+
 const minimumFunction = (a, b) => a < b ? a : b;
 const maximumFunction = (a, b) => a > b ? a : b;
 
@@ -84,7 +89,7 @@ function getClassName(obj) {
   return obj.constructor.name;
 }
 
-const nfObject = new Intl.NumberFormat('en-US')
+const nfObject = new Intl.NumberFormat('en-US');
 function formatNumber(num) {
   if (!num) return num;
   if (typeof(num) !== 'number') return num;

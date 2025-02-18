@@ -74,7 +74,9 @@ class ScreenContext {
     }
 
     enableControls() {
-        this.#controlsAreEnabled = true;
+        if (noModalsAreOpened()) {
+            this.#controlsAreEnabled = true;
+        }
     }
 
     disableControls() {

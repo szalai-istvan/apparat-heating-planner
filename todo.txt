@@ -1,8 +1,45 @@
-enablecontrols bug
+panel utóigazítás CD profilhoz
+
+F100 textSize
 
 szoba overlap megoldása
 
 Kék kör anemosztát, piros kör szpot (D=15cm)
 
 Kristóf excelét kell reprodukálnia
+    - E12 -> Hűtőteljesítmény W/m2
+    - E13 -> Fűtőteljesítmény W/m2
+    - D3-D9 -> Hűtőteljesítmény W = W/m2 * hossz * szélesség
+    - E3-E9 -> Fűtőteljesítmény W = W/m2 * hossz * szélesség
+    - H-[X] -> 
+        - 2: Szoba neve
+        - 3-9: Paneltípusok száma
+        - 12: Hűtőteljesítmény: W * db
+        - 13: Fűtőteljesítmény: W * db
+        - 15: Körök száma
+        - 16: Panel összfelület
+    - G15 -> Összes kör
+    - G16 -> Összes panelfelület
+    - [X+1]3-[X+1]9 -> Össz darabszám panelenként
+    - [X+2]3-[X+2]9 -> Össz hűtés panelenként W * Össz darabszám panelenként
+    - [X+3]3-[X+3]9 -> Össz fűtés panelenként W * Össz darabszám panelenként
+    - [X+4]3-[X+4]9 -> Össz ár panelenként
+    - [X+5]3-[X+5]9 -> Össz csőhossz panelenként
+    - [X+6]3-[X+6]9 -> Össz felület panelenként
+    - [X+1]11-[X+6]11 -> Oszlop szummája
+    - [X+6]13 -> Összes felület ismét
+    - [X+6]14 -> T-idomok száma
+    - [X+6]15 -> Szűkítők száma
+    - [X+7]14 -> T-idomok és szűkítők ára
+    - [X+6]17 -> Osztógyüjtők száma
+    - [X+6]18 -> Gerinc cső + héj mennyiség
+    - [X+7]18 -> Gerinc cső + héj ára
+    - [X+6]19 -> eurokónusz mennyiség
+    - [X+7]19 -> eurokónusz ára
+    - [X+6]21 -> szállítás
+    - [X+7]23 -> Szerelés
+    - [X+7]25 -> Teljes bruttó díj
+    - Másik lapra tervrajz
+
+
 Excel letölthető
