@@ -311,6 +311,7 @@ class Panel {
         const widthOffset = width * offset;
 
         strokeWeight(this.#countourLineWeight);
+        stroke('black');
         fill(PANEL_FILL_COLOR);
         translate(0, widthOffset);
         rect(0, 0, length, width);

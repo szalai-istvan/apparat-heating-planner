@@ -25,3 +25,7 @@ const PDF_CONTENT_TYPE = 'application/pdf';
 
 const BEAM_COLOR = 'lightgrey';
 const BEAM_WIDTH_METER = 0.06;
+const METERS_BETWEEN_BEAMS = 1;
+const BEAM_MINIMUM_OFFSET_METERS = 0.1;
+const BEAM_TEXT_SIZE_METER = 0.04;
+const BEAM_TYPE = 'CD30/60 profil';

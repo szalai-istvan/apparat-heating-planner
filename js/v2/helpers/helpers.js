@@ -90,3 +90,8 @@ function formatNumber(num) {
   if (typeof(num) !== 'number') return num;
   return nfObject.format(num).replaceAll(',', ' ');
 }
+
+function roundNumber(number, decimals) {
+  const x = 10**decimals;
+  return Math.round(number * x) / x;
+}

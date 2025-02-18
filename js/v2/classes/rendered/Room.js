@@ -59,6 +59,8 @@ class Room {
             text(this.#name, middlePoint.x, middlePoint.y);
             pop();
         }
+
+        this.#drawRoomSize(points);
         this.#structureElementsInRoom.draw();
     }
 
@@ -119,12 +121,22 @@ class Room {
         return this.#points.map(p => ({x: p.x, y: p.y}));
     }
 
-    getWidthInMeters() {
-        return Math.abs(this.#points[0].x - this.#points[1].x) / scaleContext.pixelsPerMetersRatio;
+    getWidthInMeters(points = undefined) {
+        points = points || this.#points;
+
+        const maxX = points.map(p => p.x).reduce(maximumFunction);
+        const minX = points.map(p => p.x).reduce(minimumFunction);
+
+        return (maxX - minX) / scaleContext.pixelsPerMetersRatio;
     }
 
-    getHeightInMeters() {
-        return Math.abs(this.#points[0].y - this.#points[1].y) / scaleContext.pixelsPerMetersRatio;
+    getHeightInMeters(points = undefined) {
+        points = points || this.#points;
+
+        const maxY = points.map(p => p.y).reduce(maximumFunction);
+        const minY = points.map(p => p.y).reduce(minimumFunction);
+
+        return (maxY - minY) / scaleContext.pixelsPerMetersRatio;
     }
 
     getArea() {
@@ -208,5 +220,25 @@ class Room {
         pointsToDraw.push({x: p1.x, y: p0.y});
 
         return pointsToDraw;
+    }
+
+    #drawRoomSize(points) {
+        if (!this.#isSelected) {
+            return;
+        }
+
+        const topY = points.map(p => p.y).reduce(minimumFunction);
+        const rightX = points.map(p => p.x).reduce(maximumFunction);
+        const middlePoint = this.#getMiddlePoint();
+
+        const width = `${roundNumber(this.getWidthInMeters(points), 1)} m`;
+        const height = `${roundNumber(this.getHeightInMeters(points), 1)} m`;
+
+        textSize(this.#textSize);
+
+        textAlign(CENTER, TOP);
+        text(width, middlePoint.x, topY);
+        textAlign(RIGHT, CENTER);
+        text(height, rightX, middlePoint.y);
     }
 }

@@ -35,8 +35,3 @@ function drawUiBackground() {
     
     pop();
 }
-
-function roundNumber(number, decimals) {
-    const x = 10**decimals;
-    return Math.round(number * x) / x;
-}

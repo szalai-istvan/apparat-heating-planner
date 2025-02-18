@@ -2,6 +2,7 @@ class StructureElementsInRoom {
     #alignment;
     #room;
     #beamWidthPixel;
+    #textSize;
 
     #panels = [];
     #alignedBeams = [];
@@ -14,7 +15,9 @@ class StructureElementsInRoom {
         this.#room = room;
         this.#alignment = undefined;
         renderer.register(this);
+
         this.#beamWidthPixel = BEAM_WIDTH_METER * scaleContext.pixelsPerMetersRatio;
+        this.#textSize = BEAM_TEXT_SIZE_METER * scaleContext.pixelsPerMetersRatio;
     }
 
     // public
@@ -104,7 +107,26 @@ class StructureElementsInRoom {
     }
 
     #recalculateCrossBeamsHorizontal() {
+        const roomTopLeft = this.#getRoomTopLeftCornerCoordinates();
+        const roomBottomLeft = this.#getRoomBottomLeftCornerCoordinates();
+        const roomBottomRight = this.#getRoomBottomRightCornerCoordinates();
+        
+        const roomWidthPixels = roomBottomRight.x - roomBottomLeft.x;
+        const pixelsBetweenBeams = METERS_BETWEEN_BEAMS * scaleContext.pixelsPerMetersRatio;
+        let initialOffset = (roomWidthPixels % pixelsBetweenBeams) / 2;
+        const minimumOffset = BEAM_MINIMUM_OFFSET_METERS * scaleContext.pixelsPerMetersRatio;
+        if (initialOffset < minimumOffset) {
+            initialOffset += pixelsBetweenBeams;
+        }
 
+        let x = roomTopLeft.x + initialOffset;
+        const y1 = roomTopLeft.y;
+        const y2 = roomBottomLeft.y;
+        while (x < (roomBottomRight.x - minimumOffset)) {
+            const beam = this.#createBeamDefinition(x, y1, x, y2);
+            this.#crossBeams.push(beam);
+            x += pixelsBetweenBeams;
+        }
     }
 
     #recalculateAlignedBeamsVertical() {
@@ -124,7 +146,26 @@ class StructureElementsInRoom {
     }
 
     #recalculateCrossBeamsVertical() {
+        const roomTopLeft = this.#getRoomTopLeftCornerCoordinates();
+        const roomBottomLeft = this.#getRoomBottomLeftCornerCoordinates();
+        const roomBottomRight = this.#getRoomBottomRightCornerCoordinates();
+        
+        const roomHeightPixels = roomBottomLeft.y - roomTopLeft.y;
+        const pixelsBetweenBeams = METERS_BETWEEN_BEAMS * scaleContext.pixelsPerMetersRatio;
+        let initialOffset = (roomHeightPixels % pixelsBetweenBeams) / 2;
+        const minimumOffset = BEAM_MINIMUM_OFFSET_METERS * scaleContext.pixelsPerMetersRatio;
+        if (initialOffset < minimumOffset) {
+            initialOffset += pixelsBetweenBeams;
+        }
 
+        let y = roomTopLeft.y + initialOffset;
+        const x1 = roomBottomLeft.x;
+        const x2 = roomBottomRight.x;
+        while (y < (roomBottomLeft.y - minimumOffset)) {
+            const beam = this.#createBeamDefinition(x1, y, x2, y);
+            this.#crossBeams.push(beam);
+            y += pixelsBetweenBeams;
+        }
     }
 
     #createBeamDefinition(x1, y1, x2, y2) {
@@ -179,6 +220,7 @@ class StructureElementsInRoom {
         const p2 = beam.p2;
         
         rect(p1.x, p1.y - this.#beamWidthPixel / 2, Math.abs(p2.x - p1.x), this.#beamWidthPixel);
+        this.#drawHorizontalText(beam);
     }
 
     #drawVerticalBeam(beam) {
@@ -189,5 +231,47 @@ class StructureElementsInRoom {
         const p2 = beam.p2;
 
         rect(p1.x - this.#beamWidthPixel / 2, p1.y, this.#beamWidthPixel, Math.abs(p2.y - p1.y));
+        this.#drawVerticalText(beam);
+    }
+
+    #drawHorizontalText(beam) {
+        textAlign(CENTER, CENTER);
+        textSize(this.#textSize);
+        noStroke();
+        fill(DEFAULT_TEXT_COLOR);
+
+        const centerP = {
+            x: (beam.p1.x + beam.p2.x) / 2,
+            y: (beam.p1.y + beam.p2.y) / 2,
+        };
+
+        const offset = Math.abs(beam.p1.x - beam.p2.x) / 4;
+        const x1 = centerP.x - offset;
+        const x2 = centerP.x + offset;
+        text(BEAM_TYPE, x1, centerP.y);
+        text(BEAM_TYPE, centerP.x, centerP.y);
+        text(BEAM_TYPE, x2, centerP.y);
+    }
+
+    #drawVerticalText(beam) {
+        textAlign(CENTER, CENTER);
+        textSize(this.#textSize);
+        noStroke();
+        fill(DEFAULT_TEXT_COLOR);
+
+        const centerP = {
+            x: (beam.p1.x + beam.p2.x) / 2,
+            y: (beam.p1.y + beam.p2.y) / 2,
+        };
+
+        push();
+        translate(centerP.x, centerP.y);
+        rotate(270);
+
+        const offset = Math.abs(beam.p1.y - beam.p2.y) / 4;
+        text(BEAM_TYPE, offset, 0);
+        text(BEAM_TYPE, 0, 0);
+        text(BEAM_TYPE, -offset, 0);
+        pop();
     }
 }
