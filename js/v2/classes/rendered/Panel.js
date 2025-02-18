@@ -109,7 +109,7 @@ class Panel {
         const boundaryPoints = this.getBoundaryPoints(newGroupNumber, this.#alignment);
         if (this.#validateBoundaryPoints(boundaryPoints)) {
             this.#numberOfPanelsInGroup = newGroupNumber;
-            this.#room.recalculateBeams();
+            this.#room && this.#room.recalculateBeams();
         } else {
             displayErrorMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt hozzáad a csoporthoz!');
         }
@@ -117,7 +117,7 @@ class Panel {
 
     removeFromGroup() {
         this.#numberOfPanelsInGroup = Math.max(this.#numberOfPanelsInGroup - 1, 1);
-        this.#room.recalculateBeams();
+        this.#room && this.#room.recalculateBeams();
     }
 
     calculateQuotePanelArray() {

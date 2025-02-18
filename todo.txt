@@ -41,5 +41,10 @@ Kristóf excelét kell reprodukálnia
     - [X+7]25 -> Teljes bruttó díj
     - Másik lapra tervrajz
 
+Színek: 
+    - Hűtés: #bdd6ee 189 214 238
+    - Fűtés: #ff0000 255 0 0
+    - Header: #bfbfbf 191 191 191
+    - Sorok: #a8d08d 168 208 141
 
 Excel letölthető

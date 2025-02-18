@@ -49,6 +49,14 @@ class SelectionContext {
     isAnyThingSelected() {
         return Boolean(this.#selectedObject);
     }
+
+    clearSelectionCache() {
+        this.#contexts.forEach(context => context.clearSelectionCache());
+    }
+
+    checkForSelection() {
+        this.#contexts.forEach(context => context.checkForSelection());
+    }
     
     // private
     #runSelection(context) {

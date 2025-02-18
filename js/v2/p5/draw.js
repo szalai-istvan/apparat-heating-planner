@@ -1,7 +1,6 @@
 function draw() {
-    roomContext.clearSelectionCache(); // TODO behúzni selectionContext-be
-    panelContext.clearSelectionCache();
-    
+    selectionContext.clearSelectionCache();
+
     background(255);
 
     push();
@@ -12,12 +11,11 @@ function draw() {
 
     drawCursorDebugInfo();
     drawUiBackground();
-    roomContext.checkForSelection(); // TODO behúzni selectionContext-be
-    panelContext.checkForSelection();
+    selectionContext.checkForSelection();
     renderer.renderAbsolutePositionObjects();
 }
 
-function drawUiBackground() {
+function drawUiBackground() { // TODO => rendered class
     push();
     fill('lightgrey');
     noStroke();
