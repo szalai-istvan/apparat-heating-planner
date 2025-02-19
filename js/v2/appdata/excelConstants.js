@@ -8,3 +8,5 @@ const SECOND_LINE_FIRST_HALF = ['Lemez hossz', 'Ívtől ívig hossz', 'Felület'
 const SECOND_LINE_SECOND_HALF = ['Termék név', 'Darabszám', 'Össz hűtő teljesítmény', 'Össz Fűtő teljesítmény', 'Panelok összesen', 'Csőhossz', 'Felület'];
 
 const HEADER_COLOR = 'BFBFBF';
+
+const FILE_PATH = 'xlsx/apparat_template.xlsx';
