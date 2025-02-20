@@ -1,10 +1,8 @@
 panel utóigazítás CD profilhoz
-
 F100 textSize
-
 szoba overlap megoldása
-
 Kék kör anemosztát, piros kör szpot (D=15cm)
+
 
 Kristóf excelét kell reprodukálnia
     - E12 -> Hűtőteljesítmény W/m2

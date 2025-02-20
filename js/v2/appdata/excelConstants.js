@@ -9,4 +9,6 @@ const SECOND_LINE_SECOND_HALF = ['Termék név', 'Darabszám', 'Össz hűtő tel
 
 const HEADER_COLOR = 'BFBFBF';
 
-const FILE_PATH = 'xlsx/apparat_template.xlsx';
+const FILE_PATH = 'xlsx/apparat_template_copy.xlsx';
+
+const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
