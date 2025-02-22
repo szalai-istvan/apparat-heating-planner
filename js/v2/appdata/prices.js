@@ -10,11 +10,11 @@ const PRICES = {
     },
     tElement: 1750, // T-idomok egységára
     confusor: 1750, // Szűkítő egységára
-    collector: 25,
-    tube: 10, // Gerinc cső + héj egységára
-    eurokonusz: 5, // Eurokónusz egységára
-    ud30: 10, // UD30 profil egységára
-    cd30_60: 10, // CD30/60 profil egységára
+    collector: 0,
+    tube: 760, // Gerinc cső + héj egységára
+    eurokonusz: 850, // Eurokónusz egységára
+    ud30: 220, // UD30 profil egységára
+    cd30_60: 320, // CD30/60 profil egységára
     collectorTypes: { // Osztógyüjtő típusok egységár
         "nem kell": 0,
         "2 körös": 32000,
@@ -43,7 +43,7 @@ const PRICES = {
         "Falon kívüli oszekrény 12-14": 27642,
     },
     transport: { // Szállítási költség = (a * [km]) + b
-        a: 10_000,
-        b: 5_000
+        a: 304,
+        b: 6_000
     }
 };
