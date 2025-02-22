@@ -18,7 +18,6 @@ class Panel {
         const ratio = scaleContext.pixelsPerMetersRatio;
         this.#countourLineWeight = PANEL_CONTOUR_LINE_THICKNESS * ratio;
         this.#lineWeight = PANEL_LINE_THICKNESS * ratio;
-        this.#textSize = PANEL_TEXT_SIZE_IN_METERS * ratio;
 
         this.setType(type);
         this.selectForDrag();
@@ -195,6 +194,11 @@ class Panel {
         this.#details = panelTypes[type];
         if (!this.#details) {
             throw new Error(`Unknown panel type: ${type}`);
+        }
+        
+        this.#textSize = PANEL_TEXT_SIZE_IN_METERS * ratio;
+        if (type === 'F100') {
+            this.#textSize /= 2;
         }
         
         this.#type = type;

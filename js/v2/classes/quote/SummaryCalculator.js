@@ -151,13 +151,13 @@ class SummaryCalculator {
             additionalElements.eurokonusz = {count: eurokonusz, unitPrice: PRICES.eurokonusz, price: eurokonusz * PRICES.eurokonusz};
         }
 
-        const ud30 = 10_000_000;
+        const ud30 = Math.ceil(roomContext.calculateUd30Amount());
         if (ud30 > 0) {
             sumCount += ud30;
             additionalElements.ud30 = {count: ud30, unitPrice: PRICES.ud30, price: ud30 * PRICES.ud30};
         }
 
-        const cd30_60 = 10_000_000;
+        const cd30_60 = Math.ceil(roomContext.calculateCd3060Amount());
         if (cd30_60 > 0) {
             sumCount += cd30_60;
             additionalElements.cd30_60 = {count: cd30_60, unitPrice: PRICES.cd30_60, price: cd30_60 * PRICES.cd30_60};

@@ -3,6 +3,7 @@ class StructureElementsInRoom {
     #room;
     #beamWidthPixel;
     #textSize;
+    #lineWidth;
 
     #panels = [];
     #alignedBeams = [];
@@ -15,6 +16,7 @@ class StructureElementsInRoom {
         this.#room = room;
         this.#alignment = undefined;
         renderer.register(this);
+        this.#lineWidth = ROOM_LINE_WEIGHT_IN_METERS * scaleContext.pixelsPerMetersRatio;
 
         this.#beamWidthPixel = BEAM_WIDTH_METER * scaleContext.pixelsPerMetersRatio;
         this.#textSize = BEAM_TEXT_SIZE_METER * scaleContext.pixelsPerMetersRatio;
@@ -31,7 +33,8 @@ class StructureElementsInRoom {
             this.#setAlignment(panelAlignment);
             if (!this.#panels.includes(panel)) {
                 this.#panels.push(panel);
-                this.recalculateBeams();    
+                this.recalculateBeams();
+                this.#calculateAdjustmentIfNecessary(panel);
             }
             return true;
         }
@@ -64,7 +67,7 @@ class StructureElementsInRoom {
         this.#alignedBeams = [];
         this.#crossBeams = [];
     }
-    
+
     recalculateBeams() {
         this.#alignedBeams = [];
         this.#crossBeams = [];
@@ -89,6 +92,13 @@ class StructureElementsInRoom {
         };
     }
 
+    getCd3060Amount() {
+        const aligned = this.#alignedBeams.map(beam => this.#getLength(beam)).reduce((a, b) => a + b, 0);
+        const crossed = this.#crossBeams.map(beam => this.#getLength(beam)).reduce((a, b) => a + b, 0);
+
+        return aligned + crossed;
+    }
+
     // private
     #recalculateAlignedBeamsHorizontal() {
         const roomTopLeft = this.#getRoomTopLeftCornerCoordinates();
@@ -110,7 +120,7 @@ class StructureElementsInRoom {
         const roomTopLeft = this.#getRoomTopLeftCornerCoordinates();
         const roomBottomLeft = this.#getRoomBottomLeftCornerCoordinates();
         const roomBottomRight = this.#getRoomBottomRightCornerCoordinates();
-        
+
         const roomWidthPixels = roomBottomRight.x - roomBottomLeft.x;
         const pixelsBetweenBeams = METERS_BETWEEN_BEAMS * scaleContext.pixelsPerMetersRatio;
         let initialOffset = (roomWidthPixels % pixelsBetweenBeams) / 2;
@@ -149,7 +159,7 @@ class StructureElementsInRoom {
         const roomTopLeft = this.#getRoomTopLeftCornerCoordinates();
         const roomBottomLeft = this.#getRoomBottomLeftCornerCoordinates();
         const roomBottomRight = this.#getRoomBottomRightCornerCoordinates();
-        
+
         const roomHeightPixels = roomBottomLeft.y - roomTopLeft.y;
         const pixelsBetweenBeams = METERS_BETWEEN_BEAMS * scaleContext.pixelsPerMetersRatio;
         let initialOffset = (roomHeightPixels % pixelsBetweenBeams) / 2;
@@ -170,8 +180,8 @@ class StructureElementsInRoom {
 
     #createBeamDefinition(x1, y1, x2, y2) {
         return {
-            p1: {x: x1, y: y1},
-            p2: {x: x2, y: y2}
+            p1: { x: x1, y: y1 },
+            p2: { x: x2, y: y2 }
         };
     }
 
@@ -195,7 +205,7 @@ class StructureElementsInRoom {
         const points = this.#room.getPoints();
         const x = points.map(p => p.x).reduce(xReducer);
         const y = points.map(p => p.y).reduce(yReducer);
-        return {x, y};
+        return { x, y };
     }
 
     #setAlignment(alignment) {
@@ -211,22 +221,22 @@ class StructureElementsInRoom {
             this.#drawCrossBeamsFunc = undefined;
         }
     }
-    
+
     #drawHorizontalBeam(beam) {
         fill(BEAM_COLOR);
-        stroke(2);
+        stroke(this.#lineWidth);
 
         const p1 = beam.p1;
         const p2 = beam.p2;
-        
+
         rect(p1.x, p1.y - this.#beamWidthPixel / 2, Math.abs(p2.x - p1.x), this.#beamWidthPixel);
         this.#drawHorizontalText(beam);
     }
 
     #drawVerticalBeam(beam) {
         fill(BEAM_COLOR);
-        stroke(2);
-        
+        stroke(this.#lineWidth);
+
         const p1 = beam.p1;
         const p2 = beam.p2;
 
@@ -274,4 +284,28 @@ class StructureElementsInRoom {
         text(BEAM_TYPE, -offset, 0);
         pop();
     }
+
+    #getLength(beam) {
+        const length = calculateDistance(beam.p1, beam.p2);
+        console.log(length / scaleContext.pixelsPerMetersRatio);
+        return length / scaleContext.pixelsPerMetersRatio;
+    }
+
+    #calculateAdjustmentIfNecessary(panel) {
+        // TODO későbbre
+        // if (this.#alignment === 0) {
+        //     this.#calculateAdjustmentIfNecessaryHorizontal(panel);
+        // } else {
+        //     this.#calculateAdjustmentIfNecessaryVertical(panel);
+        // }
+    }
+
+    // #calculateAdjustmentIfNecessaryHorizontal(panel) {
+
+    // }
+
+    
+    // #calculateAdjustmentIfNecessaryVertical(panel) {
+
+    // }
 }

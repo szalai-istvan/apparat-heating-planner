@@ -58,6 +58,17 @@ class ScreenContext {
         this.zoom = Math.max(MINIMUM_ZOOM, this.zoom / ZOOM_STEP);
     }
 
+    adjustForExport() {
+        const blueprintSize = blueprint.getSizeData();
+        const docSize = getDocumentDimensions();
+        const width = docSize.vw;
+        const height = window.innerHeight;
+        const zoom = Math.min(width / blueprintSize.w, height / blueprintSize.h);
+        
+        this.#sumDrag = {x: 0, y: 0};
+        this.zoom = zoom;
+    }
+
     getMousePosition() {
         return {x: mouseX, y: mouseY};
     }

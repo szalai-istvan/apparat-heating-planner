@@ -35,7 +35,7 @@ function handleWindowResize() {
   });
 }
 
-const ENTERABLE_BUTTONS = [errorMessageOkButton, fileUploadDialogConfirmButton, scalingDialogConfirmButton, scalingDialogCloseButton, addRoomButton, pdfUploadDialogCloseButton];
+const ENTERABLE_BUTTONS = [errorMessageOkButton, fileUploadDialogConfirmButton, scalingDialogConfirmButton, scalingDialogCloseButton, addRoomButton, pdfUploadDialogCloseButton, transportDialogOkButton];
 function enableEnterForConfirm() {
   window.addEventListener('keypress', event => {
     if (event.key !== 'Enter') {
@@ -46,7 +46,7 @@ function enableEnterForConfirm() {
   });
 }
 
-const MODALS = [errorDialog, fileUploadDialogConfirm, scalingDialogConfirm, scalingDialog, addRoomDialog, pdfUploadDialog, summaryTableDialog];
+const MODALS = [errorDialog, fileUploadDialogConfirm, scalingDialogConfirm, scalingDialog, addRoomDialog, pdfUploadDialog, summaryTableDialog, transportDialog];
 function noModalsAreOpened() {
   return MODALS.filter(modal => modal.getAttribute('open') !== null).length === 0;
 }

@@ -1,6 +1,7 @@
 const REGULAR_BUTTON_SIZE = {x: 100, y: 40};
 const SMALL_BUTTON_SIZE = {x: 80, y: 30};
 const HALF_BUTTON_SIZE = {x: 40, y: 30};
+const TALL_BUTTON_SIZE = {x: 80, y: 60};
 
 const PANEL_TEXT_SIZE_IN_METERS = 0.18;
 const PANEL_TEXT_POP_FACTOR = 0.1;

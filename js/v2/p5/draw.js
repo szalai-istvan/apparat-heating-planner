@@ -15,7 +15,7 @@ function draw() {
     renderer.renderAbsolutePositionObjects();
 }
 
-function drawUiBackground() { // TODO => rendered class
+function drawUiBackground() {
     push();
     fill('lightgrey');
     noStroke();

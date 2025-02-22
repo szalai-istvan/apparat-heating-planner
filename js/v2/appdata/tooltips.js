@@ -11,7 +11,7 @@ const tooltipText = {
     ROOM_1: "Hogyha végzett a szobák hozzáadásával, a baloldali menü segítségével húzzon be hűtő-fűtő paneleket a folytatáshoz.",
     ROOM_HOVER: "Kattintson a bal egérgombbal a szoba kiválasztásához.",
     ROOM_SELECT: "A kiválasztott szoba törléséhez használja a baloldali menüt.\nA kijelölést megszüntetheti a jobb egérgomb megnyomásával.",
-    PANEL_0: "Húzza be a rajzba a hozzáadni kívánt hűtő-fűtő paneleket.",
+    PANEL_0: "Húzza be a rajzba a hozzáadni kívánt hűtő-fűtő paneleket.\nHa végzett, a baloldali menüben található gomb segítségével letöltheti az árkalkulációt!",
     PANEL_1: "Kattintson a jobb egérgombbal a panel lehelyezéséhez.",
     PANEL_ADD: "",
     PANEL_HOVER: "Kattintson a bal egérgombbal a panel kiválasztásához",

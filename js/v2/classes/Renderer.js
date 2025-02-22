@@ -68,7 +68,7 @@ class Renderer {
         const alignedRenders = StructureElementsRenderObjects.map(x => x.alignedBeams);
         const crossedRenders = StructureElementsRenderObjects.map(x => x.crossBeams);
 
-        return [this.#bluePrint, ...alignedRenders, ...this.#panels, ...crossedRenders, ...this.#rooms, this.#scaleContext, ...this.#buttons];
+        return [this.#bluePrint, ...this.#panels, ...alignedRenders, ...crossedRenders, ...this.#rooms, this.#scaleContext, ...this.#buttons];
     }
 
     #getAbsoluteRenderObjects() {

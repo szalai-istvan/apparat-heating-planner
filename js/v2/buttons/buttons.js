@@ -23,14 +23,6 @@ function createButtons() {
         shouldBeRendered: () => scaleContext.ratioIsSet()
     });
 
-    deleteRoomButton = new ButtonWrapper({
-        text: 'Szoba törl.',
-        size: SMALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(9),
-        onClick: () => selectionContext.removeSelected(),
-        shouldBeRendered: () => roomContext.displayDeleteButton()
-    });
-    
     let row = 0;
     for (let type in panelTypes) {
         addPanelButtons.push(new ButtonWrapper({
@@ -72,16 +64,24 @@ function createButtons() {
     editPanelButtons.delete = new ButtonWrapper({
         text: 'Törlés',
         size: SMALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row++),
+        position: sidePanelButtonPosition(row),
         onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
 
-    displaySummaryTableButton = new ButtonWrapper({
-        text: 'Rendelés összesítő',
+    deleteRoomButton = new ButtonWrapper({
+        text: 'Szoba törl.',
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(row++),
-        onClick: () => openSummaryTableDialog(),
+        onClick: () => selectionContext.removeSelected(),
+        shouldBeRendered: () => roomContext.displayDeleteButton()
+    });
+
+    downloadSummaryButton = new ButtonWrapper({
+        text: 'Árkalkuláció letöltése',
+        size: TALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(row++),
+        onClick: () => openTransportDialog(),
         shouldBeRendered: () => panelContext.thereArePanels()
     });
 

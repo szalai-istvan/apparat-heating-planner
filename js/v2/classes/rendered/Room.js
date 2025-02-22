@@ -167,9 +167,17 @@ class Room {
         return this.#structureElementsInRoom.getRenderObjects();
     }
 
+    getCd3060Amount() {
+        return this.#structureElementsInRoom.getCd3060Amount();
+    }
+
+    validatePoints(pointsToValidate) {
+        return true; // TODO későbbre
+    }
+
     // private
-    #getMiddlePoint() {
-        const points = this.#getPointsToDraw();
+    #getMiddlePoint(points = undefined) {
+        points = points || this.#getPointsToDraw();
         const length = points.length;
         if (length === 0) {
             return;
@@ -223,10 +231,6 @@ class Room {
     }
 
     #drawRoomSize(points) {
-        if (!this.#isSelected) {
-            return;
-        }
-
         const topY = points.map(p => p.y).reduce(minimumFunction);
         const rightX = points.map(p => p.x).reduce(maximumFunction);
         const middlePoint = this.#getMiddlePoint();

@@ -1,31 +1,24 @@
-// -- TEST --
+let EXCEL_ARRAY_BUFFER = null;
 
-const testSummary = '{"konyha":{"F400":{"count":7,"unitPrice":400,"price":2800},"count":7,"numberOfRounds":2},"wc":{"F250":{"count":3,"unitPrice":250,"price":750},"count":3,"numberOfRounds":1},"háló":{"F300":{"count":6,"unitPrice":300,"price":1800},"count":6,"numberOfRounds":2},"count":16,"numberOfRounds":5,"additionalElements":{"tElements":{"count":22,"unitPrice":20,"price":440},"confusors":{"count":10,"unitPrice":25,"price":250},"collectors":{"count":5,"unitPrice":25,"price":125},"mainlineTube":{"count":100,"unitPrice":10,"price":1000},"eurokonusz":{"count":10,"unitPrice":5,"price":50},"ud30":{"count":10000000,"unitPrice":10,"price":100000000},"cd30_60":{"count":10000000,"unitPrice":10,"price":100000000},"count":20000147}}';
-const testSummaryObject = JSON.parse(testSummary);
-
-let testContext;
-function testExport() {
-    createExcelFile(testSummaryObject).then(c => testContext = c);
+function startExcelExport(transportKm) {
+    const summary = summaryCalculator.calculateSummary();
+    summary.additionalElements.transport = transportKm || null;
+    createExcelFile(summary);
 }
-
-// -- TEST --
-
-let excelArrayBuffer = null;
 
 async function createExcelFile(summary) {
     let roomNames = roomContext.getRoomNames();
     if (!(roomNames && roomNames.length)) {
-        roomNames = ['konyha', 'wc', 'háló'];
-        //return;
+        return;
     }
 
-    const context = {roomNames, summary};
+    const context = { roomNames, summary };
     const workbook = await loadExcelTemplate();
     context.workbook = workbook;
 
     const summarySheet = workbook.getWorksheet(SUMMARY_SHEET_NAME);
     const blueprintSheet = workbook.getWorksheet(BLUEPRINT_SHEET_NAME);
-    context.sheets = {summarySheet, blueprintSheet};
+    context.sheets = { summarySheet, blueprintSheet };
 
     createColumnsForRooms(context);
     fillRoomNames(context);
@@ -33,23 +26,27 @@ async function createExcelFile(summary) {
     fillRoomSummaryFormulas(context);
     fillPanelCountFormulas(context);
     fillCoolingAndHeatingFormulas(context);
+    fillPanelPriceFormulas(context);
+    fillPanelPipeLengthFormulas(context);
+    fillPanelAreaFormulas(context);
+    fillSummaryTable(context);
+    adjustRoomColumnWidths(context);
 
-    // add content
-    // add picture
-    // pack up and download
-    // downloadExcel(context);
+    addPicture(context);
+
+    downloadExcel(context);
     return context;
 }
 
 async function loadExcelTemplate() {
-    if (!excelArrayBuffer) {
+    if (!EXCEL_ARRAY_BUFFER) {
         const response = await fetch(FILE_PATH);
         if (!response.ok) throw new Error("Failed to fetch Excel template from path " + FILE_PATH);
-        excelArrayBuffer = await response.arrayBuffer();
+        EXCEL_ARRAY_BUFFER = await response.arrayBuffer();
     }
-    
+
     const excel = new ExcelJS.Workbook();
-    await excel.xlsx.load(excelArrayBuffer);
+    await excel.xlsx.load(EXCEL_ARRAY_BUFFER);
     return excel;
 }
 
@@ -78,7 +75,7 @@ function createColumnsForRooms(context) {
         summarySheet.eachRow((row, rowIndex) => {
             const sourceCell = row.getCell(8);
             const targetCell = row.getCell(9);
-    
+
             targetCell.value = sourceCell.value;
             targetCell.style = { ...sourceCell.style };
             targetCell.formula = sourceCell.formula;
@@ -91,7 +88,7 @@ function fillRoomNames(context) {
     const summarySheet = context.sheets.summarySheet;
     const row = summarySheet.getRow(2);
     let column = 8;
-    
+
     roomNames.forEach(roomName => row.getCell(column++).value = roomName);
 }
 
@@ -118,7 +115,7 @@ function fillPanelCounts(context) {
 function fillRoomSummaryFormulas(context) {
     const roomNames = context.roomNames;
     const summarySheet = context.sheets.summarySheet;
-    
+
     let columnIndex = 8;
     for (let roomName of roomNames) {
         let coolingFormula = [];
@@ -128,31 +125,32 @@ function fillRoomSummaryFormulas(context) {
 
         let rowIndex = 3;
         while (rowIndex < 10) {
-            const cellName = getCellName({column: columnIndex, row: rowIndex});
-            coolingFormula.push(`${cellName}*${getCellName({column: 4, row: rowIndex, dollars: '$$'})}`);
-            heatingFormula.push(`${cellName}*${getCellName({column: 5, row: rowIndex, dollars: '$$'})}`);
-            roundsFormula.push(`${cellName}*${getCellName({column: 6, row: rowIndex, dollars: '$$'})}`);
-            areaFormula.push(`${cellName}*${getCellName({column: 3, row: rowIndex, dollars: '$$'})}`);
+            const cellName = getCellName({ column: columnIndex, row: rowIndex });
+            coolingFormula.push(`${cellName}*${getCellName({ column: 4, row: rowIndex, dollars: '$$' })}`);
+            heatingFormula.push(`${cellName}*${getCellName({ column: 5, row: rowIndex, dollars: '$$' })}`);
+            roundsFormula.push(`${cellName}*${getCellName({ column: 6, row: rowIndex, dollars: '$$' })}`);
+            areaFormula.push(`${cellName}*${getCellName({ column: 3, row: rowIndex, dollars: '$$' })}`);
             rowIndex++;
         }
         coolingFormula = coolingFormula.join('+');
         heatingFormula = heatingFormula.join('+');
 
         roundsFormula = roundsFormula.join('+');
-        roundsFormula = `ROUNDUP(((${roundsFormula})/130),0)`;
+        const roundsFormulaDivide = `((${roundsFormula})/130)`;
+        roundsFormula = ROUNDUP(roundsFormulaDivide, 0);
         areaFormula = areaFormula.join('+');
 
         setFormula(summarySheet.getRow(12).getCell(columnIndex), coolingFormula);
         setFormula(summarySheet.getRow(13).getCell(columnIndex), heatingFormula);
         setFormula(summarySheet.getRow(15).getCell(columnIndex), roundsFormula);
         setFormula(summarySheet.getRow(16).getCell(columnIndex), areaFormula);
-        
+
         columnIndex++;
     }
 
     const lastRoomColumn = 7 + roomNames.length;
-    setFormula(summarySheet.getRow(15).getCell(7), `SUM(${getRangeName({c1: {row: 15, column: 8}, c2: {row: 15, column: lastRoomColumn}})})`);
-    setFormula(summarySheet.getRow(16).getCell(7), `SUM(${getRangeName({c1: {row: 16, column: 8}, c2: {row: 16, column: lastRoomColumn}})})`);
+    setFormula(summarySheet.getRow(15).getCell(7), SUM(getRangeName({ c1: { row: 15, column: 8 }, c2: { row: 15, column: lastRoomColumn } })));
+    setFormula(summarySheet.getRow(16).getCell(7), SUM(getRangeName({ c1: { row: 16, column: 8 }, c2: { row: 16, column: lastRoomColumn } })));
 
     context.lastRoomColumn = lastRoomColumn;
 }
@@ -161,31 +159,308 @@ function fillPanelCountFormulas(context) {
     const summarySheet = context.sheets.summarySheet;
     const lastRoomColumn = context.lastRoomColumn;
     const targetColumn = lastRoomColumn + 2;
+    context.panelCountColumn = targetColumn;
 
     let rowIndex = 3;
     while (rowIndex < 10) {
-        const range = {c1: {row: rowIndex, column: 8}, c2: {row: rowIndex, column: lastRoomColumn}};
-        setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), `SUM(${getRangeName(range)})`);
+        const range = { c1: { row: rowIndex, column: 8 }, c2: { row: rowIndex, column: lastRoomColumn } };
+        setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), SUM(getRangeName(range)));
         rowIndex++;
     }
+
+    const columnSumRange = getRangeName({ c1: { row: 3, column: targetColumn }, c2: { row: 9, column: targetColumn } });
+    setFormula(summarySheet.getRow(11).getCell(targetColumn), SUM(columnSumRange));
 }
 
 function fillCoolingAndHeatingFormulas(context) {
     const summarySheet = context.sheets.summarySheet;
     const lastRoomColumn = context.lastRoomColumn;
 
-    const countColumn = lastRoomColumn + 2;
+    const countColumn = context.panelCountColumn;
     const targetColumnCooling = lastRoomColumn + 3;
     const targetColumnHeating = targetColumnCooling + 1;
 
+    context.panelCoolingColumn = targetColumnCooling;
+    context.panelHeatingColumn = targetColumnHeating;
+
     let rowIndex = 3;
     while (rowIndex < 10) {
-        const coolingCell = {row: rowIndex, column: 4};
-        const heatingCell = {row: rowIndex, column: 5};
-        const countCell = {row: rowIndex, column: countColumn};
-        
+        const coolingCell = { row: rowIndex, column: 4 };
+        const heatingCell = { row: rowIndex, column: 5 };
+        const countCell = { row: rowIndex, column: countColumn };
+
         setFormula(summarySheet.getRow(rowIndex).getCell(targetColumnCooling), `${getCellName(coolingCell)}*${getCellName(countCell)}`);
         setFormula(summarySheet.getRow(rowIndex).getCell(targetColumnHeating), `${getCellName(heatingCell)}*${getCellName(countCell)}`);
         rowIndex++;
     }
+
+    for (let targetColumn of [targetColumnCooling, targetColumnHeating]) {
+        const columnSumRange = getRangeName({ c1: { row: 3, column: targetColumn }, c2: { row: 9, column: targetColumn } });
+        setFormula(summarySheet.getRow(11).getCell(targetColumn), SUM(columnSumRange));
+    }
+}
+
+function fillPanelPriceFormulas(context) {
+    const summarySheet = context.sheets.summarySheet;
+    const lastRoomColumn = context.lastRoomColumn;
+
+    const panelCountsColumn = context.panelCountColumn;
+    const targetColumn = lastRoomColumn + 5;
+    context.panelPriceColumn = targetColumn;
+
+    let rowIndex = 3;
+    while (rowIndex < 10) {
+        const type = summarySheet.getRow(rowIndex).getCell(7).value;
+        const price = PRICES.panels[type];
+
+        setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), `${getCellName({ row: rowIndex, column: panelCountsColumn })}*${price}`);
+        rowIndex++;
+    }
+
+    const columnSumRange = getRangeName({ c1: { row: 3, column: targetColumn }, c2: { row: 9, column: targetColumn } });
+    setFormula(summarySheet.getRow(11).getCell(targetColumn), SUM(columnSumRange));
+}
+
+function fillPanelPipeLengthFormulas(context) {
+    const summarySheet = context.sheets.summarySheet;
+    const lastRoomColumn = context.lastRoomColumn;
+
+    const panelCountsColumn = context.panelCountColumn;
+    const targetColumn = lastRoomColumn + 6;
+    context.panelPipeLengthColumn = targetColumn;
+
+    let rowIndex = 3;
+    while (rowIndex < 10) {
+        const pipeLength = getCellName({ row: rowIndex, column: 6 });
+
+        setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), `${getCellName({ row: rowIndex, column: panelCountsColumn })}*${pipeLength}`);
+        rowIndex++;
+    }
+
+    const columnSumRange = getRangeName({ c1: { row: 3, column: targetColumn }, c2: { row: 9, column: targetColumn } });
+    setFormula(summarySheet.getRow(11).getCell(targetColumn), SUM(columnSumRange));
+}
+
+function fillPanelAreaFormulas(context) {
+    const summarySheet = context.sheets.summarySheet;
+    const lastRoomColumn = context.lastRoomColumn;
+
+    const panelCountsColumn = context.panelCountColumn;
+    const targetColumn = lastRoomColumn + 7;
+    context.panelAreaColumn = targetColumn;
+
+    let rowIndex = 3;
+    while (rowIndex < 10) {
+        const area = getCellName({ row: rowIndex, column: 3 });
+
+        setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), `${getCellName({ row: rowIndex, column: panelCountsColumn })}*${area}`);
+        rowIndex++;
+    }
+
+    const columnSumRange = getRangeName({ c1: { row: 3, column: targetColumn }, c2: { row: 9, column: targetColumn } });
+    setFormula(summarySheet.getRow(11).getCell(targetColumn), SUM(columnSumRange));
+}
+
+function fillSummaryTable(context) {
+    const summarySheet = context.sheets.summarySheet;
+
+    const firstColumn = context.panelAreaColumn;
+    const secondColumn = firstColumn + 1;
+
+    const panelAreaColumn = context.panelAreaColumn;
+    const panelPriceColumn = context.panelPriceColumn;
+    const additionalElements = context.summary.additionalElements;
+    let rowIndex = 13;
+
+    // panelok összesen
+    let row = summarySheet.getRow(rowIndex);
+    let firstCell = row.getCell(firstColumn);
+    let secondCell = row.getCell(secondColumn);
+
+    setFormula(firstCell, getCellName({ row: 11, column: panelAreaColumn }));
+    setFormula(secondCell, getCellName({ row: 11, column: panelPriceColumn }));
+    rowIndex++;
+
+    // T-idomok
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+
+    const panelCountCellAddress = summarySheet.getRow(11).getCell(context.panelCountColumn).address;
+    const numberOfRoundsCellAddress = summarySheet.getRow(15).getCell(7).address;
+
+    setFormula(firstCell, `(${panelCountCellAddress} - ${numberOfRoundsCellAddress})*2`);
+    let elementSummary = additionalElements.tElements;
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${PRICES.tElement}`);
+    rowIndex++;
+
+    // Szűkítő
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+
+    const tElementsCellAddress = summarySheet.getRow(rowIndex - 1).getCell(firstColumn).address;
+    setFormula(firstCell, `${panelCountCellAddress}*2 - ${tElementsCellAddress}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${PRICES.confusor}`);
+    rowIndex++;
+
+    // osztógyüjtő
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+
+    const collectorsOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 5, PRICES.collectorTypes);
+    createDropDown(firstCell, collectorsOptionsRange.dropdown);
+    firstCell.value = 'nem kell';
+    setFormula(secondCell, VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'));
+    rowIndex++;
+
+    // osztógyüjtő
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+
+    createDropDown(row.getCell(firstColumn), collectorsOptionsRange.dropdown);
+    firstCell.value = 'nem kell';
+    setFormula(secondCell, VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'));
+    rowIndex++;
+
+    // CD30/60
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+    elementSummary = additionalElements.cd30_60;
+    firstCell.value = elementSummary.count;
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    rowIndex++;
+
+    // UD30
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+    elementSummary = additionalElements.ud30;
+    firstCell.value = elementSummary.count;
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    rowIndex++;
+
+    // gerinc cső+héj 16x2
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+    elementSummary = additionalElements.mainlineTube;
+    setFormula(firstCell, `${numberOfRoundsCellAddress}*20`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    rowIndex++;
+
+    // eurokónusz
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+    elementSummary = additionalElements.eurokonusz;
+    setFormula(firstCell, `${numberOfRoundsCellAddress}*2`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    rowIndex++;
+
+    // osztószekrény
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+
+    const distBoxOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 8, PRICES.distBox);
+    createDropDown(firstCell, distBoxOptionsRange.dropdown);
+    firstCell.value = 'nem kell';
+    setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
+    rowIndex++;
+
+    // osztószekrény
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+
+    createDropDown(firstCell, distBoxOptionsRange.dropdown);
+    firstCell.value = 'nem kell';
+    setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
+    rowIndex += 3;
+
+    // szállítás
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(firstColumn);
+    secondCell = row.getCell(secondColumn);
+    const transport = additionalElements.transport || null;
+
+    firstCell.value = transport;
+    const transportCost = PRICES.transport;
+    setFormula(secondCell, IF(`${firstCell.address}>0`, `${transportCost.a}*${firstCell.address}+${transportCost.b}`, 0));
+    rowIndex++;
+
+    // Összesen bruttó anyagdíj
+    row = summarySheet.getRow(rowIndex);
+    secondCell = row.getCell(secondColumn);
+    setFormula(secondCell, SUM(getRangeName({ c1: { row: 13, column: secondColumn }, c2: { row: rowIndex - 2, column: secondColumn } })));
+    rowIndex = 13;
+
+    // Másik kicsi tábla
+    const column = context.panelHeatingColumn;
+    row = summarySheet.getRow(rowIndex);
+    firstCell = row.getCell(column);
+    setFormula(firstCell, SUM(getRangeName({ c1: { row: 13, column: secondColumn }, c2: { row: 26, column: secondColumn } })));
+    rowIndex++;
+
+    row = summarySheet.getRow(rowIndex);
+    secondCell = row.getCell(column);
+    secondCell.value = 0;
+    rowIndex += 2;
+
+    row = summarySheet.getRow(rowIndex);
+    const thirdCell = row.getCell(column);
+    setFormula(thirdCell, SUM(`${firstCell.address}:${secondCell.address}`));
+}
+
+function adjustRoomColumnWidths(context) {
+    const summarySheet = context.sheets.summarySheet;
+
+    let columnIndex = 8;
+    while (columnIndex <= context.lastRoomColumn) {
+        summarySheet.getColumn(columnIndex++).width = 18;
+    }
+}
+
+function addPicture(context) {
+    screenContext.adjustForExport();
+
+    const workbook = context.workbook;
+    const blueprintSheet = context.sheets.blueprintSheet;
+    
+    const docSize = getDocumentDimensions();
+    const p = {
+        x: 100,
+        y: 60,
+        w: docSize.vw,
+        h: window.innerHeight
+    }
+
+    let extracted = get(p.x, p.y, p.w, p.h);
+    let buffer = createGraphics(p.w, p.h);
+    buffer.image(extracted, 0, 0);
+    const base64Image = buffer.elt.toDataURL("image/png");
+
+    const imageId = workbook.addImage({
+        buffer: base64ToArrayBuffer(base64Image.split(',')[1]),
+        extension: "png"
+    });
+
+    blueprintSheet.addImage(imageId, {
+        tl: { col: 0, row: 0 },
+        ext: { width: p.w, height: p.h }
+    });
+}
+
+function base64ToArrayBuffer(base64) {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes;
 }

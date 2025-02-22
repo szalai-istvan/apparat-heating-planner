@@ -86,8 +86,12 @@ class RoomContext {
 
     addPoint() {
         const selectedRoom = this.#selectedRoom;
-        if (selectedRoom && this.#pointIsValid()) {
-            selectedRoom.addPoint();
+        if (selectedRoom) {
+            if (this.#pointIsValid()) {
+                selectedRoom.addPoint();
+            } else {
+                displayErrorMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
+            }    
         }
     }
 
@@ -139,18 +143,30 @@ class RoomContext {
         return room;
     }
 
+    calculateUd30Amount() {
+        return this.#rooms.map(room => room.getCircumference()).reduce((a, b) => a + b, 0);
+    }
+
+    calculateCd3060Amount() {
+        return this.#rooms.map(room => room.getCd3060Amount()).reduce((a, b) => a + b, 0);
+    }
+
     // private
     #roomNameAlreadyExists(name) {
         return this.#rooms.map(room => room.getName().toLowerCase()).includes(name.toLowerCase());
     }
 
     #pointIsValid() {
+        if (this.#rooms.length < 2) {
+            return true;
+        }
+
         const pointIsNotInAnyRooms = this.#rooms.filter(r => r.pointIsInsideRoom()).length === 0;
         if (!pointIsNotInAnyRooms) {
             return false;
         }
-        return true;
-        // TODO ...
+        const pointsToValidate = this.#rooms.map(room => room.getPoints());
+        return this.#selectedRoom.validatePoints(pointsToValidate);
     }
 }
 

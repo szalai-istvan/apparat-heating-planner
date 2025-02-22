@@ -18,7 +18,7 @@ class Blueprint {
         }
         const topLeftCoordinates = this.#getTopLeftCoordinates();
 
-        image(data, 
+        image(data,
             topLeftCoordinates.x,
             topLeftCoordinates.y,
             data.width,
@@ -28,6 +28,16 @@ class Blueprint {
 
     dataIsPresent() {
         return Boolean(this.#data);
+    }
+
+    getSizeData() {
+        const data = this.#data
+        if (!data) {
+            return;
+        }
+
+        const p = this.#getTopLeftCoordinates();
+        return { x: p.x, y: p.y, w: data.width, h: data.height };
     }
 
     // private
