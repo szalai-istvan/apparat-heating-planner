@@ -85,4 +85,12 @@ function createButtons() {
         shouldBeRendered: () => panelContext.thereArePanels()
     });
 
+    new ButtonWrapper({
+        text: 'Készítő névjegye',
+        size: TALL_BUTTON_SIZE,
+        position: bottomPosition(TALL_BUTTON_SIZE),
+        onClick: () => displayDeveloperData(),
+        shouldBeRendered: () => true
+    });
+
 }

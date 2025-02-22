@@ -62,6 +62,10 @@ function sidePanelButtonPosition(row) {
     return {x: 10, y: 70 + row * (SMALL_BUTTON_SIZE.y + 5)};
 }
 
+function bottomPosition(size) {
+  return {x: 10, y: window.innerHeight - 10 - size.y};
+}
+
 function tooltipPosition() {
   const button4Position = topRibbonButtonPosition(4);
   return {x: button4Position.x, y: button4Position.y + REGULAR_BUTTON_SIZE.y / 2};
@@ -99,4 +103,8 @@ function formatNumber(num) {
 function roundNumber(number, decimals) {
   const x = 10**decimals;
   return Math.round(number * x) / x;
+}
+
+function displayDeveloperData() {
+  displayErrorMessage('Készítette: Szalai István<br/>e-mail: szalai.istvan95@gmail.com<br/>Tel.: +36 30 846 2686');
 }
