@@ -1,0 +1,15 @@
+declare function upload(): void;
+declare function handleFileSelect(event: any): void;
+declare function readPdfFile(reader: any): Promise<void>;
+declare function displayPageSelector(numberOfPages: any): void;
+declare function parsePdfPage(pageNumber: any): Promise<void>;
+declare const imageInput: HTMLElement | null;
+declare const fileUploadDialogConfirm: HTMLElement | null;
+declare const fileUploadDialogConfirmButton: HTMLElement | null;
+declare const fileUploadDialogCancelButton: HTMLElement | null;
+declare const pdfUploadDialog: HTMLElement | null;
+declare const pdfUploadDialogParagraph: HTMLElement | null;
+declare const pdfUploadDialogInput: HTMLElement | null;
+declare const pdfUploadDialogCloseButton: HTMLElement | null;
+declare var fileUploadButton: any;
+declare var pdf: any;

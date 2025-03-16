@@ -1,0 +1,21 @@
+declare function startExcelExport(transportKm: any): void;
+declare function createExcelFile(summary: any): Promise<{
+    roomNames: any[];
+    summary: any;
+} | undefined>;
+declare function loadExcelTemplate(): Promise<any>;
+declare function downloadExcel(context: any): void;
+declare function createColumnsForRooms(context: any): void;
+declare function fillRoomNames(context: any): void;
+declare function fillPanelCounts(context: any): void;
+declare function fillRoomSummaryFormulas(context: any): void;
+declare function fillPanelCountFormulas(context: any): void;
+declare function fillCoolingAndHeatingFormulas(context: any): void;
+declare function fillPanelPriceFormulas(context: any): void;
+declare function fillPanelPipeLengthFormulas(context: any): void;
+declare function fillPanelAreaFormulas(context: any): void;
+declare function fillSummaryTable(context: any): void;
+declare function adjustRoomColumnWidths(context: any): void;
+declare function addPicture(context: any): void;
+declare function base64ToArrayBuffer(base64: any): Uint8Array<ArrayBuffer>;
+declare let EXCEL_ARRAY_BUFFER: null;

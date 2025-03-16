@@ -1,0 +1,29 @@
+export class Constants {
+}
+Constants.REGULAR_BUTTON_SIZE = { x: 100, y: 40 };
+Constants.SMALL_BUTTON_SIZE = { x: 80, y: 30 };
+Constants.HALF_BUTTON_SIZE = { x: 40, y: 30 };
+Constants.TALL_BUTTON_SIZE = { x: 80, y: 60 };
+Constants.PANEL_TEXT_SIZE_IN_METERS = 0.18;
+Constants.PANEL_TEXT_POP_FACTOR = 0.1;
+Constants.PANEL_SELECTION_MULTIPLIER = 0.8;
+Constants.PANEL_FILL_COLOR = 'white';
+Constants.PANEL_CONTOUR_LINE_THICKNESS = 0.02;
+Constants.PANEL_LINE_THICKNESS = 0.01;
+Constants.PANEL_ELLIPSE_RADIUS = 0.24;
+Constants.PANEL_TUBE_EXTRA_LENGTH_PER_SIDE = 0.3;
+Constants.PANEL_TUBE_EXTRA_LENGTH_STEP = 0.03;
+Constants.PANEL_TEXT_RECT_SIZE_MUL = 1.4;
+Constants.ROOM_TEXT_SIZE_IN_METERS = 0.25;
+Constants.ROOM_TEXT_POP_FACTOR = 1.1;
+Constants.ROOM_LINE_WEIGHT_IN_METERS = 0.017;
+Constants.DEFAULT_TEXT_COLOR = 'black';
+Constants.SELECTED_TEXT_COLOR = 'red';
+Constants.IMAGE_CONTENT_TYPES = ['image/jpeg', 'image/png'];
+Constants.PDF_CONTENT_TYPE = 'application/pdf';
+Constants.BEAM_COLOR = 'lightgrey';
+Constants.BEAM_WIDTH_METER = 0.06;
+Constants.METERS_BETWEEN_BEAMS = 1;
+Constants.BEAM_MINIMUM_OFFSET_METERS = 0.1;
+Constants.BEAM_TEXT_SIZE_METER = 0.04;
+Constants.BEAM_TYPE = 'CD30/60 profil';
