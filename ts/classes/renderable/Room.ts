@@ -2,8 +2,11 @@ import { Constants } from "../../appdata/constants";
 import { CENTER, fill, line, pop, push, RIGHT, stroke, strokeWeight, text, textAlign, textSize, textWidth, TOP } from "../../declarations/declarations";
 import { maximumFunction, minimumFunction, pointIsInside, roundNumber } from "../../helpers/helpers";
 import { Coordinates, Renderable, Selectable } from "../../types/types";
+import { screenContext } from "../context/ScreenContext";
 import { renderer } from "../Renderer";
 import { Panel } from "./Panel";
+import { scaleContext } from "./ScaleContext";
+import { StructureElementsInRoom } from "./StructureElementsInRoom";
 import { tooltip } from "./Tooltip";
 
 export class Room implements Renderable, Selectable {
@@ -53,7 +56,7 @@ export class Room implements Renderable, Selectable {
         }
 
         this.drawRoomSize(points);
-        this.structureElementsInRoom.draw();
+        this.structureElementsInRoom.render();
     }
 
     public select(): void {
@@ -81,7 +84,7 @@ export class Room implements Renderable, Selectable {
         }
     }
 
-    public get _name(): string {
+    public getName(): string {
         return this.name;
     }
 
@@ -155,7 +158,7 @@ export class Room implements Renderable, Selectable {
     }
 
     public tryToRegisterPanel(panel: Panel): boolean {
-        return this.structureElementsInRoom.addPanelGroup(panel);
+        return this.structureElementsInRoom.tryToRegisterPanel(panel);
     }
 
     public removePanelFromRoom(panel: Panel): void {
@@ -163,7 +166,7 @@ export class Room implements Renderable, Selectable {
     }
 
     public TryToRegisterRotation(panel: Panel): boolean {
-        return this.structureElementsInRoom.registerRotation(panel);
+        return this.structureElementsInRoom.tryToRegisterRotation(panel);
     }
 
     public recalculateBeams(): void {
@@ -178,7 +181,7 @@ export class Room implements Renderable, Selectable {
         return this.structureElementsInRoom.getCd3060Amount();
     }
 
-    public validatePoints(pointsToValidate: Coordinates[]): boolean {
+    public validatePoints(pointsToValidate: Coordinates[][]): boolean {
         return true; // TODO később...
     }
 

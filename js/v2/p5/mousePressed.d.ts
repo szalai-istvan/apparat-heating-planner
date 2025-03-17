@@ -1,1 +1,0 @@
-declare function mousePressed(): void;

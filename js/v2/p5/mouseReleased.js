@@ -1,3 +1,0 @@
-function mouseReleased() {
-  screenContext.stopDragging();
-}

@@ -1,9 +1,16 @@
+import { ButtonWrapper } from "../classes/renderable/ButtonWrapper"
+
 export interface BlueprintSizeData extends Coordinates {
     w: number,
     h: number
 }
 
 export interface BoundaryPoints {
+    p1: Coordinates,
+    p2: Coordinates
+}
+
+export interface BeamDefinition {
     p1: Coordinates,
     p2: Coordinates
 }
@@ -35,6 +42,16 @@ export interface Selectable {
     tryToDeselect: Supplier<boolean>
 }
 
+export interface Selector<T extends Selectable> {
+    create: (param: string) => boolean,
+    select: (param?: T) => void,
+    tryToDeselect: Supplier<boolean>,
+    removeSelected: Supplier<void>,
+    checkForSelection: Supplier<T | null>,
+    clearSelectionCache: Supplier<void>,
+    clear: Supplier<void>
+}
+
 export interface PanelDrawOffsetParams {
     ratio: number,
     length: number,
@@ -47,4 +64,17 @@ export interface PanelType {
     pipeLength: number
 }
 
+export interface EditPanelButtons {
+    rotate: ButtonWrapper | null,
+    add: ButtonWrapper | null,
+    subtract: ButtonWrapper | null,
+    delete: ButtonWrapper | null
+}
+
 export type Supplier<T> = () => T;
+export type Reducer<T> = (a: T, b: T) => T;
+
+export interface DocumentDimensions {
+    vw: number,
+    vh: number
+}

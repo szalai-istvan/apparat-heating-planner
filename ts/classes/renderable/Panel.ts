@@ -1,10 +1,14 @@
 import { Constants } from "../../appdata/constants";
 import { PANEL_TYPES } from "../../appdata/panelTypes";
-import { arc, CENTER, fill, line, noFill, pop, push, rect, rotate, stroke, text, textAlign, textSize, textWidth, translate } from "../../declarations/declarations";
+import { arc, CENTER, fill, line, noFill, pop, push, rect, rotate, stroke, strokeWeight, text, textAlign, textSize, textWidth, translate } from "../../declarations/declarations";
+import { displayErrorMessage } from "../../helpers/errordialog";
 import { isNullOrUndefined, pointIsInside } from "../../helpers/helpers";
 import { BoundaryPoints, Coordinates, Dimensions, PanelDrawOffsetParams, PanelType, Renderable, Selectable } from "../../types/types";
+import { screenContext } from "../context/ScreenContext";
 import { renderer } from "../Renderer";
+import { roomSelector } from "../selector/RoomSelector";
 import { Room } from "./Room";
+import { scaleContext } from "./ScaleContext";
 
 export class Panel implements Renderable, Selectable {
     private type: string = '';
@@ -60,7 +64,7 @@ export class Panel implements Renderable, Selectable {
             this.position = this.mousePositionToPosition();
         }
 
-        const destinationRoom: Room | null = roomContext.registerRelocatedPanelGroup(this);
+        const destinationRoom: Room | null = roomSelector.registerRelocatedPanelGroup(this);
         if (destinationRoom === null) {
             // TODO displayErrorMessage inkább itt
             return false;
@@ -151,7 +155,7 @@ export class Panel implements Renderable, Selectable {
                 y: firstPosition.y + i * (this.alignment ? 0 : this.widthInPixels)
             };
 
-            const room = roomContext.getRoomContainingPoint(offsetPosition);
+            const room = roomSelector.getRoomContainingPoint(offsetPosition);
 
             quotePanels.push(new QuotePanel(this.type, this.details, room));
             i++;
@@ -230,7 +234,7 @@ export class Panel implements Renderable, Selectable {
         this.widthInPixels = this.details.width * ratio;
     }
 
-    public get _isSelectedForDrag(): boolean {
+    public selectedForDrag(): boolean {
         return this.isSelectedForDrag;
     }
 
@@ -240,6 +244,24 @@ export class Panel implements Renderable, Selectable {
 
     public getSizeInPixels(): Dimensions {
         return { length: this.lengthInPixels, width: this.widthInPixels };
+    }
+
+    
+    public getTopLeftCornerCoordinates(alignment?: number): Coordinates {
+        alignment = alignment ?? this.alignment;
+
+        if (alignment === this.alignment) {
+            return this.position;
+        }
+
+        const offsetX = (this.lengthInPixels + this.widthInPixels * this.numberOfPanelsInGroup) / 2;
+        const offsetY = (this.widthInPixels * this.numberOfPanelsInGroup - this.lengthInPixels) / 2;
+        const alignmentMultiplier = -1 * ((-1) ** alignment);
+
+        return {
+            x: this.position.x + alignmentMultiplier * offsetX,
+            y: this.position.y + alignmentMultiplier * offsetY
+        };
     }
 
     // private
@@ -287,23 +309,6 @@ export class Panel implements Renderable, Selectable {
         return {
             x: this.lengthInPixels * 0.5,
             y: this.widthInPixels * (0.5 + offset)
-        };
-    }
-
-    private getTopLeftCornerCoordinates(alignment?: number): Coordinates {
-        alignment = alignment ?? this.alignment;
-
-        if (alignment === this.alignment) {
-            return this.position;
-        }
-
-        const offsetX = (this.lengthInPixels + this.widthInPixels * this.numberOfPanelsInGroup) / 2;
-        const offsetY = (this.widthInPixels * this.numberOfPanelsInGroup - this.lengthInPixels) / 2;
-        const alignmentMultiplier = -1 * ((-1) ** alignment);
-
-        return {
-            x: this.position.x + alignmentMultiplier * offsetX,
-            y: this.position.y + alignmentMultiplier * offsetY
         };
     }
 
@@ -435,8 +440,4 @@ export class Panel implements Renderable, Selectable {
         const angle2 = side ? 90 : 270;
         arc(x2, centerY, diameter, diameter, angle1, angle2);
     }
-}
-
-function strokeWeight(countourLineWeight: number) {
-    throw new Error("Function not implemented.");
 }

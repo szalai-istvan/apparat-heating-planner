@@ -11,7 +11,6 @@ export class Blueprint implements Renderable {
         renderer.register(this);
     }
 
-    // public
     public setBlueprintData(data: any): void {
         this.data = data;
         tooltip.fileIsUploaded();

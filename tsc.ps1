@@ -1,2 +1,2 @@
-rm ./dist -r -force;
+rm ./js -r -force;
 tsc;
