@@ -8,23 +8,23 @@ class PanelRenderer {
         const ratio = scaleContext.pixelsPerMetersRatio;
         const length = panel.lengthInPixels;
         const width = panel.widthInPixels;
-        const coordinates = panel.isSelectedForDrag ? PanelManager.mousePositionAsCenterOfPanel(panel) : panel.position;
-        push();
-        translate(coordinates.x, coordinates.y);
-        rotate(panel.alignment * 90);
+        const coordinates = panel.isSelectedForDrag ? PanelManager.mousePositionAsCenterOfPanel(panel) : panel.topLeftCoordinates;
+        PanelRenderer.translateAndRotate(panel, coordinates);
 
         for(let offset = 0; offset < panel.numberOfPanelsInGroup; offset++) {
             PanelRenderer.drawWithOffset({panel, ratio, length, width, offset});
         }
 
-        translate(-coordinates.x, -coordinates.y);
-        pop();
+        PanelRenderer.translateBack(coordinates);
     }
 
     static drawType(panel) {
         if (getClassName(panel) !== 'Panel') {
             throw new Error('PanelRenderer can only render Panels!');
         }
+
+        const coordinates = panel.isSelectedForDrag ? PanelManager.mousePositionAsCenterOfPanel(panel) : panel.topLeftCoordinates;
+        PanelRenderer.translateAndRotate(panel, coordinates);
 
         for (let offset = 0; offset < panel.numberOfPanelsInGroup; offset++) {
             const coordinates = PanelRenderer.getTextCenter(panel, offset);
@@ -40,7 +40,7 @@ class PanelRenderer {
             );
     
             textAlign(CENTER, CENTER);
-            const pointIsInsideText = PanelManager.mouseCursorIsInsideText();
+            const pointIsInsideText = PanelManager.mouseCursorIsInsideText(panel);
             if (pointIsInsideText || (panel.isSelected && !panel.isSelectedForDrag)) {
                 fill(SELECTED_TEXT_COLOR);
             } else {
@@ -51,6 +51,7 @@ class PanelRenderer {
             textSize(panel.textSize * (1 + p * panel.isSelected + p * pointIsInsideText));
             text(panel.type, coordinates.x, coordinates.y);
         }
+        PanelRenderer.translateBack(coordinates);
     }
 
     static drawWithOffset({panel, ratio, length, width, offset}) {
@@ -69,7 +70,7 @@ class PanelRenderer {
             line(0, pipeNumber, length, pipeNumber);
         }
 
-        PanelRenderer.drawTubes({ratio, length, width, offset});
+        PanelRenderer.drawTubes({panel, ratio, length, width, offset});
         translate(0, -widthOffset);
     }
 
@@ -82,18 +83,21 @@ class PanelRenderer {
         strokeWeight(panel.lineWeight);
 
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 3,
             endpoint2: 8,
             length: panelTubeExtraLength,
             side: 0
         });
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 4,
             endpoint2: 7,
             length: panelTubeExtraLength - panelStep,
             side: 0
         });
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 5,
             endpoint2: 6,
             length: panelTubeExtraLength - 2 * panelStep,
@@ -101,24 +105,28 @@ class PanelRenderer {
         });
 
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 1,
             endpoint2: 8,
             length: panelTubeExtraLength,
             side: 1
         });
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 2,
             endpoint2: 7,
             length: panelTubeExtraLength - panelStep,
             side: 1
         });
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 3,
             endpoint2: 6,
             length: panelTubeExtraLength - 2 * panelStep,
             side: 1
         });
         PanelRenderer.drawOneTube({
+            panel: panel,
             endpoint1: 4,
             endpoint2: 5,
             length: panelTubeExtraLength - 3 * panelStep,
@@ -132,7 +140,7 @@ class PanelRenderer {
         line(0, y2, x2, y2);
     }
 
-    static drawOneTube({endpoint1, endpoint2, length, side}) {
+    static drawOneTube({panel, endpoint1, endpoint2, length, side}) {
         const diameter = Math.abs(endpoint2 - endpoint1) * panel.widthInPixels / 9;
         const straightLength = length - diameter / 2;
 
@@ -150,10 +158,22 @@ class PanelRenderer {
         arc(x2, centerY, diameter, diameter, angle1, angle2);
     }
 
+    static translateAndRotate(panel, coordinates) {
+        push();
+        translate(coordinates.x, coordinates.y);
+        rotate(panel.alignment * 90);
+    }
+
+    static translateBack(coordinates) {
+        translate(-coordinates.x, -coordinates.y);
+        pop();
+
+    }
+
     static getTextCenter(panel, offset) {
         return {
-            x: this.lengthInPixels * 0.5,
-            y: this.widthInPixels * (0.5 + offset)
+            x: panel.lengthInPixels * 0.5,
+            y: panel.widthInPixels * (0.5 + offset)
         };
     }
 }

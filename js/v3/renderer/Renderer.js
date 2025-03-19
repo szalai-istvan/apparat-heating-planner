@@ -8,9 +8,9 @@ class Renderer {
     scaleContext = null;
     tooltip = null;
 
-    constructor() {}
+    constructor() { }
 
-    
+
     register(obj) {
         const className = getClassName(obj);
         if (!className) {
@@ -40,14 +40,23 @@ class Renderer {
         this.bluePrints.forEach(bluePrint => BlueprintRenderer.draw(bluePrint));
         this.panels.forEach(panel => PanelRenderer.draw(panel));
         this.beams.forEach(beam => StructureElementsInRoomRenderer.draw(beam));
+        this.panels.forEach(panel => PanelRenderer.drawType(panel));
         this.rooms.forEach(room => RoomRenderer.draw(room));
         ScaleContextRenderer.draw(this.scaleContext);
         this.buttons.forEach(button => ButtonWrapperRenderer.draw(button));
 
+        if (debugEnabled) {
+            DebugInfoRenderer.drawAxis();
+        }
     }
 
     renderAbsolutePositionObjects() {
+        UiBackgroundRenderer.drawUiBackground();
         TooltipRenderer.draw(this.tooltip);
+
+        if (debugEnabled) {
+            DebugInfoRenderer.drawCursorDebugInfo();
+        }
     }
 
     remove(obj) {
@@ -57,13 +66,13 @@ class Renderer {
         }
 
         if (className === 'Panel') {
-            this.panels = this.panels.filter(x => x !== obj); 
+            this.panels = this.panels.filter(x => x !== obj);
         } else if (className === 'Room') {
-            this.rooms = this.rooms.filter(x => x !== obj); 
+            this.rooms = this.rooms.filter(x => x !== obj);
         } else if (className === 'StructureElementsInRoom') {
-            this.beams = this.beams.filter(x => x !== obj); 
+            this.beams = this.beams.filter(x => x !== obj);
         } else if (className === 'Blueprint') {
-            this.beams = this.bluePrints.filter(x => x !== obj); 
+            this.beams = this.bluePrints.filter(x => x !== obj);
         } else {
             throw new Error(`Deleting render object of type ${className} is unspecified.`);
         }

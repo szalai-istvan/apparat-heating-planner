@@ -9,8 +9,8 @@ class RoomManager {
         } else {
             points.push(mousePosition);
             if (points.length >= 2) {
-                room.middlePoint = RoomRenderer.getMiddlePoint(room);
-                selectionContext.deselect();
+                room.middlePoint = RoomManager.getMiddlePoint(room);
+                selectionContext.tryToDeselect();
                 tooltip.roomAddingFinished();
             }
         }

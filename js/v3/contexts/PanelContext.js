@@ -21,7 +21,7 @@ class PanelContext {
         if (!panel) return;
 
         if (panel === this.selectedPanel) {
-            PanelManager.selectForDrag(panel);
+            PanelSelector.selectForDrag(panel);
             tooltip.panelSelectedForDrag();
             return;
         }

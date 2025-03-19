@@ -59,7 +59,7 @@ class RoomContext {
             return this.cachedSelection;
         }
 
-        const selection = this.rooms.filter(r => r.pointIsInsideText());
+        const selection = this.rooms.filter(r => RoomManager.mouseCursorIsInsideName(r));
         const room = selection[0];
         if (room) {
             if (room !== this.selectedRoom) {
@@ -78,7 +78,7 @@ class RoomContext {
     clear() {
         this.rooms.forEach(room => RoomSelector.remove(room));
         this.rooms = [];
-        selectionContext.deselect();
+        selectionContext.tryToDeselect();
         panelContext.clear();
     }
 
@@ -122,11 +122,11 @@ class RoomContext {
     }
 
     registerRelocatedPanelGroupAndReturnContainingRoom(panel) {
-        const boundaryPoints = panel.getBoundaryPoints();
+        const boundaryPoints = PanelManager.getBoundaryPoints(panel);
         const p1 = boundaryPoints.p1;
         const p2 = boundaryPoints.p2;
 
-        const room = this.rooms.filter(room => RoomManager.pointIsInsideRoom(r, p1) && RoomManager.pointIsInsideRoom(r, p2))[0];
+        const room = this.rooms.filter(r => RoomManager.pointIsInsideRoom(r, p1) && RoomManager.pointIsInsideRoom(r, p2))[0];
         if (!room) {
             displayErrorMessage('A panelcsoport része vagy egésze szobán kívül van!<br/>Helyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
             return undefined;

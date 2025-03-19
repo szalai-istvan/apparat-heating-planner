@@ -8,7 +8,7 @@ function mousePressed() {
       scaleContext.addReferencePoint();
     }
     roomContext.addPoint();
-    selectionContext.deselect();
+    selectionContext.tryToDeselect();
     
   } else if (mouseButton === 'left') {
     screenContext.startDragging();

@@ -1,7 +1,7 @@
 class StructureElementManager {
 
     static tryToAddPanelGroup(structureElements, panel) {
-        const panelAlignment = panel.getAlignment();
+        const panelAlignment = panel.alignment;
         if (structureElements.alignment === undefined || panelAlignment === structureElements.alignment) {
             StructureElementManager.setAlignment(structureElements, panelAlignment);
             if (!structureElements.panels.includes(panel)) {
@@ -65,10 +65,10 @@ class StructureElementManager {
         const roomTopRight = StructureElementManager.getRoomTopRightCornerCoordinates(structureElements);
 
         for (let p of structureElements.panels) {
-            const panelTopLeft = p.getTopLeftCornerCoordinates();
-            const panelWidth = p.getSizeInPixels().width;
-
-            for (let offset = 0; offset <= p.getNumberOfPanelsInGroup(); offset++) {
+            const panelTopLeft = PanelManager.getTopLeftCornerCoordinates(p);
+            const panelWidth = PanelManager.getSizeInPixels(p).width;
+            
+            for (let offset = 0; offset <= p.numberOfPanelsInGroup; offset++) {
                 const y = panelTopLeft.y + offset * panelWidth;
                 const beamDefinition = StructureElementManager.createBeamDefinition(roomTopLeft.x, y, roomTopRight.x, y);
                 structureElements.alignedBeams.push(beamDefinition);
@@ -104,10 +104,10 @@ class StructureElementManager {
         const roomBottomLeft = StructureElementManager.getRoomBottomLeftCornerCoordinates(structureElements);
 
         for (let p of structureElements.panels) {
-            const panelTopLeft = p.getTopLeftCornerCoordinates();
-            const panelWidth = p.getSizeInPixels().width;
+            const panelTopLeft = PanelManager.getTopLeftCornerCoordinates(p);
+            const panelWidth = PanelManager.getSizeInPixels(p).width;
 
-            for (let offset = 0; offset <= p.getNumberOfPanelsInGroup(); offset++) {
+            for (let offset = 0; offset <= p.numberOfPanelsInGroup; offset++) {
                 const x = panelTopLeft.x - offset * panelWidth;
                 const beamDefinition = StructureElementManager.createBeamDefinition(x, roomTopLeft.y, x, roomBottomLeft.y);
                 structureElements.alignedBeams.push(beamDefinition);

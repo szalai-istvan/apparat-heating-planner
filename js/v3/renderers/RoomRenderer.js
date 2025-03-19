@@ -63,7 +63,7 @@ class RoomRenderer {
     static updateSettingsToText(room) {
         push();
         textAlign(CENTER, CENTER);
-        if (RoomManager.mouseCursorIsInsideName()) {
+        if (RoomManager.mouseCursorIsInsideName(room)) {
             fill(SELECTED_TEXT_COLOR);
             textSize(room.textSize * ROOM_TEXT_POP_FACTOR);
         } else {
@@ -75,10 +75,10 @@ class RoomRenderer {
     static drawRoomSize(room, points) {
         const topY = points.map(p => p.y).reduce(minimumFunction);
         const rightX = points.map(p => p.x).reduce(maximumFunction);
-        const middlePoint = room.getMiddlePoint();
+        const middlePoint = RoomManager.getMiddlePoint(room);
 
-        const width = `${roundNumber(room.getWidthInMeters(points), 1)} m`;
-        const height = `${roundNumber(room.getHeightInMeters(points), 1)} m`;
+        const width = `${roundNumber(RoomManager.getWidthInMeters(room, points), 1)} m`;
+        const height = `${roundNumber(RoomManager.getHeightInMeters(room, points), 1)} m`;
 
         textSize(room.textSize);
 
