@@ -73,10 +73,10 @@ class PanelManager {
 
     static addToGroup(panel) {
         const newGroupNumber = (panel.numberOfPanelsInGroup + 1);
-        const boundaryPoints = panel.getBoundaryPoints(newGroupNumber, panel.alignment);
-        if (panel.validateBoundaryPoints(boundaryPoints)) {
+        const boundaryPoints = PanelManager.getBoundaryPoints(panel, newGroupNumber, panel.alignment);
+        if (PanelManager.validateBoundaryPoints(panel, boundaryPoints)) {
             panel.numberOfPanelsInGroup = newGroupNumber;
-            panel.room && panel.room.recalculateBeams();
+            panel.room && RoomManager.recalculateBeams(panel.room);
         } else {
             displayErrorMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt hozzáad a csoporthoz!');
         }
@@ -84,13 +84,12 @@ class PanelManager {
 
     static removeFromGroup(panel) {
         panel.numberOfPanelsInGroup = Math.max(panel.numberOfPanelsInGroup - 1, 1);
-        panel.room && panel.room.recalculateBeams();
+        panel.room && RoomManager.recalculateBeams(panel.room);
     }
 
     static getSizeInPixels(panel) {
         return { length: panel.lengthInPixels, width: panel.widthInPixels };
     }
-
 
     static getFirstCenterPositionAbsolute(panel) {
         const position = panel.topLeftCoordinates;
@@ -110,7 +109,7 @@ class PanelManager {
         numberOfPanels = numberOfPanels || panel.numberOfPanelsInGroup;
         alignment = alignment ?? panel.alignment;
 
-        const coordinates = panel.isSelectedForDrag ? panel.mousePositionAsCenterOfPanel() : panel.getTopLeftCornerCoordinates(alignment);
+        const coordinates = panel.isSelectedForDrag ? PanelManager.mousePositionAsCenterOfPanel(panel) : PanelManager.getTopLeftCornerCoordinates(panel, alignment);
         const extraLength = PANEL_TUBE_EXTRA_LENGTH_PER_SIDE * scaleContext.pixelsPerMetersRatio;
 
         let p1;
@@ -163,6 +162,6 @@ class PanelManager {
         if (!panel.room || panel.isSelectedForDrag) {
             return true;
         }
-        return panel.room.pointIsInsideRoom(boundaryPoints.p1) && panel.room.pointIsInsideRoom(boundaryPoints.p2);
+        return RoomManager.pointIsInsideRoom(panel.room, boundaryPoints.p1) && RoomManager.pointIsInsideRoom(panel.room, boundaryPoints.p2);
     }
 }

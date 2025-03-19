@@ -3,11 +3,10 @@ class StructureElementManager {
     static tryToAddPanelGroup(structureElements, panel) {
         const panelAlignment = panel.getAlignment();
         if (structureElements.alignment === undefined || panelAlignment === structureElements.alignment) {
-            structureElements.setAlignment(panelAlignment);
+            StructureElementManager.setAlignment(structureElements, panelAlignment);
             if (!structureElements.panels.includes(panel)) {
                 structureElements.panels.push(panel);
-                structureElements.recalculateBeams();
-                structureElements.calculateAdjustmentIfNecessary(panel);
+                StructureElementManager.recalculateBeams(structureElements);
             }
             return true;
         }
@@ -16,9 +15,9 @@ class StructureElementManager {
 
     static removePanelGroup(structureElements, panel) {
         structureElements.panels = structureElements.panels.filter(p => p !== panel);
-        structureElements.recalculateBeams();
+        StructureElementManager.recalculateBeams(structureElements);
         if (structureElements.panels.length === 0) {
-            structureElements.setAlignment(undefined);
+            StructureElementManager.setAlignment(structureElements, undefined);
         }
     }
 
@@ -27,7 +26,7 @@ class StructureElementManager {
             return true;
         }
         if (structureElements.panels.length < 2 && structureElements.panels[0] === panel) {
-            structureElements.setAlignment((panel.getAlignment() + 1) % 2);
+            StructureElementManager.setAlignment(structureElements, (panel.alignment + 1) % 2)
             return true;
         }
         displayErrorMessage('A panel elforgatásának hatására egymásra merőleges panelek szerepelnének a szobában!<br/>Mozgasson, vagy távolítson el paneleket, mielőtt elforgatja!');
@@ -35,7 +34,7 @@ class StructureElementManager {
     }
 
     static clear(structureElements) {
-        structureElements.panels.forEach(p => p.remove());
+        structureElements.panels.forEach(p => PanelSelector.remove(p));
         structureElements.panels = [];
         structureElements.alignedBeams = [];
         structureElements.crossBeams = [];
@@ -46,24 +45,24 @@ class StructureElementManager {
         structureElements.crossBeams = [];
 
         if (structureElements.alignment) {
-            structureElements.recalculateAlignedBeamsVertical();
-            structureElements.recalculateCrossBeamsVertical();
+            StructureElementManager.recalculateAlignedBeamsVertical(structureElements);
+            StructureElementManager.recalculateCrossBeamsVertical(structureElements);
         } else {
-            structureElements.recalculateAlignedBeamsHorizontal();
-            structureElements.recalculateCrossBeamsHorizontal();
+            StructureElementManager.recalculateAlignedBeamsHorizontal(structureElements);
+            StructureElementManager.recalculateCrossBeamsHorizontal(structureElements);
         }
     }
 
     static getCd3060Amount(structureElements) {
-        const aligned = structureElements.alignedBeams.map(beam => structureElements.getLength(beam)).reduce((a, b) => a + b, 0);
-        const crossed = structureElements.crossBeams.map(beam => structureElements.getLength(beam)).reduce((a, b) => a + b, 0);
+        const aligned = structureElements.alignedBeams.map(beam => StructureElementManager.getLength(beam)).reduce((a, b) => a + b, 0);
+        const crossed = structureElements.crossBeams.map(beam => StructureElementManager.getLength(beam)).reduce((a, b) => a + b, 0);
 
         return aligned + crossed;
     }
 
     static recalculateAlignedBeamsHorizontal(structureElements) {
-        const roomTopLeft = structureElements.getRoomTopLeftCornerCoordinates();
-        const roomTopRight = structureElements.getRoomTopRightCornerCoordinates();
+        const roomTopLeft = StructureElementManager.getRoomTopLeftCornerCoordinates(structureElements);
+        const roomTopRight = StructureElementManager.getRoomTopRightCornerCoordinates(structureElements);
 
         for (let p of structureElements.panels) {
             const panelTopLeft = p.getTopLeftCornerCoordinates();
@@ -71,16 +70,16 @@ class StructureElementManager {
 
             for (let offset = 0; offset <= p.getNumberOfPanelsInGroup(); offset++) {
                 const y = panelTopLeft.y + offset * panelWidth;
-                const beamDefinition = structureElements.createBeamDefinition(roomTopLeft.x, y, roomTopRight.x, y);
+                const beamDefinition = StructureElementManager.createBeamDefinition(roomTopLeft.x, y, roomTopRight.x, y);
                 structureElements.alignedBeams.push(beamDefinition);
             }
         }
     }
 
     static recalculateCrossBeamsHorizontal(structureElements) {
-        const roomTopLeft = structureElements.getRoomTopLeftCornerCoordinates();
-        const roomBottomLeft = structureElements.getRoomBottomLeftCornerCoordinates();
-        const roomBottomRight = structureElements.getRoomBottomRightCornerCoordinates();
+        const roomTopLeft = StructureElementManager.getRoomTopLeftCornerCoordinates(structureElements);
+        const roomBottomLeft = StructureElementManager.getRoomBottomLeftCornerCoordinates(structureElements);
+        const roomBottomRight = StructureElementManager.getRoomBottomRightCornerCoordinates(structureElements);
 
         const roomWidthPixels = roomBottomRight.x - roomBottomLeft.x;
         const pixelsBetweenBeams = METERS_BETWEEN_BEAMS * scaleContext.pixelsPerMetersRatio;
@@ -94,15 +93,15 @@ class StructureElementManager {
         const y1 = roomTopLeft.y;
         const y2 = roomBottomLeft.y;
         while (x < (roomBottomRight.x - minimumOffset)) {
-            const beam = structureElements.createBeamDefinition(x, y1, x, y2);
+            const beam = StructureElementManager.createBeamDefinition(x, y1, x, y2);
             structureElements.crossBeams.push(beam);
             x += pixelsBetweenBeams;
         }
     }
 
     static recalculateAlignedBeamsVertical(structureElements) {
-        const roomTopLeft = structureElements.getRoomTopLeftCornerCoordinates();
-        const roomBottomLeft = structureElements.getRoomBottomLeftCornerCoordinates();
+        const roomTopLeft = StructureElementManager.getRoomTopLeftCornerCoordinates(structureElements);
+        const roomBottomLeft = StructureElementManager.getRoomBottomLeftCornerCoordinates(structureElements);
 
         for (let p of structureElements.panels) {
             const panelTopLeft = p.getTopLeftCornerCoordinates();
@@ -110,16 +109,16 @@ class StructureElementManager {
 
             for (let offset = 0; offset <= p.getNumberOfPanelsInGroup(); offset++) {
                 const x = panelTopLeft.x - offset * panelWidth;
-                const beamDefinition = structureElements.createBeamDefinition(x, roomTopLeft.y, x, roomBottomLeft.y);
+                const beamDefinition = StructureElementManager.createBeamDefinition(x, roomTopLeft.y, x, roomBottomLeft.y);
                 structureElements.alignedBeams.push(beamDefinition);
             }
         }
     }
 
     static recalculateCrossBeamsVertical(structureElements) {
-        const roomTopLeft = structureElements.getRoomTopLeftCornerCoordinates();
-        const roomBottomLeft = structureElements.getRoomBottomLeftCornerCoordinates();
-        const roomBottomRight = structureElements.getRoomBottomRightCornerCoordinates();
+        const roomTopLeft = StructureElementManager.getRoomTopLeftCornerCoordinates(structureElements);
+        const roomBottomLeft = StructureElementManager.getRoomBottomLeftCornerCoordinates(structureElements);
+        const roomBottomRight = StructureElementManager.getRoomBottomRightCornerCoordinates(structureElements);
 
         const roomHeightPixels = roomBottomLeft.y - roomTopLeft.y;
         const pixelsBetweenBeams = METERS_BETWEEN_BEAMS * scaleContext.pixelsPerMetersRatio;
@@ -133,37 +132,30 @@ class StructureElementManager {
         const x1 = roomBottomLeft.x;
         const x2 = roomBottomRight.x;
         while (y < (roomBottomLeft.y - minimumOffset)) {
-            const beam = structureElements.createBeamDefinition(x1, y, x2, y);
+            const beam = StructureElementManager.createBeamDefinition(x1, y, x2, y);
             structureElements.crossBeams.push(beam);
             y += pixelsBetweenBeams;
         }
     }
 
-    createBeamDefinition(x1, y1, x2, y2) {
-        return {
-            p1: { x: x1, y: y1 },
-            p2: { x: x2, y: y2 }
-        };
-    }
-
     static getRoomTopLeftCornerCoordinates(structureElements) {
-        return structureElements.getRoomCornerCoordinates(minimumFunction, minimumFunction);
+        return StructureElementManager.getRoomCornerCoordinates(structureElements, minimumFunction, minimumFunction);
     }
 
     static getRoomTopRightCornerCoordinates(structureElements) {
-        return structureElements.getRoomCornerCoordinates(maximumFunction, minimumFunction);
+        return StructureElementManager.getRoomCornerCoordinates(structureElements, maximumFunction, minimumFunction);
     }
 
     static getRoomBottomLeftCornerCoordinates(structureElements) {
-        return structureElements.getRoomCornerCoordinates(minimumFunction, maximumFunction);
+        return StructureElementManager.getRoomCornerCoordinates(structureElements, minimumFunction, maximumFunction);
     }
 
     static getRoomBottomRightCornerCoordinates(structureElements) {
-        return structureElements.getRoomCornerCoordinates(maximumFunction, maximumFunction);
+        return StructureElementManager.getRoomCornerCoordinates(structureElements, maximumFunction, maximumFunction);
     }
 
     static getRoomCornerCoordinates(structureElements, xReducer, yReducer) {
-        const points = structureElements.room.getPoints();
+        const points = structureElements.room.points;
         const x = points.map(p => p.x).reduce(xReducer);
         const y = points.map(p => p.y).reduce(yReducer);
         return { x, y };
@@ -172,15 +164,22 @@ class StructureElementManager {
     static setAlignment(structureElements, alignment) {
         structureElements.alignment = alignment;
         if (alignment === 0) {
-            structureElements.drawAlignedBeamsFunc = () => structureElements.alignedBeams.forEach(beam => structureElements.drawHorizontalBeam(beam));
-            structureElements.drawCrossBeamsFunc = () => structureElements.crossBeams.forEach(beam => structureElements.drawVerticalBeam(beam));
+            structureElements.drawAlignedBeamsFunc = () => structureElements.alignedBeams.forEach(beam => StructureElementsInRoomRenderer.drawHorizontalBeam(structureElements, beam));
+            structureElements.drawCrossBeamsFunc = () => structureElements.crossBeams.forEach(beam => StructureElementsInRoomRenderer.drawVerticalBeam(structureElements, beam));
         } else if (alignment === 1) {
-            structureElements.drawAlignedBeamsFunc = () => structureElements.alignedBeams.forEach(beam => structureElements.drawVerticalBeam(beam));
-            structureElements.drawCrossBeamsFunc = () => structureElements.crossBeams.forEach(beam => structureElements.drawHorizontalBeam(beam));
+            structureElements.drawAlignedBeamsFunc = () => structureElements.alignedBeams.forEach(beam => StructureElementsInRoomRenderer.drawVerticalBeam(structureElements, beam));
+            structureElements.drawCrossBeamsFunc = () => structureElements.crossBeams.forEach(beam => StructureElementsInRoomRenderer.drawHorizontalBeam(structureElements, beam));
         } else {
             structureElements.drawAlignedBeamsFunc = undefined;
             structureElements.drawCrossBeamsFunc = undefined;
         }
+    }
+    
+    static createBeamDefinition(x1, y1, x2, y2) {
+        return {
+            p1: { x: x1, y: y1 },
+            p2: { x: x2, y: y2 }
+        };
     }
 
     static getLength(beam) {

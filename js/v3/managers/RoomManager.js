@@ -72,7 +72,7 @@ class RoomManager {
 
         
     static getMiddlePoint(room, points = undefined) {
-        points = points || room.getPointsToDraw();
+        points = points || RoomRenderer.getPointsToDraw(room);
         const length = points.length;
         if (length === 0) {
             return;
@@ -85,11 +85,11 @@ class RoomManager {
     }
 
     static getArea(room) {
-        return room.getWidthInMeters() * room.getHeightInMeters();
+        return RoomManager.getWidthInMeters(room) * RoomManager.getHeightInMeters(room);
     }
 
     static getCircumference(room) {
-        return 2 * (room.getWidthInMeters() + room.getHeightInMeters());
+        return 2 * (RoomManager.getWidthInMeters(room) + RoomManager.getHeightInMeters(room));
     }
 
     static tryToRegisterPanelGroup(room, panel) {
@@ -101,14 +101,14 @@ class RoomManager {
     }
 
     static registerRotation(room, panel) {
-        return room.structureElementsInRoom.registerRotation(panel);
+        return StructureElementManager.registerRotation(room.structureElementsInRoom, panel);
     }
 
     static recalculateBeams(room) {
-        room.structureElementsInRoom.recalculateBeams();
+        StructureElementManager.recalculateBeams(room.structureElementsInRoom);
     }
 
     static getCd3060Amount(room) {
-        return room.structureElementsInRoom.getCd3060Amount();
+        return StructureElementManager.getCd3060Amount(room.structureElementsInRoom);
     }
 }
