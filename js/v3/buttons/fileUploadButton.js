@@ -1,3 +1,5 @@
+var fileUploadButton;
+
 const imageInput = document.getElementById('imageInput');
 
 const fileUploadDialogConfirm = document.getElementById('fileUploadDialogConfirm');
@@ -8,9 +10,6 @@ const pdfUploadDialog = document.getElementById('pdfUploadDialog');
 const pdfUploadDialogParagraph = document.getElementById('pdfUploadDialogParagraph');
 const pdfUploadDialogInput = document.getElementById('pdfUploadDialogInput');
 const pdfUploadDialogCloseButton = document.getElementById('pdfUploadDialogCloseButton');
-
-
-var fileUploadButton;
 
 imageInput.addEventListener('change', handleFileSelect);
 
@@ -46,7 +45,7 @@ function handleFileSelect(event) {
     reader.onload = function (event) {
       const img = new Image();
       img.src = event.target.result;
-      blueprint.setBlueprintData(loadImage(img.src));
+      blueprintContext.createBlueprint(loadImage(img.src));
       scaleContext.clear();
     };
     reader.readAsDataURL(file);
@@ -103,7 +102,7 @@ async function parsePdfPage(pageNumber) {
   const renderContext = { canvasContext: context, viewport };
   await page.render(renderContext).promise;
   const imageDataUrl = canvas.toDataURL("image/png");
-  blueprint.setBlueprintData(loadImage(imageDataUrl));
+  blueprintContext.createBlueprint(loadImage(imageDataUrl));
   scaleContext.clear();
   pdf = null;
 }

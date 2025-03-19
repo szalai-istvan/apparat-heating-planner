@@ -1,3 +1,5 @@
+var scaleButton;
+
 const scalingDialog = document.getElementById('scalingDialog');
 const scalingInput = document.getElementById('scalingInput');
 const scalingDialogCloseButton = document.getElementById('scalingDialogCloseButton');
@@ -5,8 +7,6 @@ const scalingDialogCloseButton = document.getElementById('scalingDialogCloseButt
 const scalingDialogConfirm = document.getElementById('scalingDialogConfirm');
 const scalingDialogConfirmButton = document.getElementById('scalingDialogConfirmButton');
 const scalingDialogCancelButton = document.getElementById('scalingDialogCancelButton');
-
-var scaleButton;
 
 function showScalingDialog() {
     scalingInput.value = '';

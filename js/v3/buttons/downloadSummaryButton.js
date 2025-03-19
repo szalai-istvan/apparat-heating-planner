@@ -31,8 +31,7 @@ transportDialogCloseButton.addEventListener('click', () => {
     screenContext.enableControls();
 });
 
-// kept only for just-in-case
-
+// kept only just in case
 const summaryTableDialog = document.getElementById('summaryTableDialog');
 const summaryTableDialogTablePlaceHolder = document.getElementById('summaryTableDialogTablePlaceHolder');
 const summaryTableDialogCloseButton = document.getElementById('summaryTableDialogCloseButton');

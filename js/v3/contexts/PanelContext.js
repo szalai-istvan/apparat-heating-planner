@@ -6,8 +6,8 @@ class PanelContext {
     constructor() {}
 
     createOrReplacePanel(type) {
-        if (this.selectedPanel && this.selectedPanel.isSelectedForDrag()) {
-            this.selectedPanel.setType(type);
+        if (this.selectedPanel && this.selectedPanel.isSelectedForDrag) {
+            PanelManager.setType(this.selectedPanel);
         } else {
             const panel = new Panel(type);
             this.panels.push(panel);
@@ -21,23 +21,25 @@ class PanelContext {
         if (!panel) return;
 
         if (panel === this.selectedPanel) {
-            panel.selectForDrag();
+            PanelManager.selectForDrag(panel);
             tooltip.panelSelectedForDrag();
             return;
         }
 
-        this.tryToDeselect();
-        panel.select();
-        this.selectedPanel = panel;
-        tooltip.panelSelected();
+        const successfulDeselect = this.tryToDeselect();
+        if (successfulDeselect) {
+            PanelSelector.select(panel);
+            this.selectedPanel = panel;
+            tooltip.panelSelected();    
+        }
     }
 
     tryToDeselect() {
         if (!this.selectedPanel) {
-            return;
+            return true;
         }
 
-        const successfulDeselect = this.selectedPanel.deselect();
+        const successfulDeselect = PanelSelector.tryToDeselect(this.selectedPanel);
         if (successfulDeselect) {
             this.selectedPanel = null;
         }
@@ -47,7 +49,7 @@ class PanelContext {
     removeSelected() {
         const panel = this.selectedPanel;
         if (panel) {
-            panel.remove();
+            PanelSelector.remove(panel);
             this.panels = this.panels.filter(r => r !== panel);
             this.selectedPanel = undefined;
             tooltip.clearCursorTooltip();
@@ -59,7 +61,7 @@ class PanelContext {
             return this.cachedSelection;
         }
 
-        const selection = this.panels.filter(p => p.pointIsInsideText());
+        const selection = this.panels.filter(p => PanelManager.mouseCursorIsInsideText(p));
         const panel = selection[0];
         if (panel) {
             if (panel !== this.selectedPanel) {
@@ -68,37 +70,38 @@ class PanelContext {
             this.cachedSelection = panel;
             return panel;
         }
+
         tooltip.panelUnhovered();
+        return undefined;
     }
 
     clearSelectionCache() {
         this.cachedSelection = null;
     }
 
-    // Context specific public methods
     clear() {
-        this.panels.forEach(panel => panel.remove());
+        this.panels.forEach(panel => PanelSelector.remove(panel));
         tooltip.clearCursorTooltip();
         this.panels = [];
-        selectionContext.deselect();
+        selectionContext.tryToDeselect();
     }
 
-    rotateSelected() {
+    tryToRotateSelected() {
         const panel = this.selectedPanel;
         if (panel) {
-            panel.rotate();
+            PanelManager.rotate(panel);
         }
     }
 
-    addToSelectedGroup() {
+    tryToAddToSelectedGroup() {
         if (this.selectedPanel) {
-            this.selectedPanel.addToGroup();
+            PanelManager.addToGroup(this.selectedPanel);
         }
     }
 
     removeFromSelectedGroup() {
         if (this.selectedPanel) {
-            this.selectedPanel.removeFromGroup();
+            PanelManager.removeFromGroup(this.selectedPanel);
         }
     }
 
@@ -109,7 +112,7 @@ class PanelContext {
     calculateQuotePanelArray() {
         let quotePanelArray = [];
         for (let panel of this.panels) {
-            quotePanelArray = [...quotePanelArray, ...panel.calculateQuotePanelArray()];
+            quotePanelArray = [...quotePanelArray, ...QuotePanel.calculateQuotePanelArray(panel)];
         }
         return quotePanelArray;
     }

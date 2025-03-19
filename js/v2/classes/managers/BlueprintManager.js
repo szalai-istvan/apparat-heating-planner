@@ -30,4 +30,8 @@ class BlueprintManager {
         const p = blueprint.getTopLeftCoordinates();
         return { x: p.x, y: p.y, w: data.width, h: data.height };
     }
+
+    static remove(blueprint) {
+        renderer.remove(blueprint);
+    }
 }

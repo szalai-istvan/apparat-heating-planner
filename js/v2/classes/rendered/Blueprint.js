@@ -1,7 +1,10 @@
 class Blueprint {
     data;
+    topLeftPosition;
 
-    constructor() {
+    constructor(data, topLeftPosition) {
+        this.data = data;
+        this.topLeftPosition = topLeftPosition;
         renderer.register(this);
     }
 }

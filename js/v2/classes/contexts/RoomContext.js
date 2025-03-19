@@ -5,8 +5,6 @@ class RoomContext {
 
     constructor() {}
 
-    
-    // selection context methods
     createRoom(name) {
         name = name.trim();
 

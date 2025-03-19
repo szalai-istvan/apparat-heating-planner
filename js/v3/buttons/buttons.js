@@ -1,6 +1,6 @@
 function createButtons() {
     fileUploadButton = new ButtonWrapper({
-        text: 'Fájl feltöltése',
+        text: 'Tervrajz feltöltése',
         size: REGULAR_BUTTON_SIZE,
         position: topRibbonButtonPosition(1),
         onClick: () => upload(),
@@ -12,7 +12,7 @@ function createButtons() {
         size: REGULAR_BUTTON_SIZE,
         position: topRibbonButtonPosition(2),
         onClick: () => scaleContext.startScaling(),
-        shouldBeRendered: () => blueprint.dataIsPresent()
+        shouldBeRendered: () => blueprintContext.blueprintDataIsPresent()
     });
 
     addRoomsButton = new ButtonWrapper({
@@ -36,10 +36,10 @@ function createButtons() {
 
     row+=2;
     editPanelButtons.rotate = new ButtonWrapper({
-        text: 'Forgatás',
+        text: 'Panel forgatása',
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(row++),
-        onClick: () => panelContext.rotateSelected(),
+        onClick: () => panelContext.tryToRotateSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
 
@@ -57,7 +57,7 @@ function createButtons() {
         text: '+',
         size: HALF_BUTTON_SIZE,
         position: addButtonPosition,
-        onClick: () => panelContext.addToSelectedGroup(),
+        onClick: () => panelContext.tryToAddToSelectedGroup(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
 
