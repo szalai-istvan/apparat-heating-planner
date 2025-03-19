@@ -5,7 +5,7 @@ class PanelManager {
         const height = panel.widthInPixels * panel.numberOfPanelsInGroup * PANEL_SELECTION_MULTIPLIER;
         return pointIsInside(
             screenContext.getMousePositionAbsolute(),
-            panel.getGroupCenterPositionAbsolute(),
+            PanelManager.getGroupCenterPositionAbsolute(panel),
             panel.alignment ? height : width,
             panel.alignment ? width : height
         );
@@ -59,12 +59,12 @@ class PanelManager {
 
     static rotate(panel) {
         const newAlignment = (panel.alignment + 1) % 2;
-        const boundaryPoints = panel.getBoundaryPoints(panel.numberOfPanelsInGroup, newAlignment);
-        if (panel.validateBoundaryPoints(boundaryPoints)) {
-            if ((!panel.room) || (panel.room && panel.room.registerRotation(panel))) {
-                panel.topLeftCoordinates = panel.getTopLeftCornerCoordinates(newAlignment);
+        const boundaryPoints = PanelManager.getBoundaryPoints(panel, panel.numberOfPanelsInGroup, newAlignment);
+        if (PanelManager.validateBoundaryPoints(panel, boundaryPoints)) {
+            if ((!panel.room) || (panel.room && RoomManager.registerRotation(panel.room, panel))) {
+                panel.topLeftCoordinates = PanelManager.getTopLeftCornerCoordinates(panel, newAlignment);
                 panel.alignment = newAlignment;
-                panel.room && panel.room.recalculateBeams();
+                panel.room && RoomManager.recalculateBeams(panel.room);
             }
         } else {
             displayErrorMessage('A forgatás hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt elforgatja!');

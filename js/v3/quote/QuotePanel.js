@@ -11,7 +11,7 @@ class QuotePanel {
 
     static calculateQuotePanelArray(panel) {
         let i = 0;
-        const firstPosition = panel.getFirstCenterPositionAbsolute();
+        const firstPosition = PanelManager.getFirstCenterPositionAbsolute(panel);
 
         const quotePanels = [];
         while (i < panel.numberOfPanelsInGroup) {

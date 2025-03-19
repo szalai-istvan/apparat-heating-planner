@@ -12,6 +12,6 @@ class RoomSelector {
     static remove(room) {
         renderer.remove(room);
         renderer.remove(room.structureElementsInRoom);
-        room.structureElementsInRoom.clear();
+        StructureElementManager.clear(room.structureElementsInRoom);
     }
 }

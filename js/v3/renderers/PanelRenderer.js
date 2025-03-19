@@ -8,7 +8,7 @@ class PanelRenderer {
         const ratio = scaleContext.pixelsPerMetersRatio;
         const length = panel.lengthInPixels;
         const width = panel.widthInPixels;
-        const coordinates = panel.isSelectedForDrag ? panel.mousePositionAsCenterOfPanel() : panel.position;
+        const coordinates = panel.isSelectedForDrag ? PanelManager.mousePositionAsCenterOfPanel(panel) : panel.position;
         push();
         translate(coordinates.x, coordinates.y);
         rotate(panel.alignment * 90);
@@ -27,7 +27,7 @@ class PanelRenderer {
         }
 
         for (let offset = 0; offset < panel.numberOfPanelsInGroup; offset++) {
-            const coordinates = panel.getTextCenter(offset);
+            const coordinates = PanelRenderer.getTextCenter(panel, offset);
             stroke('black');
             fill(PANEL_FILL_COLOR);
             const rectWidth = panel.textWidth * PANEL_TEXT_RECT_SIZE_MUL;
@@ -40,7 +40,7 @@ class PanelRenderer {
             );
     
             textAlign(CENTER, CENTER);
-            const pointIsInsideText = panel.pointIsInsideText();
+            const pointIsInsideText = PanelManager.mouseCursorIsInsideText();
             if (pointIsInsideText || (panel.isSelected && !panel.isSelectedForDrag)) {
                 fill(SELECTED_TEXT_COLOR);
             } else {

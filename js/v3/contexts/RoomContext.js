@@ -34,7 +34,7 @@ class RoomContext {
     }
     
     tryToDeselect() {
-        if (this.selectedRoom && this.selectedRoom.roomIsConfigured()) {
+        if (this.selectedRoom && RoomManager.roomIsConfigured(this.selectedRoom)) {
             RoomSelector.tryToDeselect(this.selectedRoom);
             this.selectedRoom = null;
             tooltip.roomDeselected();
@@ -132,7 +132,7 @@ class RoomContext {
             return undefined;
         }
         
-        const successfulRegister = RoomManager.registerPanelGroup(room, panel);
+        const successfulRegister = RoomManager.tryToRegisterPanelGroup(room, panel);
         if (!successfulRegister) {
             displayErrorMessage('Egy adott szobában nem helyezhet el különböző irányban álló paneleket!');
             return undefined;
@@ -164,7 +164,7 @@ class RoomContext {
             return false;
         }
         const pointsToValidate = this.rooms.map(room => RoomManager.getPoints(room));
-        return this.selectedRoom.validatePoints(pointsToValidate);
+        return RoomManager.validatePoints(selectedRoom);
     }
 }
 

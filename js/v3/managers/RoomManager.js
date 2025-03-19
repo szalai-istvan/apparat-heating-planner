@@ -92,12 +92,12 @@ class RoomManager {
         return 2 * (room.getWidthInMeters() + room.getHeightInMeters());
     }
 
-    static registerPanelGroup(room, panel) {
-        return room.structureElementsInRoom.addPanelGroup(panel);
+    static tryToRegisterPanelGroup(room, panel) {
+        return StructureElementManager.tryToAddPanelGroup(room.structureElementsInRoom, panel);
     }
 
     static removePanelFromRoom(room, panel) {
-        room.structureElementsInRoom.removePanelGroup(panel);
+        StructureElementManager.removePanelGroup(room.structureElementsInRoom, panel);
     }
 
     static registerRotation(room, panel) {

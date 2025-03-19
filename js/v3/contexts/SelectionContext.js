@@ -19,7 +19,11 @@ class SelectionContext {
     }
 
     selectObject(obj) {
-        this.tryToDeselect();
+        const successfulDeselect = this.tryToDeselect();
+        if (!successfulDeselect) {
+            return;
+        }
+        
         this.selectedObject = obj;
         const className = getClassName(obj);
         if (className === 'Panel') {

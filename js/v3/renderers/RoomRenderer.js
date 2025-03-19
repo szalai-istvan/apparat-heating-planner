@@ -63,7 +63,7 @@ class RoomRenderer {
     static updateSettingsToText(room) {
         push();
         textAlign(CENTER, CENTER);
-        if (room.pointIsInsideText()) {
+        if (RoomManager.mouseCursorIsInsideName()) {
             fill(SELECTED_TEXT_COLOR);
             textSize(room.textSize * ROOM_TEXT_POP_FACTOR);
         } else {

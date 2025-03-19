@@ -19,8 +19,8 @@ class Panel {
         this.countourLineWeight = PANEL_CONTOUR_LINE_THICKNESS * ratio;
         this.lineWeight = PANEL_LINE_THICKNESS * ratio;
 
-        this.setType(type);
-        this.selectForDrag();
+        PanelManager.setType(this, type);
+        PanelSelector.selectForDrag(this);
         renderer.register(this);
     }
 }

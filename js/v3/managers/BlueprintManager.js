@@ -27,7 +27,7 @@ class BlueprintManager {
             return;
         }
 
-        const p = blueprint.getTopLeftCoordinates();
+        const p = BlueprintManager.getTopLeftCoordinates(blueprint);
         return { x: p.x, y: p.y, w: data.width, h: data.height };
     }
 

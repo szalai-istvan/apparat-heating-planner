@@ -5,14 +5,15 @@ class PanelSelector {
     }
 
     static selectForDrag(panel) {
+        panel.isSelected = true;
         panel.isSelectedForDrag = true;
-        panel.room && panel.room.removePanelFromRoom(panel);
+        panel.room && RoomManager.removePanelFromRoom(panel.room, panel);
         panel.room = undefined;
     }
 
     static tryToDeselect(panel) {
         if (panel.isSelectedForDrag) {
-            panel.topLeftCoordinates = panel.mousePositionAsCenterOfPanel();
+            panel.topLeftCoordinates = PanelManager.mousePositionAsCenterOfPanel(panel);
         }
 
         const destinationRoom = roomContext.registerRelocatedPanelGroupAndReturnContainingRoom(panel);
@@ -29,7 +30,7 @@ class PanelSelector {
 
     static remove(panel) {
         renderer.remove(panel);
-        panel.room && panel.room.removePanelFromRoom(panel);
+        panel.room && RoomManager.removePanelFromRoom(panel.room, panel);
         panel.room = undefined;
     }
 }

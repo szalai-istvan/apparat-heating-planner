@@ -62,6 +62,8 @@ class Renderer {
             this.rooms = this.rooms.filter(x => x !== obj); 
         } else if (className === 'StructureElementsInRoom') {
             this.beams = this.beams.filter(x => x !== obj); 
+        } else if (className === 'Blueprint') {
+            this.beams = this.bluePrints.filter(x => x !== obj); 
         } else {
             throw new Error(`Deleting render object of type ${className} is unspecified.`);
         }
