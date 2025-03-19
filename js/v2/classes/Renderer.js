@@ -1,15 +1,16 @@
 class Renderer {
-    #bluePrint = null;
-    #scaleContext = null;
-    #tooltip = null;
-    #panels = [];
-    #rooms = [];
-    #buttons = [];
-    #beams = [];
+    bluePrints = [];
+    rooms = [];
+    beams = [];
+    panels = [];
+    buttons = [];
+
+    scaleContext = null;
+    tooltip = null;
 
     constructor() {}
 
-    // public
+    
     register(obj) {
         const className = getClassName(obj);
         if (!className) {
@@ -17,32 +18,36 @@ class Renderer {
         }
 
         if (className === 'Blueprint') {
-            this.#bluePrint = obj;
+            this.bluePrints.push(obj);
         } else if (className === 'Panel') {
-            this.#panels.push(obj);
+            this.panels.push(obj);
         } else if (className === 'Room') {
-            this.#rooms.push(obj);
+            this.rooms.push(obj);
         } else if (className === 'ScaleContext') {
-            this.#scaleContext = obj;
+            this.scaleContext = obj;
         } else if (className === 'ButtonWrapper') {
-            this.#buttons.push(obj);
+            this.buttons.push(obj);
         } else if (className === 'Tooltip') {
-            this.#tooltip = obj;
+            this.tooltip = obj;
         } else if (className === 'StructureElementsInRoom') {
-            this.#beams.push(obj);
+            this.beams.push(obj);
         } else {
             throw new Error(`Attempt to register unexpected render type: ${className}`);
         }
     }
 
     renderTranslatedObjects() {
-        const renderObjects = this.#getTranslatedRenderObjects();
-        renderObjects.filter(x => x).forEach(x => x.draw());
+        this.bluePrints.forEach(bluePrint => BlueprintRenderer.draw(bluePrint));
+        this.panels.forEach(panel => PanelRenderer.draw(panel));
+        this.beams.forEach(beam => StructureElementsInRoomRenderer.draw(beam));
+        this.rooms.forEach(room => RoomRenderer.draw(room));
+        ScaleContextRenderer.draw(this.scaleContext);
+        this.buttons.forEach(button => ButtonWrapperRenderer.draw(button));
+
     }
 
     renderAbsolutePositionObjects() {
-        const renderObjects = this.#getAbsoluteRenderObjects();
-        renderObjects.filter(x => x).forEach(x => x.draw());
+        TooltipRenderer.draw(this.tooltip);
     }
 
     remove(obj) {
@@ -52,27 +57,14 @@ class Renderer {
         }
 
         if (className === 'Panel') {
-            this.#panels = this.#panels.filter(x => x !== obj); 
+            this.panels = this.panels.filter(x => x !== obj); 
         } else if (className === 'Room') {
-            this.#rooms = this.#rooms.filter(x => x !== obj); 
+            this.rooms = this.rooms.filter(x => x !== obj); 
         } else if (className === 'StructureElementsInRoom') {
-            this.#beams = this.#beams.filter(x => x !== obj); 
+            this.beams = this.beams.filter(x => x !== obj); 
         } else {
             throw new Error(`Deleting render object of type ${className} is unspecified.`);
         }
-    }
-
-    // private
-    #getTranslatedRenderObjects() {
-        const StructureElementsRenderObjects = this.#rooms.map(room => room.getStructuralElementRenderObjects());
-        const alignedRenders = StructureElementsRenderObjects.map(x => x.alignedBeams);
-        const crossedRenders = StructureElementsRenderObjects.map(x => x.crossBeams);
-
-        return [this.#bluePrint, ...this.#panels, ...alignedRenders, ...crossedRenders, ...this.#rooms, this.#scaleContext, ...this.#buttons];
-    }
-
-    #getAbsoluteRenderObjects() {
-        return [this.#tooltip];
     }
 }
 

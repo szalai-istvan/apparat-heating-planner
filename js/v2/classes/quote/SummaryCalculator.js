@@ -1,17 +1,17 @@
 class SummaryCalculator {
     constructor() {}
 
-    // public
+    
     calculateSummary() {
         const quotePanelArray = panelContext.calculateQuotePanelArray();
-        const invalidPanels = this.#searchForInvalidPositionPanels(quotePanelArray);
+        const invalidPanels = this.searchForInvalidPositionPanels(quotePanelArray);
         if (invalidPanels) {
             displayErrorMessage('A rajzon nem minden panel tartozik szobához. Kérem nézze át a panelek elhelyezését.');
             return null;
         }
 
         const roomNames = roomContext.getRoomNames();
-        return this.#summarizeByRoom(quotePanelArray, roomNames);
+        return this.summarizeByRoom(quotePanelArray, roomNames);
     }
 
     calculateSummaryAndMapToHtml() {
@@ -50,27 +50,27 @@ class SummaryCalculator {
         return table;
     }
 
-    // private
-    #searchForInvalidPositionPanels(quotePanelArray) {
+    
+    searchForInvalidPositionPanels(quotePanelArray) {
         if (!quotePanelArray || !quotePanelArray.length) {
             return;
         }
 
         const noRoomFound = quotePanelArray.filter(quotePanel => !quotePanel.getRoom());
         if (noRoomFound.length) {
-            return this.#summarizePanelCounts(noRoomFound);
+            return this.summarizePanelCounts(noRoomFound);
         }
         return null;
     }
 
-    #summarizeByRoom(quotePanelArray, roomNames) {
+    summarizeByRoom(quotePanelArray, roomNames) {
         const summary = {};
         let totalRounds = 0;
         let totalCount = 0;
 
         for (let room of roomNames) {
             const panelsInRoom = quotePanelArray.filter(p => p.getRoom() === room);
-            const roomSummary = this.#summarizePanelCounts(panelsInRoom);
+            const roomSummary = this.summarizePanelCounts(panelsInRoom);
             summary[room] = roomSummary;
             totalRounds += roomSummary.numberOfRounds;
             totalCount += roomSummary.count;
@@ -78,11 +78,11 @@ class SummaryCalculator {
 
         summary.count = totalCount;
         summary.numberOfRounds = totalRounds;
-        this.#addAdditionalElements(summary);
+        this.addAdditionalElements(summary);
         return summary;
     }
 
-    #summarizePanelCounts(quotePanelArray) {
+    summarizePanelCounts(quotePanelArray) {
         const summary = {};
         quotePanelArray.forEach(element => {
             const type = element.getType();
@@ -96,11 +96,11 @@ class SummaryCalculator {
         });
 
         summary.count = quotePanelArray.length;
-        summary.numberOfRounds = this.#getNumberOfRounds(summary);
+        summary.numberOfRounds = this.getNumberOfRounds(summary);
         return summary;
     }
 
-    #getNumberOfRounds(summary) {
+    getNumberOfRounds(summary) {
         let totalPipeLength = 0;
         for (let type in panelTypes) {
             const count = summary[type]?.count || 0;
@@ -111,7 +111,7 @@ class SummaryCalculator {
         return Math.ceil(totalPipeLength / 130);
     }
 
-    #addAdditionalElements(summary) {
+    addAdditionalElements(summary) {
         summary.additionalElements = {};
         const additionalElements = summary.additionalElements;
         let sumCount = 0;

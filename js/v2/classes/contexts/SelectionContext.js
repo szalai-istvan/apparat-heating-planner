@@ -1,74 +1,81 @@
 class SelectionContext {
-    #lastSelectingContext = null;
-    #selectedObject = null;
-    #contexts = [];
+    lastSelectingContext = null;
+    selectedObject = null;
+    contexts = [];
 
     constructor() {
-        this.#contexts = [panelContext, roomContext];
+        this.contexts = [panelContext, roomContext];
     }
 
-    // public
+
     searchSelectableObject() {
-        const contexts = this.#contexts;
+        const contexts = this.contexts;
 
         let selectedObject = undefined;
         let i = 0;
         while ((!selectedObject) && contexts[i]) {
-            selectedObject = this.#runSelection(contexts[i++]);
+            selectedObject = this.runSelection(contexts[i++]);
         }
     }
 
     selectObject(obj) {
-        this.deselect();
-        this.#selectedObject = obj;
+        this.tryToDeselect();
+        this.selectedObject = obj;
         const className = getClassName(obj);
         if (className === 'Panel') {
-            this.#lastSelectingContext = panelContext;
+            this.lastSelectingContext = panelContext;
         } else if (className === 'Room') {
-            this.#lastSelectingContext = roomContext;
+            this.lastSelectingContext = roomContext;
         } else {
             throw new Error(`Unexpected class of selected object: ${className}`);
         }
 
-        this.#lastSelectingContext.select(obj);
+        this.lastSelectingContext.select(obj);
     }
 
-    deselect(selectedObject) {
-        const lastSelectingContext = this.#lastSelectingContext;
-        if (lastSelectingContext) {
-            lastSelectingContext.deselect({selectedObject: selectedObject, skipValidation: false});
-            this.#selectedObject = null;
+    tryToDeselect() {
+        const lastSelectingContext = this.lastSelectingContext;
+        if (!lastSelectingContext) {
+            return true;
         }
+
+        const successfulDeselect = lastSelectingContext.tryToDeselect();
+        if (successfulDeselect) {
+            this.selectedObject = null;
+        }
+        return successfulDeselect;       
     }
 
     removeSelected() {
-        this.#lastSelectingContext.removeSelected();
-        this.deselect();
-    }
-
-    isAnyThingSelected() {
-        return Boolean(this.#selectedObject);
+        this.lastSelectingContext.removeSelected();
+        this.tryToDeselect();
     }
 
     clearSelectionCache() {
-        this.#contexts.forEach(context => context.clearSelectionCache());
+        this.contexts.forEach(context => context.clearSelectionCache());
     }
 
     checkForSelection() {
-        this.#contexts.forEach(context => context.checkForSelection());
+        this.contexts.forEach(context => context.checkForSelection());
     }
-    
-    // private
-    #runSelection(context) {
+
+
+    runSelection(context) {
         const selectableObject = context.checkForSelection();
         if (selectableObject) {
-            if (context !== this.#lastSelectingContext) {
-                this.#lastSelectingContext.deselect();
+            if (context !== this.lastSelectingContext) {
+                const successfulDeselect = this.lastSelectingContext.tryToDeselect();
+                if (successfulDeselect) {
+                    context.select();
+                    this.lastSelectingContext = context;
+                    this.selectedObject = selectableObject
+                    return selectableObject;        
+                }
+            } else {
+                context.select();
+                this.selectedObject = selectableObject
+                return selectableObject;
             }
-            context.select();
-            this.#lastSelectingContext = context;
-            this.#selectedObject = selectableObject
-            return selectableObject;
         }
         return undefined;
     }

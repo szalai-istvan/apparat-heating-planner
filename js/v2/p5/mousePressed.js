@@ -1,5 +1,5 @@
 function mousePressed() {
-  if (!screenContext.controlsAreEnabled()) {
+  if (!screenContext.controlsEnabled()) {
     return;
   }
   

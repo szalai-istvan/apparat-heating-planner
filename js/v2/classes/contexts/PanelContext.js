@@ -1,18 +1,16 @@
 class PanelContext {
-    #cachedSelection = null;
-    #selectedPanel = null;
-    #panels = [];
+    cachedSelection = null;
+    selectedPanel = null;
+    panels = [];
 
     constructor() {}
 
-    // public
-    // selection context methods
     createOrReplacePanel(type) {
-        if (this.#selectedPanel && this.#selectedPanel.isSelectedForDrag()) {
-            this.#selectedPanel.setType(type);
+        if (this.selectedPanel && this.selectedPanel.isSelectedForDrag()) {
+            this.selectedPanel.setType(type);
         } else {
             const panel = new Panel(type);
-            this.#panels.push(panel);
+            this.panels.push(panel);
             tooltip.panelAdded();
             selectionContext.selectObject(panel);
         }
@@ -22,101 +20,102 @@ class PanelContext {
         panel = panel || this.checkForSelection();
         if (!panel) return;
 
-        if (panel === this.#selectedPanel) {
+        if (panel === this.selectedPanel) {
             panel.selectForDrag();
             tooltip.panelSelectedForDrag();
             return;
         }
 
-        this.deselect();
+        this.tryToDeselect();
         panel.select();
-        this.#selectedPanel = panel;
+        this.selectedPanel = panel;
         tooltip.panelSelected();
     }
 
-    deselect() {
-        if (!this.#selectedPanel) {
+    tryToDeselect() {
+        if (!this.selectedPanel) {
             return;
         }
 
-        const successfulDeselect = this.#selectedPanel.deselect();
+        const successfulDeselect = this.selectedPanel.deselect();
         if (successfulDeselect) {
-            this.#selectedPanel = null;
+            this.selectedPanel = null;
         }
+        return successfulDeselect;
     }
 
     removeSelected() {
-        const panel = this.#selectedPanel;
+        const panel = this.selectedPanel;
         if (panel) {
             panel.remove();
-            this.#panels = this.#panels.filter(r => r !== panel);
-            this.#selectedPanel = undefined;
+            this.panels = this.panels.filter(r => r !== panel);
+            this.selectedPanel = undefined;
             tooltip.clearCursorTooltip();
         }
     }
 
     checkForSelection() {
-        if (this.#cachedSelection) {
-            return this.#cachedSelection;
+        if (this.cachedSelection) {
+            return this.cachedSelection;
         }
 
-        const selection = this.#panels.filter(p => p.pointIsInsideText());
+        const selection = this.panels.filter(p => p.pointIsInsideText());
         const panel = selection[0];
         if (panel) {
-            if (panel !== this.#selectedPanel) {
+            if (panel !== this.selectedPanel) {
                 tooltip.panelHovered();
             }
-            this.#cachedSelection = panel;
+            this.cachedSelection = panel;
             return panel;
         }
         tooltip.panelUnhovered();
     }
 
     clearSelectionCache() {
-        this.#cachedSelection = null;
+        this.cachedSelection = null;
     }
 
     // Context specific public methods
     clear() {
-        this.#panels.forEach(panel => panel.remove());
+        this.panels.forEach(panel => panel.remove());
         tooltip.clearCursorTooltip();
-        this.#panels = [];
+        this.panels = [];
         selectionContext.deselect();
     }
 
     rotateSelected() {
-        const panel = this.#selectedPanel;
+        const panel = this.selectedPanel;
         if (panel) {
             panel.rotate();
         }
     }
 
     addToSelectedGroup() {
-        if (this.#selectedPanel) {
-            this.#selectedPanel.addToGroup();
+        if (this.selectedPanel) {
+            this.selectedPanel.addToGroup();
         }
     }
 
     removeFromSelectedGroup() {
-        if (this.#selectedPanel) {
-            this.#selectedPanel.removeFromGroup();
+        if (this.selectedPanel) {
+            this.selectedPanel.removeFromGroup();
         }
     }
 
     hasSelectedPanel() {
-        return Boolean(this.#selectedPanel);
+        return Boolean(this.selectedPanel);
     }
 
     calculateQuotePanelArray() {
         let quotePanelArray = [];
-        for (let panel of this.#panels) {
+        for (let panel of this.panels) {
             quotePanelArray = [...quotePanelArray, ...panel.calculateQuotePanelArray()];
         }
         return quotePanelArray;
     }
 
     thereArePanels() {
-        return this.#panels.length > 0;
+        return this.panels.length > 0;
     }
 }
 

@@ -1,5 +1,5 @@
 function mouseWheel(event) {
-    if (!screenContext.controlsAreEnabled()) {
+    if (!screenContext.controlsEnabled()) {
         return;
     }
     

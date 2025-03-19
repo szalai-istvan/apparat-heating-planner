@@ -1,62 +1,39 @@
 class Tooltip {
-    #text = '';
-    #cursorText = '';
-    #position = {};
-    #timeoutId;
+    text = '';
+    cursorText = '';
+    position = {};
+    timeoutId;
 
     constructor(position) {
-        this.#position = position;
+        this.position = position;
         renderer.register(this);
     }
 
-    // public
-    draw() {
-        if (this.#text) {            
-            const position = this.#position;
-            fill('black');
-            textAlign(LEFT, CENTER);
-            textSize(18);
-            text(this.#text, position.x, position.y);
-        }
-
-        if (this.#cursorText) {
-            textAlign(LEFT, TOP);
-            textSize(16);
-            fill('white');
-
-            const width = this.#textWidth(this.#cursorText);
-            rect(mouseX + 18, mouseY + 18, width + 4, 20 * (1 + this.#numberOfLineBreaks(this.#cursorText)));
-            fill('black');
-
-            text(this.#cursorText, mouseX + 20, mouseY + 20);
-        }
-    }
-
     displayTooltip(key) {
-        this.#text = tooltipText[key] || '';
+        this.text = tooltipText[key] || '';
     }
 
     displayTooltipIf(presentKey, key) {
-        if (this.#text === tooltipText[presentKey]) {
+        if (this.text === tooltipText[presentKey]) {
             this.displayTooltip(key);
         }
     }
 
     displayCursorTooltip(key) {
-        this.#cursorText = tooltipText[key];
+        this.cursorText = tooltipText[key];
 
-        if (this.#timeoutId) {
-            clearTimeout(this.#timeoutId);
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
         }
-        this.#timeoutId = setTimeout(() => this.clearCursorTooltip(), 15_000);
+        this.timeoutId = setTimeout(() => this.clearCursorTooltip(), 15_000);
     }
 
     clearTooltip() {
-        this.#text = '';
+        this.text = '';
     }
 
     clearCursorTooltip() {
-        this.#cursorText = '';
+        this.cursorText = '';
     }
 
     applicationStarted() {
@@ -96,7 +73,7 @@ class Tooltip {
     }
 
     roomNameUnhovered() {
-        if (this.#cursorText === tooltipText[ROOM_HOVER]) {
+        if (this.cursorText === tooltipText[ROOM_HOVER]) {
             this.clearCursorTooltip();
         }
     }
@@ -119,7 +96,7 @@ class Tooltip {
     }
 
     panelUnhovered() {
-        if (this.#cursorText === tooltipText[PANEL_HOVER]) {
+        if (this.cursorText === tooltipText[PANEL_HOVER]) {
             this.clearCursorTooltip();
         }
     }
@@ -131,13 +108,12 @@ class Tooltip {
     panelSelectedForDrag() {
         this.displayCursorTooltip(PANEL_1);
     }
-
-    // private
-    #numberOfLineBreaks(text) {
+    
+    numberOfLineBreaks(text) {
         return text.split('\n').length - 1;
     }
 
-    #textWidth(text) {
+    textWidth(text) {
         return text.split('\n').map(line => textWidth(line)).reduce(maximumFunction);
     }
 }
