@@ -1,6 +1,6 @@
 function createButtons() {
     fileUploadButton = new ButtonWrapper({
-        text: 'Tervrajz feltöltése',
+        text: 'Alaprajz feltöltése',
         size: REGULAR_BUTTON_SIZE,
         position: topRibbonButtonPosition(1),
         onClick: () => upload(),
@@ -16,7 +16,7 @@ function createButtons() {
     });
 
     addRoomsButton = new ButtonWrapper({
-        text: 'Szoba felvétele',
+        text: 'Helyiség felvétele',
         size: REGULAR_BUTTON_SIZE,
         position: topRibbonButtonPosition(3),
         onClick: () => showAddRoomDialog(),
@@ -37,7 +37,7 @@ function createButtons() {
     row+=2;
     editPanelButtons.rotate = new ButtonWrapper({
         text: 'Panel forgatása',
-        size: SMALL_BUTTON_SIZE,
+        size: TALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(row++),
         onClick: () => panelContext.tryToRotateSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
@@ -46,7 +46,7 @@ function createButtons() {
     editPanelButtons.subtract = new ButtonWrapper({
         text: '-',
         size: HALF_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row),
+        position: sidePanelButtonPosition(row+=0.5),
         onClick: () => panelContext.removeFromSelectedGroup(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
@@ -62,17 +62,17 @@ function createButtons() {
     });
 
     editPanelButtons.delete = new ButtonWrapper({
-        text: 'Törlés',
-        size: SMALL_BUTTON_SIZE,
+        text: 'Panel törlése',
+        size: TALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(row),
         onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
 
     deleteRoomButton = new ButtonWrapper({
-        text: 'Szoba törl.',
-        size: SMALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row++),
+        text: 'Helyiség törlése',
+        size: TALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(row),
         onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => roomContext.displayDeleteButton()
     });
@@ -80,7 +80,7 @@ function createButtons() {
     downloadSummaryButton = new ButtonWrapper({
         text: 'Árkalkuláció letöltése',
         size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row++),
+        position: sidePanelButtonPosition(row+=1.5),
         onClick: () => openTransportDialog(),
         shouldBeRendered: () => panelContext.thereArePanels()
     });

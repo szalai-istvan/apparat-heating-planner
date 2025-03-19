@@ -21,10 +21,10 @@ class RoomRenderer {
         }
 
         pop();
-        const middlePoint = room.middlePoint;
-        if (middlePoint) {
+        const textCenterCoordinates = room.isSelected ? screenContext.getMousePositionAbsolute() : room.textCenterCoordinates;
+        if (RoomManager.roomIsConfigured(room)) {
             RoomRenderer.updateSettingsToText(room);
-            text(room.name, middlePoint.x, middlePoint.y);
+            text(room.name, textCenterCoordinates.x, textCenterCoordinates.y);
             pop();
         }
 
@@ -54,10 +54,11 @@ class RoomRenderer {
         push();
         if (room.isSelected) {
             stroke(SELECTED_TEXT_COLOR);
+            strokeWeight(room.lineWeight * 2);
         } else {
-            stroke(DEFAULT_TEXT_COLOR);
+            stroke(ROOM_DEFAULT_TEXT_COLOR);
+            strokeWeight(room.lineWeight);
         }
-        strokeWeight(room.lineWeight);
     }
 
     static updateSettingsToText(room) {
@@ -67,7 +68,7 @@ class RoomRenderer {
             fill(SELECTED_TEXT_COLOR);
             textSize(room.textSize * ROOM_TEXT_POP_FACTOR);
         } else {
-            fill(DEFAULT_TEXT_COLOR);
+            fill(ROOM_DEFAULT_TEXT_COLOR);
             textSize(room.textSize);
         }
     }
@@ -81,10 +82,15 @@ class RoomRenderer {
         const height = `${roundNumber(RoomManager.getHeightInMeters(room, points), 1)} m`;
 
         textSize(room.textSize);
+        if (room.isSelected) {
+            fill(SELECTED_TEXT_COLOR);
+        } else {
+            fill(ROOM_DEFAULT_TEXT_COLOR);
+        }
 
-        textAlign(CENTER, TOP);
-        text(width, middlePoint.x, topY);
-        textAlign(RIGHT, CENTER);
-        text(height, rightX, middlePoint.y);
+        textAlign(CENTER, BOTTOM);
+        text(width, middlePoint.x, topY - 5);
+        textAlign(LEFT, CENTER);
+        text(height, rightX + 5, middlePoint.y);
     }
 }

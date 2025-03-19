@@ -21,6 +21,16 @@ function disableEscapeButton() {
   }
 }
 
+function handleDeleteButton() {
+  for (let element of document.getElementsByTagName('body')) {
+    element.addEventListener('keydown', event => {
+      if (event.key === 'Delete') {
+        selectionContext.removeSelected();
+      }
+    });
+  }
+}
+
 function handleWindowResize() {
   window.addEventListener('resize', () => {
     if (canvas) {
@@ -42,7 +52,8 @@ function enableEnterForConfirm() {
       return;
     };
 
-    ENTERABLE_BUTTONS.filter(e => e.checkVisibility())[0].click();
+    const button = ENTERABLE_BUTTONS.filter(e => e.checkVisibility())[0];
+    button && button.click();
   });
 }
 
@@ -53,6 +64,7 @@ function noModalsAreOpened() {
 
 const minimumFunction = (a, b) => a < b ? a : b;
 const maximumFunction = (a, b) => a > b ? a : b;
+const sumFunction = (a, b) => a + b;
 
 function topRibbonButtonPosition(col) {
     return {x: -20 + col * (20 + REGULAR_BUTTON_SIZE.x), y: 10};

@@ -1,12 +1,12 @@
 
 const tooltipText = {
     WELCOME: "Üdvözli Önt az APPARAT Kft. árajánlatkészítő szoftvere.",
-    DRAWING_UPLOAD: "A Fájl feltöltése gomb segítségével töltsön fel egy tervrajzot a kezdéshez.\nVálaszthat jpg, png vagy pdf fájlt.",
+    DRAWING_UPLOAD: "Az Alaprajz feltöltése gomb segítségével töltsön fel egy tervrajzot a kezdéshez.\nVálaszthat jpg, png vagy pdf fájlt.",
     DRAWING_NAV: "A tervrajzon való navigációhoz húzza az egeret a bal egérgomb nyomvatartásával.\nA zoomoláshoz használja az egérgörgőt.",
     SCALING_0: "A Méretarány felvétele gomb segítségével vegyen fel két referenciapontot, majd adja\nmeg a köztük lévő távolságot.",
     SCALING_1: "A jobb egérgomb segítségével adja meg az első referenciapontot.",
     SCALING_2: "A jobb egérgomb segítségével adja meg az második referenciapontot.",
-    ROOM_ADD: "A Szoba felvétele gomb segítségével jelölje ki az árajánlathoz tartozó szobákat.",
+    ROOM_ADD: "A Helyiség felvétele gomb segítségével jelölje ki az árajánlathoz tartozó szobákat.",
     ROOM_0: "A jobb egérgomb segítségével jelölje ki a szoba két átellenes sarkát.",
     ROOM_1: "Hogyha végzett a szobák hozzáadásával, a baloldali menü segítségével húzzon be hűtő-fűtő paneleket a folytatáshoz.",
     ROOM_HOVER: "Kattintson a bal egérgombbal a szoba kiválasztásához.",

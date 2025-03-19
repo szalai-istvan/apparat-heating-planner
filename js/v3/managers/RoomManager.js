@@ -11,6 +11,7 @@ class RoomManager {
             if (points.length >= 2) {
                 room.middlePoint = RoomManager.getMiddlePoint(room);
                 selectionContext.tryToDeselect();
+                room.textCenterCoordinates = room.middlePoint;
                 tooltip.roomAddingFinished();
             }
         }
@@ -46,7 +47,7 @@ class RoomManager {
 
         return pointIsInside(
             screenContext.getMousePositionAbsolute(),
-            room.middlePoint, 
+            room.textCenterCoordinates, 
             textWidth(room.name),
             room.textSize
         );

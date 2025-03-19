@@ -6,6 +6,7 @@ function setup() {
     disableEscapeButton();
     handleWindowResize();
     enableEnterForConfirm();
+    handleDeleteButton();
     
     docSize = getDocumentDimensions();
     canvas = createCanvas(docSize.vw, window.innerHeight);

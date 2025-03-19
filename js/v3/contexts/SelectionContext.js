@@ -23,7 +23,7 @@ class SelectionContext {
         if (!successfulDeselect) {
             return;
         }
-        
+
         this.selectedObject = obj;
         const className = getClassName(obj);
         if (className === 'Panel') {
@@ -47,10 +47,14 @@ class SelectionContext {
         if (successfulDeselect) {
             this.selectedObject = null;
         }
-        return successfulDeselect;       
+        return successfulDeselect;
     }
 
     removeSelected() {
+        if (!this.lastSelectingContext) {
+            return;
+        }
+
         this.lastSelectingContext.removeSelected();
         this.tryToDeselect();
     }
@@ -73,7 +77,7 @@ class SelectionContext {
                     context.select();
                     this.lastSelectingContext = context;
                     this.selectedObject = selectableObject
-                    return selectableObject;        
+                    return selectableObject;
                 }
             } else {
                 context.select();

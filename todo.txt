@@ -1,0 +1,50 @@
+Tervrajzos figyelmeztető üzenet!
+Alaprajzok törlése gomb
+
+Helyiség neve mellett rádiógombok, amiktől azonnal ki lesz töltve: 
+    szoba 1		nappali
+    szoba 2		hálószoba 1
+    szoba 3		hálószoba 2
+    folyosó		gyerekszoba 1
+    dolgozó		gyerekszoba 2
+    gardrób		
+
+A szobában körbe a 3 cm -es UD profilt nem jeleníti meg a kiosztókád. Ami elég baj
+MI VAN ha van emelet és földszint?
+HA főtöttötte a ember a alaprajz1. pdf-et akkor írja ki, hogy te majomember fel van tőtve neked a laprajz 1. Majd ha netán van emelettye akkor írja ki azt is, hogy emelet.pdf feltöltve
+Az excel az osztóköröket is kell az ajánlatba rakja. Körönként 7500 Ft
+Az osztókörök ha meghaladják a 12 db-ot akkor utána úgy számolandó az osztógyűjtők, hogy 
+Mindig két db de a körök testvériesen elosztva. Ha 14 kör jön ki, akkor nem 12+2, hanem 7+7
+Ha 15 akkor 8+7
+Ha 12 alatt van akkor nincs ez a játék.
+
+A rajzolátor jobb felső sarkában apparat logo, a szürke sávban.
+A neve a  mappának  legyen rajzolator
+
+Az excel első füle az alábbiakat tartalmazza:
+	Bruttó darab
+F 100	  6,668 Ft 
+F 150	  10,000 Ft 
+F 200	  13,335 Ft 
+F 250	  17,535 Ft 
+F 300	  20,803 Ft 
+F 350	  24,270 Ft 
+F 400	  27,737 Ft 
+16-10-16 PPSU	  1,833 Ft 
+16-10 PPSU	  1,323 Ft 
+10-10 PPSU	  800 Ft 
+16x2 szigetelt cső	  506 Ft 
+16x2 -3/4" eurokónusz	  880 Ft 
+2 körös osztógyűjtő	33600
+3 körös osztógyűjtő	39900
+4 körös osztógyűjtő	44100
+5 körös osztógyűjtő	50400
+6 körös osztógyűjtő	57750
+7 körös osztógyűjtő	68250
+8 körös osztógyűjtő	73500
+9 körös osztógyűjtő	82950
+10 körös osztógyűjtő	92400
+11 körös osztógyűjtő	98700
+12 körös osztógyűjtő	102900
+Szállítás alapdíj	  8,000 Ft 
+km díj 	  310 Ft 

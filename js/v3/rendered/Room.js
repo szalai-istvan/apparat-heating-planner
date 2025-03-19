@@ -4,6 +4,7 @@ class Room {
     isSelected = false;
     middlePoint;
     textSize;
+    textCenterCoordinates;
     lineWeight;
     structureElementsInRoom;
 

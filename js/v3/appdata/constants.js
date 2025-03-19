@@ -1,7 +1,7 @@
-const REGULAR_BUTTON_SIZE = {x: 100, y: 40};
-const SMALL_BUTTON_SIZE = {x: 80, y: 30};
-const HALF_BUTTON_SIZE = {x: 40, y: 30};
-const TALL_BUTTON_SIZE = {x: 80, y: 60};
+const REGULAR_BUTTON_SIZE = { x: 100, y: 40 };
+const SMALL_BUTTON_SIZE = { x: 80, y: 30 };
+const HALF_BUTTON_SIZE = { x: 40, y: 30 };
+const TALL_BUTTON_SIZE = { x: 80, y: 45 };
 
 const PANEL_TEXT_SIZE_IN_METERS = 0.18;
 const PANEL_TEXT_POP_FACTOR = 0.1;
@@ -17,6 +17,7 @@ const PANEL_TEXT_RECT_SIZE_MUL = 1.4;
 const ROOM_TEXT_SIZE_IN_METERS = 0.25;
 const ROOM_TEXT_POP_FACTOR = 1.1;
 const ROOM_LINE_WEIGHT_IN_METERS = 0.017;
+const ROOM_DEFAULT_TEXT_COLOR = 'green';
 
 const DEFAULT_TEXT_COLOR = 'black';
 const SELECTED_TEXT_COLOR = 'red';

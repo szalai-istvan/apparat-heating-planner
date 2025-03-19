@@ -6,6 +6,9 @@ class RoomSelector {
 
     static tryToDeselect(room) {
         room.isSelected = false;
+        if (RoomManager.pointIsInsideRoom(room)) {
+            room.textCenterCoordinates = screenContext.getMousePositionAbsolute();
+        }
         return true;
     }
 

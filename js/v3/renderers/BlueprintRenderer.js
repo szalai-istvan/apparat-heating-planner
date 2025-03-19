@@ -12,7 +12,7 @@ class BlueprintRenderer {
 
         const topLeftCoordinates = BlueprintManager.getTopLeftCoordinates(blueprint);
 
-        image(data,
+        topLeftCoordinates && image(data,
             topLeftCoordinates.x,
             topLeftCoordinates.y,
             data.width,
