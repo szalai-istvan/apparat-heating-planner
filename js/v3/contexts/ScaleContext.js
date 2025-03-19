@@ -52,10 +52,6 @@ class ScaleContext {
         }
     }
 
-    draw() {
-
-    }
-
     ratioIsSet() {
         return Boolean(this.pixelsPerMetersRatio);
     }

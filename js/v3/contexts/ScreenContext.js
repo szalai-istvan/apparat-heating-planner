@@ -59,7 +59,7 @@ class ScreenContext {
     }
 
     adjustForExport() {
-        const blueprintSize = blueprint.getSizeData();
+        const blueprintSize = blueprintContext.getSizeData();
         const docSize = getDocumentDimensions();
         const width = docSize.vw;
         const height = window.innerHeight;

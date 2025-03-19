@@ -21,6 +21,10 @@ class BlueprintContext {
 
         return blueprints.filter(blueprint => BlueprintManager.dataIsPresent(blueprint)).length > 0;
     }
+
+    getSizeData() {
+        return undefined; // TODO
+    }
 }
 
 const blueprintContext = new BlueprintContext();

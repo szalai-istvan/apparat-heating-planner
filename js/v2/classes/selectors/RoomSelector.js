@@ -6,6 +6,7 @@ class RoomSelector {
 
     static tryToDeselect(room) {
         room.isSelected = false;
+        return true;
     }
 
     static remove(room) {

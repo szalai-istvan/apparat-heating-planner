@@ -23,7 +23,7 @@ addRoomButton.addEventListener('click', () => {
     const roomName = addRoomInput.value;
     if (addRoomInput.value) {
         addRoomInput.value = '';
-        const addingSuccessful = roomContext.createRoom(roomName);
+        const addingSuccessful = roomContext.tryToCreateRoom(roomName);
         if (addingSuccessful) {
             addRoomDialog.close();
             screenContext.enableControls();

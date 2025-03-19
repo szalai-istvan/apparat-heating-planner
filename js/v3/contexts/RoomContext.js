@@ -5,7 +5,7 @@ class RoomContext {
 
     constructor() {}
 
-    createRoom(name) {
+    tryToCreateRoom(name) {
         name = name.trim();
 
         if (this.roomNameAlreadyExists(name)) {
@@ -24,27 +24,28 @@ class RoomContext {
         room = room || this.checkForSelection();
         if (!room) return;
 
-        this.deselect();
-        room.select();
+        this.tryToDeselect();
+        RoomSelector.select(room);
         this.selectedRoom = room;
 
-        if (room.roomIsConfigured()) {
+        if (RoomManager.roomIsConfigured(room)) {
             tooltip.roomSelected();
         }
     }
     
-    deselect() {
+    tryToDeselect() {
         if (this.selectedRoom && this.selectedRoom.roomIsConfigured()) {
-            this.selectedRoom.deselect();
+            RoomSelector.tryToDeselect(this.selectedRoom);
             this.selectedRoom = null;
             tooltip.roomDeselected();
         }
+        return true;
     }
     
     removeSelected() {
         const room = this.selectedRoom;
         if (room) {
-            room.remove();
+            RoomSelector.remove(room);
             this.rooms = this.rooms.filter(r => r !== room);
             this.selectedRoom = undefined;
         }
@@ -74,9 +75,8 @@ class RoomContext {
         this.cachedSelection = null;
     }
 
-    // Context specific public methods
     clear() {
-        this.rooms.forEach(room => room.remove());
+        this.rooms.forEach(room => RoomSelector.remove(room));
         this.rooms = [];
         selectionContext.deselect();
         panelContext.clear();
@@ -86,7 +86,7 @@ class RoomContext {
         const selectedRoom = this.selectedRoom;
         if (selectedRoom) {
             if (this.pointIsValid()) {
-                selectedRoom.addPoint();
+                RoomManager.addPoint(selectedRoom);
             } else {
                 displayErrorMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
             }    
@@ -98,60 +98,60 @@ class RoomContext {
             return true;
         }
 
-        return this.selectedRoom.roomIsConfigured();
+        return RoomManager.roomIsConfigured(this.selectedRoom);
     }
 
     displayDeleteButton() {
-        return this.selectedRoom && this.selectedRoom.roomIsConfigured();
+        return this.selectedRoom && RoomManager.roomIsConfigured(this.selectedRoom);
     }
 
     thereAreRooms() {
-        return this.rooms.length > 0 && this.rooms[0].roomIsConfigured();
+        return this.rooms.length > 0 && RoomManager.roomIsConfigured(this.rooms[0]);
     }
 
     getRoomContainingPoint(point) {
-        const room = this.rooms.filter(r => r.pointIsInsideRoom(point))[0];
+        const room = this.rooms.filter(r => RoomManager.pointIsInsideRoom(r, point))[0];
         if (room) {
-            return room.getName();
+            return room.name;
         }
         return null;
     }
 
     getRoomNames() {
-        return this.rooms.map(r => r.getName());
+        return this.rooms.map(r => r.name);
     }
 
-    registerRelocatedPanelGroup(panel) {
+    registerRelocatedPanelGroupAndReturnContainingRoom(panel) {
         const boundaryPoints = panel.getBoundaryPoints();
         const p1 = boundaryPoints.p1;
         const p2 = boundaryPoints.p2;
 
-        const room = this.rooms.filter(room => room.pointIsInsideRoom(p1) && room.pointIsInsideRoom(p2))[0];
+        const room = this.rooms.filter(room => RoomManager.pointIsInsideRoom(r, p1) && RoomManager.pointIsInsideRoom(r, p2))[0];
         if (!room) {
             displayErrorMessage('A panelcsoport része vagy egésze szobán kívül van!<br/>Helyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
-            return false;
+            return undefined;
         }
         
-        const successfulRegister = room.registerPanelGroup(panel);
+        const successfulRegister = RoomManager.registerPanelGroup(room, panel);
         if (!successfulRegister) {
             displayErrorMessage('Egy adott szobában nem helyezhet el különböző irányban álló paneleket!');
-            return false;
+            return undefined;
         }
 
         return room;
     }
 
     calculateUd30Amount() {
-        return this.rooms.map(room => room.getCircumference()).reduce((a, b) => a + b, 0);
+        return this.rooms.map(room => RoomManager.getCircumference(room)).reduce((a, b) => a + b, 0);
     }
 
     calculateCd3060Amount() {
-        return this.rooms.map(room => room.getCd3060Amount()).reduce((a, b) => a + b, 0);
+        return this.rooms.map(room => RoomManager.getCd3060Amount(room)).reduce((a, b) => a + b, 0);
     }
 
     
     roomNameAlreadyExists(name) {
-        return this.rooms.map(room => room.getName().toLowerCase()).includes(name.toLowerCase());
+        return this.rooms.map(room => room.name.toLowerCase()).includes(name.toLowerCase());
     }
 
     pointIsValid() {
@@ -159,11 +159,11 @@ class RoomContext {
             return true;
         }
 
-        const pointIsNotInAnyRooms = this.rooms.filter(r => r.pointIsInsideRoom()).length === 0;
+        const pointIsNotInAnyRooms = this.rooms.filter(r => RoomManager.pointIsInsideRoom(r)).length === 0;
         if (!pointIsNotInAnyRooms) {
             return false;
         }
-        const pointsToValidate = this.rooms.map(room => room.getPoints());
+        const pointsToValidate = this.rooms.map(room => RoomManager.getPoints(room));
         return this.selectedRoom.validatePoints(pointsToValidate);
     }
 }

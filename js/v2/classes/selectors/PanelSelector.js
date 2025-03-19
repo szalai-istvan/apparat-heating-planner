@@ -15,7 +15,7 @@ class PanelSelector {
             panel.topLeftCoordinates = panel.mousePositionAsCenterOfPanel();
         }
 
-        const destinationRoom = roomContext.registerRelocatedPanelGroup(panel);
+        const destinationRoom = roomContext.registerRelocatedPanelGroupAndReturnContainingRoom(panel);
         if (!destinationRoom) {
             return false;
         }
