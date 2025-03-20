@@ -9,16 +9,12 @@ class BlueprintManager {
                     x: - 0.5 * data.width,
                     y: - 0.5 * data.height
                 };    
+            } else {
+                return undefined;
             }
-            return undefined;
         }
 
         return blueprint.topLeftPosition;
-    }
-    
-    static setBlueprintData(blueprint, data) {
-        blueprint.data = data;
-        tooltip.fileIsUploaded();
     }
 
     static dataIsPresent(blueprint) {

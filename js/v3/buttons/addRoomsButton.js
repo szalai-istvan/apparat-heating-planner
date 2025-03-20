@@ -1,4 +1,5 @@
 var addRoomsButton;
+var roomPrefillButtons = [];
 
 const addRoomDialog = document.getElementById('addRoomDialog');
 const addRoomInput = document.getElementById('addRoomInput');
@@ -10,7 +11,31 @@ function showAddRoomDialog() {
         addRoomInput.value = '';
         addRoomInput.focus();
         addRoomDialog.showModal();
+        checkRadioButtons();
         screenContext.disableControls();
+    }
+}
+
+function createRoomPrefillRadioButtons() {
+    const div = document.getElementById('roomPrefillRadioSet');
+    for (let option of PREFILL_ROOM_NAMES) {
+        const onchange = () => addRoomInput.value = option;
+        const radioButton = createRadioButton('roomPrefill', option, onchange);
+        div.appendChild(radioButton);
+        roomPrefillButtons.push(radioButton);
+    }
+}
+
+function checkRadioButtons() {
+    const roomNames = roomContext.getRoomNames();
+    for (let radioButton of roomPrefillButtons) {
+        const inputElement = radioButton.childNodes[0];
+        if (roomNames.includes(inputElement.value)) {
+            inputElement.setAttribute('disabled', true);
+        } else {
+            inputElement.removeAttribute('disabled');
+        }
+        inputElement.checked = false;
     }
 }
 

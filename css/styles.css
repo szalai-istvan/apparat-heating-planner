@@ -131,3 +131,15 @@ td.table-data {
     border-bottom: 2px solid black;
     text-align: center;
 }
+
+.radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 300px;
+}
+
+
+.radio-label {
+    font-size: medium;
+}

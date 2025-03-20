@@ -1,20 +1,20 @@
 
 const tooltipText = {
-    WELCOME: "Üdvözli Önt az APPARAT Kft. árajánlatkészítő szoftvere.",
-    DRAWING_UPLOAD: "Az Alaprajz feltöltése gomb segítségével töltsön fel egy tervrajzot a kezdéshez.\nVálaszthat jpg, png vagy pdf fájlt.",
+    WELCOME: "Üdvözli Önt Rajzolátor, az APPARAT Kft.\nárajánlat előkészítő szoftvere.",
+    DRAWING_UPLOAD: "Az Alaprajz feltöltése gomb segítségével töltsön fel egy vagy több\ntervrajzot a kezdéshez. Választhat jpg, png vagy pdf fájlt.",
     DRAWING_NAV: "A tervrajzon való navigációhoz húzza az egeret a bal egérgomb nyomvatartásával.\nA zoomoláshoz használja az egérgörgőt.",
-    SCALING_0: "A Méretarány felvétele gomb segítségével vegyen fel két referenciapontot, majd adja\nmeg a köztük lévő távolságot.",
+    SCALING_0: "A Méretarány felvétele gomb segítségével vegyen fel\nkét referenciapontot, majd adja meg a köztük lévő távolságot.",
     SCALING_1: "A jobb egérgomb segítségével adja meg az első referenciapontot.",
     SCALING_2: "A jobb egérgomb segítségével adja meg az második referenciapontot.",
-    ROOM_ADD: "A Helyiség felvétele gomb segítségével jelölje ki az árajánlathoz tartozó szobákat.",
+    ROOM_ADD: "A Helyiség felvétele gomb segítségével\njelölje ki az árajánlathoz tartozó szobákat.",
     ROOM_0: "A jobb egérgomb segítségével jelölje ki a szoba két átellenes sarkát.",
-    ROOM_1: "Hogyha végzett a szobák hozzáadásával, a baloldali menü segítségével húzzon be hűtő-fűtő paneleket a folytatáshoz.",
+    ROOM_1: "Hogyha végzett a szobák hozzáadásával, a baloldali menü\nsegítségével húzzon be hűtő-fűtő paneleket a folytatáshoz.",
     ROOM_HOVER: "Kattintson a bal egérgombbal a szoba kiválasztásához.",
     ROOM_SELECT: "A kiválasztott szoba törléséhez használja a baloldali menüt.\nA kijelölést megszüntetheti a jobb egérgomb megnyomásával.",
-    PANEL_0: "Húzza be a rajzba a hozzáadni kívánt hűtő-fűtő paneleket.\nHa végzett, a baloldali menüben található gomb segítségével letöltheti az árkalkulációt!",
+    PANEL_0: "Ha végzett a panelek felvételével, a baloldali menüben\ntalálható gomb segítségével letöltheti az árkalkulációt.",
     PANEL_1: "Kattintson a jobb egérgombbal a panel lehelyezéséhez.",
     PANEL_ADD: "",
-    PANEL_HOVER: "Kattintson a bal egérgombbal a panel kiválasztásához",
+    PANEL_HOVER: "Kattintson a bal egérgombbal a panel kiválasztásához!",
     PANEL_SELECT: "Használja a baloldali menüt a panelcsoporthoz való hozzáadás- és eltávolításhoz, forgatáshoz\nés a csoport törléséhez. Kattintson újra a panelra a mozgatáshoz."
 };
 

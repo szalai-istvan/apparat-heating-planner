@@ -1,3 +1,5 @@
+var helpButton;
+
 function createButtons() {
     fileUploadButton = new ButtonWrapper({
         text: 'Alaprajz feltöltése',
@@ -24,6 +26,15 @@ function createButtons() {
     });
 
     let row = 0;
+    clearBlueprintsButton = new ButtonWrapper({
+        text: 'Alaprajzok eltávolítása',
+        size: TALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(row++),
+        onClick: () => clearBlueprints(),
+        shouldBeRendered: () => blueprintContext.blueprintDataIsPresent()
+    });
+
+    row+=0.5;
     for (let type in panelTypes) {
         addPanelButtons.push(new ButtonWrapper({
             text: type,
@@ -34,7 +45,7 @@ function createButtons() {
         }));
     }
 
-    row+=2;
+    row+=0.5;
     editPanelButtons.rotate = new ButtonWrapper({
         text: 'Panel forgatása',
         size: TALL_BUTTON_SIZE,
@@ -85,11 +96,11 @@ function createButtons() {
         shouldBeRendered: () => panelContext.thereArePanels()
     });
 
-    new ButtonWrapper({
-        text: 'Készítő névjegye',
-        size: TALL_BUTTON_SIZE,
-        position: bottomPosition(TALL_BUTTON_SIZE),
-        onClick: () => displayDeveloperData(),
+    helpButton = new ButtonWrapper({
+        text: 'Segítség',
+        size: SMALL_BUTTON_SIZE,
+        position: bottomPosition(SMALL_BUTTON_SIZE),
+        onClick: () => displayHelpData(),
         shouldBeRendered: () => true
     });
 

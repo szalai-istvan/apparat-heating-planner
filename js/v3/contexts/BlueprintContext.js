@@ -21,6 +21,7 @@ class BlueprintContext {
     clearBlueprints() {
         this.blueprints.forEach(blueprint => BlueprintManager.remove(blueprint));
         this.blueprints = [];
+        scaleContext.clear();
     }
 
     blueprintDataIsPresent() {

@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>APPARAT mennyezetfűtés-hűtés kalkulátor</title>
+    <title>APPARAT Rajzolátor</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 
 <body id="body">
@@ -23,7 +24,7 @@
     </dialog>
 
     <dialog id="fileUploadDialogConfirm">
-        <p>Új fájl feltöltése törölni fogja a meglévő skálázást, a korábban felvett szobákat és paneleket. Folytatja?
+        <p>A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket. Folytatja?
         </p>
         <hr>
         <div class="center">
@@ -49,7 +50,12 @@
     </dialog>
 
     <dialog id="addRoomDialog">
-        <p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p>
+        <span><p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p></span>
+        <hr>
+        <span>
+            <p>Gyors kitöltés:</p>
+            <div class="radio-group" id="roomPrefillRadioSet"></div>
+        </span>
         <hr>
         <div class="center">
             <button id="addRoomButton">Szoba hozzáadása (Enter)</button>
@@ -86,7 +92,7 @@
     <script type="text/javascript" src="js/v3/helpers/helpers.js"></script>
     <script type="text/javascript" src="js/v3/helpers/errordialog.js"></script>
     <script type="text/javascript" src="js/v3/helpers/debug.js"></script>
-    <script type="text/javascript" src="js/v3/helpers/tableHelper.js"></script>
+    <script type="text/javascript" src="js/v3/helpers/htmlHelpers.js"></script>
 
     <script type="text/javascript" src="js/v3/appdata/panelTypes.js"></script>
     <script type="text/javascript" src="js/v3/appdata/tooltips.js"></script>
@@ -110,7 +116,7 @@
     <script type="text/javascript" src="js/v3/contexts/SelectionContext.js"></script>
     <script type="text/javascript" src="js/v3/rendered/Tooltip.js"></script>
 
-    <script type="text/javascript" src="js/v3/buttons/fileUploadButton.js"></script>
+    <script type="text/javascript" src="js/v3/buttons/manageBlueprintButtons.js"></script>
     <script type="text/javascript" src="js/v3/buttons/scaleButton.js"></script>
     <script type="text/javascript" src="js/v3/buttons/addRoomsButton.js"></script>
     <script type="text/javascript" src="js/v3/buttons/deleteRoomsButton.js"></script>

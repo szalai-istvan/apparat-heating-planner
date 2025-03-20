@@ -41,6 +41,9 @@ function handleWindowResize() {
       canvas.width = width;
       canvas.height = height;
       resizeCanvas(windowWidth, windowHeight);
+      
+      const helpButtonPos = bottomPosition(TALL_BUTTON_SIZE);
+      helpButton.button.position(helpButtonPos.x, helpButtonPos.y);
     }
   });
 }
@@ -117,6 +120,6 @@ function roundNumber(number, decimals) {
   return Math.round(number * x) / x;
 }
 
-function displayDeveloperData() {
-  displayErrorMessage('Készítette: Szalai István<br/>e-mail: szalai.istvan95@gmail.com<br/>Tel.: +36 30 846 2686');
+function displayHelpData() {
+  displayErrorMessage('Segítség kérése:<br/>e-mail: <a href="mailto:sjb@apparat.hu">sjb@apparat.hu</a>');
 }

@@ -6,5 +6,11 @@ class Blueprint {
         this.data = data;
         this.topLeftPosition = topLeftPosition;
         renderer.register(this);
+
+        if (!scaleContext.ratioIsSet()) {
+            tooltip.fileUploadSuccessful(() => tooltip.fileIsUploaded());
+        } else {
+            tooltip.fileUploadSuccessful(() => {});
+        }
     }
 }

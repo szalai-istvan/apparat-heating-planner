@@ -1,25 +1,10 @@
-Tervrajzos figyelmeztető üzenet!
-Alaprajzok törlése gomb
+Szobákban körve 3 cm-es UD profil.
 
-Helyiség neve mellett rádiógombok, amiktől azonnal ki lesz töltve: 
-    szoba 1		nappali
-    szoba 2		hálószoba 1
-    szoba 3		hálószoba 2
-    folyosó		gyerekszoba 1
-    dolgozó		gyerekszoba 2
-    gardrób		
-
-A szobában körbe a 3 cm -es UD profilt nem jeleníti meg a kiosztókád. Ami elég baj
-MI VAN ha van emelet és földszint?
-HA főtöttötte a ember a alaprajz1. pdf-et akkor írja ki, hogy te majomember fel van tőtve neked a laprajz 1. Majd ha netán van emelettye akkor írja ki azt is, hogy emelet.pdf feltöltve
 Az excel az osztóköröket is kell az ajánlatba rakja. Körönként 7500 Ft
 Az osztókörök ha meghaladják a 12 db-ot akkor utána úgy számolandó az osztógyűjtők, hogy 
 Mindig két db de a körök testvériesen elosztva. Ha 14 kör jön ki, akkor nem 12+2, hanem 7+7
 Ha 15 akkor 8+7
 Ha 12 alatt van akkor nincs ez a játék.
-
-A rajzolátor jobb felső sarkában apparat logo, a szürke sávban.
-A neve a  mappának  legyen rajzolator
 
 Az excel első füle az alábbiakat tartalmazza:
 	Bruttó darab

@@ -1,4 +1,5 @@
 var fileUploadButton;
+var clearBlueprintsButton;
 
 const imageInput = document.getElementById('imageInput');
 
@@ -12,20 +13,26 @@ const pdfUploadDialogInput = document.getElementById('pdfUploadDialogInput');
 const pdfUploadDialogCloseButton = document.getElementById('pdfUploadDialogCloseButton');
 
 imageInput.addEventListener('change', handleFileSelect);
+let fileName = '';
 
 function upload() {
+  imageInput.click();
+}
+
+function clearBlueprints() {
   if (scaleContext.ratioIsSet()) {
     fileUploadDialogConfirm.showModal();
     screenContext.disableControls();
   } else {
-    imageInput.click();
+    blueprintContext.clearBlueprints();
   }
+
 }
 
 fileUploadDialogConfirmButton.addEventListener('click', () => {
   fileUploadDialogConfirm.close();
   screenContext.enableControls();
-  imageInput.click();
+  blueprintContext.clearBlueprints();
 });
 
 fileUploadDialogCancelButton.addEventListener('click', () => {
@@ -39,7 +46,11 @@ function handleFileSelect(event) {
     return;
   }
   const fileType = file.type;
+  
+  const split = imageInput.value.replaceAll('\\', '/').split('/');
+  fileName = split[split.length - 1];
 
+  imageInput.value = '';
   if (IMAGE_CONTENT_TYPES.includes(fileType)) {
     const reader = new FileReader();
     reader.onload = function (event) {

@@ -7,11 +7,14 @@ function setup() {
     handleWindowResize();
     enableEnterForConfirm();
     handleDeleteButton();
+    createRoomPrefillRadioButtons();
     
     docSize = getDocumentDimensions();
     canvas = createCanvas(docSize.vw, window.innerHeight);
     canvas.parent("body");
     screenContext.setCanvas(canvas);
+    apparatLogo = loadImage('img/APPARAT_transparent.PNG');
+    cicisNeni = loadImage('img/cicis_neni.png');
     
     angleMode(DEGREES);
     createButtons();

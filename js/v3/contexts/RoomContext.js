@@ -163,8 +163,7 @@ class RoomContext {
         if (!pointIsNotInAnyRooms) {
             return false;
         }
-        const pointsToValidate = this.rooms.map(room => RoomManager.getPoints(room));
-        return RoomManager.validatePoints(selectedRoom);
+        return true;
     }
 }
 

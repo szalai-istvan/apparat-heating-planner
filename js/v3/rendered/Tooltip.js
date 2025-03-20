@@ -41,6 +41,16 @@ class Tooltip {
         setTimeout(() => this.displayTooltipIf(WELCOME, DRAWING_UPLOAD), 4_000);
     }
 
+    fileUploadSuccessful(next) {
+        let f = fileName;
+        if (f.length > 50) {
+            const dot = f.indexOf('.');
+            f = f.substr(0, 42) + ' ... ' + f.substr(dot);
+        }
+        this.text = f + '\nfeltöltése sikeresen befejeződött!';
+        if (next) setTimeout(next, 3_000);
+    }
+
     fileIsUploaded() {
         this.displayTooltip(SCALING_0);
         this.displayCursorTooltip(DRAWING_NAV);
