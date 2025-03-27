@@ -6,7 +6,7 @@ class SummaryCalculator {
         const quotePanelArray = panelContext.calculateQuotePanelArray();
         const invalidPanels = this.searchForInvalidPositionPanels(quotePanelArray);
         if (invalidPanels) {
-            displayErrorMessage('A rajzon nem minden panel tartozik szobához. Kérem nézze át a panelek elhelyezését.');
+            displayMessage('A rajzon nem minden panel tartozik szobához. Kérem nézze át a panelek elhelyezését.');
             return null;
         }
 
@@ -56,7 +56,7 @@ class SummaryCalculator {
             return;
         }
 
-        const noRoomFound = quotePanelArray.filter(quotePanel => !quotePanel.getRoom());
+        const noRoomFound = quotePanelArray.filter(quotePanel => !quotePanel.room);
         if (noRoomFound.length) {
             return this.summarizePanelCounts(noRoomFound);
         }
@@ -69,7 +69,7 @@ class SummaryCalculator {
         let totalCount = 0;
 
         for (let room of roomNames) {
-            const panelsInRoom = quotePanelArray.filter(p => p.getRoom() === room);
+            const panelsInRoom = quotePanelArray.filter(p => p.room === room);
             const roomSummary = this.summarizePanelCounts(panelsInRoom);
             summary[room] = roomSummary;
             totalRounds += roomSummary.numberOfRounds;
@@ -85,7 +85,7 @@ class SummaryCalculator {
     summarizePanelCounts(quotePanelArray) {
         const summary = {};
         quotePanelArray.forEach(element => {
-            const type = element.getType();
+            const type = element.type;
             const count = (summary[type]?.count || 0) + 1;
             const unitPrice = PRICES.panels[type];
             summary[type] = {

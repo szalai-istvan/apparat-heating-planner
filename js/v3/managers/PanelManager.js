@@ -67,7 +67,7 @@ class PanelManager {
                 panel.room && RoomManager.recalculateBeams(panel.room);
             }
         } else {
-            displayErrorMessage('A forgatás hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt elforgatja!');
+            displayMessage('A forgatás hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt elforgatja!');
         }
     }
 
@@ -78,7 +78,7 @@ class PanelManager {
             panel.numberOfPanelsInGroup = newGroupNumber;
             panel.room && RoomManager.recalculateBeams(panel.room);
         } else {
-            displayErrorMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt hozzáad a csoporthoz!');
+            displayMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt hozzáad a csoporthoz!');
         }
     }
 

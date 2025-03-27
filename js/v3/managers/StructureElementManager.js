@@ -29,7 +29,7 @@ class StructureElementManager {
             StructureElementManager.setAlignment(structureElements, (panel.alignment + 1) % 2)
             return true;
         }
-        displayErrorMessage('A panel elforgatásának hatására egymásra merőleges panelek szerepelnének a szobában!<br/>Mozgasson, vagy távolítson el paneleket, mielőtt elforgatja!');
+        displayMessage('A panel elforgatásának hatására egymásra merőleges panelek szerepelnének a szobában!<br/>Mozgasson, vagy távolítson el paneleket, mielőtt elforgatja!');
         return false;
     }
 

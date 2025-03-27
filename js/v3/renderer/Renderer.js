@@ -39,6 +39,7 @@ class Renderer {
     renderTranslatedObjects() {
         this.bluePrints.forEach(bluePrint => BlueprintRenderer.draw(bluePrint));
         this.panels.forEach(panel => PanelRenderer.draw(panel));
+        this.rooms.forEach(room => UD30Renderer.draw(room));
         this.beams.forEach(beam => StructureElementsInRoomRenderer.draw(beam));
         this.panels.forEach(panel => PanelRenderer.drawType(panel));
         this.rooms.forEach(room => RoomRenderer.draw(room));

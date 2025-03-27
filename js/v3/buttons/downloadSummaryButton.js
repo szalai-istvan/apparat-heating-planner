@@ -14,10 +14,10 @@ function openTransportDialog() {
 transportDialogOkButton.addEventListener('click', () => {
     const km = Number(transportInput.value.replace(",", "."));
     if (km < 0) {
-        displayErrorMessage('Negatív távolság megadása nem lehetséges.');
+        displayMessage('Negatív távolság megadása nem lehetséges.');
         return;
     } else if (isNaN(km)) {
-        displayErrorMessage('Érvénytelen távolság!');
+        displayMessage('Érvénytelen távolság!');
         return;
     }
 

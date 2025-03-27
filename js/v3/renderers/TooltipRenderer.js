@@ -1,6 +1,15 @@
+let displayTooltips = true;
 class TooltipRenderer {
 
+    static toggleTooltipDisplay() {
+        displayTooltips = !displayTooltips;
+    }
+
     static draw(tooltip) {
+        if (!displayTooltips) {
+            return;
+        }
+
         if (getClassName(tooltip) !== 'Tooltip') {
             throw new Error('TooltipRenderer can only render Tooltips!');
         }

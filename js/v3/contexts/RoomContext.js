@@ -9,7 +9,7 @@ class RoomContext {
         name = name.trim();
 
         if (this.roomNameAlreadyExists(name)) {
-            displayErrorMessage(`${name} nevű szoba már létezik. Egyedi nevet kell megadni.`);
+            displayMessage(`${name} nevű szoba már létezik. Egyedi nevet kell megadni.`);
             return false;
         }
         const room = new Room(name);
@@ -84,11 +84,11 @@ class RoomContext {
 
     addPoint() {
         const selectedRoom = this.selectedRoom;
-        if (selectedRoom) {
+        if (selectedRoom && !RoomManager.roomIsConfigured(selectedRoom)) {
             if (this.pointIsValid()) {
                 RoomManager.addPoint(selectedRoom);
             } else {
-                displayErrorMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
+                displayMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
             }    
         }
     }
@@ -128,13 +128,13 @@ class RoomContext {
 
         const room = this.rooms.filter(r => RoomManager.pointIsInsideRoom(r, p1) && RoomManager.pointIsInsideRoom(r, p2))[0];
         if (!room) {
-            displayErrorMessage('A panelcsoport része vagy egésze szobán kívül van!<br/>Helyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
+            displayMessage('A panelcsoport része vagy egésze szobán kívül van!<br/>Helyezze el a panelt máshová, vagy csökkentse a panelek hosszát a baloldali gombok segítségével!');    
             return undefined;
         }
         
         const successfulRegister = RoomManager.tryToRegisterPanelGroup(room, panel);
         if (!successfulRegister) {
-            displayErrorMessage('Egy adott szobában nem helyezhet el különböző irányban álló paneleket!');
+            displayMessage('Egy adott szobában nem helyezhet el különböző irányban álló paneleket!');
             return undefined;
         }
 

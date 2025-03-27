@@ -18,7 +18,6 @@ class ScreenContext {
 
     constructor() {}
 
-    
     setCanvas(canvas) {
         this.canvas = canvas;
     }
@@ -61,11 +60,20 @@ class ScreenContext {
     adjustForExport() {
         const blueprintSize = blueprintContext.getSizeData();
         const docSize = getDocumentDimensions();
-        const width = docSize.vw;
-        const height = window.innerHeight;
+        const width = docSize.vw - 100;
+        const height = window.innerHeight - 60;
         const zoom = Math.min(width / blueprintSize.w, height / blueprintSize.h);
         
-        this.sumDrag = {x: 0, y: 0};
+        if (blueprintContext.blueprints.length === 1) {
+            this.sumDrag = {x: 0, y: 0};
+        } else if (blueprintContext.blueprints.length > 1) {
+            const firstSize = BlueprintManager.getSizeData(blueprintContext.blueprints[0]);
+            this.sumDrag = {x: - blueprintSize.w / 2 + firstSize.w / 2, y: 0};
+        }
+
+        this.sumDrag.x += 50 * blueprintContext.blueprints.length;
+        this.sumDrag.y += 30;
+
         this.zoom = zoom;
     }
 

@@ -67,7 +67,7 @@ function handleFileSelect(event) {
     };
     reader.readAsArrayBuffer(file);
   } else {
-    displayErrorMessage(`Váratlan fájl típus: ${fileType}.<br/>Válasszon jpg, png vagy pdf fájlt a folytatáshoz.`);
+    displayMessage(`Váratlan fájl típus: ${fileType}.<br/>Válasszon jpg, png vagy pdf fájlt a folytatáshoz.`);
   }
 }
 
@@ -92,7 +92,7 @@ function displayPageSelector(numberOfPages) {
 pdfUploadDialogCloseButton.addEventListener('click', async () => {
   let pageNumber = Number(pdfUploadDialogInput.value);
   if (!(pageNumber > 0) || pageNumber > pdf._pdfInfo.numPages) {
-    displayErrorMessage(`Érvénytelen oldalszám: ${pdfUploadDialogInput.value}. Az első oldal lesz megjelenítve.`);
+    displayMessage(`Érvénytelen oldalszám: ${pdfUploadDialogInput.value}. Az első oldal lesz megjelenítve.`);
     pageNumber = 1;
   }
 

@@ -48,7 +48,7 @@ class ScaleContext {
             screenContext.enableControls();
             tooltip.scalingFinished();
         } else {
-            displayErrorMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');
+            displayMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');
         }
     }
 

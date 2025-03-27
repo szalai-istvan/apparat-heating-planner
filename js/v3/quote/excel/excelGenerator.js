@@ -9,7 +9,7 @@ function startExcelExport(transportKm) {
 async function createExcelFile(summary) {
     let roomNames = roomContext.getRoomNames();
     if (!(roomNames && roomNames.length)) {
-        return;
+        //return;
     }
 
     const context = { roomNames, summary };
@@ -35,6 +35,7 @@ async function createExcelFile(summary) {
     addPicture(context);
 
     downloadExcel(context);
+    displayMessage('A kalkulációt tartalmazó fájlt küldje el<br/>az <a href="mailto:sjb@apparat.hu">sjb@apparat.hu</a> e-mail címre.');
     return context;
 }
 
@@ -290,7 +291,7 @@ function fillSummaryTable(context) {
     const numberOfRoundsCellAddress = summarySheet.getRow(15).getCell(7).address;
 
     setFormula(firstCell, `(${panelCountCellAddress} - ${numberOfRoundsCellAddress})*2`);
-    let elementSummary = additionalElements.tElements;
+    let elementSummary = additionalElements.tElements || 0;
     setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${PRICES.tElement}`);
     rowIndex++;
 
@@ -329,7 +330,7 @@ function fillSummaryTable(context) {
     row = summarySheet.getRow(rowIndex);
     firstCell = row.getCell(firstColumn);
     secondCell = row.getCell(secondColumn);
-    elementSummary = additionalElements.cd30_60;
+    elementSummary = additionalElements.cd30_60 || 0;
     firstCell.value = elementSummary.count;
     setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
     rowIndex++;
@@ -338,7 +339,7 @@ function fillSummaryTable(context) {
     row = summarySheet.getRow(rowIndex);
     firstCell = row.getCell(firstColumn);
     secondCell = row.getCell(secondColumn);
-    elementSummary = additionalElements.ud30;
+    elementSummary = additionalElements.ud30 || 0;
     firstCell.value = elementSummary.count;
     setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
     rowIndex++;
@@ -347,7 +348,7 @@ function fillSummaryTable(context) {
     row = summarySheet.getRow(rowIndex);
     firstCell = row.getCell(firstColumn);
     secondCell = row.getCell(secondColumn);
-    elementSummary = additionalElements.mainlineTube;
+    elementSummary = additionalElements.mainlineTube || 0;
     setFormula(firstCell, `${numberOfRoundsCellAddress}*20`);
     setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
     rowIndex++;
@@ -356,7 +357,7 @@ function fillSummaryTable(context) {
     row = summarySheet.getRow(rowIndex);
     firstCell = row.getCell(firstColumn);
     secondCell = row.getCell(secondColumn);
-    elementSummary = additionalElements.eurokonusz;
+    elementSummary = additionalElements.eurokonusz || 0;
     setFormula(firstCell, `${numberOfRoundsCellAddress}*2`);
     setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
     rowIndex++;
@@ -427,6 +428,8 @@ function adjustRoomColumnWidths(context) {
 
 function addPicture(context) {
     screenContext.adjustForExport();
+    TooltipRenderer.toggleTooltipDisplay();
+    draw();
 
     const workbook = context.workbook;
     const blueprintSheet = context.sheets.blueprintSheet;
@@ -435,8 +438,8 @@ function addPicture(context) {
     const p = {
         x: 100,
         y: 60,
-        w: docSize.vw,
-        h: window.innerHeight
+        w: docSize.vw - 100,
+        h: window.innerHeight - 60
     }
 
     let extracted = get(p.x, p.y, p.w, p.h);
@@ -453,6 +456,7 @@ function addPicture(context) {
         tl: { col: 0, row: 0 },
         ext: { width: p.w, height: p.h }
     });
+    TooltipRenderer.toggleTooltipDisplay();
 }
 
 function base64ToArrayBuffer(base64) {

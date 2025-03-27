@@ -7,7 +7,7 @@ class PanelContext {
 
     createOrReplacePanel(type) {
         if (this.selectedPanel && this.selectedPanel.isSelectedForDrag) {
-            PanelManager.setType(this.selectedPanel);
+            PanelManager.setType(this.selectedPanel, type);
         } else {
             const panel = new Panel(type);
             this.panels.push(panel);

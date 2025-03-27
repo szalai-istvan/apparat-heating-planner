@@ -54,6 +54,6 @@ addRoomButton.addEventListener('click', () => {
             screenContext.enableControls();
         }
     } else {
-        displayErrorMessage('Név nélkül nem vehető fel szoba!');
+        displayMessage('Név nélkül nem vehető fel szoba!');
     }
 });
