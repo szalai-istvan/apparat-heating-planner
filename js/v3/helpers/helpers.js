@@ -121,5 +121,5 @@ function roundNumber(number, decimals) {
 }
 
 function displayHelpData() {
-  displayMessage('Segítség kérése:<br/>e-mail: <a href="mailto:sjb@apparat.hu">sjb@apparat.hu</a>');
+  displayMessage('Segítség kérése:<br/>e-mail: sjb@apparat.hu');
 }

@@ -50,9 +50,9 @@ class StructureElementsInRoomRenderer {
         const offset = Math.abs(beam.p1.x - beam.p2.x) / 4;
         const x1 = centerP.x - offset;
         const x2 = centerP.x + offset;
-        text(BEAM_TYPE, x1, centerP.y);
-        text(BEAM_TYPE, centerP.x, centerP.y);
-        text(BEAM_TYPE, x2, centerP.y);
+        text(structureElements.text, x1, centerP.y);
+        text(structureElements.text, centerP.x, centerP.y);
+        text(structureElements.text, x2, centerP.y);
     }
 
     static drawVerticalText(structureElements, beam) {
@@ -71,9 +71,9 @@ class StructureElementsInRoomRenderer {
         rotate(270);
 
         const offset = Math.abs(beam.p1.y - beam.p2.y) / 4;
-        text(BEAM_TYPE, offset, 0);
-        text(BEAM_TYPE, 0, 0);
-        text(BEAM_TYPE, -offset, 0);
+        text(structureElements.text, offset, 0);
+        text(structureElements.text, 0, 0);
+        text(structureElements.text, -offset, 0);
         pop();
     }
 }

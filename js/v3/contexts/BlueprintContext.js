@@ -39,6 +39,10 @@ class BlueprintContext {
             return undefined;
         }
 
+        if (!this.blueprints.map(bp => bp.topLeftPosition).filter(x => x).length) {
+            return;
+        }
+
         const sizeDatas = this.blueprints.map(bp => BlueprintManager.getSizeData(bp));
         return { 
             x: - sizeDatas[0].w / 2, 

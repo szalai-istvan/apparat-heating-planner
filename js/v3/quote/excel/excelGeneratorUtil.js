@@ -53,12 +53,19 @@ function setFormula(cell, formula) {
     cell.value = { formula };
 }
 
-function addOptionTableAndReturnOptionsRange(sheet, column, options) {
+function addOptionTableAndReturnOptionsRange(sheet, column, options, formula = false) {
     let rowIndex = 1;
     for (let key in options) {
         value = options[key];
-        sheet.getRow(rowIndex).getCell(column).value = key;
-        sheet.getRow(rowIndex).getCell(column + 1).value = value;
+
+        if (formula) {
+            setFormula(sheet.getRow(rowIndex).getCell(column), key);
+            setFormula(sheet.getRow(rowIndex).getCell(column + 1), value);
+        } else {                
+            sheet.getRow(rowIndex).getCell(column).value = key;
+            sheet.getRow(rowIndex).getCell(column + 1).value = value;
+        }
+
         rowIndex++;
     }
 
@@ -95,4 +102,60 @@ function VLOOKUP(searchValue, searchTable, column, rangeSearch) {
 
 function IF(condition, valueIfTrue, valueIfFalse) {
     return `IF(${condition}, ${valueIfTrue}, ${valueIfFalse})`;
+}
+
+function IFERROR(expression, fallback) {
+    return `IFERROR(${expression}, ${fallback})`;
+}
+
+function alap(cell) {
+    return `Alap!${cell}`;
+}
+
+function alapArr(cells) {
+    return cells.map(alap);
+}
+
+function alapRange(col, rowStart, rowEnd) {
+    let cells = [];
+    let row = rowStart;
+    while (row <= rowEnd) {
+        cells.push(col + row++);
+    }
+    return alapArr(cells);
+}
+
+function alapPair(keyCol, valueCol, rowStart, rowEnd) {
+    const keys = alapRange(keyCol, rowStart, rowEnd);
+    const values = alapRange(valueCol, rowStart, rowEnd);
+    const out = {};
+
+    let index = 0;
+    while (index < keys.length) {
+        out[keys[index]] = values[index];
+        index++;
+    }
+    return out;
+}
+
+function getCollectorConfig(context) {
+    const rounds = context.summary.numberOfRounds;
+    let first = 0;
+    let second = 0;
+
+    if (rounds < 12) {
+        first = rounds;
+        second = 0;
+    } else {
+        first = Math.ceil(rounds / 2);
+        second = rounds - first;
+    }
+
+    first = Math.min(first, 12);
+    second = Math.min(second, 12);
+
+    first = first < 2 ? 'nem kell' : first + ' körös osztógyűjtő';
+    second = second < 2 ? 'nem kell' : second + ' körös osztógyűjtő';
+
+    return {first, second};
 }

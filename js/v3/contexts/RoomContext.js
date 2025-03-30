@@ -165,6 +165,12 @@ class RoomContext {
         }
         return true;
     }
+
+    setupRoomsInPanels() {
+        this.rooms.forEach(room => {
+            room.structureElementsInRoom.panels.forEach(panel => panel.room = room);
+        });
+    }
 }
 
 const roomContext = new RoomContext();

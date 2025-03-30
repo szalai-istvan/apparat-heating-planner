@@ -20,6 +20,8 @@ function setup() {
     createButtons();
     
     tooltip.applicationStarted();
+
+    loadProject();
 }
 
 function getDocumentDimensions() {

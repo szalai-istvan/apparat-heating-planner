@@ -155,7 +155,7 @@ class StructureElementManager {
     }
 
     static getRoomCornerCoordinates(structureElements, xReducer, yReducer) {
-        const points = structureElements.room.points;
+        const points = structureElements.roomPoints;
         const x = points.map(p => p.x).reduce(xReducer);
         const y = points.map(p => p.y).reduce(yReducer);
         return { x, y };

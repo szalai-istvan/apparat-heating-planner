@@ -35,7 +35,7 @@ async function createExcelFile(summary) {
     addPicture(context);
 
     downloadExcel(context);
-    displayMessage('A kalkulációt tartalmazó fájlt küldje el<br/>az <a href="mailto:sjb@apparat.hu">sjb@apparat.hu</a> e-mail címre.');
+    displayMessage('A kalkulációt tartalmazó fájlt küldje el<br/>az sjb@apparat.hu e-mail címre.');
     return context;
 }
 
@@ -212,7 +212,7 @@ function fillPanelPriceFormulas(context) {
     let rowIndex = 3;
     while (rowIndex < 10) {
         const type = summarySheet.getRow(rowIndex).getCell(7).value;
-        const price = PRICES.panels[type];
+        const price = alap('B' + ALAP_ROW[type]);
 
         setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), `${getCellName({ row: rowIndex, column: panelCountsColumn })}*${price}`);
         rowIndex++;
@@ -292,7 +292,7 @@ function fillSummaryTable(context) {
 
     setFormula(firstCell, `(${panelCountCellAddress} - ${numberOfRoundsCellAddress})*2`);
     let elementSummary = additionalElements.tElements || 0;
-    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${PRICES.tElement}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${alap('B9')}`);
     rowIndex++;
 
     // Szűkítő
@@ -302,7 +302,7 @@ function fillSummaryTable(context) {
 
     const tElementsCellAddress = summarySheet.getRow(rowIndex - 1).getCell(firstColumn).address;
     setFormula(firstCell, `${panelCountCellAddress}*2 - ${tElementsCellAddress}`);
-    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${PRICES.confusor}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${alap('B10')}`);
     rowIndex++;
 
     // osztógyüjtő
@@ -310,10 +310,11 @@ function fillSummaryTable(context) {
     firstCell = row.getCell(firstColumn);
     secondCell = row.getCell(secondColumn);
 
-    const collectorsOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 5, PRICES.collectorTypes);
+    const collectorConfig = getCollectorConfig(context);
+    const collectorsOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 5, alapPair('A', 'B', 14, 24), true);
     createDropDown(firstCell, collectorsOptionsRange.dropdown);
-    firstCell.value = 'nem kell';
-    setFormula(secondCell, VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'));
+    firstCell.value = collectorConfig.first;
+    setFormula(secondCell, IFERROR(VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'), 0));
     rowIndex++;
 
     // osztógyüjtő
@@ -322,8 +323,8 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
 
     createDropDown(row.getCell(firstColumn), collectorsOptionsRange.dropdown);
-    firstCell.value = 'nem kell';
-    setFormula(secondCell, VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'));
+    firstCell.value = collectorConfig.second;
+    setFormula(secondCell, IFERROR(VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'), 0));
     rowIndex++;
 
     // CD30/60
@@ -350,7 +351,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
     elementSummary = additionalElements.mainlineTube || 0;
     setFormula(firstCell, `${numberOfRoundsCellAddress}*20`);
-    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${alap('B12')}`);
     rowIndex++;
 
     // eurokónusz
@@ -359,7 +360,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
     elementSummary = additionalElements.eurokonusz || 0;
     setFormula(firstCell, `${numberOfRoundsCellAddress}*2`);
-    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${alap('B13')}`);
     rowIndex++;
 
     // osztószekrény
@@ -390,8 +391,7 @@ function fillSummaryTable(context) {
     const transport = additionalElements.transport || null;
 
     firstCell.value = transport;
-    const transportCost = PRICES.transport;
-    setFormula(secondCell, IF(`${firstCell.address}>0`, `${transportCost.a}*${firstCell.address}+${transportCost.b}`, 0));
+    setFormula(secondCell, IF(`${firstCell.address}>0`, `${alap('B26')}*${firstCell.address}+${alap('B25')}`, 0));
     rowIndex++;
 
     // Összesen bruttó anyagdíj

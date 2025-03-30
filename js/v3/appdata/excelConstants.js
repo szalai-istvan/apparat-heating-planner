@@ -12,3 +12,13 @@ const HEADER_COLOR = 'BFBFBF';
 const FILE_PATH = 'xlsx/TEMPLATE.xlsx';
 
 const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+const ALAP_ROW = {
+    'F100': 2,
+    'F150': 3,
+    'F200': 4,
+    'F250': 5,
+    'F300': 6,
+    'F350': 7,
+    'F400': 8
+};

@@ -47,8 +47,10 @@ class Tooltip {
             const dot = f.indexOf('.');
             f = f.substr(0, 42) + ' ... ' + f.substr(dot);
         }
-        this.text = f + '\nfeltöltése sikeresen befejeződött!';
-        if (next) setTimeout(next, 3_000);
+        if (f.length) {
+            this.text = f + '\nfeltöltése sikeresen befejeződött!';
+            if (next) setTimeout(next, 3_000);    
+        }
     }
 
     fileIsUploaded() {

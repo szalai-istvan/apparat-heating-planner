@@ -13,6 +13,8 @@ class RoomManager {
                 selectionContext.tryToDeselect();
                 room.textCenterCoordinates = room.middlePoint;
                 tooltip.roomAddingFinished();
+
+                UD30Manager.createUD30BeamsForRoom(room);
             }
         }
     }
