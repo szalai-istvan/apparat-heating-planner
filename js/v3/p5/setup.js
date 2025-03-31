@@ -21,7 +21,9 @@ function setup() {
     
     tooltip.applicationStarted();
 
-    loadProject();
+    if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
+        loadProject();        
+    }
 }
 
 function getDocumentDimensions() {

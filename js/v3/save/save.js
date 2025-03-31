@@ -39,4 +39,6 @@ function withSaveablePanels(room) {
     return room;
 }
 
-setInterval(saveProject, 10_000);
+if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
+    setInterval(saveProject, 10_000);
+}

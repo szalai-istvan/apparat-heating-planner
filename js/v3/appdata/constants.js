@@ -51,3 +51,5 @@ const PREFILL_ROOM_NAMES = [
   "Fürdőszoba",
   "Előszoba"
 ];
+
+const SAVE_TO_LOCAL_STORAGE_ENABLED = false;
