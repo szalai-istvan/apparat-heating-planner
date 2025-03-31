@@ -60,21 +60,12 @@ class ScreenContext {
     adjustForExport() {
         const blueprintSize = blueprintContext.getSizeData();
         const docSize = getDocumentDimensions();
-        const width = docSize.vw - 100;
-        const height = window.innerHeight - 60;
-        const zoom = Math.min(width / blueprintSize.w, height / blueprintSize.h);
-        
-        if (blueprintContext.blueprints.length === 1) {
-            this.sumDrag = {x: 0, y: 0};
-        } else if (blueprintContext.blueprints.length > 1) {
-            const firstSize = BlueprintManager.getSizeData(blueprintContext.blueprints[0]);
-            this.sumDrag = {x: - blueprintSize.w / 2 + firstSize.w / 2, y: 0};
-        }
 
-        this.sumDrag.x += 50 * blueprintContext.blueprints.length;
-        this.sumDrag.y += 30;
-
-        this.zoom = zoom;
+        const x = blueprintSize.x;
+        const y = blueprintSize.y;
+        const sumDrag = {x: -x - docSize.vw / 2 + 100, y: -y - docSize.vh / 2 + 60};
+        this.sumDrag = sumDrag;
+        this.zoom = 1;
     }
 
     getMousePosition() {

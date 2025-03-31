@@ -18,7 +18,7 @@ class UiBackgroundRenderer {
         line(450, 0, 450, 60);
     
         if (selectionContext.selectedObject) {
-            line(0, 370, 100, 370);
+            line(0, 425, 100, 425);
         }
 
         image(apparatLogo, docSize.vw - 293, 5, 287, 49.5);

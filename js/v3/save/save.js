@@ -9,12 +9,29 @@ function getProjectState() {
     };
 }
 
+function getProjectStateSize() {
+    return roundNumber(JSON.stringify(getProjectState()).length / 1024 / 1024, 2) + ' MB';
+}
+
+function downloadProjectState() {
+    const text = JSON.stringify(getProjectState());
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', `APPARAT_project_${Math.random().toString().substring(2)}.json`);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+
 function saveProject() {
     const state = getProjectState();
     const stateStr = JSON.stringify(state);
     roomContext.setupRoomsInPanels();
     localStorage.setItem('rajzolator-project-save', stateStr);
-    console.log('Project state saved to local storage');
 }
 
 function withSaveablePanels(room) {

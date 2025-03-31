@@ -2,8 +2,8 @@ function loadProjectState() {
     return JSON.parse(localStorage.getItem('rajzolator-project-save'));
 }
 
-function loadProject() {
-    const projectState = loadProjectState();
+function loadProject(text = undefined) {
+    const projectState = text ? JSON.parse(text) : loadProjectState();
     if (!projectState) {
         return;
     }

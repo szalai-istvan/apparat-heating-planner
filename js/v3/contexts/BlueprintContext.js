@@ -48,7 +48,7 @@ class BlueprintContext {
             x: - sizeDatas[0].w / 2, 
             y: - sizeDatas[0].h / 2, 
             w: sizeDatas.map(s => s.w).reduce(sumFunction),
-            h: sizeDatas.map(s => s.h).reduce(sumFunction)
+            h: sizeDatas.map(s => s.h).reduce(maximumFunction)
         }
     }
 }

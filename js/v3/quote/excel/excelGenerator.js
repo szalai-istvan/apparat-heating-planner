@@ -9,7 +9,7 @@ function startExcelExport(transportKm) {
 async function createExcelFile(summary) {
     let roomNames = roomContext.getRoomNames();
     if (!(roomNames && roomNames.length)) {
-        //return;
+        return;
     }
 
     const context = { roomNames, summary };
@@ -333,7 +333,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
     elementSummary = additionalElements.cd30_60 || 0;
     firstCell.value = elementSummary.count;
-    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${alap('B27')}`);
     rowIndex++;
 
     // UD30
@@ -342,7 +342,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
     elementSummary = additionalElements.ud30 || 0;
     firstCell.value = elementSummary.count;
-    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${elementSummary.unitPrice}`);
+    setFormula(secondCell, `${getCellName({ row: rowIndex, column: firstColumn })}*${alap('B28')}`);
     rowIndex++;
 
     // gerinc cső+héj 16x2
@@ -427,36 +427,74 @@ function adjustRoomColumnWidths(context) {
 }
 
 function addPicture(context) {
-    screenContext.adjustForExport();
-    TooltipRenderer.toggleTooltipDisplay();
-    draw();
-
     const workbook = context.workbook;
     const blueprintSheet = context.sheets.blueprintSheet;
-    
-    const docSize = getDocumentDimensions();
-    const p = {
-        x: 100,
-        y: 60,
-        w: docSize.vw - 100,
-        h: window.innerHeight - 60
+    const beforeScreenData = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y, zoom: screenContext.zoom };
+    screenContext.adjustForExport();
+    const baseOffset = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y };
+
+    try {
+        TooltipRenderer.toggleTooltipDisplay();
+        draw();
+
+        const docSize = getDocumentDimensions();
+        const screenWidth = docSize.vw;
+        const screenHeight = docSize.vh;
+
+        const contentSize = blueprintContext.getSizeData();
+        const contentWidth = contentSize.w;
+        const contentHeight = contentSize.h;
+
+        const minSumDragX = Math.min(- (contentWidth - contentSize.x), screenContext.sumDrag.x - 1);
+        const minSumDragY = Math.min(- (contentHeight / 2), screenContext.sumDrag.y - 1);
+
+        const stepX = screenWidth - 100;
+        const stepY = screenHeight - 60;
+
+        let offset;
+        let extracted;
+        let buffer = createGraphics(contentWidth, contentHeight);
+
+        const p = {
+            x: 100,
+            y: 60,
+            w: screenWidth - 100,
+            h: screenHeight - 60
+        };
+
+        while (screenContext.sumDrag.y > minSumDragY) {
+            while (screenContext.sumDrag.x > minSumDragX) {
+                offset = { x: baseOffset.x - screenContext.sumDrag.x, y: baseOffset.y - screenContext.sumDrag.y };
+                extracted = get(p.x, p.y, p.w, p.h);
+                buffer.image(extracted, offset.x, offset.y);
+
+                screenContext.sumDrag.x -= stepX;
+                draw();
+            }
+
+            screenContext.sumDrag.y -= stepY;
+            screenContext.sumDrag.x = -contentSize.x - screenWidth / 2 + 100;
+            draw();
+        }
+
+        const base64Image = buffer.elt.toDataURL("image/png");
+
+        const imageId = workbook.addImage({
+            buffer: base64ToArrayBuffer(base64Image.split(',')[1]),
+            extension: "png"
+        });
+
+        blueprintSheet.addImage(imageId, {
+            tl: { col: 0, row: 0 },
+            ext: { width: contentWidth, height: contentHeight }
+        });
+
+
+    } finally {
+        TooltipRenderer.toggleTooltipDisplay();
+        screenContext.sumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
+        screenContext.zoom = beforeScreenData.zoom;
     }
-
-    let extracted = get(p.x, p.y, p.w, p.h);
-    let buffer = createGraphics(p.w, p.h);
-    buffer.image(extracted, 0, 0);
-    const base64Image = buffer.elt.toDataURL("image/png");
-
-    const imageId = workbook.addImage({
-        buffer: base64ToArrayBuffer(base64Image.split(',')[1]),
-        extension: "png"
-    });
-
-    blueprintSheet.addImage(imageId, {
-        tl: { col: 0, row: 0 },
-        ext: { width: p.w, height: p.h }
-    });
-    TooltipRenderer.toggleTooltipDisplay();
 }
 
 function base64ToArrayBuffer(base64) {

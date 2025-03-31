@@ -26,6 +26,16 @@ function createButtons() {
     });
 
     let row = 0;
+    
+    new ButtonWrapper({
+        text: 'Projekt letöltése',
+        size: TALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(row),
+        onClick: () => downloadProjectState(),
+        shouldBeRendered: () => true
+    });
+    row+=1.5;
+
     clearBlueprintsButton = new ButtonWrapper({
         text: 'Alaprajzok eltávolítása',
         size: TALL_BUTTON_SIZE,
