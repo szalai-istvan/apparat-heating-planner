@@ -1,110 +1,135 @@
 var helpButton;
 
 function createButtons() {
+    const topRibbonButtonSizes = [];
+
     fileUploadButton = new ButtonWrapper({
         text: 'Alaprajz feltöltése',
         size: REGULAR_BUTTON_SIZE,
-        position: topRibbonButtonPosition(1),
+        position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: () => upload(),
         shouldBeRendered: () => true
     });
+    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
 
     scaleButton = new ButtonWrapper({
         text: 'Méretarány felvétele',
         size: REGULAR_BUTTON_SIZE,
-        position: topRibbonButtonPosition(2),
+        position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: () => scaleContext.startScaling(),
         shouldBeRendered: () => blueprintContext.blueprintDataIsPresent()
     });
+    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
 
     addRoomsButton = new ButtonWrapper({
         text: 'Helyiség felvétele',
         size: REGULAR_BUTTON_SIZE,
-        position: topRibbonButtonPosition(3),
+        position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: () => showAddRoomDialog(),
         shouldBeRendered: () => scaleContext.ratioIsSet()
     });
+    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
 
-    let row = 0;
-    
+    addTopRibbonDelimeter(topRibbonButtonPosition(topRibbonButtonSizes).x);
+    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
+
+    const leftRibbonButtonSizes = [];
+
     new ButtonWrapper({
-        text: 'Projekt letöltése',
-        size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row),
+        text: 'Projekt mentése',
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => downloadProjectState(),
         shouldBeRendered: () => true
     });
-    row+=1.5;
+    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
+
+    new ButtonWrapper({
+        text: 'Projekt betöltése',
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
+        onClick: () => downloadProjectState(),
+        shouldBeRendered: () => true
+    });
+    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
+
+    addLeftRibbonDelimeter(sidePanelButtonPosition(leftRibbonButtonSizes).y);
 
     clearBlueprintsButton = new ButtonWrapper({
         text: 'Alaprajzok eltávolítása',
-        size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row++),
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => clearBlueprints(),
         shouldBeRendered: () => blueprintContext.blueprintDataIsPresent()
     });
+    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 
-    row+=0.5;
     for (let type in panelTypes) {
         addPanelButtons.push(new ButtonWrapper({
             text: type,
             size: SMALL_BUTTON_SIZE,
-            position: sidePanelButtonPosition(row++),
+            position: sidePanelButtonPosition(leftRibbonButtonSizes),
             onClick: () => panelContext.createOrReplacePanel(type),
             shouldBeRendered: () => roomContext.thereAreRooms()
         }));
+        leftRibbonButtonSizes.push(SMALL_BUTTON_SIZE);
     }
 
-    row+=0.5;
+    addLeftRibbonDelimeter(sidePanelButtonPosition(leftRibbonButtonSizes).y);
+
     editPanelButtons.rotate = new ButtonWrapper({
         text: 'Panel forgatása',
-        size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row++),
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => panelContext.tryToRotateSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
+    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 
+    const addButtonPosition = sidePanelButtonPosition(leftRibbonButtonSizes);
     editPanelButtons.subtract = new ButtonWrapper({
         text: '-',
-        size: HALF_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row+=0.5),
+        size: HALF_WIDTH_BUTTON_SIZE,
+        position: addButtonPosition,
         onClick: () => panelContext.removeFromSelectedGroup(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
-
-    const addButtonPosition = sidePanelButtonPosition(row++);
-    addButtonPosition.x += HALF_BUTTON_SIZE.x;
+    
+    addButtonPosition.x += HALF_WIDTH_BUTTON_SIZE.x;
     editPanelButtons.add = new ButtonWrapper({
         text: '+',
-        size: HALF_BUTTON_SIZE,
+        size: HALF_WIDTH_BUTTON_SIZE,
         position: addButtonPosition,
         onClick: () => panelContext.tryToAddToSelectedGroup(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
+    leftRibbonButtonSizes.push(HALF_WIDTH_BUTTON_SIZE);
 
     editPanelButtons.delete = new ButtonWrapper({
         text: 'Panel törlése',
-        size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row),
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => panelContext.hasSelectedPanel()
     });
-
+    
     deleteRoomButton = new ButtonWrapper({
         text: 'Helyiség törlése',
-        size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row),
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => selectionContext.removeSelected(),
         shouldBeRendered: () => roomContext.displayDeleteButton()
     });
+    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 
     downloadSummaryButton = new ButtonWrapper({
         text: 'Árkalkuláció letöltése',
-        size: TALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(row+=1.5),
+        size: TALL_SMALL_BUTTON_SIZE,
+        position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => openTransportDialog(),
         shouldBeRendered: () => panelContext.thereArePanels()
     });
+    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 
     helpButton = new ButtonWrapper({
         text: 'Segítség',

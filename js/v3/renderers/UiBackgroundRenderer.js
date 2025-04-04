@@ -9,16 +9,14 @@ class UiBackgroundRenderer {
         push();
         fill('lightgrey');
         noStroke();
-        rect(0, 0, docSize.vw, 60);
-        rect(0, 60, 100, docSize.vh - 60);
+        rect(0, 0, docSize.vw, TOP_RIBBON_HEIGHT);
+        rect(0, TOP_RIBBON_HEIGHT, LEFT_RIBBON_WIDTH, docSize.vh - TOP_RIBBON_HEIGHT);
         stroke(3);
-        line(100, 60, docSize.vw, 60);
-        line(100, 60, 100, docSize.vh);
+        line(LEFT_RIBBON_WIDTH, TOP_RIBBON_HEIGHT, docSize.vw, TOP_RIBBON_HEIGHT);
+        line(LEFT_RIBBON_WIDTH, TOP_RIBBON_HEIGHT, LEFT_RIBBON_WIDTH, docSize.vh);
     
-        line(450, 0, 450, 60);
-    
-        if (selectionContext.selectedObject) {
-            line(0, 425, 100, 425);
+        for (let del of DELIMITER_POSITIONS) {
+            line(del.p1.x, del.p1.y, del.p2.x, del.p2.y);
         }
 
         image(apparatLogo, docSize.vw - 293, 5, 287, 49.5);

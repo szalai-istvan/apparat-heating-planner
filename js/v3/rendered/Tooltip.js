@@ -130,4 +130,7 @@ class Tooltip {
     }
 }
 
-const tooltip = new Tooltip(tooltipPosition());
+const button4Position = topRibbonButtonPosition([REGULAR_BUTTON_SIZE, REGULAR_BUTTON_SIZE, REGULAR_BUTTON_SIZE, REGULAR_BUTTON_SIZE]);
+const tooltipPosition =  {x: button4Position.x, y: button4Position.y + REGULAR_BUTTON_SIZE.y / 2};
+tooltipPosition.x += BUTTON_GAP_X;
+const tooltip = new Tooltip(tooltipPosition);

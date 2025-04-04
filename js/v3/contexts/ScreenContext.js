@@ -63,7 +63,7 @@ class ScreenContext {
 
         const x = blueprintSize.x;
         const y = blueprintSize.y;
-        const sumDrag = {x: -x - docSize.vw / 2 + 100, y: -y - docSize.vh / 2 + 60};
+        const sumDrag = {x: -x - docSize.vw / 2 + 100, y: -y - docSize.vh / 2 + TOP_RIBBON_HEIGHT};
         this.sumDrag = sumDrag;
         this.zoom = 1;
     }
