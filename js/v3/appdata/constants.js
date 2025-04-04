@@ -44,9 +44,12 @@ const PREFILL_ROOM_NAMES = [
   "Előszoba"
 ];
 
-// Text and media constants
+// Text constants
 const DEFAULT_TEXT_COLOR = "black";
 const SELECTED_TEXT_COLOR = "red";
+
+// File constants
+const LOCAL_STORAGE_DATA_KEY = 'rajzolator-project-save';
 const IMAGE_CONTENT_TYPES = ["image/jpeg", "image/png"];
 const PDF_CONTENT_TYPE = "application/pdf";
 

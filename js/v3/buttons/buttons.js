@@ -48,7 +48,7 @@ function createButtons() {
         text: 'Projekt betöltése',
         size: TALL_SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => downloadProjectState(),
+        onClick: () => uploadProject(),
         shouldBeRendered: () => true
     });
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
