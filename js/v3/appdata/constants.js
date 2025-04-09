@@ -63,4 +63,4 @@ const BEAM_TEXT_SIZE_METER = 0.04;
 const CD_30_60_BEAM_TYPE = "CD30/60 profil";
 const UD_30_BEAM_TYPE = "UD30 profil";
 
-const SAVE_TO_LOCAL_STORAGE_ENABLED = true;
+const SAVE_TO_LOCAL_STORAGE_ENABLED = false;

@@ -11,11 +11,8 @@ function loadProject(text = undefined) {
   }
 
   blueprintContext.clearBlueprints();
-  (projectState.blueprints.data || []).forEach((bp) =>
-    blueprintContext.createBlueprint(loadImage(bp))
-  );
+  (projectState.blueprints.data || []).forEach((bp) => blueprintContext.createBlueprint(loadImage(bp)));
 
-  
   const topLeftCoordinates = projectState.blueprints.topLeft;
   for (let i = 0; i < topLeftCoordinates.length; i++) {
     blueprintContext.blueprints[i].topLeftPosition = topLeftCoordinates[i];
