@@ -54,6 +54,7 @@ class Renderer {
     renderAbsolutePositionObjects() {
         UiBackgroundRenderer.drawUiBackground();
         TooltipRenderer.draw(this.tooltip);
+        PanelInfoRenderer.draw();
 
         if (debugEnabled) {
             DebugInfoRenderer.drawCursorDebugInfo();

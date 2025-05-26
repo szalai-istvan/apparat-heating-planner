@@ -51,6 +51,7 @@ class RoomContext {
         }
         if (this.rooms.length === 0) {
             tooltip.scalingFinished();
+            gridContext.removeSeed();
         }
     }
 
@@ -87,6 +88,9 @@ class RoomContext {
         if (selectedRoom && !RoomManager.roomIsConfigured(selectedRoom)) {
             if (this.pointIsValid()) {
                 RoomManager.addPoint(selectedRoom);
+                if (this.rooms.length === 1 && selectedRoom.points.length === 1) {
+                    gridContext.setSeed(screenContext.getMousePositionAbsolute());
+                }
             } else {
                 displayMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
             }    

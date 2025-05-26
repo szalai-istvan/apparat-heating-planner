@@ -11,7 +11,6 @@ class PanelManager {
         );
     }
 
-
     static getTopLeftCornerCoordinates(panel, alignment = undefined) {
         alignment = alignment ?? panel.alignment;
 
@@ -44,16 +43,29 @@ class PanelManager {
     }
 
     static mousePositionAsCenterOfPanel(panel) {
-        const mousePosition = screenContext.getMousePositionAbsolute();
+        const mousePosition = screenContext.getMousePosition();
+        const mousePositionAbsolute = screenContext.getMousePositionAbsolute();
+
         if (panel.alignment) {
+            const xT = panel.widthInPixels * 0.5 * panel.numberOfPanelsInGroup;
+            const yT = panel.lengthInPixels / 2;
+            const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_NO_PIPE + xT) * screenContext.zoom, mousePosition.x);
+            const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_PIPE + yT) * screenContext.zoom, mousePosition.y);
+            
             return {
-                x: mousePosition.x + panel.widthInPixels * 0.5 * panel.numberOfPanelsInGroup,
-                y: mousePosition.y - panel.lengthInPixels / 2
+                x: mousePositionAbsolute.x + xT + xCorrection,
+                y: mousePositionAbsolute.y - yT + yCorrection
             };
         }
+
+        const xT = panel.lengthInPixels / 2;
+        const yT = panel.widthInPixels * 0.5 * panel.numberOfPanelsInGroup
+        const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_PIPE + xT) * screenContext.zoom, mousePosition.x);
+        const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_NO_PIPE + yT) * screenContext.zoom, mousePosition.y);
+
         return {
-            x: mousePosition.x - panel.lengthInPixels / 2,
-            y: mousePosition.y - panel.widthInPixels * 0.5 * panel.numberOfPanelsInGroup
+            x: mousePositionAbsolute.x - xT + xCorrection,
+            y: mousePositionAbsolute.y - yT + yCorrection
         };
     }
 
@@ -163,5 +175,9 @@ class PanelManager {
             return true;
         }
         return RoomManager.pointIsInsideRoom(panel.room, boundaryPoints.p1) && RoomManager.pointIsInsideRoom(panel.room, boundaryPoints.p2);
+    }
+
+    static calculateCorrector(lim, coord) {
+        return (Math.abs(lim - coord) + lim - coord) / (2 * screenContext.zoom);
     }
 }
