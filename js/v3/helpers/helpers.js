@@ -86,3 +86,7 @@ function roundNumber(number, decimals) {
 function displayHelpData() {
   displayMessage("Segítség kérése:<br/>e-mail: sjb@apparat.hu");
 }
+
+function calculateCorrector(lim, coord) {
+  return (Math.abs(lim - coord) + lim - coord) / (2 * screenContext.zoom);
+}

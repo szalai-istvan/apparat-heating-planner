@@ -19,6 +19,8 @@ function loadProject(text = undefined) {
   }
 
   scaleContext.pixelsPerMetersRatio = projectState.scale.pixelsPerMeterRatio;
+  gridContext.refreshGridResolution();
+
   if (scaleContext.pixelsPerMetersRatio) {
     setTimeout(() => tooltip.scalingFinished(), 3_000);
   }
@@ -50,6 +52,8 @@ function loadProject(text = undefined) {
 
   screenContext.sumDrag = projectState.screen.sumDrag;
   screenContext.zoom = projectState.screen.zoom;
+
+  gridContext.setSeed(projectState.grid.seed);
 }
 
 function setupAndGetPanels(projectState) {

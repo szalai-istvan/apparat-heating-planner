@@ -43,6 +43,7 @@ class ScaleContext {
             this.scalingInProgress = false;
             const referencePointDistance = calculateDistance(firstPoint, secondPoint);
             this.pixelsPerMetersRatio = referencePointDistance / this.referenceLength;
+            gridContext.refreshGridResolution();
             
             scalingDialog.close();
             screenContext.enableControls();
@@ -60,6 +61,7 @@ class ScaleContext {
         this.firstPoint = null;
         this.secondPoint = null;
         this.pixelsPerMetersRatio = null;
+        gridContext.refreshGridResolution();
         roomContext.clear();
     }
 

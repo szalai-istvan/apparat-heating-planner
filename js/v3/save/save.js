@@ -20,6 +20,9 @@ function getProjectState() {
       sumDrag: screenContext.sumDrag,
       zoom: screenContext.zoom,
     },
+    grid: {
+      seed: gridContext.seed
+    },
   };
   projectState = JSON.stringify(projectState);
   roomContext.setupRoomsInPanels();

@@ -51,6 +51,8 @@ class StructureElementManager {
             StructureElementManager.recalculateAlignedBeamsHorizontal(structureElements);
             StructureElementManager.recalculateCrossBeamsHorizontal(structureElements);
         }
+
+        StructureElementManager.removeDuplicates(structureElements);
     }
 
     static getCd3060Amount(structureElements) {
@@ -77,6 +79,10 @@ class StructureElementManager {
     }
 
     static recalculateCrossBeamsHorizontal(structureElements) {
+        if (!structureElements.panels.length) {
+            return;
+        }
+
         const roomTopLeft = StructureElementManager.getRoomTopLeftCornerCoordinates(structureElements);
         const roomBottomLeft = StructureElementManager.getRoomBottomLeftCornerCoordinates(structureElements);
         const roomBottomRight = StructureElementManager.getRoomBottomRightCornerCoordinates(structureElements);
@@ -116,6 +122,10 @@ class StructureElementManager {
     }
 
     static recalculateCrossBeamsVertical(structureElements) {
+        if (!structureElements.panels.length) {
+            return;
+        }
+
         const roomTopLeft = StructureElementManager.getRoomTopLeftCornerCoordinates(structureElements);
         const roomBottomLeft = StructureElementManager.getRoomBottomLeftCornerCoordinates(structureElements);
         const roomBottomRight = StructureElementManager.getRoomBottomRightCornerCoordinates(structureElements);
@@ -185,6 +195,28 @@ class StructureElementManager {
     static getLength(beam) {
         const length = calculateDistance(beam.p1, beam.p2);
         return length / scaleContext.pixelsPerMetersRatio;
+    }
+
+    static removeDuplicates(structureElements) {
+        const alignedBeams = structureElements.alignedBeams;
+        const elementsToRemove = [];
+
+        for (let i = 0; i < alignedBeams.length; i++) {
+            for (let j = i + 1; j < alignedBeams.length; j++) {
+                const distance = StructureElementManager.distanceBetweenBeams(alignedBeams[i], alignedBeams[j]);
+                if (distance / scaleContext.pixelsPerMetersRatio < GRID_RESOLUTION_METER) {
+                    elementsToRemove.push(alignedBeams[j]);
+                }
+            }
+        }
+        structureElements.alignedBeams = alignedBeams.filter(beam => !elementsToRemove.includes(beam));
+    }
+
+    static distanceBetweenBeams(beam1, beam2) {
+        return Math.min(
+            calculateDistance(beam1.p1, beam2.p2),
+            calculateDistance(beam1.p1, beam2.p1),
+        );
     }
 
 }

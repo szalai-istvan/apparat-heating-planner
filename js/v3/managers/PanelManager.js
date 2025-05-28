@@ -52,10 +52,10 @@ class PanelManager {
             const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_NO_PIPE + xT) * screenContext.zoom, mousePosition.x);
             const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_PIPE + yT) * screenContext.zoom, mousePosition.y);
             
-            return {
+            return gridContext.closestGridPoint({
                 x: mousePositionAbsolute.x + xT + xCorrection,
                 y: mousePositionAbsolute.y - yT + yCorrection
-            };
+            });
         }
 
         const xT = panel.lengthInPixels / 2;
@@ -63,10 +63,10 @@ class PanelManager {
         const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_PIPE + xT) * screenContext.zoom, mousePosition.x);
         const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_NO_PIPE + yT) * screenContext.zoom, mousePosition.y);
 
-        return {
+        return gridContext.closestGridPoint({
             x: mousePositionAbsolute.x - xT + xCorrection,
             y: mousePositionAbsolute.y - yT + yCorrection
-        };
+        });
     }
 
     static rotate(panel) {

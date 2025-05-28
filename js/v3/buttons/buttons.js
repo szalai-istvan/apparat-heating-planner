@@ -123,8 +123,6 @@ function createButtons() {
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 
     const downloadButtonPos = sidePanelButtonPosition(leftRibbonButtonSizes);
-    console.log(downloadButtonPos.y + SMALL_BUTTON_SIZE.y / 2);
-    console.log(downloadButtonPos);
     downloadButtonPos.y += SMALL_BUTTON_SIZE.y + BUTTON_GAP_Y;
     downloadSummaryButton = new ButtonWrapper({
         text: 'Árkalkuláció letöltése',
