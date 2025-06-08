@@ -49,7 +49,6 @@ const DEFAULT_TEXT_COLOR = "black";
 const SELECTED_TEXT_COLOR = "red";
 
 // File constants
-const LOCAL_STORAGE_DATA_KEY = 'rajzolator-project-save';
 const IMAGE_CONTENT_TYPES = ["image/jpeg", "image/png"];
 const PDF_CONTENT_TYPE = "application/pdf";
 
@@ -65,6 +64,7 @@ const UD_30_BEAM_TYPE = "UD30 profil";
 
 // Debug setting, auto-saving to local storage
 const SAVE_TO_LOCAL_STORAGE_ENABLED = false;
+const LOCAL_STORAGE_DATA_KEY = 'rajzolator-project-save';
 
 // panel offsetting
 const PANEL_CORRECTION_OFFSET_PIPE = 20;
