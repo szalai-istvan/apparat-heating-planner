@@ -54,7 +54,7 @@ function star(x, y, radius1, radius2) {
   let angle = 72;
   let halfAngle = angle / 2.0;
   beginShape();
-  const beginAngle = frameCount;
+  const beginAngle = frameCount * -4;
   for (let a = beginAngle; a < beginAngle + 360; a += angle) {
     let sx = x + cos(a) * radius2;
     let sy = y + sin(a) * radius2;
