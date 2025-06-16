@@ -1,3 +1,16 @@
-- Excel bővítés
-    - Teljesítmény tab
-    - Páratartalom tab
+Páratartalom tab:
+    - Nagyobb részletesség
+Fő tab:
+    - Hűtés: 
+        - Módosítható:
+            - Szobahőmérséklet 24-30 egész szám
+            - páratartalom (55% default)
+            - hűtőközeg előremenő hőmérséklete (16-22 egész)
+            - deltaT (3 vagy 4)
+    - Fűtés:
+        - Módosítható:
+            - Szoba hőmérséklete egész szám megkötés nélkül
+Fűtés és hűtés teljesítmény értékek módosuljanak a megadott értékeknek megfelelően
+Ha a szoba hőmérséklete és páratartalma mellett a harmatponti hőmérséklet a hűtőközeg előremenőnél magasabb:
+    - Figyelmeztető üzenet
+Cicis néni easter egg: cheat code CICI, különben cenzúra
