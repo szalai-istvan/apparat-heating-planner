@@ -32,8 +32,36 @@ class UiBackgroundRenderer {
 
         if (showCicisNeni) {
             image(cicisNeni, docSize.vw - 293-38, 48, 316/2, 762/2);
+            censor();
         }
 
         pop();
     }
+}
+
+let UNCENSOR_BOOBS = false;
+function censor() {
+    if (!UNCENSOR_BOOBS) {
+            push();
+            fill('#FF007F');
+            star(docSize.vw - 245, 190, 5, 10);
+            star(docSize.vw - 270, 200, 5, 10);
+            pop();
+    }
+}
+
+function star(x, y, radius1, radius2) {
+  let angle = 72;
+  let halfAngle = angle / 2.0;
+  beginShape();
+  const beginAngle = frameCount;
+  for (let a = beginAngle; a < beginAngle + 360; a += angle) {
+    let sx = x + cos(a) * radius2;
+    let sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a + halfAngle) * radius1;
+    sy = y + sin(a + halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
 }
