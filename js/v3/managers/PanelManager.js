@@ -49,8 +49,8 @@ class PanelManager {
         if (panel.alignment) {
             const xT = panel.widthInPixels * 0.5 * panel.numberOfPanelsInGroup;
             const yT = panel.lengthInPixels / 2;
-            const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_NO_PIPE + xT) * screenContext.zoom, mousePosition.x);
-            const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_PIPE + yT) * screenContext.zoom, mousePosition.y);
+            const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_NO_PIPE + xT) * screenZoom, mousePosition.x);
+            const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_PIPE + yT) * screenZoom, mousePosition.y);
             
             return gridContext.closestGridPoint({
                 x: mousePositionAbsolute.x + xT + xCorrection,
@@ -60,8 +60,8 @@ class PanelManager {
 
         const xT = panel.lengthInPixels / 2;
         const yT = panel.widthInPixels * 0.5 * panel.numberOfPanelsInGroup
-        const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_PIPE + xT) * screenContext.zoom, mousePosition.x);
-        const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_NO_PIPE + yT) * screenContext.zoom, mousePosition.y);
+        const xCorrection = PanelManager.calculateCorrector(LEFT_RIBBON_WIDTH + (PANEL_CORRECTION_OFFSET_PIPE + xT) * screenZoom, mousePosition.x);
+        const yCorrection = PanelManager.calculateCorrector(TOP_RIBBON_HEIGHT + (PANEL_CORRECTION_OFFSET_NO_PIPE + yT) * screenZoom, mousePosition.y);
 
         return gridContext.closestGridPoint({
             x: mousePositionAbsolute.x - xT + xCorrection,
@@ -149,26 +149,6 @@ class PanelManager {
         return {p1, p2};
     }
 
-    static setType(panel, type) {
-        const ratio = scaleContext.pixelsPerMetersRatio;
-
-        panel.details = panelTypes[type];
-        if (!panel.details) {
-            throw new Error(`Unknown panel type: ${type}`);
-        }
-        
-        panel.textSize = PANEL_TEXT_SIZE_IN_METERS * ratio;
-        if (type === 'F100') {
-            panel.textSize /= 2;
-        }
-        
-        panel.type = type;
-        textSize(panel.textSize);
-        panel.textWidth = textWidth(panel.type);
-        panel.topLeftCoordinates = screenContext.getMousePositionAbsolute();
-        panel.lengthInPixels = panel.details.length * ratio;
-        panel.widthInPixels = panel.details.width * ratio;
-    }
 
     static validateBoundaryPoints(panel, boundaryPoints) {
         if (!panel.room || panel.isSelectedForDrag) {
@@ -178,6 +158,6 @@ class PanelManager {
     }
 
     static calculateCorrector(lim, coord) {
-        return (Math.abs(lim - coord) + lim - coord) / (2 * screenContext.zoom);
+        return (Math.abs(lim - coord) + lim - coord) / (2 * screenZoom);
     }
 }

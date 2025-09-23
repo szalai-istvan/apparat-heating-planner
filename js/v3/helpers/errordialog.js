@@ -5,10 +5,10 @@ const errorMessageOkButton = document.getElementById('errorMessageOkButton');
 function displayMessage(text) {
     errorMessageParagraph.innerHTML = text;
     errorDialog.showModal();
-    screenContext.disableControls();
+    toggleScreenControls();
 }
 
 errorMessageOkButton.addEventListener('click', () => {
     errorDialog.close();
-    screenContext.enableControls();
+    toggleScreenControls();
 });

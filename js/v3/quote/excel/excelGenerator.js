@@ -429,7 +429,7 @@ function adjustRoomColumnWidths(context) {
 function addPicture(context) {
     const workbook = context.workbook;
     const blueprintSheet = context.sheets.blueprintSheet;
-    const beforeScreenData = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y, zoom: screenContext.zoom };
+    const beforeScreenData = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y, zoom: screenZoom };
     screenContext.adjustForExport();
     const baseOffset = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y };
 
@@ -493,7 +493,7 @@ function addPicture(context) {
     } finally {
         TooltipRenderer.toggleTooltipDisplay();
         screenContext.sumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
-        screenContext.zoom = beforeScreenData.zoom;
+        screenZoom = beforeScreenData.zoom;
     }
 }
 

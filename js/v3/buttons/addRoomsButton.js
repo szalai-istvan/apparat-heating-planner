@@ -12,17 +12,7 @@ function showAddRoomDialog() {
         addRoomInput.focus();
         addRoomDialog.showModal();
         checkRadioButtons();
-        screenContext.disableControls();
-    }
-}
-
-function createRoomPrefillRadioButtons() {
-    const div = document.getElementById('roomPrefillRadioSet');
-    for (let option of PREFILL_ROOM_NAMES) {
-        const onchange = () => addRoomInput.value = option;
-        const radioButton = createRadioButton('roomPrefill', option, onchange);
-        div.appendChild(radioButton);
-        roomPrefillButtons.push(radioButton);
+        toggleScreenControls();
     }
 }
 
@@ -41,7 +31,7 @@ function checkRadioButtons() {
 
 closeRoomDialogButton.addEventListener('click', () => {
     addRoomDialog.close();
-    screenContext.enableControls();
+    toggleScreenControls();
 });
 
 addRoomButton.addEventListener('click', () => {
@@ -51,7 +41,7 @@ addRoomButton.addEventListener('click', () => {
         const addingSuccessful = roomContext.tryToCreateRoom(roomName);
         if (addingSuccessful) {
             addRoomDialog.close();
-            screenContext.enableControls();
+            toggleScreenControls();
         }
     } else {
         displayMessage('Név nélkül nem vehető fel szoba!');

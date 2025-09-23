@@ -57,6 +57,13 @@
 
     <dialog id="addRoomDialog">
         <span><p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p></span>
+
+        <hr>
+        <span>
+            <input type="checkbox" id="3pointdefinition" name="3pointdefinition" value="3pointdefinition">
+            <label for="3pointdefinition">Ferde szoba</label><br>
+        </span>
+
         <hr>
         <span>
             <p>Gyors kitöltés:</p>
@@ -90,84 +97,139 @@
         <div class="center"><button id="summaryTableDialogCloseButton">Bezárás</button></div>
     </dialog>
 
-    <!-- scripts -->
+    <!-- imported scripts -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    
+    <!-- scripts -->
+    <script type="text/javascript" src="js/v4/appdata/constants.js"></script>
+    <script type="text/javascript" src="js/v4/appdata/errorCodes.js"></script>
+    <script type="text/javascript" src="js/v4/appdata/panelTypes.js"></script>
+    <script type="text/javascript" src="js/v4/appdata/tooltips.js"></script>
 
-    <script type="text/javascript" src="js/v3/helpers/helpers.js"></script>
-    <script type="text/javascript" src="js/v3/helpers/keystrokeRecorder.js"></script>
-    <script type="text/javascript" src="js/v3/helpers/setupHelpers.js"></script>
-    <script type="text/javascript" src="js/v3/helpers/errordialog.js"></script>
-    <script type="text/javascript" src="js/v3/helpers/debug.js"></script>
-    <script type="text/javascript" src="js/v3/helpers/htmlHelpers.js"></script>
+    <script type="text/javascript" src="js/v4/buttons/addRoomsButton.js"></script>
+    <script type="text/javascript" src="js/v4/buttons/createButtons.js"></script>
+    <script type="text/javascript" src="js/v4/buttons/manageBlueprintButtons.js"></script>
+    <script type="text/javascript" src="js/v4/buttons/scaleButton.js"></script>
 
-    <script type="text/javascript" src="js/v3/appdata/panelTypes.js"></script>
-    <script type="text/javascript" src="js/v3/appdata/tooltips.js"></script>
-    <script type="text/javascript" src="js/v3/appdata/constants.js"></script>
-    <script type="text/javascript" src="js/v3/appdata/prices.js"></script>
-    <script type="text/javascript" src="js/v3/appdata/translations.js"></script>
-    <script type="text/javascript" src="js/v3/appdata/units.js"></script>
-    <script type="text/javascript" src="js/v3/appdata/excelConstants.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/line/createLine.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/line/Line.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/line/linesIntersect.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/point/calculateDistance.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/point/createPoint.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/point/Point.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/point/pointIsInsideRectangle.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/rectangle/createRectangle.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/rectangle/drawRectangle.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/rectangle/Rectangle.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/rectangle/rectangleIsInsideRectangle.js"></script>
 
-    <script type="text/javascript" src="js/v3/renderer/Renderer.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/ScreenContext.js"></script>
-    <script type="text/javascript" src="js/v3/rendered/Blueprint.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/BlueprintContext.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/ScaleContext.js"></script>
-    <script type="text/javascript" src="js/v3/rendered/ButtonWrapper.js"></script>
-    <script type="text/javascript" src="js/v3/rendered/Room.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/RoomContext.js"></script>
-    <script type="text/javascript" src="js/v3/rendered/Panel.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/PanelContext.js"></script>
-    <script type="text/javascript" src="js/v3/rendered/StructureElementsInRoom.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/SelectionContext.js"></script>
-    <script type="text/javascript" src="js/v3/rendered/Tooltip.js"></script>
-    <script type="text/javascript" src="js/v3/contexts/GridContext.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/debugHelpers.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/keystrokeRecorder.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/setupHelpers.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/uiHelpers.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/validationHelpers.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/math/angleConverter.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/math/createUniqueId.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/math/formatNumber.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/math/misc.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/math/randomChoice.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/math/roundNumber.js"></script>
 
-    <script type="text/javascript" src="js/v3/buttons/manageBlueprintButtons.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/scaleButton.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/addRoomsButton.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/deleteRoomsButton.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/addPanelButtons.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/editPanelButtons.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/downloadSummaryButton.js"></script>
-    <script type="text/javascript" src="js/v3/buttons/buttons.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/calc/blueprintDataIsPresent.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/create/createBlueprint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/definition/Blueprint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/delete/clearBlueprints.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/render/drawBlueprint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/grid/calc/getClosestGridPointToPoint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/grid/create/setGridSeed.js"></script>
+    <script type="text/javascript" src="js/v4/operations/grid/delete/removeGridSeed.js"></script>
+    <script type="text/javascript" src="js/v4/operations/grid/update/updateGridResolution.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panel/calc/calculatePanelBoundingBox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panel/calc/getPanelById.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panel/calc/mouseCursorIsInsidePanelsTextbox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panel/definition/Panel.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panel/render/drawPanel.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/calc/calculatePanelGroupBoundingBox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/calc/getContainingRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/calc/getPanelGroupById.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/calc/mouseCursorIsInsideMembersTextbox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/calc/panelGroupsExist.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/create/createOrReplacePanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/definition/PanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/render/drawPanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/select/clearPanelGroupSelectionCache.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/select/deselectPanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/select/selectPanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/setSelectedPanelGroupIndex.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/setupPanelGroupType.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/updatePanelPosition.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/calculateHeightToMouseCursor.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/calculateMiddlePointOfRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/calculateRoomBoundingBox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/configuredRoomsExist.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/getPointsToDrawRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/getRoomMiddlePoint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/getRoomNames.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/mouseCursorIsInsideRoomName.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/pointIsInsideRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/roomIsConfigured.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/create/addPointToSelectedRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/create/createRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/definition/Room.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/delete/clearRooms.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/delete/removeSelectedRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/render/drawRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/select/clearRoomSelectionCache.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/select/deselectRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/select/selectRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/scale/calc/processScalingValue.js"></script>
+    <script type="text/javascript" src="js/v4/operations/scale/create/addScalingReferencePoint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/scale/create/startScaling.js"></script>
+    <script type="text/javascript" src="js/v4/operations/scale/delete/clearScaling.js"></script>
+    <script type="text/javascript" src="js/v4/operations/scale/render/drawScaler.js"></script>
+    <script type="text/javascript" src="js/v4/operations/scale/update/updateRenderSizeValues.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/adjustScreenForExport.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/getCanvasSize.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/getCurrentDragValue.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/getMousePosition.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/mouseCursorIsInsideUi.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/translateScreen.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/render/drawUiBackground.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/update/dragAndZoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/update/toggleScreenControls.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/update/translateScreen.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/update/updateCursorType.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/update/updateScreenSumDrag.js"></script>
+    <script type="text/javascript" src="js/v4/operations/selection/clearSelectionCache.js"></script>
+    <script type="text/javascript" src="js/v4/operations/selection/deselectObject.js"></script>
+    <script type="text/javascript" src="js/v4/operations/selection/removeSelectedObject.js"></script>
+    <script type="text/javascript" src="js/v4/operations/selection/searchForSelectableObject.js"></script>
+    <script type="text/javascript" src="js/v4/operations/selection/selectObject.js"></script>
+    <script type="text/javascript" src="js/v4/operations/tooltip/render/drawTooltips.js"></script>
+    <script type="text/javascript" src="js/v4/operations/tooltip/update/tooltipManagers.js"></script>
+    <script type="text/javascript" src="js/v4/operations/tooltip/update/tooltipMessages.js"></script>
 
-    <script type="text/javascript" src="js/v3/quote/QuotePanel.js"></script>
-    <script type="text/javascript" src="js/v3/quote/SummaryCalculator.js"></script>
-    <script type="text/javascript" src="js/v3/quote/excel/excelGenerator.js"></script>
-    <script type="text/javascript" src="js/v3/quote/excel/excelGeneratorUtil.js"></script>
 
-    <script type="text/javascript" src="js/v3/p5/setup.js"></script>
-    <script type="text/javascript" src="js/v3/p5/draw.js"></script>
-    <script type="text/javascript" src="js/v3/p5/mousePressed.js"></script>
-    <script type="text/javascript" src="js/v3/p5/mouseReleased.js"></script>
-    <script type="text/javascript" src="js/v3/p5/mouseWheel.js"></script>
+    <script type="text/javascript" src="js/v4/rendered/drawButtonWrapper.js"></script>
 
-    <script type="text/javascript" src="js/v3/renderers/StructureElementsInRoomRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/BlueprintRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/ButtonWrapperRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/PanelRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/RoomRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/ScaleContextRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/TooltipRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/DebugInfoRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/UiBackgroundRenderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/UD30Renderer.js"></script>
-    <script type="text/javascript" src="js/v3/renderers/PanelInfoRenderer.js"></script>
+    <script type="text/javascript" src="js/v4/renderer/renderAbsolutePositionObjects.js"></script>
+    <script type="text/javascript" src="js/v4/renderer/renderTranslatedObjects.js"></script>
 
-    <script type="text/javascript" src="js/v3/managers/BlueprintManager.js"></script>
-    <script type="text/javascript" src="js/v3/managers/PanelManager.js"></script>
-    <script type="text/javascript" src="js/v3/managers/RoomManager.js"></script>
-    <script type="text/javascript" src="js/v3/managers/StructureElementManager.js"></script>
-    <script type="text/javascript" src="js/v3/managers/UD30Manager.js"></script>
+    <script type="text/javascript" src="js/v4/save/load.js"></script>
+    <script type="text/javascript" src="js/v4/save/save.js"></script>
 
-    <script type="text/javascript" src="js/v3/selectors/PanelSelector.js"></script>
-    <script type="text/javascript" src="js/v3/selectors/RoomSelector.js"></script>
+    <script type="text/javascript" src="js/v4/store/ElementStore.js"></script>
 
-    <script type="text/javascript" src="js/v3/save/save.js"></script>
-    <script type="text/javascript" src="js/v3/save/load.js"></script>
+    <script type="text/javascript" src="js/v4/uiElements/ButtonWrapper.js"></script>
+
+    <script type="text/javascript" src="js/v4/p5/draw.js"></script>
+    <script type="text/javascript" src="js/v4/p5/mousePressed.js"></script>
+    <script type="text/javascript" src="js/v4/p5/mouseReleased.js"></script>
+    <script type="text/javascript" src="js/v4/p5/mouseWheel.js"></script>
+    <script type="text/javascript" src="js/v4/p5/setup.js"></script>
 </body>
 
 </html>

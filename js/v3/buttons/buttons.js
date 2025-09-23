@@ -26,7 +26,7 @@ function createButtons() {
         size: REGULAR_BUTTON_SIZE,
         position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: () => showAddRoomDialog(),
-        shouldBeRendered: () => scaleContext.ratioIsSet()
+        shouldBeRendered: () => pixelsPerMetersRatio
     });
     topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
 
@@ -59,7 +59,7 @@ function createButtons() {
         text: 'Alaprajzok eltávolítása',
         size: TALL_SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => clearBlueprints(),
+        onClick: () => promptToClearBlueprints(),
         shouldBeRendered: () => blueprintContext.blueprintDataIsPresent()
     });
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);

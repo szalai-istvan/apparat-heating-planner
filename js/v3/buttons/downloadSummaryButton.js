@@ -8,7 +8,7 @@ const transportDialogCloseButton = document.getElementById('transportDialogClose
 function openTransportDialog() {
     transportInput.value = '';
     transportDialog.showModal();
-    screenContext.disableControls();
+    toggleScreenControls();
 }
 
 transportDialogOkButton.addEventListener('click', () => {
@@ -22,13 +22,13 @@ transportDialogOkButton.addEventListener('click', () => {
     }
 
     transportDialog.close();
-    screenContext.enableControls();
+    toggleScreenControls();
     startExcelExport(km);
 });
 
 transportDialogCloseButton.addEventListener('click', () => {
     transportDialog.close();
-    screenContext.enableControls();
+    toggleScreenControls();
 });
 
 // kept only just in case
@@ -42,10 +42,10 @@ function openSummaryTableDialog() {
     if (!summaryTable) return;
     summaryTableDialogTablePlaceHolder.appendChild(summaryTable);
     summaryTableDialog.showModal();
-    screenContext.disableControls();
+    toggleScreenControls();
 }
 
 summaryTableDialogCloseButton.addEventListener('click', () => {
     summaryTableDialog.close();
-    screenContext.enableControls();
+    toggleScreenControls();
 });

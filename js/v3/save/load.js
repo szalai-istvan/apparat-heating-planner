@@ -51,7 +51,7 @@ function loadProject(text = undefined) {
   selectionContext.lastSelectingContext = panelContext;
 
   screenContext.sumDrag = projectState.screen.sumDrag;
-  screenContext.zoom = projectState.screen.zoom;
+  screenZoom = projectState.screen.zoom;
 
   gridContext.setSeed(projectState.grid.seed);
 }

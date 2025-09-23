@@ -7,7 +7,7 @@ class Blueprint {
         this.topLeftPosition = topLeftPosition;
         renderer.register(this);
 
-        if (!scaleContext.ratioIsSet()) {
+        if (!pixelsPerMetersRatio) {
             tooltip.fileUploadSuccessful(() => tooltip.fileIsUploaded());
         } else {
             tooltip.fileUploadSuccessful(() => {});

@@ -18,7 +18,7 @@ function getProjectState() {
     },
     screen: {
       sumDrag: screenContext.sumDrag,
-      zoom: screenContext.zoom,
+      zoom: screenZoom,
     },
     grid: {
       seed: gridContext.seed

@@ -9,38 +9,6 @@ class Tooltip {
         renderer.register(this);
     }
 
-    displayTooltip(key) {
-        this.text = tooltipText[key] || '';
-    }
-
-    displayTooltipIf(presentKey, key) {
-        if (this.text === tooltipText[presentKey]) {
-            this.displayTooltip(key);
-        }
-    }
-
-    displayCursorTooltip(key) {
-        this.cursorText = tooltipText[key];
-
-        if (this.timeoutId) {
-            clearTimeout(this.timeoutId);
-        }
-        this.timeoutId = setTimeout(() => this.clearCursorTooltip(), 15_000);
-    }
-
-    clearTooltip() {
-        this.text = '';
-    }
-
-    clearCursorTooltip() {
-        this.cursorText = '';
-    }
-
-    applicationStarted() {
-        this.displayTooltip(WELCOME);
-        setTimeout(() => this.displayTooltipIf(WELCOME, DRAWING_UPLOAD), 4_000);
-    }
-
     fileUploadSuccessful(next) {
         let f = fileName;
         if (f.length > 50) {

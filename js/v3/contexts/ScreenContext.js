@@ -1,7 +1,3 @@
-const MINIMUM_ZOOM = 0.01;
-const MAXIMUM_ZOOM = 1_000;
-const ZOOM_STEP = 1.05;
-
 class ScreenContext {
     canvas;
     

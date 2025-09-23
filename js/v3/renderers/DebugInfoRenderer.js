@@ -29,6 +29,6 @@ class DebugInfoRenderer {
         if (!debugEnabled) return;
         const mouse = screenContext.getMousePositionAbsolute();
         textAlign(LEFT, TOP);
-        text(`x: ${roundNumber(mouse.x, 1)}\ny: ${roundNumber(mouse.y, 1)}\nzoom: ${roundNumber(screenContext.zoom, 1)}\nfps: ${roundNumber(frameRate(), 1)}`, mouseX + 20, mouseY + 20);
+        text(`x: ${roundNumber(mouse.x, 1)}\ny: ${roundNumber(mouse.y, 1)}\nzoom: ${roundNumber(screenZoom, 1)}\nfps: ${roundNumber(frameRate(), 1)}`, mouseX + 20, mouseY + 20);
     }
 }

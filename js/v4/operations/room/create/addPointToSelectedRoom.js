@@ -1,0 +1,79 @@
+/**
+ * Hozzáadja a kurzor pillanatnyi abszolút koordinátáit a kijelölt szoba sarkaihoz
+ * 
+ * @returns {undefined}
+ */
+function addPointToSelectedRoom() {
+    if (!selectedRoom) {
+        return;
+    }
+
+    if (roomIsConfigured(selectedRoom)) {
+        return;
+    }
+
+    if (!pointCanBeAddedToSelectedRoom()) {
+        displayMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
+        return;
+    }
+
+    if (elementStore.rooms.length === 1 && !selectedRoom.width) {
+        setGridSeed(getMousePositionAbsolute());
+    }
+    addPointToRoom(selectedRoom);
+}
+
+function pointCanBeAddedToSelectedRoom() {
+    return true; // TODO
+}
+
+/**
+ * Hozzáadja a szobához a kurzor pozícióját.
+ * 
+ * @param {Room} room 
+ * @returns {undefined}
+ */
+function addPointToRoom(room) {
+
+    if (roomIsConfigured(room)) {
+        return;
+    }
+
+    const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
+    const firstPoint = room.firstPoint;
+
+    if (!firstPoint) {
+        room.firstPoint = mousePosition;
+        return;
+    }
+
+    if (room.tilted) {
+        if (!room.width) {
+            room.width = calculateDistance(firstPoint, mousePosition);
+            if (mousePosition.x < firstPoint.x) {
+                room.width *= -1;
+            }
+            room.angleRad = Math.atan((mousePosition.y - firstPoint.y) / (mousePosition.x - firstPoint.x));
+            return;
+        }
+
+        if (!room.height) {
+            room.height = calculateHeightToMouseCursor(room);
+            finalizeRoom(room);
+        }
+    } else {
+        room.width = mousePosition.x - firstPoint.x;
+        room.height = mousePosition.y - firstPoint.y;
+        finalizeRoom(room);
+    }    
+}
+
+/** @param {Room} room */
+function finalizeRoom(room) {
+    room.middlePoint = calculateMiddlePointOfRoom(room);
+    room.textCenterCoordinates = room.middlePoint;
+    room.isSelected = false;
+
+    room.boundingBox = calculateRoomBoundingBox(room);
+    room.textBox = calculateRoomTextBox(room);
+}

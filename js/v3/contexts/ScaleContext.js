@@ -17,7 +17,7 @@ class ScaleContext {
             tooltip.scalingStarted();
         } else {
             scalingDialogConfirm.showModal();
-            screenContext.disableControls();
+            toggleScreenControls();
         }
     }
 
@@ -46,7 +46,7 @@ class ScaleContext {
             gridContext.refreshGridResolution();
             
             scalingDialog.close();
-            screenContext.enableControls();
+            toggleScreenControls();
             tooltip.scalingFinished();
         } else {
             displayMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');
