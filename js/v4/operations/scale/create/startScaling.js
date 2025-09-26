@@ -6,6 +6,10 @@ let scalingInProgress = false;
  * @returns {undefined}
  */
 function startScaling() {
+    if (operationInProgress()) {
+        return;
+    }
+
     if (!configuredRoomsExist()) {
         scalingInProgress = true;
         clearScaling();

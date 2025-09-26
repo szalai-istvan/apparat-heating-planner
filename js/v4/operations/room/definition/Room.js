@@ -4,6 +4,7 @@ class Room {
     name;
     tilted;
     textCenterCoordinates;
+    textCenterCoordinatesRelative;
 
     firstPoint;
     middlePoint;

@@ -79,8 +79,8 @@ function createButtons() {
         text: 'Forgatás',
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => panelContext.tryToRotateSelected(),
-        shouldBeActive: () => selectedPanelGroup
+        onClick: () => rotateSelectedObject(),
+        shouldBeActive: () => selectedPanelGroup || selectedBlueprint
     });
     leftRibbonButtonSizes.push(SMALL_BUTTON_SIZE);
 
@@ -89,7 +89,7 @@ function createButtons() {
         text: '-',
         size: HALF_WIDTH_BUTTON_SIZE,
         position: addButtonPosition,
-        onClick: () => panelContext.removeFromSelectedGroup(),
+        onClick: () => removePanelFromSelectedGroup(),
         shouldBeActive: () => selectedPanelGroup
     });
 
@@ -98,7 +98,7 @@ function createButtons() {
         text: '+',
         size: HALF_WIDTH_BUTTON_SIZE,
         position: addButtonPosition,
-        onClick: () => panelContext.tryToAddToSelectedGroup(),
+        onClick: () => addPanelToSelectedGroup(),
         shouldBeActive: () => selectedPanelGroup
     });
     leftRibbonButtonSizes.push(HALF_WIDTH_BUTTON_SIZE);
@@ -107,8 +107,8 @@ function createButtons() {
         text: 'Törlés',
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => selectionContext.removeSelected(),
-        shouldBeActive: () => selectedPanelGroup
+        onClick: () => removeSelectedObject(),
+        shouldBeActive: () => selectedPanelGroup || selectedRoom || selectedBlueprint
     });
     leftRibbonButtonSizes.push(SMALL_BUTTON_SIZE);
 

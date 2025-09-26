@@ -5,8 +5,6 @@
  * @returns {Point} A legközelebbi grid pont
  */
 function getClosestGridPoint(point) {
-    checkClass(point, CLASS_POINT);
-
     if (!gridSeed) {
         return point;
     }

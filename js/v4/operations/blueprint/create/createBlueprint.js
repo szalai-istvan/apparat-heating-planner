@@ -11,8 +11,20 @@ function createBlueprint(data) {
         screenSumDrag = createPoint(0, 0);
     } else {
         let topLeftCoordinates = createPoint(sizeData.x + sizeData.w, sizeData.y);
-        elementStore.register(new Blueprint(data, topLeftCoordinates));
-        screenSumDrag = { x: -topLeftCoordinates.x, y: 0 };
+        const blueprint = new Blueprint(data, topLeftCoordinates);
+        elementStore.register(blueprint);
+        tryUntilSuccessfulRecalculatePositions(blueprint);
+    }
+}
+
+/** @param {Blueprint} blueprint */
+function tryUntilSuccessfulRecalculatePositions(blueprint) {
+    console.log(blueprint);
+    if (blueprint.data.width > 1 && blueprint.data.height > 1) {
+        recalculateBlueprintPositions();
+        screenSumDrag = { x: -blueprint.centerPosition.x, y: 0 };
+    } else {
+        setTimeout(() => tryUntilSuccessfulRecalculatePositions(blueprint), 50);
     }
 }
 

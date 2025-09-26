@@ -1,4 +1,6 @@
+/** @type {Room} */
 let selectedRoom = null;
+/** @type {Room} */
 let cachedSelectableRoom = null;
 
 /**

@@ -6,6 +6,7 @@
 function clearSelectionCache() {
     cachedSelectableRoom = null;
     cachedSelectablePanelGroup = null;
+    cachedSelectableBlueprint = null;
 
     elementStore.rooms.forEach(r => r.cursorIsInsideCache = null);
     elementStore.panelGroups.forEach(pg => clearPanelGroupSelectionCache(pg));

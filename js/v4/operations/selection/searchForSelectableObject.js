@@ -15,4 +15,12 @@ function searchSelectableObject() {
         selectedObject = selectedPanelGroup;
         return selectedPanelGroup;
     }
+
+    const selectedBlueprint = selectBlueprint();
+    if (selectedBlueprint) {
+        selectedObject = selectedBlueprint;
+        return selectedBlueprint;
+    }
+
+    return undefined;
 }

@@ -12,7 +12,9 @@ function removeSelectedObject() {
     
     if (className === CLASS_ROOM) {
         removeSelectedRoom();
-    } else if (className === CLASS_BOX_GROUP) {
-        removeSelectedBoxGroup();
+    } else if (className === CLASS_PANEL_GROUP) {
+        removeSelectedPanelGroup();
+    } else if (className === CLASS_BLUEPRINT) {
+        removeSelectedBlueprint();
     }
 }

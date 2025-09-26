@@ -4,17 +4,16 @@
  * @returns {undefined}
  */
 function deselectPanelGroup() {
-    if (!selectPanelGroup) {
+    if (!selectedPanelGroup) {
         return true;
     }
 
-    // todo validáció
+    if (!selectedPanelGroup.roomId) {
+        displayMessage('A panelcsoport része vagy egésze szobán kívülre esik!');
+        return false;
+    }
 
-    
-    selectedPanelGroup.boundingBox = calculatePanelGroupBoundingBox(selectedPanelGroup);
-    const panelList = getPanelsByIdList(selectedPanelGroup.panelIds);
-    panelList.forEach(p => p.boundingBox = calculatePanelBoundingBox(p));
-    panelList.forEach(p => p.textBox = calculatePanelTextBox(p));
+    updatePanelGroupBoundingBoxIncludingMembers(selectedPanelGroup);
     
     selectedPanelGroup.isSelected = false;
     selectedPanelGroup.isSelectedForDrag = false;

@@ -53,7 +53,10 @@ function drawStraightRoom(room) {
         push();
         updateSettingsToText(room);
         const textCenterCoordinates = room.textCenterCoordinates;
-        text(room.name, room.width / 2, room.height / 2);
+        if (room.isSelected) {
+            calculateTextCenterPositionOfRoom(room);
+        }
+        text(room.name, room.textCenterCoordinatesRelative.x, room.textCenterCoordinatesRelative.y);
         pop();
     }
 
@@ -67,7 +70,7 @@ function drawStraightRoom(room) {
  */
 function drawTiltedRoom(room) {
     const firstPoint = room.firstPoint;
-    const width = room.width;
+    let width = room.width;
     let height = room.height;
     let angle = toDegrees(room.angleRad || 0);
 
@@ -76,6 +79,11 @@ function drawTiltedRoom(room) {
     if (!width) {
         const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
         line(firstPoint.x, firstPoint.y, mousePosition.x, mousePosition.y);
+        width = calculateDistance(firstPoint, mousePosition) * (mousePosition.x < firstPoint.x ? -1 : 1);
+        translate(firstPoint.x, firstPoint.y);
+        angle = toDegrees(createLine(firstPoint, mousePosition).angleRad);
+        rotate(angle);
+        drawRoomSize(room, width, height);
         return;
     }
 
@@ -91,7 +99,11 @@ function drawTiltedRoom(room) {
     if (roomIsConfigured(room)) {
         push();
         updateSettingsToText(room);
-        text(room.name, room.width / 2, room.height / 2);
+        const textCenterCoordinates = room.textCenterCoordinates;
+        if (room.isSelected) {
+            calculateTextCenterPositionOfRoom(room);
+        }
+        text(room.name, room.textCenterCoordinatesRelative.x, room.textCenterCoordinatesRelative.y);
         pop();
     }
 
@@ -100,6 +112,8 @@ function drawTiltedRoom(room) {
 
 function updateSettingsToText(room) {
     textAlign(CENTER, CENTER);
+    noStroke();
+
     if (mouseCursorIsInsideRoomName(room)) {
         fill(SELECTED_TEXT_COLOR);
         textSize(roomTextSize * ROOM_TEXT_POP_FACTOR);
@@ -112,7 +126,7 @@ function updateSettingsToText(room) {
 function updateSettingsToDraw(room) {
     if (room.isSelected) {
         stroke(SELECTED_TEXT_COLOR);
-        strokeWeight(roomLineWeight * 2);
+        strokeWeight(roomLineWeight * 1.2);
     } else {
         stroke(ROOM_DEFAULT_TEXT_COLOR);
         strokeWeight(roomLineWeight);
@@ -130,22 +144,14 @@ function drawRoomSize(room, roomWidth, roomHeight) {
     }
 
     if (roomWidth) {
-        const width = `${roundNumber(getWidthInMeters(room,), 1)} m`;
+        const width = `${roundNumber(Math.abs(roomWidth / pixelsPerMetersRatio), 1)} m`;
         textAlign(CENTER, BOTTOM);
-        text(width, roomWidth / 2, Math.min(roomHeight, 0) - 5);
+        text(width, roomWidth / 2, (Math.min(roomHeight, 0) || 0) - 5);
     }
 
     if (roomHeight) {
-        const height = `${roundNumber(getHeightInMeters(room), 1)} m`;
+        const height = `${roundNumber(Math.abs(roomHeight / pixelsPerMetersRatio), 1)} m`;
         textAlign(LEFT, CENTER);
         text(height, Math.max(roomWidth, 0) + 5, roomHeight / 2);
     }
-}
-
-function getWidthInMeters(room) {
-    return Math.abs(room.width / pixelsPerMetersRatio);
-}
-
-function getHeightInMeters(room) {
-    return Math.abs(room.height / pixelsPerMetersRatio);
 }

@@ -5,10 +5,10 @@
  * @returns {Room}
  */
 function getContainingRoom(panelGroup) {
-    if (!panelGroup.boundingBox) {
+    if (!panelGroup.boundingBoxIncludingPipes) {
         return undefined;
     }
 
-    const rooms = elementStore.rooms.filter(r => rectangleIsInsideRectangle(panelGroup.boundingBox, r.boundingBox));
+    const rooms = elementStore.rooms.filter(r => rectangleIsInsideRectangle(panelGroup.boundingBoxIncludingPipes, r.boundingBox));
     return rooms.length ? rooms[0] : undefined;
 }

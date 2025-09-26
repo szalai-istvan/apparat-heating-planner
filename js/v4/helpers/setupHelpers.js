@@ -70,12 +70,12 @@ function handleWindowResize() {
  * @returns {undefined}
  */
 function enableEnterForConfirm() {
-  window.addEventListener(KEYPRESS, (event) => {
-    if (event.key !== ENTER) {
-      return;
-    }
+    window.addEventListener(KEYPRESS, (event) => {
+        if (event.key !== ENTER) {
+            return;
+        }
 
-    const button = ENTERABLE_BUTTONS.filter((e) => e.checkVisibility())[0];
-    button && button.click();
-  });
+        const button = ENTERABLE_BUTTONS.filter((e) => e.checkVisibility())[0];
+        button && button.click();
+    });
 }

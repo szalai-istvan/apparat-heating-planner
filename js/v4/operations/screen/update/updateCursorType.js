@@ -8,5 +8,8 @@ function updateCursorType() {
         cursor(ARROW);
     } else {
         cursor(CROSS);
+        if (operationInProgress()) {
+            addOperationDescriptionToCursor();
+        }
     }
 }

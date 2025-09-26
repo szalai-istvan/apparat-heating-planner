@@ -24,9 +24,13 @@ function updateRenderSizeValues() {
     panelLineWeight = ratio ? PANEL_CONTOUR_LINE_THICKNESS * ratio : undefined;
     panelTextSize = ratio ? PANEL_TEXT_SIZE_IN_METERS * ratio : undefined;
 
-    push();
-    textSize(panelTextSize);
-    panelTextBoxWidth = ratio ? textWidth(F100) + 5 : undefined;
-    panelTextBoxHeight = ratio ? panelTextSize + 5 : undefined;
-    pop();
+    if (panelTextSize) {
+        push();
+
+        textSize(panelTextSize);
+        panelTextBoxWidth = ratio ? textWidth(F100) + 5 : undefined;
+        panelTextBoxHeight = ratio ? panelTextSize + 5 : undefined;
+
+        pop();
+    }
 }

@@ -12,3 +12,7 @@ errorMessageOkButton.addEventListener('click', () => {
     errorDialog.close();
     toggleScreenControls();
 });
+
+function displayHelpData() {
+  displayMessage("Segítség kérése:<br/>e-mail: sjb@apparat.hu");
+}

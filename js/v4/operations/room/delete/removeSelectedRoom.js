@@ -10,7 +10,7 @@ function removeSelectedRoom() {
         selectedRoom = null;
     }
 
-    removeSlabHeatersFromDeletedRoom(room);
+    removePanelGroupsFromDeletedRoom(room);
 
     deselectObject();
     if (elementStore.rooms.length === 0) {
@@ -18,16 +18,8 @@ function removeSelectedRoom() {
     }
 }
 
-function removeSlabHeatersFromDeletedRoom(room) {
-    const slabHeaterGroupsToDelete = elementStore.slabHeaterGroups.filter(shg => shg.room === room);
-    
-    const slabHeatersToDelete = [];
-    for (let slabHeaterGroup of slabHeaterGroupsToDelete) {
-        for (let slabHeater of slabHeaterGroup.slabHeaters) {
-            slabHeatersToDelete.push(slabHeater);
-        }
-    }
-
-    slabHeatersToDelete.forEach(sh => elementStore.remove(sh));
-    slabHeaterGroupsToDelete.forEach(shg => elementStore.remove(shg));
+/** @param {Room} room */
+function removePanelGroupsFromDeletedRoom(room) {
+    const panelGroupsToDelete = elementStore.panelGroups.filter(pg => pg.roomId === room.id);
+    panelGroupsToDelete.forEach(pg => removePanelGroup(pg));
 }

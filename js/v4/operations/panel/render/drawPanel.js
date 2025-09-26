@@ -31,6 +31,8 @@ function drawPanel(panel) {
     }
 
     drawTubes({ panel, group, ratio, length, width });
+    rotate(- alignment * 90 - group.angleDeg);
+    rotate((alignment * 90) % 180 + group.angleDeg);
     drawPanelType(panel, group);
 
     pop();
@@ -40,7 +42,8 @@ function drawPanel(panel) {
 function drawPanelType(panel, group) {
     stroke(BLACK);
     fill(PANEL_FILL_COLOR);
-    rect(0, 0, panelTextBoxWidth, panelTextBoxHeight);
+    const sizeMultiplier = group.type === F100 ? 0.7 : 1;
+    rect(0, 0, sizeMultiplier * panelTextBoxWidth, sizeMultiplier * panelTextBoxHeight);
 
     const pointIsInsideTextBox = mouseCursorIsInsidePanelsTextbox(panel);
     if (pointIsInsideTextBox) {
@@ -50,8 +53,9 @@ function drawPanelType(panel, group) {
     }
 
     const p = PANEL_TEXT_POP_FACTOR;
-    textSize(panelTextSize * (1 + p * group.isSelected + p * pointIsInsideTextBox));
+    textSize(sizeMultiplier * panelTextSize * (1 + p * group.isSelected + p * pointIsInsideTextBox));
     textAlign(CENTER, CENTER);
+    noStroke();
     text(group.type, 0, 0);
 }
 
@@ -144,21 +148,4 @@ function drawOneTube({ panel, group, endpoint1, endpoint2, length, side }) {
     const angle2 = side ? 90 : 270;
 
     arc(x2, centerY, diameter, diameter, angle1, angle2);
-}
-
-/**
- * Kiszámolja egy panel középső koordinátáit.
- * 
- * @param {PanelGroup} group 
- * @param {Panel} panel 
- * @returns {Point}
- */
-function getCenterPositionOfPanel(group, panel) {
-    const clickedMemberIndex = group.clickedMemberIndex || 0;
-    const panelIndex = group.panelIds.indexOf(panel);
-    const clickedMember = getPanelById(group.panelIds[clickedMemberIndex]);
-    const clickedCenter = clickedMember.centerPosition;
-    const offset = panelIndex - clickedMemberIndex;
-
-    return createPoint(panel.centerPosition.x, clickedCenter.y + offset * group.widthInPixels);
 }

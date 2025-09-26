@@ -28,6 +28,10 @@ function createRoomPrefillRadioButtons() {
  * @returns {undefined}
  */
 function showAddRoomDialog() {
+    if (operationInProgress()) {
+        return;
+    }
+
     if (selectedRoomIsConfiguredOrNoRoomIsSelected()) {
         addRoomInput.value = '';
         threePointDefinitionCheckbox.checked = false;

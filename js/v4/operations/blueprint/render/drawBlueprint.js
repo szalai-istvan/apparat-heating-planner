@@ -15,15 +15,33 @@ function drawBlueprint(blueprint) {
     }
 
     const topLeftCoordinates = getBlueprintTopLeftCoordinates(blueprint);
+    if (!topLeftCoordinates) return;
 
-    topLeftCoordinates && image(data,
-        topLeftCoordinates.x,
-        topLeftCoordinates.y,
+    push();
+
+    imageMode(CENTER);
+    rectMode(CENTER);
+    translate(blueprint.centerPosition.x, blueprint.centerPosition.y);
+    rotate(getRotationAngle(blueprint));
+
+    image(data,
+        0,
+        0,
         data.width,
         data.height
     );
+
+    if (blueprint.isSelected) {
+        stroke('red');
+        strokeWeight(5);
+        noFill();
+        rect(0, 0, data.width, data.height);
+    }
+
+    pop();
 }
 
+/** @param {Blueprint} blueprint */
 function getBlueprintTopLeftCoordinates(blueprint) {
     const data = blueprint.data;
 
@@ -33,10 +51,34 @@ function getBlueprintTopLeftCoordinates(blueprint) {
                 x: - 0.5 * data.width,
                 y: - 0.5 * data.height
             };
+
+            blueprint.centerPosition = createPoint(
+                blueprint.topLeftPosition.x + blueprint.data.width / 2,
+                blueprint.topLeftPosition.y + blueprint.data.height / 2);
+
         } else {
             return undefined;
         }
+    } else if (!blueprint.centerPosition) {
+        blueprint.centerPosition = createPoint(
+            blueprint.topLeftPosition.x + blueprint.data.width / 2,
+            blueprint.topLeftPosition.y + blueprint.data.height / 2);
     }
 
     return blueprint.topLeftPosition;
+}
+
+/**
+ * Megállapítja a tervrajz teljes elforgatottságát.
+ * 
+ * @param {Blueprint} blueprint 
+ * @returns {Number}
+ */
+function getRotationAngle(blueprint) {
+    let angleDeg = blueprint.angleDeg;
+
+    if (modalIsOpen(rotateBlueprintDialog) && blueprint === selectedBlueprint) {
+        angleDeg -= rotateBlueprintDialogInput.value;
+    }
+    return angleDeg;
 }

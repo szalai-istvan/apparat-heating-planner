@@ -91,6 +91,16 @@
                 id="transportDialogCloseButton">Mégsem</button></div>
     </dialog>
 
+    <dialog id="rotateBlueprintDialog" class="nobackdrop">
+        <p id="rotateBlueprintParagraph">Alaprajz elforgatása:</p>
+        <p><label>Szög:</label><input type="number" id="rotateBlueprintDialogInput"> ° </p>
+        <hr>
+        <div class="center">
+            <button id="rotateBlueprintDialogOkButton">OK (Enter)</button>
+            <button id="rotateBlueprintDialogCloseButton">Mégsem</button>
+        </div>
+    </dialog>
+
     <dialog id="summaryTableDialog" class="big-dialog">
         <div id="summaryTableDialogTablePlaceHolder" class="big-dialog-div"></div>
         <hr>
@@ -111,6 +121,8 @@
     <script type="text/javascript" src="js/v4/buttons/addRoomsButton.js"></script>
     <script type="text/javascript" src="js/v4/buttons/createButtons.js"></script>
     <script type="text/javascript" src="js/v4/buttons/manageBlueprintButtons.js"></script>
+    <script type="text/javascript" src="js/v4/buttons/rotateBlueprintDialog.js"></script>
+    <script type="text/javascript" src="js/v4/buttons/rotateSelectedObject.js"></script>
     <script type="text/javascript" src="js/v4/buttons/scaleButton.js"></script>
 
     <script type="text/javascript" src="js/v4/geometry/line/createLine.js"></script>
@@ -126,6 +138,7 @@
     <script type="text/javascript" src="js/v4/geometry/rectangle/rectangleIsInsideRectangle.js"></script>
 
     <script type="text/javascript" src="js/v4/helpers/debugHelpers.js"></script>
+    <script type="text/javascript" src="js/v4/helpers/errordialog.js"></script>
     <script type="text/javascript" src="js/v4/helpers/keystrokeRecorder.js"></script>
     <script type="text/javascript" src="js/v4/helpers/setupHelpers.js"></script>
     <script type="text/javascript" src="js/v4/helpers/uiHelpers.js"></script>
@@ -138,10 +151,15 @@
     <script type="text/javascript" src="js/v4/helpers/math/roundNumber.js"></script>
 
     <script type="text/javascript" src="js/v4/operations/blueprint/calc/blueprintDataIsPresent.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/calc/mouseCursorIsInsideBlueprint.js"></script>
     <script type="text/javascript" src="js/v4/operations/blueprint/create/createBlueprint.js"></script>
     <script type="text/javascript" src="js/v4/operations/blueprint/definition/Blueprint.js"></script>
     <script type="text/javascript" src="js/v4/operations/blueprint/delete/clearBlueprints.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/delete/removeSelectedBlueprint.js"></script>
     <script type="text/javascript" src="js/v4/operations/blueprint/render/drawBlueprint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/select/deselectBlueprint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/select/selectBlueprint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/blueprint/update/recalculateBlueprintPositions.js"></script>
     <script type="text/javascript" src="js/v4/operations/grid/calc/getClosestGridPointToPoint.js"></script>
     <script type="text/javascript" src="js/v4/operations/grid/create/setGridSeed.js"></script>
     <script type="text/javascript" src="js/v4/operations/grid/delete/removeGridSeed.js"></script>
@@ -152,24 +170,33 @@
     <script type="text/javascript" src="js/v4/operations/panel/definition/Panel.js"></script>
     <script type="text/javascript" src="js/v4/operations/panel/render/drawPanel.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/calc/calculatePanelGroupBoundingBox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/calc/calculatePanelGroupBoundingBoxIncludingPipes.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/calc/getContainingRoom.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/calc/getPanelGroupById.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/calc/mouseCursorIsInsideMembersTextbox.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/calc/panelGroupsExist.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/create/createOrReplacePanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/definition/PanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/delete/removeSelectedPanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/render/drawPanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/select/clearPanelGroupSelectionCache.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/select/deselectPanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/select/selectPanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/addPanelToSelectedGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/removePanelFromSelectedGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/rotateSelectedPanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/update/setSelectedPanelGroupIndex.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/update/setupPanelGroupType.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/updatePanelGroupBoundingBoxIncludingMembers.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/update/updatePanelPosition.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/update/updatePositionsOfAllMembers.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/calculateHeightToMouseCursor.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/calculateMiddlePointOfRoom.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/calculateRoomBoundingBox.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/calculateTextCenterPositionOfRoom.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/configuredRoomsExist.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getPointsToDrawRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/getRoomById.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getRoomMiddlePoint.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getRoomNames.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/mouseCursorIsInsideRoomName.js"></script>
@@ -192,6 +219,7 @@
     <script type="text/javascript" src="js/v4/operations/scale/render/drawScaler.js"></script>
     <script type="text/javascript" src="js/v4/operations/scale/update/updateRenderSizeValues.js"></script>
     <script type="text/javascript" src="js/v4/operations/screen/calc/adjustScreenForExport.js"></script>
+    <script type="text/javascript" src="js/v4/operations/screen/calc/calculateScreenPositionOfPoint.js"></script>
     <script type="text/javascript" src="js/v4/operations/screen/calc/getCanvasSize.js"></script>
     <script type="text/javascript" src="js/v4/operations/screen/calc/getCurrentDragValue.js"></script>
     <script type="text/javascript" src="js/v4/operations/screen/calc/getMousePosition.js"></script>

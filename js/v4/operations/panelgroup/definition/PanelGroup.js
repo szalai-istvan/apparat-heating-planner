@@ -9,11 +9,13 @@ class PanelGroup {
     angleDeg = 0.00;
     /** @type {Rectangle} */
     boundingBox;
+    /** @type {Rectangle} */
+    boundingBoxIncludingPipes;
 
     isSelected = false;
     isSelectedForDrag = false;
     clickedMemberIndex = undefined;
-    
+
     roomId = null;
     panelIds = [];
     cursorIsInsideCache = null;
@@ -22,7 +24,7 @@ class PanelGroup {
         this.id = createUniqueId();
 
         setupPanelGroupType(this, type);
-        
+
         if (panel) {
             this.panelIds.push(panel.id);
             panel.groupId = this.id;

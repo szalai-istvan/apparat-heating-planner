@@ -15,7 +15,7 @@ function deselectRoom() {
         selectedRoom = null;
 
         if (mousePointerIsInsideRoom(room)) {
-            room.textCenterCoordinates = getMousePositionAbsolute();
+            calculateTextCenterPositionOfRoom(room);
         }
     }
 

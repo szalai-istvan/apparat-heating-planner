@@ -71,7 +71,7 @@ function addPointToRoom(room) {
 /** @param {Room} room */
 function finalizeRoom(room) {
     room.middlePoint = calculateMiddlePointOfRoom(room);
-    room.textCenterCoordinates = room.middlePoint;
+    calculateTextCenterPositionOfRoom(room, room.middlePoint);
     room.isSelected = false;
 
     room.boundingBox = calculateRoomBoundingBox(room);

@@ -2,11 +2,11 @@ function draw() {
     if (saveOrLoadInProgress) {
         return;
     }
-
+    
+    background(WHITE);
     updateCursorType();
     clearSelectionCache();
 
-    background(WHITE);
 
     push();
     translateScreen();

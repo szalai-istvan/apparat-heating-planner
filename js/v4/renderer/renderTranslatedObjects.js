@@ -13,6 +13,7 @@ function renderTranslatedObjects() {
         elementStore.rooms.forEach(r => drawRectangle(r.boundingBox));
         elementStore.rooms.forEach(r => drawRectangle(r.textBox));
         elementStore.panelGroups.forEach(pg => drawRectangle(pg.boundingBox));
+        elementStore.panelGroups.forEach(pg => drawRectangle(pg.boundingBoxIncludingPipes));
         elementStore.panels.forEach(p => drawRectangle(p.boundingBox));
         elementStore.panels.forEach(p => drawRectangle(p.textBox));
         drawAxis();

@@ -15,10 +15,13 @@ function deselectObject() {
         successfulDeselect = deselectRoom();
     } else if (className === CLASS_PANEL_GROUP) {
         successfulDeselect = deselectPanelGroup();
+    } else if (className === CLASS_BLUEPRINT) {
+        successfulDeselect = deselectBlueprint();
     }
 
     if (successfulDeselect) {
         selectedObject = null;
     }
+
     return successfulDeselect;
 }

@@ -38,8 +38,8 @@ const PANEL_TUBE_EXTRA_LENGTH_STEP = 0.03;
 const PANEL_TEXT_RECT_SIZE_MUL = 1.4;
 
 // UI konstansek
-const MODALS = [errorDialog, fileUploadDialogConfirm, scalingDialogConfirm, scalingDialog, addRoomDialog, pdfUploadDialog, summaryTableDialog, transportDialog];
-const ENTERABLE_BUTTONS = [errorMessageOkButton, fileUploadDialogConfirmButton, scalingDialogConfirmButton, scalingDialogCloseButton, addRoomButton, pdfUploadDialogCloseButton, transportDialogOkButton];
+const MODALS = [rotateBlueprintDialog, errorDialog, fileUploadDialogConfirm, scalingDialogConfirm, scalingDialog, addRoomDialog, pdfUploadDialog, summaryTableDialog, transportDialog];
+const ENTERABLE_BUTTONS = [rotateBlueprintDialogOkButton, errorMessageOkButton, fileUploadDialogConfirmButton, scalingDialogConfirmButton, scalingDialogCloseButton, addRoomButton, pdfUploadDialogCloseButton, transportDialogOkButton];
 const TOP_RIBBON_HEIGHT = 60;
 const LEFT_RIBBON_WIDTH = 100;
 const UI_COLOR = 'lightgrey';
@@ -65,10 +65,10 @@ const CICIS_NENI = 'img/cicis_neni.png';
 
 // Debug konstansok
 const SAVE_TO_LOCAL_STORAGE_ENABLED = true;
-const PROJECT_STATE_LOGGING_ENABLED = false;
+const PROJECT_STATE_LOGGING_ENABLED = true;
 const LOCAL_STORAGE_DATA_KEY = 'rajzolator-project-save';
 const RECTANGLE_COLOR = 'red';
-const RECTANGLE_STROKE_WEIGHT = 10;
+const RECTANGLE_STROKE_WEIGHT = 1;
 
 // Színek
 const WHITE = 'white';

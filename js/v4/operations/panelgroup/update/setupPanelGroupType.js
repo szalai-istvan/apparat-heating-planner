@@ -16,10 +16,8 @@ function setupPanelGroupType(panelGroup, type) {
         throw new Error(`Unknown panel type: ${type}`);
     }
 
+    console.log(panelGroup.details.width * ratio);
     panelGroup.type = type;
-    panelGroup.textSize = PANEL_TEXT_SIZE_IN_METERS * ratio * (type === F100 ? 0.5 : 1);
-    textSize(panelGroup.textSize);
-    panelGroup.textWidth = textWidth(panelGroup.type);
     panelGroup.lengthInPixels = panelGroup.details.length * ratio;
     panelGroup.widthInPixels = panelGroup.details.width * ratio;
 }

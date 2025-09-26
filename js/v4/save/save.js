@@ -33,7 +33,7 @@ function saveProjectToLocalStorage() {
         saveOrLoadInProgress = true;
         PROJECT_STATE_LOGGING_ENABLED && console.log('>>> Saving project to local storage');
         const stateStr = getProjectState();
-        PROJECT_STATE_LOGGING_ENABLED && console.log('Project size: ' + getProjectStateSize());
+        PROJECT_STATE_LOGGING_ENABLED && console.log('Project size: ' + getProjectStateSize(stateStr));
         localStorage.setItem(LOCAL_STORAGE_DATA_KEY, stateStr);
     } finally {
         PROJECT_STATE_LOGGING_ENABLED && console.log('<<< Saving project to local storage');
@@ -51,6 +51,8 @@ function getProjectState() {
             blueprints: {
                 data: elementStore.blueprints.map((bp) => bp.data.canvas.toDataURL("image/png")),
                 topLeft: elementStore.blueprints.map((bp) => bp.topLeftPosition),
+                center: elementStore.blueprints.map((bp) => bp.centerPosition),
+                angleDeg: elementStore.blueprints.map((bp) => bp.angleDeg)
             },
             scale: {
                 pixelsPerMeterRatio: pixelsPerMetersRatio,
@@ -80,8 +82,8 @@ function getProjectState() {
     return stateStr;
 }
 
-function getProjectStateSize() {
-    return roundNumber(getProjectState().length / 1024 / 1024, 2) + " MB";
+function getProjectStateSize(stateStr) {
+    return roundNumber((stateStr || getProjectState()).length / 1024 / 1024, 2) + " MB";
 }
 
 if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
