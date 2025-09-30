@@ -2,8 +2,11 @@ class StructureElements {
     id;
 
     alignment;
+    /** @type {Line[]} */
     alignedBeams = [];
+    /** @type {Line[]} */
     crossBeams = [];
+    ud30Beams;
 
     roomId;
 

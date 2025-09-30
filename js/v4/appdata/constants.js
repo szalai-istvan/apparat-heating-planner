@@ -76,7 +76,7 @@ const CICIS_NENI = 'img/cicis_neni.png';
 
 // Debug konstansok
 const SAVE_TO_LOCAL_STORAGE_ENABLED = true;
-const PROJECT_STATE_LOGGING_ENABLED = true;
+const PROJECT_STATE_LOGGING_ENABLED = false;
 const LOCAL_STORAGE_DATA_KEY = 'rajzolator-project-save';
 const RECTANGLE_COLOR = 'red';
 const RECTANGLE_STROKE_WEIGHT = 1;
@@ -144,3 +144,5 @@ const TEST_POINT_COORDINATE = 20_000_000;
 // Geometria konstansok
 const PARALLELITY_TRESHOLD = 0.0001;
 const MAXIMUM_LINE_INTERSECTION_ROUNDING_ERROR = 0.0001;
+const INFINITE_LINE_LENGTH = 20_000_000;
+const DELTA_X_VERTICALITY_THRESHOLD = 0.00001;

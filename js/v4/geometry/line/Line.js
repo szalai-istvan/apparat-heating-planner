@@ -20,7 +20,7 @@ class Line {
 
         const deltaX = p1.x - p0.x;
         const deltaY = p1.y - p0.y;
-        if (deltaX !== 0) {
+        if (Math.abs(deltaX) > DELTA_X_VERTICALITY_THRESHOLD) {
             this.n = 1;
             this.a = deltaY / deltaX;
             this.b = p0.y - this.a * p0.x;
@@ -32,15 +32,21 @@ class Line {
             this.angleRad = 1000;
         }
     }
+}
 
-    calculateY(x) {
-        checkClass(x, CLASS_NUMBER);
+/**
+ * 
+ * @param {Line} line
+ * @param {Number} x 
+ * @returns {Number}
+ */
+function calculateY(line, x) {
+    checkClass(x, CLASS_NUMBER);
 
-        if (this.n === 0) {
-            console.log('Attempt at calculating y value of vertical line!');
-            return NaN;
-        }
-
-        return this.a * x + this.b;
+    if (line.n === 0) {
+        console.log('Attempt at calculating y value of vertical line!');
+        return NaN;
     }
+
+    return line.a * x + line.b;
 }

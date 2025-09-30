@@ -14,7 +14,7 @@ function deselectPanelGroup() {
     }
     
     const room = getRoomById(selectedPanelGroup.roomId);
-    if (!panelGroupAlignmentIsValid(room, panelGroup)) {
+    if (!panelGroupAlignmentIsValid(room, selectedPanelGroup)) {
         displayMessage('Egymásra merőleges panelek nem lehetnek egy szobában!');
         return false;
     }

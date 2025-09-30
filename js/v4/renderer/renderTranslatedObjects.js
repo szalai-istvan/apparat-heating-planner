@@ -7,6 +7,7 @@ function renderTranslatedObjects() {
     elementStore.blueprints.forEach(bluePrint => drawBlueprint(bluePrint));
     elementStore.rooms.forEach(room => drawRoom(room));
     elementStore.panelGroups.forEach(pg => drawPanelGroup(pg));
+    elementStore.structureElements.forEach(se => drawStructureElements(se));
     drawScaler();
 
     if (debugEnabled) {

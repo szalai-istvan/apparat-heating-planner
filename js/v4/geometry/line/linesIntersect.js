@@ -14,19 +14,19 @@ function linesIntersect(line0, line1) {
     if (line0.n === 0) {
         const x = line0.p0.x;
         intersectionPoint.x = x;
-        intersectionPoint.y = line1.calculateY(x);
+        intersectionPoint.y = calculateY(line1, x);
         return pointIsWithinLineBounds(intersectionPoint, line0) && pointIsWithinLineBounds(intersectionPoint, line1);
     }
 
     if (line1.n === 0) {
         const x = line1.p0.x;
         intersectionPoint.x = x;
-        intersectionPoint.y = line0.calculateY(x);
+        intersectionPoint.y = calculateY(line0, x);
         return pointIsWithinLineBounds(intersectionPoint, line0) && pointIsWithinLineBounds(intersectionPoint, line1);
     }
 
     intersectionPoint.x = (line1.b - line0.b) / (line0.a - line1.a);
-    intersectionPoint.y = line1.calculateY(intersectionPoint.x);
+    intersectionPoint.y = calculateY(line1, intersectionPoint.x);
     return pointIsWithinLineBounds(intersectionPoint, line0) && pointIsWithinLineBounds(intersectionPoint, line1);
 }
 
