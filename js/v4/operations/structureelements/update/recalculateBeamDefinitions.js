@@ -8,7 +8,7 @@ function recalculateBeamDefinitions(room) {
     checkClass(room, CLASS_ROOM);
 
     const structureElements = getStructureElementsById(room.structureElementsId);
-    const panelGroups = elementStore.panelGroups.filter(x => x.roomId = room.id);
+    const panelGroups = elementStore.panelGroups.filter(x => x.roomId === room.id);
 
     const alignedBeams = [];
     for (let panelGroup of panelGroups) {
@@ -46,7 +46,6 @@ function calculateAlignedBeamsOfPanelGroup(room, panelGroup) {
             .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 
-        console.log(intersectionPoints);
         beams.push(createLine(
             addPoints([intersectionPoints[0], firstPointCorrector]),
             addPoints([intersectionPoints[1], firstPointCorrector])
@@ -70,15 +69,51 @@ function calculateCrossBeams(room, panelGroups) {
 
     const boundingBox = room.boundingBox;
     const middlePoint = boundingBox.middlePoint;
-    const direction = room.angleRad + (panelGroups[0].alignment + 1) * HALF_PI;
-    
-    const middleLine = createLineByPointAndAngle(middlePoint, direction);
+    let panelDirection = (((room.angleRad + (panelGroups[0].alignment % 2) * HALF_PI) + 2 * PI) % PI);
+    panelDirection = panelDirection - (panelDirection > HALF_PI ? PI : 0);
+    const crossDirection = ((panelDirection + HALF_PI) % PI);
+
+    const panelLine = createLineByPointAndAngle(middlePoint, panelDirection);
+    const widthIntersections = boundingBox.lines
+        .map(l => calculateIntersectionPointOfTwoLines(l, panelLine))
+        .filter(x => x);
+    const roomWidth = calculateDistance(widthIntersections[0], widthIntersections[1]);
+
+    const crossLine = createLineByPointAndAngle(middlePoint, panelDirection);
     const intersectionsSorted = boundingBox.lines
-        .map(l => calculateIntersectionPointOfTwoLines(l, middleLine))
+        .map(l => calculateIntersectionPointOfTwoLines(l, crossLine))
         .filter(x => x)
         .sort((a, b) => a.x - b.x);
     const leftPoint = intersectionsSorted[0];
-    console.log(intersectionsSorted[0]);
-    console.log(intersectionsSorted[1]);
 
+    const initialOffset = (roomWidth % pixelsBetweenBeams) / 2;
+    const initialOffsetVector = multiplyPoint(createUnitVector(panelDirection), initialOffset);
+    const offsetVector = multiplyPoint(createUnitVector(panelDirection), pixelsBetweenBeams);
+    const referencePoints = [addPoints([leftPoint, initialOffsetVector])];
+
+    while (true) {
+        const lastPoint = referencePoints[referencePoints.length - 1];
+        const nextPoint = addPoints([lastPoint, offsetVector]);
+        if (pointIsInsideRectangle(nextPoint, boundingBox)) {
+            referencePoints.push(nextPoint);
+        } else {
+            break;
+        }
+    }
+
+    const firstPointCorrector = multiplyPoint(room.firstPoint, -1);
+    const beams = [];
+    for (let referencePoint of referencePoints) {
+        const referenceLine = createLineByPointAndAngle(referencePoint, crossDirection);
+        const intersectionPoints = boundingBox.lines
+            .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
+            .filter(x => x);
+
+        beams.push(createLine(
+            addPoints([intersectionPoints[0], firstPointCorrector]),
+            addPoints([intersectionPoints[1], firstPointCorrector])
+        ));
+    }
+
+    return beams;
 }

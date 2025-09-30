@@ -7,12 +7,8 @@
  */
 function calculateIntersectionPointOfTwoLines(line0, line1) {
     if (Math.abs(line0.angleRad - line1.angleRad) < PARALLELITY_TRESHOLD) {
-        console.log('parallel');
         return undefined;
     }
-
-    console.log(line0);
-    console.log(line1);
 
     let intersectionPoint = createPoint(0, 0);
     if (line0.n === 0) {
@@ -30,13 +26,8 @@ function calculateIntersectionPointOfTwoLines(line0, line1) {
     }
 
     if (pointIsWithinLineBounds(intersectionPoint, line0) && pointIsWithinLineBounds(intersectionPoint, line1)) {
-        console.log('inofbounds');
-        console.log(intersectionPoint);
-        console.log('-');
         return intersectionPoint;
     }
-    console.log('outofbounds');
-    console.log(intersectionPoint);
-    console.log('-');
+
     return undefined;
 }

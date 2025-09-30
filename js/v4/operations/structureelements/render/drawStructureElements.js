@@ -15,9 +15,12 @@ function drawStructureElements(structureElements) {
     push();
 
     translate(room.firstPoint.x, room.firstPoint.y);
-    rotate(toDegrees(room.angleRad));
 
     for (let beam of structureElements.alignedBeams) {
+        line(beam.p0.x, beam.p0.y, beam.p1.x, beam.p1.y);
+    }
+
+    for (let beam of structureElements.crossBeams) {
         line(beam.p0.x, beam.p0.y, beam.p1.x, beam.p1.y);
     }
 
