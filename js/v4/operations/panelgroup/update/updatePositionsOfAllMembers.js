@@ -22,21 +22,26 @@ function calculateCoordinateCorrector(panelGroup) {
     }
 
     const clickedMemberIndex = panelGroup.clickedMemberIndex || 0;
-    const minimumAllowedX = LEFT_RIBBON_WIDTH + panelGroup.lengthInPixels / screenZoom;
-    const minimumAllowedY = TOP_RIBBON_HEIGHT + (clickedMemberIndex + 0.5) * panelGroup.widthInPixels / screenZoom;
+    const cursorOnScreen = getMousePosition();
+    const mousePositionX = cursorOnScreen.x;
+    const mousePositionY = cursorOnScreen.y;
 
-    const cursorOnScreen = getClosestGridPoint(getMousePosition());
-    const minimumX = cursorOnScreen.x;
-    const minimumY = cursorOnScreen.y;
+    const horizontalAlignment = panelGroup.alignment % 2 === 0;
 
-    const differenceX = minimumX - minimumAllowedX;
-    const differenceY = minimumY - minimumAllowedY;
+    let minimumAllowedX;
+    let minimumAllowedY;
+    if (horizontalAlignment) {
+        minimumAllowedX = LEFT_RIBBON_WIDTH + panelGroup.lengthInPixels * screenZoom / 2;
+        minimumAllowedY = TOP_RIBBON_HEIGHT + (clickedMemberIndex + 0.5) * panelGroup.widthInPixels * screenZoom;
+    } else {
+        minimumAllowedX = LEFT_RIBBON_WIDTH + (clickedMemberIndex + 0.5) * panelGroup.widthInPixels * screenZoom;
+        minimumAllowedY = TOP_RIBBON_HEIGHT + panelGroup.lengthInPixels * screenZoom / 2;
+    }
+    const differenceX = mousePositionX - minimumAllowedX;
+    const differenceY = mousePositionY - minimumAllowedY;
 
     const deltaX = ((Math.abs(differenceX) - differenceX) / 2) / screenZoom;
     const deltaY = ((Math.abs(differenceY) - differenceY) / 2) / screenZoom;
 
-    return createPoint(
-        deltaX,
-        deltaY
-    );
+    return createPoint(deltaX, deltaY);
 }

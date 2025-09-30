@@ -5,10 +5,15 @@
  */
 function removeSelectedRoom() {
     const room = selectedRoom;
-    if (room) {
-        elementStore.remove(room);
-        selectedRoom = null;
+    if (!room) {
+        return;
     }
+
+    elementStore.remove(room);
+    selectedRoom = null;
+
+    const structureElements = getStructureElementsById(room.structureElementsId);
+    elementStore.remove(structureElements);
 
     removePanelGroupsFromDeletedRoom(room);
 

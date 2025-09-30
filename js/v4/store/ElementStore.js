@@ -13,6 +13,10 @@ class ElementStore {
     panelGroups = [];
     /** @type {{[key:string]: PanelGroup}} */
     panelGroupsById = {};
+    /** @type {StructureElements[]} */
+    structureElements = [];
+    /** @type {{[key:string]: StructureElements}} */
+    structureElementsById = {};
 
     /** @type {ButtonWrapper[]} */
     buttons = [];
@@ -38,6 +42,9 @@ class ElementStore {
             this.#addById(this.panelGroupsById, obj);
         } else if (className === CLASS_BUTTON_WRAPPER) {
             this.buttons.push(obj);
+        } else if (className === CLASS_STRUCTURE_ELEMENTS) {
+            this.structureElements.push(obj);
+            this.#addById(this.structureElementsById, obj);
         } else {
             throw new Error(`Attempt to register unexpected render type: ${className}`);
         }
@@ -60,6 +67,9 @@ class ElementStore {
         } else if (className === CLASS_PANEL_GROUP) {
             this.panelGroups = this.panelGroups.filter((x) => x !== obj);
             this.#removeById(this.panelGroupsById, obj);
+        } else if (className === CLASS_STRUCTURE_ELEMENTS) {
+            this.structureElements = this.structureElements.filter((x) => x !== obj);
+            this.#removeById(this.structureElementsById, obj);
         } else {
             throw new Error(`Deleting render object of type ${className} is unspecified.`);
         }

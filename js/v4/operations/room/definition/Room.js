@@ -15,9 +15,13 @@ class Room {
     boundingBox;
     /** @type {Rectangle} */
     textBox;
+    /** @type {GridDefinition} */
+    roomGridDefinition;
 
     isSelected = false;
     cursorIsInsideCache = null;
+
+    structureElementsId;
 
     constructor(name, tilted) {
         this.id = createUniqueId();

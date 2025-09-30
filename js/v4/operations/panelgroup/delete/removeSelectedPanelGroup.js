@@ -13,7 +13,8 @@ function removePanelGroup(panelGroup) {
     const panelsToDelete = getPanelsByIdList(panelGroup.panelIds);
     panelsToDelete.forEach(p => elementStore.remove(p));
     elementStore.remove(panelGroup);
-    deselectObject();
+    selectedPanelGroup = null;
+    selectedObject = null;
 }
 
 function removeSelectedPanelGroup() {

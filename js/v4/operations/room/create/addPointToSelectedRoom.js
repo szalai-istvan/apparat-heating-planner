@@ -39,7 +39,7 @@ function addPointToRoom(room) {
         return;
     }
 
-    const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
+    const mousePosition = getClosestGlobalGridPointToCursorsCorrectedPosition();
     const firstPoint = room.firstPoint;
 
     if (!firstPoint) {
@@ -76,4 +76,16 @@ function finalizeRoom(room) {
 
     room.boundingBox = calculateRoomBoundingBox(room);
     room.textBox = calculateRoomTextBox(room);
+
+    if (roomPositionIsInvalid(room)) {
+        displayMessage('A szoba pozíciója érvénytelen, átfedést okoz szobák között!');
+        elementStore.remove(room);
+        return;
+    }
+
+    room.roomGridDefinition = new GridDefinition();
+    room.roomGridDefinition.angleRad = room.angleRad;
+    room.roomGridDefinition.referencePoint = room.firstPoint;
+    room.roomGridDefinition.cosAlpha = Math.cos(room.angleRad);
+    room.roomGridDefinition.sinAlpha = Math.sin(room.angleRad);
 }

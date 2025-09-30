@@ -20,6 +20,10 @@
     user-select: none;
 }
 
+label {
+    user-select: none;
+}
+
 button {
     user-select: none;
 }

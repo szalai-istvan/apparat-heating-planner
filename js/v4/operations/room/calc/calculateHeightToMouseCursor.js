@@ -9,7 +9,7 @@ function calculateHeightToMouseCursor(room) {
 
     const angle = room.angleRad;
     const firstPoint = room.firstPoint;
-    const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
+    const mousePosition = getClosestGlobalGridPointToCursorsCorrectedPosition();
     const deltaX = mousePosition.x - firstPoint.x;
     const deltaY = mousePosition.y - firstPoint.y;
 

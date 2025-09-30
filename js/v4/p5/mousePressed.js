@@ -10,13 +10,8 @@ function mousePressed() {
     if (mouseButton === RIGHT) {
         rightMouseButtonPressedFunc();
     } else if (mouseButton === LEFT) {
-        leftMouseButtonPressedFunc()
+        startDragging();
     }
-}
-
-function leftMouseButtonPressedFunc() {
-    startDragging();
-    searchSelectableObject();
 }
 
 function rightMouseButtonPressedFunc() {

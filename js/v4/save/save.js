@@ -60,6 +60,9 @@ function getProjectState() {
             rooms: {
                 rooms: rooms,
             },
+            structureElements: {
+                structureElements: elementStore.structureElements
+            },
             screen: {
                 sumDrag: screenSumDrag,
                 zoom: screenZoom,

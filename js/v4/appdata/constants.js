@@ -25,6 +25,16 @@ const ROOM_LINE_WEIGHT_IN_METERS = 0.017;
 const ROOM_DEFAULT_TEXT_COLOR = "green";
 const ROOM_FILL_COLOR = '#FFFFFFA0';
 
+// Szoba szerkezeti elem konstansok
+const BEAM_COLOR = "lightgrey";
+const BEAM_WIDTH_METER = 0.06;
+const UD30_WIDTH_METER = 0.03;
+const METERS_BETWEEN_BEAMS = 1;
+const BEAM_MINIMUM_OFFSET_METERS = 0.1;
+const BEAM_TEXT_SIZE_METER = 0.04;
+const CD_30_60_BEAM_TYPE = "CD30/60 profil";
+const UD_30_BEAM_TYPE = "UD30 profil";
+
 // Panel konstansok
 const PANEL_TEXT_SIZE_IN_METERS = 0.18;
 const PANEL_TEXT_POP_FACTOR = 0.1;
@@ -54,6 +64,7 @@ const HALF_WIDTH_BUTTON_SIZE = { x: 40, y: 30 };
 const TALL_SMALL_BUTTON_SIZE = { x: 80, y: 45 };
 const BUTTON_GAP_X = 10;
 const BUTTON_GAP_Y = 5;
+const SELECT_DRAG_THRESHOLD = 10;
 
 // ID-k
 const ROOM_PREFILL_RADIO_SET = 'roomPrefillRadioSet';
@@ -113,6 +124,7 @@ const CLASS_POINT = 'Point';
 const CLASS_ARRAY = 'Array';
 const CLASS_LINE = 'Line';
 const CLASS_RECTANGLE = 'Rectangle';
+const CLASS_STRUCTURE_ELEMENTS = 'StructureElements';
 
 // File constants
 const IMAGE_CONTENT_TYPES = ["image/jpeg", "image/png"];
@@ -122,8 +134,8 @@ const PDF_CONTENT_TYPE = "application/pdf";
 const GRID_RESOLUTION_METER = 0.05;
 
 // Képernyő konstansok
-const MINIMUM_ZOOM = 0.01;
-const MAXIMUM_ZOOM = 1_000;
+const MINIMUM_ZOOM = 0.2;
+const MAXIMUM_ZOOM = 50;
 const ZOOM_STEP = 1.05;
 
 // Validáció konstansok

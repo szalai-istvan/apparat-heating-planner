@@ -7,7 +7,6 @@ let selectedObject;
  * @returns 
  */
 function selectObject(obj) {
-    console.log(obj);
     const className = getClassName(obj);
     if (className === CLASS_ROOM) {
         if (selectRoom(obj)) {

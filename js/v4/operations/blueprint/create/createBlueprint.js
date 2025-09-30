@@ -19,7 +19,6 @@ function createBlueprint(data) {
 
 /** @param {Blueprint} blueprint */
 function tryUntilSuccessfulRecalculatePositions(blueprint) {
-    console.log(blueprint);
     if (blueprint.data.width > 1 && blueprint.data.height > 1) {
         recalculateBlueprintPositions();
         screenSumDrag = { x: -blueprint.centerPosition.x, y: 0 };

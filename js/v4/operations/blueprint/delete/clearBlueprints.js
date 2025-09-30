@@ -4,11 +4,6 @@
  * @returns {undefined}
  */
 function clearBlueprints() {
-	if (pixelsPerMetersRatio) {
-		fileUploadDialogConfirm.showModal();
-		toggleScreenControls();
-	} else {
-		elementStore.blueprints = [];
-		clearScaling();
-	}
+	elementStore.blueprints = [];
+	clearScaling();
 }

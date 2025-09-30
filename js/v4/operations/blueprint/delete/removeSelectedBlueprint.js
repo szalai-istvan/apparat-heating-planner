@@ -10,4 +10,8 @@ function removeSelectedBlueprint() {
 
     elementStore.remove(selectedBlueprint);
     recalculateBlueprintPositions();
+
+    if (elementStore.blueprints.length === 0) {
+        clearScaling();
+    }
 }

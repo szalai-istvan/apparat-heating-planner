@@ -10,6 +10,16 @@ let panelTextSize = undefined;
 let panelTextBoxWidth = undefined;
 /** @type {Number} */
 let panelTextBoxHeight = undefined;
+/** @type {Number} */
+let beamLineWidthPixel = undefined;
+/** @type {Number} */
+let beamWidthPixel = undefined;
+/** @type {Number} */
+let beamTextSize = undefined;
+/** @type {Number} */
+let pixelsBetweenBeams = undefined;
+/** @type {Number} */
+let beamsMinimumOffset = undefined;
 
 /**
  * Újraszámolja a renderelési méret értékeket.
@@ -33,4 +43,10 @@ function updateRenderSizeValues() {
 
         pop();
     }
+
+    beamLineWidthPixel = ratio ? ROOM_LINE_WEIGHT_IN_METERS * ratio : undefined;
+    beamWidthPixel = ratio ? BEAM_WIDTH_METER * ratio : undefined;
+    beamTextSize = ratio ? BEAM_TEXT_SIZE_METER * ratio : undefined;
+    pixelsBetweenBeams = ratio ? METERS_BETWEEN_BEAMS * ratio : undefined;
+    beamsMinimumOffset = ratio ? BEAM_MINIMUM_OFFSET_METERS * ratio : undefined;
 }

@@ -19,7 +19,7 @@ function mouseCursorIsInsidePanelsTextbox(panel) {
     }
 
     if (panel.cursorIsInsideCache === null) {
-        panel.cursorIsInsideCache = pointIsInsideRectangle(getClosestGridPointToCursorsCorrectedPosition(), panel.textBox);
+        panel.cursorIsInsideCache = pointIsInsideRectangle(getClosestGlobalGridPointToCursorsCorrectedPosition(), panel.textBox);
     }
 
     return panel.cursorIsInsideCache;

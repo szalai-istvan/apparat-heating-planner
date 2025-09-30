@@ -24,8 +24,7 @@ function promptToClearBlueprints() {
     fileUploadDialogConfirm.showModal();
     toggleScreenControls();
   } else {
-    promptToClearBlueprints();
-    blueprintContext.clearBlueprints();
+    clearBlueprints();
   }
 
 }
@@ -33,7 +32,7 @@ function promptToClearBlueprints() {
 fileUploadDialogConfirmButton.addEventListener(CLICK, () => {
   fileUploadDialogConfirm.close();
   toggleScreenControls();
-  blueprintContext.clearBlueprints();
+  clearBlueprints();
 });
 
 fileUploadDialogCancelButton.addEventListener(CLICK, () => {

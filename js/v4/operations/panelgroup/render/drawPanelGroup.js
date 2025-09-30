@@ -10,9 +10,10 @@ function drawPanelGroup(panelGroup) {
     panelGroup.boundingBox = calculatePanelGroupBoundingBox(panelGroup);
     panelGroup.boundingBoxIncludingPipes = calculatePanelGroupBoundingBoxIncludingPipes(panelGroup);
     if (panelGroup.isSelectedForDrag) {
-        const containingRoom = getContainingRoom(panelGroup);
+        const room = getRoomContainingMouseCursor();
+        const containingRoom = getContainingRoom(panelGroup, room ? [room] : undefined);
         panelGroup.roomId = containingRoom ? containingRoom.id : undefined;
-        panelGroup.angleDeg = containingRoom ? toDegrees(containingRoom.angleRad) : 0.00;
+        panelGroup.angleDeg = room ? toDegrees(room.angleRad) : 0.00;
         
         updatePositionsOfAllMembers(panelGroup);
     }

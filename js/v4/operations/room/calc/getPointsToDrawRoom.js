@@ -12,7 +12,7 @@ function getPointsToDrawRoom(room) {
         return [];
     }
 
-    const p1 = points.length >= 2 ? points[1] : getClosestGridPointToCursorsCorrectedPosition();
+    const p1 = points.length >= 2 ? points[1] : getClosestGlobalGridPointToCursorsCorrectedPosition();
 
     const pointsToDraw = [];
     pointsToDraw.push({ x: p0.x, y: p0.y });

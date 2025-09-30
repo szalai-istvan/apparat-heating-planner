@@ -40,7 +40,7 @@ function drawStraightRoom(room) {
     updateSettingsToDraw(room);
 
     if (!width) {
-        const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
+        const mousePosition = getClosestGlobalGridPointToCursorsCorrectedPosition();
         width = mousePosition.x - firstPoint.x;
         height = mousePosition.y - firstPoint.y;
     }
@@ -77,7 +77,7 @@ function drawTiltedRoom(room) {
     updateSettingsToDraw(room);
 
     if (!width) {
-        const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
+        const mousePosition = getClosestGlobalGridPointToCursorsCorrectedPosition();
         line(firstPoint.x, firstPoint.y, mousePosition.x, mousePosition.y);
         width = calculateDistance(firstPoint, mousePosition) * (mousePosition.x < firstPoint.x ? -1 : 1);
         translate(firstPoint.x, firstPoint.y);
@@ -88,7 +88,7 @@ function drawTiltedRoom(room) {
     }
 
     if (!height) {
-        const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
+        const mousePosition = getClosestGlobalGridPointToCursorsCorrectedPosition();
         height = calculateHeightToMouseCursor(room);
     }
 

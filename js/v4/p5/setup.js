@@ -36,6 +36,7 @@ function initializeComponents() {
     screenSumDrag = createPoint(0, 0);
     apparatLogo = loadImage('img/APPARAT_transparent.PNG');
     testPoint = createPoint(TEST_POINT_COORDINATE, TEST_POINT_COORDINATE);
+    pointOrigin = createPoint(0, 0);
 
     createButtons();
 }

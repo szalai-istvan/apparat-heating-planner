@@ -125,6 +125,7 @@
     <script type="text/javascript" src="js/v4/buttons/rotateSelectedObject.js"></script>
     <script type="text/javascript" src="js/v4/buttons/scaleButton.js"></script>
 
+    <script type="text/javascript" src="js/v4/geometry/griddefinition/GridDefinition.js"></script>
     <script type="text/javascript" src="js/v4/geometry/line/createLine.js"></script>
     <script type="text/javascript" src="js/v4/geometry/line/Line.js"></script>
     <script type="text/javascript" src="js/v4/geometry/line/linesIntersect.js"></script>
@@ -136,6 +137,7 @@
     <script type="text/javascript" src="js/v4/geometry/rectangle/drawRectangle.js"></script>
     <script type="text/javascript" src="js/v4/geometry/rectangle/Rectangle.js"></script>
     <script type="text/javascript" src="js/v4/geometry/rectangle/rectangleIsInsideRectangle.js"></script>
+    <script type="text/javascript" src="js/v4/geometry/rectangle/rectanglesOverlap.js"></script>
 
     <script type="text/javascript" src="js/v4/helpers/debugHelpers.js"></script>
     <script type="text/javascript" src="js/v4/helpers/errordialog.js"></script>
@@ -160,7 +162,8 @@
     <script type="text/javascript" src="js/v4/operations/blueprint/select/deselectBlueprint.js"></script>
     <script type="text/javascript" src="js/v4/operations/blueprint/select/selectBlueprint.js"></script>
     <script type="text/javascript" src="js/v4/operations/blueprint/update/recalculateBlueprintPositions.js"></script>
-    <script type="text/javascript" src="js/v4/operations/grid/calc/getClosestGridPointToPoint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/grid/calc/getClosestGlobalGridPointToPoint.js"></script>
+    <script type="text/javascript" src="js/v4/operations/grid/calc/getClosestRoomGridPointToPoint.js"></script>
     <script type="text/javascript" src="js/v4/operations/grid/create/setGridSeed.js"></script>
     <script type="text/javascript" src="js/v4/operations/grid/delete/removeGridSeed.js"></script>
     <script type="text/javascript" src="js/v4/operations/grid/update/updateGridResolution.js"></script>
@@ -177,6 +180,7 @@
     <script type="text/javascript" src="js/v4/operations/panelgroup/calc/panelGroupsExist.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/create/createOrReplacePanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/definition/PanelGroup.js"></script>
+    <script type="text/javascript" src="js/v4/operations/panelgroup/delete/clearPanelGroups.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/delete/removeSelectedPanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/render/drawPanelGroup.js"></script>
     <script type="text/javascript" src="js/v4/operations/panelgroup/select/clearPanelGroupSelectionCache.js"></script>
@@ -197,11 +201,13 @@
     <script type="text/javascript" src="js/v4/operations/room/calc/configuredRoomsExist.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getPointsToDrawRoom.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getRoomById.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/getRoomContainingMouseCursor.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getRoomMiddlePoint.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/getRoomNames.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/mouseCursorIsInsideRoomName.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/pointIsInsideRoom.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/roomIsConfigured.js"></script>
+    <script type="text/javascript" src="js/v4/operations/room/calc/roomPositionIsInvalid.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/create/addPointToSelectedRoom.js"></script>
     <script type="text/javascript" src="js/v4/operations/room/create/createRoom.js"></script>
@@ -236,6 +242,10 @@
     <script type="text/javascript" src="js/v4/operations/selection/removeSelectedObject.js"></script>
     <script type="text/javascript" src="js/v4/operations/selection/searchForSelectableObject.js"></script>
     <script type="text/javascript" src="js/v4/operations/selection/selectObject.js"></script>
+    <script type="text/javascript" src="js/v4/operations/structureelements/calc/getStructureElementsById.js"></script>
+    <script type="text/javascript" src="js/v4/operations/structureelements/create/createStructureElementsInRoom.js"></script>
+    <script type="text/javascript" src="js/v4/operations/structureelements/definition/StructureElements.js"></script>
+    <script type="text/javascript" src="js/v4/operations/structureelements/update/recalculateBeamDefinitions.js"></script>
     <script type="text/javascript" src="js/v4/operations/tooltip/render/drawTooltips.js"></script>
     <script type="text/javascript" src="js/v4/operations/tooltip/update/tooltipManagers.js"></script>
     <script type="text/javascript" src="js/v4/operations/tooltip/update/tooltipMessages.js"></script>

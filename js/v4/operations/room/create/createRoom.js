@@ -16,7 +16,10 @@ function createRoom(name, tilted) {
     }
 
     const room = new Room(name, tilted);
+    const structureElements = new StructureElements(room);
+    room.structureElementsId = structureElements.id;
     elementStore.register(room);
+    elementStore.register(structureElements);
 
     selectObject(room);
     return true;

@@ -84,6 +84,10 @@ function loadRooms(projectState) {
     rooms.forEach((room) => (room.constructor = { name: CLASS_ROOM }));
     rooms.forEach((room) => elementStore.register(room));
 
+    const structureElements = projectState.structureElements.structureElements;
+    structureElements.forEach((se) => (se.constructor = {name: CLASS_STRUCTURE_ELEMENTS}));
+    structureElements.forEach((se) => elementStore.register(se));
+
     return rooms.filter(r => r.isSelected)[0];
 }
 

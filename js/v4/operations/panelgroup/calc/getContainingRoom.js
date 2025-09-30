@@ -2,13 +2,15 @@
  * Megkeresi a szobát, amely teljes egészében tartalmazza a paraméterül kapott panelcsoportot
  * 
  * @param {PanelGroup} panelGroup 
+ * @param {Room[]} roomListToCheck (opcionális)
  * @returns {Room}
  */
-function getContainingRoom(panelGroup) {
+function getContainingRoom(panelGroup, roomListToCheck = undefined) {
     if (!panelGroup.boundingBoxIncludingPipes) {
         return undefined;
     }
 
-    const rooms = elementStore.rooms.filter(r => rectangleIsInsideRectangle(panelGroup.boundingBoxIncludingPipes, r.boundingBox));
+    roomListToCheck = roomListToCheck || elementStore.rooms;
+    const rooms = roomListToCheck.filter(r => rectangleIsInsideRectangle(panelGroup.boundingBoxIncludingPipes, r.boundingBox));
     return rooms.length ? rooms[0] : undefined;
 }

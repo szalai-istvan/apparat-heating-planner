@@ -16,15 +16,17 @@ function updatePanelPosition(panelGroup, panel, index, clickedMemberIndex, corre
     clickedMemberIndex = clickedMemberIndex || 0;
     const offset = index - (clickedMemberIndex);
     const referencePanel = getPanelById(panelGroup.panelIds[clickedMemberIndex]);
-    const referenceCenter = panelGroup.isSelectedForDrag ? getClosestGridPointToCursor() : referencePanel.centerPosition;
+    const referenceCenter = panelGroup.isSelectedForDrag ? getMousePositionAbsolute() : referencePanel.centerPosition;
 
-    const verticalAlignment = panelGroup.alignment % 2 === 1;
+    const angleRad = toRadians(((panelGroup.alignment + 1) % 2) * 90 + panelGroup.angleDeg);
     const sumOffset = offset * panelGroup.widthInPixels;
-    
-    let centerPoint = createPoint(referenceCenter.x + verticalAlignment * sumOffset, referenceCenter.y + !verticalAlignment * sumOffset);
-    centerPoint = getClosestGridPoint(addPoints([centerPoint, corrector]));
-    
-    panel.centerPosition = centerPoint;
+    const sumOffsetVector = multiplyPoint(createUnitVector(angleRad), sumOffset);
+
+    let centerPoint = createPoint(referenceCenter.x + sumOffsetVector.x, referenceCenter.y + sumOffsetVector.y);
+    centerPoint = addPoints([centerPoint, corrector]);
+
+    const room = getRoomById(panelGroup.roomId);
+    panel.centerPosition = getClosestRoomGridPoint(centerPoint, room);
     panel.boundingBox = calculatePanelBoundingBox(panel);
     panel.textBox = calculatePanelTextBox(panel);
 }

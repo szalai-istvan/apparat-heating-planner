@@ -1,7 +1,2 @@
-- szoba pozíció validálás
-- Panel hozzáadás és elvétel, validáció
-- Törlések implementálása
-- clear implementálása
-- Blueprint törlésre figyelmeztető üzenet és reset ha nem maradt több
 - Portolni a structure element rajzolást és generálást
 - Excel generálás portolása
