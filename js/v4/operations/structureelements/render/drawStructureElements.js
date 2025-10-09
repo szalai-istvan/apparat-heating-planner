@@ -35,19 +35,19 @@ function drawStructureElements(structureElements) {
 
     for (let beam of horizontalBeams) {
         rect(beam.middlePoint.x, beam.middlePoint.y, beam.length, beamWidthPixel);
-        drawBeamNames(beam);
+        drawCD3060BeamNames(beam);
     }
 
     for (let beam of verticalBeams) {
         rect(beam.middlePoint.x, beam.middlePoint.y, beamWidthPixel, beam.length);
-        drawBeamNames(beam, HALF_PI);
+        drawCD3060BeamNames(beam, HALF_PI);
     }
 
     pop();
 }
 
 /** @param {Line} beam */
-function drawBeamNames(beam, rotateRad = 0) {
+function drawCD3060BeamNames(beam, rotateRad = 0) {
     const middlePoint = rotatePoint(beam.middlePoint, -rotateRad);
     const leftPoint = rotatePoint(beam.leftPoint, -rotateRad);
     const rightPoint = rotatePoint(beam.rightPoint, -rotateRad);
@@ -59,8 +59,10 @@ function drawBeamNames(beam, rotateRad = 0) {
     fill(BLACK);
     rotate(toDegrees(rotateRad));
     text(CD_30_60_BEAM_TYPE, leftPoint.x, leftPoint.y);
-    text(CD_30_60_BEAM_TYPE, middlePoint.x, middlePoint.y);
     text(CD_30_60_BEAM_TYPE, rightPoint.x, rightPoint.y);
+    if (calculateLengthOfLineInMeters(beam) > 1) {
+        text(CD_30_60_BEAM_TYPE, middlePoint.x, middlePoint.y);
+    }
 
     pop();
 }

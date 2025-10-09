@@ -10,8 +10,8 @@ function calculateRoomCd3060Amount(room) {
     const alignedBeams = structureElements.alignedBeams;
     const crossBeams = structureElements.crossBeams;
 
-    const alignedBeamsSumLength = alignedBeams.map(ab => calculateDistance(ab.p0, ab.p1)).reduce(sumFunction);
-    const crossBeamsSumLength = crossBeams.map(cb => calculateDistance(cb.p0, cb.p1)).reduce(sumFunction);
+    const alignedBeamsSumLength = alignedBeams.map(ab => calculateDistance(ab.p0, ab.p1)).reduce(sumFunction, 0);
+    const crossBeamsSumLength = crossBeams.map(cb => calculateDistance(cb.p0, cb.p1)).reduce(sumFunction, 0);
 
     return (alignedBeamsSumLength + crossBeamsSumLength) / pixelsPerMetersRatio;
 }

@@ -35,6 +35,9 @@ function rotatePoint(point, angleRad) {
         }
     } else {
         angle = Math.atan(y / x);
+        if (x < 0) {
+            angle += PI;
+        }
     }
 
     angle += angleRad;

@@ -6,7 +6,8 @@ class StructureElements {
     alignedBeams = [];
     /** @type {Line[]} */
     crossBeams = [];
-    ud30Beams;
+    /** @type {Line[]} */
+    ud30Beams = [];
 
     roomId;
 

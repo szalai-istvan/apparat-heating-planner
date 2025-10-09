@@ -8,6 +8,7 @@ function renderTranslatedObjects() {
     elementStore.rooms.forEach(room => drawRoom(room));
     elementStore.panelGroups.forEach(pg => drawPanelGroup(pg));
     elementStore.structureElements.forEach(se => drawStructureElements(se));
+    elementStore.structureElements.forEach(se => drawUd30(se));
     drawScaler();
 
     if (debugEnabled) {

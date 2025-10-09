@@ -19,6 +19,7 @@ function recalculateBeamDefinitions(room) {
 
     structureElements.alignedBeams = alignedBeams;
     structureElements.crossBeams = calculateCrossBeams(room, panelGroups);
+    structureElements.ud30Beams = calculateUd30Beams(room);
 }
 
 /**
@@ -74,7 +75,7 @@ function calculateCrossBeams(room, panelGroups) {
 
     const boundingBox = room.boundingBox;
     const middlePoint = boundingBox.middlePoint;
-    let panelDirection = (((room.angleRad + (panelGroups[0].alignment % 2) * HALF_PI) + 2 * PI) % PI);
+    let panelDirection = (((room.angleRad + (panelGroups[0].alignment) * HALF_PI) + 2 * PI) % PI);
     panelDirection = panelDirection - (panelDirection > HALF_PI ? PI : 0);
     const crossDirection = ((panelDirection + HALF_PI) % PI);
 
@@ -116,6 +117,46 @@ function calculateCrossBeams(room, panelGroups) {
     for (let referencePoint of referencePoints) {
         const referenceLine = createLineByPointAndAngle(referencePoint, crossDirection);
         const intersectionPoints = boundingBox.lines
+            .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
+            .filter(x => x);
+
+        const beam = createLine(
+            rotatePoint(addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            rotatePoint(addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+        );
+        beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
+        beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
+        beams.push(beam);
+    }
+
+    return beams;
+}
+
+/**
+ * UD30 tartógerendák kiszámítása.
+ * 
+ * @param {Room} room 
+ * @returns {Line[]}
+ */
+function calculateUd30Beams(room) {
+    const boundingBox = room.boundingBox;
+    const roomMiddlePoint = boundingBox.middlePoint;
+    const lines = boundingBox.lines;
+    const middlePoints = lines.map(l => l.middlePoint);
+    const offsetInPixels = 0.5 * UD30_WIDTH_METER * pixelsPerMetersRatio;
+    const firstPointCorrector = multiplyPoint(room.firstPoint, -1);
+
+    const beams = [];
+    for (let line of lines) {
+        const middlePoint = line.middlePoint;
+        const negativeMiddlePoint = multiplyPoint(middlePoint, -1);
+        const vectorTowardsMiddle = addPoints([roomMiddlePoint, negativeMiddlePoint]);
+        const unitVectorTowardsMiddle = multiplyPoint(vectorTowardsMiddle, 1 / calculateDistanceFromOrigin(vectorTowardsMiddle));
+        const scaledVectorTowardsMiddle = multiplyPoint(unitVectorTowardsMiddle, offsetInPixels);
+        const offsetMiddlePoint = addPoints([middlePoint, scaledVectorTowardsMiddle]);
+
+        const referenceLine = createLineByPointAndAngle(offsetMiddlePoint, line.angleRad);
+        const intersectionPoints = lines
             .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 

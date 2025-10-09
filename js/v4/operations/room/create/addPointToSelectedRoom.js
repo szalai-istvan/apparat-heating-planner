@@ -24,7 +24,10 @@ function addPointToSelectedRoom() {
 }
 
 function pointCanBeAddedToSelectedRoom() {
-    const interferingRooms = elementStore.rooms.filter(r => mousePointerIsInsideRoom(r)).filter(r => !r.isSelected);
+    const interferingRooms = elementStore.rooms
+        .filter(r => r !== selectedRoom)
+        .filter(r => mousePointerIsInsideRoom(r))
+        .filter(r => !r.isSelected);
     if (interferingRooms.length > 0) {
         return false;
     }
@@ -70,7 +73,7 @@ function addPointToRoom(room) {
         room.width = mousePosition.x - firstPoint.x;
         room.height = mousePosition.y - firstPoint.y;
         finalizeRoom(room);
-    }    
+    }
 }
 
 /** @param {Room} room */

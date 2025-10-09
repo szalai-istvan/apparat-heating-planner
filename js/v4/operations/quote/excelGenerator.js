@@ -430,51 +430,23 @@ function addPicture(context) {
     const workbook = context.workbook;
     const blueprintSheet = context.sheets.blueprintSheet;
     const beforeScreenData = { x: screenSumDrag.x, y: screenSumDrag.y, zoom: screenZoom };
-    adjustScreenForExport();
-    const baseOffset = { x: screenSumDrag.x, y: screenSumDrag.y };
-
+    const canvasOriginalSize = getCanvasSize();
+    
     try {
-        draw();
-
         const docSize = getDocumentDimensions();
         const screenWidth = docSize.vw;
         const screenHeight = docSize.vh;
-
+        
         const contentSize = getBlueprintContentSize();
-        const contentWidth = contentSize.w;
-        const contentHeight = contentSize.h;
+        const contentWidth = contentSize.w + 100;
+        const contentHeight = contentSize.h + 100;
+        resizeCanvas(contentWidth + LEFT_RIBBON_WIDTH + 100, contentHeight + TOP_RIBBON_HEIGHT + 100);
+        adjustScreenForExport();
+        draw();
 
-        const minSumDragX = Math.min(- (contentWidth - contentSize.x), screenSumDrag.x - 1);
-        const minSumDragY = Math.min(- (contentHeight / 2), screenSumDrag.y - 1);
-
-        const stepX = screenWidth - LEFT_RIBBON_WIDTH;
-        const stepY = screenHeight - TOP_RIBBON_HEIGHT;
-
-        let offset;
-        let extracted;
         let buffer = createGraphics(contentWidth, contentHeight);
-
-        const p = {
-            x: LEFT_RIBBON_WIDTH,
-            y: TOP_RIBBON_HEIGHT,
-            w: screenWidth - LEFT_RIBBON_WIDTH,
-            h: screenHeight - TOP_RIBBON_HEIGHT
-        };
-
-        while (screenSumDrag.y > minSumDragY) {
-            while (screenSumDrag.x > minSumDragX) {
-                offset = { x: baseOffset.x - screenSumDrag.x, y: baseOffset.y - screenSumDrag.y };
-                extracted = get(p.x, p.y, p.w, p.h);
-                buffer.image(extracted, offset.x, offset.y);
-
-                screenSumDrag.x -= stepX;
-                draw();
-            }
-
-            screenSumDrag.y -= stepY;
-            screenSumDrag.x = -contentSize.x - screenWidth / 2 + 100;
-            draw();
-        }
+        extracted = get(LEFT_RIBBON_WIDTH, TOP_RIBBON_HEIGHT, contentWidth, contentHeight);
+        buffer.image(extracted, 0, 0);
 
         const base64Image = buffer.elt.toDataURL("image/png");
 
@@ -492,6 +464,7 @@ function addPicture(context) {
     } finally {
         screenSumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
         screenZoom = beforeScreenData.zoom;
+        resizeCanvas(canvasOriginalSize.x, canvasOriginalSize.y);
     }
 }
 

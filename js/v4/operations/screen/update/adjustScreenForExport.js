@@ -4,12 +4,12 @@
  * @returns {undefined}
  */
 function adjustScreenForExport() {
-    const blueprintSize = getDrawingTopLeftCoordinates();
+    const blueprintSize = getBlueprintContentSize();
     const docSize = getDocumentDimensions();
 
     const x = blueprintSize.x;
     const y = blueprintSize.y;
-    const sumDrag = createPoint(-x - docSize.vw / 2 + 100, -y - docSize.vh / 2 + TOP_RIBBON_HEIGHT);
+    const sumDrag = createPoint(-x - canvas.width / 2 + LEFT_RIBBON_WIDTH, -y - canvas.height / 2 + TOP_RIBBON_HEIGHT);
     screenSumDrag = sumDrag;
     screenZoom = 1;
 }

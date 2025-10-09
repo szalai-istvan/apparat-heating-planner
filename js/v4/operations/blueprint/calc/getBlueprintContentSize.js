@@ -15,7 +15,6 @@ function getBlueprintContentSize() {
     let points = [];
     elementStore.blueprints.map(bp => createBlueprintBoundingBox(bp)).forEach(bb => points = [...points, ...bb.points]);
     elementStore.rooms.map(r => r.boundingBox).forEach(bb => points = [...points, ...bb.points]);
-    console.log(points);
 
     const minX = points.map(p => p.x).reduce(minimumFunction);
     const maxX = points.map(p => p.x).reduce(maximumFunction);
@@ -27,6 +26,5 @@ function getBlueprintContentSize() {
     result.w = maxX - minX;
     result.h = maxY - minY;
 
-    console.log(result);
     return result;
 }

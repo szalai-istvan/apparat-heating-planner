@@ -1,2 +1,4 @@
 - render order!
 - UD30 rajzolás!
+- Structure elements purify!
+- excel tervrajz zoom!

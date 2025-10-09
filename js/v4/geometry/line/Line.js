@@ -33,7 +33,7 @@ class Line {
             this.n = 0;
             this.a = 1;
             this.b = -1 * p0.x;
-            this.angleRad = 1000;
+            this.angleRad = HALF_PI;
         }
 
         this.length = calculateDistance(p0, p1);
@@ -56,4 +56,13 @@ function calculateY(line, x) {
     }
 
     return line.a * x + line.b;
+}
+
+/**
+ * 
+ * @param {Line} line
+ * @returns {Number}
+ */
+function calculateLengthOfLineInMeters(line) {
+    return calculateDistance(line.p0, line.p1) / pixelsPerMetersRatio;
 }
