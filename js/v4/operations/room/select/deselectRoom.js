@@ -16,6 +16,9 @@ function deselectRoom() {
 
         if (mousePointerIsInsideRoom(room)) {
             calculateTextCenterPositionOfRoom(room);
+        } else {
+            calculateTextCenterPositionOfRoom(room, room.originalTextCenterCoordinates);
+            delete room.originalTextCenterCoordinates;
         }
     }
 

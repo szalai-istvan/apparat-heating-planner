@@ -119,7 +119,7 @@ function createButtons() {
         size: TALL_SMALL_BUTTON_SIZE,
         position: downloadButtonPos,
         onClick: () => openTransportDialog(),
-        shouldBeActive: () => panelGroupsExist()
+        shouldBeActive: () => panelGroupsExist() && !(selectedPanelGroup?.isSelectedForDrag)
     });
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 

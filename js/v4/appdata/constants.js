@@ -111,6 +111,8 @@ const CHANGE = 'change';
 const LEFT = 'left';
 const RIGHT = 'right';
 const DISABLED = 'disabled';
+const OPEN = 'open';
+const NEM_KELL = 'nem kell';
 
 // Osztálynevek
 const CLASS_BLUEPRINT = 'Blueprint';

@@ -3,15 +3,14 @@ class SummaryCalculator {
 
     
     calculateSummary() {
-        const quotePanelArray = panelContext.calculateQuotePanelArray();
+        const quotePanelArray = calculateQuotePanelArray();
         const invalidPanels = this.searchForInvalidPositionPanels(quotePanelArray);
         if (invalidPanels) {
             displayMessage('A rajzon nem minden panel tartozik szobához. Kérem nézze át a panelek elhelyezését.');
             return null;
         }
 
-        const roomNames = roomContext.getRoomNames();
-        return this.summarizeByRoom(quotePanelArray, roomNames);
+        return this.summarizeByRoom(quotePanelArray);
     }
 
     calculateSummaryAndMapToHtml() {
@@ -63,15 +62,17 @@ class SummaryCalculator {
         return null;
     }
 
-    summarizeByRoom(quotePanelArray, roomNames) {
+    /** @param {QuotePanel[]} quotePanelArray */
+    summarizeByRoom(quotePanelArray) {
         const summary = {};
         let totalRounds = 0;
         let totalCount = 0;
 
-        for (let room of roomNames) {
+        const rooms = elementStore.rooms;
+        for (let room of rooms) {
             const panelsInRoom = quotePanelArray.filter(p => p.room === room);
             const roomSummary = this.summarizePanelCounts(panelsInRoom);
-            summary[room] = roomSummary;
+            summary[room.name] = roomSummary;
             totalRounds += roomSummary.numberOfRounds;
             totalCount += roomSummary.count;
         }
@@ -151,13 +152,15 @@ class SummaryCalculator {
             additionalElements.eurokonusz = {count: eurokonusz, unitPrice: PRICES.eurokonusz, price: eurokonusz * PRICES.eurokonusz};
         }
 
-        const ud30 = Math.ceil(roomContext.calculateUd30Amount());
+        const sumUd30 = elementStore.rooms.map(r => calculateRoomCircumference(r)).reduce(sumFunction);
+        const ud30 = Math.ceil(sumUd30);
         if (ud30 > 0) {
             sumCount += ud30;
             additionalElements.ud30 = {count: ud30, unitPrice: PRICES.ud30, price: ud30 * PRICES.ud30};
         }
 
-        const cd30_60 = Math.ceil(roomContext.calculateCd3060Amount());
+        const sumCd30_60 = elementStore.rooms.map(r => calculateRoomCd3060Amount(r)).reduce(sumFunction)
+        const cd30_60 = Math.ceil(sumCd30_60);
         if (cd30_60 > 0) {
             sumCount += cd30_60;
             additionalElements.cd30_60 = {count: cd30_60, unitPrice: PRICES.cd30_60, price: cd30_60 * PRICES.cd30_60};

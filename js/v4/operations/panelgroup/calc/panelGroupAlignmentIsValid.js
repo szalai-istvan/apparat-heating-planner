@@ -6,5 +6,7 @@
  * @returns {boolean} true, ha érvényes a panelcsoport iránya
  */
 function panelGroupAlignmentIsValid(room, panelGroup) {
-    return true; // TODO
+    const panelGroups = elementStore.panelGroups.filter(pg => pg.roomId === room.id);
+    const alignments = panelGroups.map(pg => pg.alignment).map(alignment => alignment % 2);
+    return [new Set(alignments)].length === 1;
 }

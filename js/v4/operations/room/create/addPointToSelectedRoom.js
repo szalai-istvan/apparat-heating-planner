@@ -24,7 +24,12 @@ function addPointToSelectedRoom() {
 }
 
 function pointCanBeAddedToSelectedRoom() {
-    return true; // TODO
+    const interferingRooms = elementStore.rooms.filter(r => mousePointerIsInsideRoom(r)).filter(r => !r.isSelected);
+    if (interferingRooms.length > 0) {
+        return false;
+    }
+
+    return true;
 }
 
 /**

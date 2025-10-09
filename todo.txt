@@ -1,2 +1,2 @@
-- Portolni a structure element rajzolást és generálást
-- Excel generálás portolása
+- render order!
+- UD30 rajzolás!

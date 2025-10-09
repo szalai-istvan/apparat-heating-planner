@@ -5,6 +5,10 @@ class Line {
     p1;
     /** @type {Number} */
     angleRad;
+    /** @type {Number} */
+    length;
+    /** @type {Number} */
+    middlePoint;
 
     // n*y = a*x+b egyenlet paraméterei nem függőleges vonal esetén
     /** @type {Number}*/
@@ -31,6 +35,9 @@ class Line {
             this.b = -1 * p0.x;
             this.angleRad = 1000;
         }
+
+        this.length = calculateDistance(p0, p1);
+        this.middlePoint = createPoint((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
     }
 }
 

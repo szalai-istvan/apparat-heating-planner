@@ -28,3 +28,24 @@ class QuotePanel {
         return quotePanels;
     }
 }
+
+/**
+ * Előállítja az árajánlatban szereplő panelek listáját és visszaadja.
+ * 
+ * @returns {QuotePanel[]}
+ */
+function calculateQuotePanelArray() {
+    const panelGroups = elementStore.panelGroups;
+
+    /** @type {QuotePanel[]} */
+    const quotePanels = [];
+    for (let panelGroup of panelGroups) {
+        const room = getRoomById(panelGroup.roomId);
+        const type = panelGroup.type;
+        const details = panelGroup.details;
+
+        panelGroup.panelIds.forEach(p => quotePanels.push(new QuotePanel(type, details, room)));
+    }
+
+    return quotePanels;
+}

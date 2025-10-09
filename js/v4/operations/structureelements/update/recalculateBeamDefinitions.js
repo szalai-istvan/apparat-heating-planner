@@ -9,6 +9,7 @@ function recalculateBeamDefinitions(room) {
 
     const structureElements = getStructureElementsById(room.structureElementsId);
     const panelGroups = elementStore.panelGroups.filter(x => x.roomId === room.id);
+    structureElements.alignment = panelGroups.length > 0 ? panelGroups[0].alignment % 2 : undefined;
 
     const alignedBeams = [];
     for (let panelGroup of panelGroups) {
@@ -46,10 +47,14 @@ function calculateAlignedBeamsOfPanelGroup(room, panelGroup) {
             .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 
-        beams.push(createLine(
-            addPoints([intersectionPoints[0], firstPointCorrector]),
-            addPoints([intersectionPoints[1], firstPointCorrector])
-        ));
+        const beam = createLine(
+            rotatePoint(addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            rotatePoint(addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+        );
+
+        beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
+        beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
+        beams.push(beam);
     }
 
     return beams;
@@ -83,9 +88,14 @@ function calculateCrossBeams(room, panelGroups) {
     const intersectionsSorted = boundingBox.lines
         .map(l => calculateIntersectionPointOfTwoLines(l, crossLine))
         .filter(x => x)
-        .sort((a, b) => a.x - b.x);
-    const leftPoint = intersectionsSorted[0];
+        .sort((a, b) => {
+            if (Math.abs(a.x - b.x) > PARALLELITY_TRESHOLD) {
+                return a.x - b.x;
+            }
+            return a.y - b.y;
+        });
 
+    const leftPoint = intersectionsSorted[0];
     const initialOffset = (roomWidth % pixelsBetweenBeams) / 2;
     const initialOffsetVector = multiplyPoint(createUnitVector(panelDirection), initialOffset);
     const offsetVector = multiplyPoint(createUnitVector(panelDirection), pixelsBetweenBeams);
@@ -109,10 +119,13 @@ function calculateCrossBeams(room, panelGroups) {
             .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 
-        beams.push(createLine(
-            addPoints([intersectionPoints[0], firstPointCorrector]),
-            addPoints([intersectionPoints[1], firstPointCorrector])
-        ));
+        const beam = createLine(
+            rotatePoint(addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            rotatePoint(addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+        );
+        beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
+        beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
+        beams.push(beam);
     }
 
     return beams;

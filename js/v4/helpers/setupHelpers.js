@@ -34,7 +34,7 @@ function handleDeleteButton() {
     for (let element of document.getElementsByTagName(BODY)) {
         element.addEventListener(KEYDOWN, (event) => {
             if (event.key === DELETE) {
-                selectionContext.removeSelected(); // TODO
+                removeSelectedObject();
             }
         });
     }

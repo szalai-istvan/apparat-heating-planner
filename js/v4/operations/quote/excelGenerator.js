@@ -7,7 +7,7 @@ function startExcelExport(transportKm) {
 }
 
 async function createExcelFile(summary) {
-    let roomNames = roomContext.getRoomNames();
+    let roomNames = getRoomNames();
     if (!(roomNames && roomNames.length)) {
         return;
     }
@@ -370,7 +370,7 @@ function fillSummaryTable(context) {
 
     const distBoxOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 8, PRICES.distBox);
     createDropDown(firstCell, distBoxOptionsRange.dropdown);
-    firstCell.value = 'nem kell';
+    firstCell.value = NEM_KELL;
     setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
     rowIndex++;
 
@@ -380,7 +380,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
 
     createDropDown(firstCell, distBoxOptionsRange.dropdown);
-    firstCell.value = 'nem kell';
+    firstCell.value = NEM_KELL;
     setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
     rowIndex += 3;
 
@@ -429,51 +429,50 @@ function adjustRoomColumnWidths(context) {
 function addPicture(context) {
     const workbook = context.workbook;
     const blueprintSheet = context.sheets.blueprintSheet;
-    const beforeScreenData = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y, zoom: screenZoom };
-    screenContext.adjustForExport();
-    const baseOffset = { x: screenContext.sumDrag.x, y: screenContext.sumDrag.y };
+    const beforeScreenData = { x: screenSumDrag.x, y: screenSumDrag.y, zoom: screenZoom };
+    adjustScreenForExport();
+    const baseOffset = { x: screenSumDrag.x, y: screenSumDrag.y };
 
     try {
-        TooltipRenderer.toggleTooltipDisplay();
         draw();
 
         const docSize = getDocumentDimensions();
         const screenWidth = docSize.vw;
         const screenHeight = docSize.vh;
 
-        const contentSize = blueprintContext.getSizeData();
+        const contentSize = getBlueprintContentSize();
         const contentWidth = contentSize.w;
         const contentHeight = contentSize.h;
 
-        const minSumDragX = Math.min(- (contentWidth - contentSize.x), screenContext.sumDrag.x - 1);
-        const minSumDragY = Math.min(- (contentHeight / 2), screenContext.sumDrag.y - 1);
+        const minSumDragX = Math.min(- (contentWidth - contentSize.x), screenSumDrag.x - 1);
+        const minSumDragY = Math.min(- (contentHeight / 2), screenSumDrag.y - 1);
 
-        const stepX = screenWidth - 100;
-        const stepY = screenHeight - 60;
+        const stepX = screenWidth - LEFT_RIBBON_WIDTH;
+        const stepY = screenHeight - TOP_RIBBON_HEIGHT;
 
         let offset;
         let extracted;
         let buffer = createGraphics(contentWidth, contentHeight);
 
         const p = {
-            x: 100,
-            y: 60,
-            w: screenWidth - 100,
-            h: screenHeight - 60
+            x: LEFT_RIBBON_WIDTH,
+            y: TOP_RIBBON_HEIGHT,
+            w: screenWidth - LEFT_RIBBON_WIDTH,
+            h: screenHeight - TOP_RIBBON_HEIGHT
         };
 
-        while (screenContext.sumDrag.y > minSumDragY) {
-            while (screenContext.sumDrag.x > minSumDragX) {
-                offset = { x: baseOffset.x - screenContext.sumDrag.x, y: baseOffset.y - screenContext.sumDrag.y };
+        while (screenSumDrag.y > minSumDragY) {
+            while (screenSumDrag.x > minSumDragX) {
+                offset = { x: baseOffset.x - screenSumDrag.x, y: baseOffset.y - screenSumDrag.y };
                 extracted = get(p.x, p.y, p.w, p.h);
                 buffer.image(extracted, offset.x, offset.y);
 
-                screenContext.sumDrag.x -= stepX;
+                screenSumDrag.x -= stepX;
                 draw();
             }
 
-            screenContext.sumDrag.y -= stepY;
-            screenContext.sumDrag.x = -contentSize.x - screenWidth / 2 + 100;
+            screenSumDrag.y -= stepY;
+            screenSumDrag.x = -contentSize.x - screenWidth / 2 + 100;
             draw();
         }
 
@@ -491,8 +490,7 @@ function addPicture(context) {
 
 
     } finally {
-        TooltipRenderer.toggleTooltipDisplay();
-        screenContext.sumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
+        screenSumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
         screenZoom = beforeScreenData.zoom;
     }
 }

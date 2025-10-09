@@ -16,7 +16,7 @@ function pointIsInsideRoom(room, point) {
         return false;
     }
 
-    return true; // TODO
+    return pointIsInsideRectangle(point, room.boundingBox);
 }
 
 function mousePointerIsInsideRoom(room) {

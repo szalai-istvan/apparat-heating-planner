@@ -10,7 +10,7 @@ function noModalsAreOpened() {
 }
 
 function modalIsOpen(dialog) {
-    return dialog.getAttribute('open') !== null;
+    return dialog.getAttribute(OPEN) !== null;
 }
 
 /**

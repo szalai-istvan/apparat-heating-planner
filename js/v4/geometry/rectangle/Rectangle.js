@@ -23,3 +23,19 @@ class Rectangle {
         this.middlePoint = createPoint(middleX, middleY);
     }
 }
+
+
+/**
+ * Kiszámítja és visszaadja a téglalap kerületét pixel mértékegységben
+ * 
+ * @param {Rectangle} rectangle 
+ * @returns {Number}
+ */
+function calculateRectangleCircumference(rectangle) {
+    const points = rectangle.points;
+    const p0 = points[0];
+    const p1 = points[1];
+    const p2 = points[2];
+
+    return 2 * (calculateDistance(p0, p1) + calculateDistance(p1, p2));
+}

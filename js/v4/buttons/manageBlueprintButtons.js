@@ -12,7 +12,7 @@ const pdfUploadDialogParagraph = document.getElementById('pdfUploadDialogParagra
 const pdfUploadDialogInput = document.getElementById('pdfUploadDialogInput');
 const pdfUploadDialogCloseButton = document.getElementById('pdfUploadDialogCloseButton');
 
-imageInput.addEventListener('change', handleFileSelect);
+imageInput.addEventListener(CHANGE, handleFileSelect);
 let fileName = '';
 
 function upload() {

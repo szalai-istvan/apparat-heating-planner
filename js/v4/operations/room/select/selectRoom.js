@@ -23,6 +23,7 @@ function selectRoom(room = undefined) {
 
     if (deselectObject()) {
         room.isSelected = true;
+        room.originalTextCenterCoordinates = room.textCenterCoordinates;
         selectedRoom = room;
         return room;
     }
