@@ -15,9 +15,11 @@ function addPanelToSelectedGroup() {
 
     updatePositionsOfAllMembers(panelGroup);
     updatePanelGroupBoundingBoxIncludingMembers(panelGroup);
-
+    
     if (!panelGroup.isSelectedForDrag && !getContainingRoom(panelGroup)) {
         displayMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt hozzáad a csoporthoz!');
         removePanelFromSelectedGroup();
+    } else {
+        recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
     }
 }

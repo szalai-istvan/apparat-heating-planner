@@ -9,9 +9,15 @@ function adjustScreenForExport() {
 
     const x = blueprintSize.x;
     const y = blueprintSize.y;
-    const sumDrag = createPoint(-x - canvas.width / 2 + LEFT_RIBBON_WIDTH, -y - canvas.height / 2 + TOP_RIBBON_HEIGHT);
-    screenSumDrag = sumDrag;
+
+    // screenZoom = Math.ceil(10 / beamTextSize);
     screenZoom = 1;
+
+    const sumDrag = createPoint(
+        (-x - (canvas.width / 2 / screenZoom)) + LEFT_RIBBON_WIDTH / screenZoom,
+        (-y - (canvas.height / 2 / screenZoom)) + TOP_RIBBON_HEIGHT / screenZoom
+    );
+    screenSumDrag = multiplyPoint(sumDrag, 1);
 }
 
 function getDrawingTopLeftCoordinates() {

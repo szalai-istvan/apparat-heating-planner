@@ -7,6 +7,10 @@
 function recalculateBeamDefinitions(room) {
     checkClass(room, CLASS_ROOM);
 
+    if (selectedPanelGroup.isSelectedForDrag) {
+        return;
+    }
+
     const structureElements = getStructureElementsById(room.structureElementsId);
     const panelGroups = elementStore.panelGroups.filter(x => x.roomId === room.id);
     structureElements.alignment = panelGroups.length > 0 ? panelGroups[0].alignment % 2 : undefined;
@@ -19,7 +23,9 @@ function recalculateBeamDefinitions(room) {
 
     structureElements.alignedBeams = alignedBeams;
     structureElements.crossBeams = calculateCrossBeams(room, panelGroups);
-    structureElements.ud30Beams = calculateUd30Beams(room);
+    structureElements.ud30Beams = calculateUd30Beams(room, panelGroups);
+
+    purifyStructureElements(room, structureElements);
 }
 
 /**
@@ -136,9 +142,15 @@ function calculateCrossBeams(room, panelGroups) {
  * UD30 tartógerendák kiszámítása.
  * 
  * @param {Room} room 
+ * @param {PanelGroup} panelGroups 
  * @returns {Line[]}
  */
-function calculateUd30Beams(room) {
+function calculateUd30Beams(room, panelGroups) {
+
+    if (panelGroups.length === 0) {
+        return [];
+    }
+
     const boundingBox = room.boundingBox;
     const roomMiddlePoint = boundingBox.middlePoint;
     const lines = boundingBox.lines;
@@ -170,4 +182,67 @@ function calculateUd30Beams(room) {
     }
 
     return beams;
+}
+
+/** 
+ * @param {Room} room
+ * @param {StructureElements} structureElements 
+ */
+function purifyStructureElements(room, structureElements) {
+    const alignedBeams = structureElements.alignedBeams;
+
+    const alignedBeamsToDelete = [];
+    let i = 0;
+    while (i < alignedBeams.length) {
+        let j = 0;
+        while (j < i) {
+            const bi = alignedBeams[i];
+            const bj = alignedBeams[j];
+
+            const bip0 = bi.p0;
+            const bip1 = bi.p1;
+
+            const bjp0 = bj.p0;
+            const bjp1 = bj.p1;
+
+            const minimumDistance = [[bip0, bjp0], [bip0, bjp1], [bip1, bjp0], [bip1, bjp1]]
+                .map(b => calculateDistance(b[0], b[1]))
+                .reduce(minimumFunction);
+
+            if (minimumDistance < beamWidthPixel) {
+                alignedBeamsToDelete.push(bi);
+            }
+
+            j++;
+        }
+
+        i++;
+    }
+    structureElements.alignedBeams = alignedBeams.filter(ab => !alignedBeamsToDelete.includes(ab));
+
+    const crossBeams = structureElements.crossBeams;
+    const crossBeamsToDelete = [];
+    i = 0;
+    while (i < crossBeams.length) {
+        const beam = crossBeams[i];
+
+        let minimumDistance = Number.MAX_SAFE_INTEGER;
+        for (let p1 of room.boundingBox.points) {
+            for (let p2 of [beam.p0, beam.p1]) {
+                minimumDistance = Math.min(minimumDistance, calculateDistance(p1, p2));
+            }
+        }
+
+        if (minimumDistance < beamsMinimumOffset) {
+            crossBeamsToDelete.push(beams);
+        }
+
+        i++;
+    }
+    structureElements.crossBeams = crossBeams.filter(cb => !crossBeamsToDelete.includes(cb));
+}
+
+function recalculateBeamDefinitionsByRoomId(roomId) {
+    const room = getRoomById(roomId);
+    room && recalculateBeamDefinitions(room);
 }

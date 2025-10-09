@@ -18,5 +18,8 @@ function rotateSelectedPanelGroup() {
         panelGroup.alignment = (selectedPanelGroup.alignment + 3) % 4;
         updatePositionsOfAllMembers(panelGroup);
         updatePanelGroupBoundingBoxIncludingMembers(panelGroup);
+
     }
+
+    recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
 }

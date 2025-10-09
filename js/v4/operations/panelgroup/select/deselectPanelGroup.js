@@ -20,11 +20,12 @@ function deselectPanelGroup() {
     }
 
     updatePanelGroupBoundingBoxIncludingMembers(selectedPanelGroup);
-    recalculateBeamDefinitions(room);
     
     selectedPanelGroup.isSelected = false;
     selectedPanelGroup.isSelectedForDrag = false;
+    recalculateBeamDefinitions(room);
     selectedPanelGroup = null;
+
 
     return true;
 }

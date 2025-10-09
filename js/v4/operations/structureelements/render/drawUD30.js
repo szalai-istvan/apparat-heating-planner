@@ -22,17 +22,17 @@ function drawUd30(structureElements) {
     rotate(toDegrees(room.angleRad));
     rectMode(CENTER);
     stroke(BLACK);
-    strokeWeight(beamLineWidthPixel);
+    strokeWeight(beamLineWidthPixel / 2);
     textAlign(CENTER, CENTER);
     fill(BEAM_COLOR);
 
-    rect(ud30Beams[0].middlePoint.x, ud30Beams[0].middlePoint.y, beamWidthPixel, ud30Beams[0].length);
+    rect(ud30Beams[0].middlePoint.x, ud30Beams[0].middlePoint.y, ud30WidthPixel, ud30Beams[0].length);
     drawUD30BeamNames(ud30Beams[0], HALF_PI);
-    rect(ud30Beams[1].middlePoint.x, ud30Beams[1].middlePoint.y, ud30Beams[1].length, beamWidthPixel);
+    rect(ud30Beams[1].middlePoint.x, ud30Beams[1].middlePoint.y, ud30Beams[1].length, ud30WidthPixel);
     drawUD30BeamNames(ud30Beams[1]);
-    rect(ud30Beams[2].middlePoint.x, ud30Beams[2].middlePoint.y, beamWidthPixel, ud30Beams[2].length);
+    rect(ud30Beams[2].middlePoint.x, ud30Beams[2].middlePoint.y, ud30WidthPixel, ud30Beams[2].length);
     drawUD30BeamNames(ud30Beams[2], HALF_PI);
-    rect(ud30Beams[3].middlePoint.x, ud30Beams[3].middlePoint.y, ud30Beams[3].length, beamWidthPixel);
+    rect(ud30Beams[3].middlePoint.x, ud30Beams[3].middlePoint.y, ud30Beams[3].length, ud30WidthPixel);
     drawUD30BeamNames(ud30Beams[3]);
 
     pop();
@@ -47,7 +47,7 @@ function drawUD30BeamNames(beam, rotateRad = 0) {
 
     push();
 
-    textSize(beamTextSize);
+    textSize(beamTextSize / 2);
     noStroke();
     fill(BLACK);
     rotate(toDegrees(rotateRad));

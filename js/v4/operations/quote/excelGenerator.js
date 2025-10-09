@@ -438,9 +438,9 @@ function addPicture(context) {
         const screenHeight = docSize.vh;
         
         const contentSize = getBlueprintContentSize();
-        const contentWidth = contentSize.w + 100;
-        const contentHeight = contentSize.h + 100;
-        resizeCanvas(contentWidth + LEFT_RIBBON_WIDTH + 100, contentHeight + TOP_RIBBON_HEIGHT + 100);
+        const contentWidth = screenZoom * contentSize.w + 100;
+        const contentHeight = screenZoom * contentSize.h + 100;
+        resizeCanvas(contentWidth + LEFT_RIBBON_WIDTH, contentHeight + TOP_RIBBON_HEIGHT);
         adjustScreenForExport();
         draw();
 

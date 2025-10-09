@@ -15,6 +15,7 @@ function removePanelGroup(panelGroup) {
     elementStore.remove(panelGroup);
     selectedPanelGroup = null;
     selectedObject = null;
+    recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
 }
 
 function removeSelectedPanelGroup() {

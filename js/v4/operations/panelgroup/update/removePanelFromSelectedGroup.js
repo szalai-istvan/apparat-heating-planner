@@ -11,6 +11,7 @@ function removePanelFromSelectedGroup() {
 
     if (panelGroup.panelIds.length < 2) {
         removeSelectedPanelGroup();
+        return;
     }
 
     const lastId = panelGroup.panelIds[panelGroup.panelIds.length - 1];
@@ -20,4 +21,5 @@ function removePanelFromSelectedGroup() {
     elementStore.remove(lastPanel);
     updatePositionsOfAllMembers(panelGroup);
     updatePanelGroupBoundingBoxIncludingMembers(panelGroup);
+    recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
 }

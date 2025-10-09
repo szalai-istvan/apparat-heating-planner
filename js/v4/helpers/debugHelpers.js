@@ -1,5 +1,5 @@
 /** @type {boolean} be vannak-e kapcsolva a debug segédfunkciók */
-let debugEnabled = true;
+let debugEnabled = false;
 
 /**
  * Átbillenti a debug funkciók bekapcsoltságát

@@ -15,6 +15,8 @@ let beamLineWidthPixel = undefined;
 /** @type {Number} */
 let beamWidthPixel = undefined;
 /** @type {Number} */
+let ud30WidthPixel = undefined;
+/** @type {Number} */
 let beamTextSize = undefined;
 /** @type {Number} */
 let pixelsBetweenBeams = undefined;
@@ -48,6 +50,7 @@ function updateRenderSizeValues() {
 
     beamLineWidthPixel = ratio ? ROOM_LINE_WEIGHT_IN_METERS * ratio : undefined;
     beamWidthPixel = ratio ? BEAM_WIDTH_METER * ratio : undefined;
+    ud30WidthPixel = ratio ? UD30_WIDTH_METER * ratio : undefined;
     beamTextSize = ratio ? BEAM_TEXT_SIZE_METER * ratio : undefined;
     pixelsBetweenBeams = ratio ? METERS_BETWEEN_BEAMS * ratio : undefined;
     beamsMinimumOffset = ratio ? BEAM_MINIMUM_OFFSET_METERS * ratio : undefined;
