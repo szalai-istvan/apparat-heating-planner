@@ -22,8 +22,9 @@ const PREFILL_ROOM_NAMES = [
 const ROOM_TEXT_SIZE_IN_METERS = 0.25;
 const ROOM_TEXT_POP_FACTOR = 1.1;
 const ROOM_LINE_WEIGHT_IN_METERS = 0.017;
-const ROOM_DEFAULT_TEXT_COLOR = "green";
+const ROOM_DEFAULT_TEXT_COLOR = 'green';
 const ROOM_FILL_COLOR = '#FFFFFFA0';
+const ROOM_NAME_OUTLINE_WIDTH = 0.025;
 
 // Szoba szerkezeti elem konstansok
 const BEAM_COLOR = "lightgrey";

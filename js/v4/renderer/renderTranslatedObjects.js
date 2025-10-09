@@ -9,6 +9,8 @@ function renderTranslatedObjects() {
     elementStore.panelGroups.forEach(pg => drawPanelGroup(pg));
     elementStore.structureElements.forEach(se => drawStructureElements(se));
     elementStore.structureElements.forEach(se => drawUd30(se));
+    elementStore.panelGroups.forEach(pg => drawPanelGroupType(pg));
+    elementStore.rooms.forEach(room => drawRoomName(room));
     drawScaler();
 
     if (debugEnabled) {

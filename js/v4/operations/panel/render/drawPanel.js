@@ -33,30 +33,8 @@ function drawPanel(panel) {
     drawTubes({ panel, group, ratio, length, width });
     rotate(- alignment * 90 - group.angleDeg);
     rotate((alignment * 90) % 180 + group.angleDeg);
-    drawPanelType(panel, group);
 
     pop();
-}
-
-/** @param {Panel} panel @param {PanelGroup} group */
-function drawPanelType(panel, group) {
-    stroke(BLACK);
-    fill(PANEL_FILL_COLOR);
-    const sizeMultiplier = group.type === F100 ? 0.7 : 1;
-    rect(0, 0, sizeMultiplier * panelTextBoxWidth, sizeMultiplier * panelTextBoxHeight);
-
-    const pointIsInsideTextBox = mouseCursorIsInsidePanelsTextbox(panel);
-    if (pointIsInsideTextBox) {
-        fill(SELECTED_TEXT_COLOR);
-    } else {
-        fill(DEFAULT_TEXT_COLOR);
-    }
-
-    const p = PANEL_TEXT_POP_FACTOR;
-    textSize(sizeMultiplier * panelTextSize * (1 + p * group.isSelected + p * pointIsInsideTextBox));
-    textAlign(CENTER, CENTER);
-    noStroke();
-    text(group.type, 0, 0);
 }
 
 function drawTubes({ panel, group, ratio, length, width }) {

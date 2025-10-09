@@ -110,19 +110,6 @@ function drawTiltedRoom(room) {
     drawRoomSize(room, width, height);
 }
 
-function updateSettingsToText(room) {
-    textAlign(CENTER, CENTER);
-    noStroke();
-
-    if (mouseCursorIsInsideRoomName(room)) {
-        fill(SELECTED_TEXT_COLOR);
-        textSize(roomTextSize * ROOM_TEXT_POP_FACTOR);
-    } else {
-        fill(ROOM_DEFAULT_TEXT_COLOR);
-        textSize(roomTextSize);
-    }
-}
-
 function updateSettingsToDraw(room) {
     if (room.isSelected) {
         stroke(SELECTED_TEXT_COLOR);
@@ -136,6 +123,7 @@ function updateSettingsToDraw(room) {
 }
 
 function drawRoomSize(room, roomWidth, roomHeight) {
+    updateSettingsToText(room);
     textSize(roomTextSize);
     if (room.isSelected) {
         fill(SELECTED_TEXT_COLOR);

@@ -20,6 +20,8 @@ let beamTextSize = undefined;
 let pixelsBetweenBeams = undefined;
 /** @type {Number} */
 let beamsMinimumOffset = undefined;
+/** @type {Number} */
+let roomNameOutlineWidth = undefined;
 
 /**
  * Újraszámolja a renderelési méret értékeket.
@@ -49,4 +51,5 @@ function updateRenderSizeValues() {
     beamTextSize = ratio ? BEAM_TEXT_SIZE_METER * ratio : undefined;
     pixelsBetweenBeams = ratio ? METERS_BETWEEN_BEAMS * ratio : undefined;
     beamsMinimumOffset = ratio ? BEAM_MINIMUM_OFFSET_METERS * ratio : undefined;
+    roomNameOutlineWidth = ratio ? ROOM_NAME_OUTLINE_WIDTH * ratio : undefined;
 }
