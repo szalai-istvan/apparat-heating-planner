@@ -1,3 +1,0 @@
-// panel offsetting
-const PANEL_CORRECTION_OFFSET_PIPE = 20;
-const PANEL_CORRECTION_OFFSET_NO_PIPE = 2;

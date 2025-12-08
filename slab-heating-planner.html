@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>APPARAT Rajzolátor</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+
+<body id="body">
+    <!-- buttons -->
+    <div hidden>
+        <div class="side-panel">
+            <label for="imageInput" class="button">Fájlfeltöltés</label>
+            <input type="file" id="imageInput" accept="image/jpeg, image/png, application/pdf" hidden />
+        </div>
+    </div>
+    <div hidden>
+        <div class="side-panel">
+            <label for="jsonInput" class="button">Fájlfeltöltés</label>
+            <input type="file" id="jsonInput" accept="application/JSON" hidden />
+        </div>
+    </div>
+
+    <!-- dialogs -->
+    <dialog id="messageDialog">
+        <p id="messageParagraph" style="max-width: 450px;"></p>
+        <hr>
+        <div class="center"><button id="messageOkButton">OK (Enter)</button></div>
+    </dialog>
+
+    <dialog id="fileUploadDialogConfirm">
+        <p>A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket. Folytatja?
+        </p>
+        <hr>
+        <div class="center">
+            <button id="fileUploadDialogConfirmButton">Igen (Enter)</button>
+            <button id="fileUploadDialogCancelButton">Nem</button>
+        </div>
+    </dialog>
+
+    <dialog id="scalingDialogConfirm">
+        <p>A rajz újraskálázása törölni fogja a korábban felvett szobákat és paneleket. Folytatja?</p>
+        <hr>
+        <div class="center">
+            <button id="scalingDialogConfirmButton">Igen (Enter)</button>
+            <button id="scalingDialogCancelButton">Nem</button>
+        </div>
+    </dialog>
+
+    <dialog id="scalingDialog">
+        <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
+        <p><label for="scalingInput">Hossz:</label><input type="text" id="scalingInput"> m</p>
+        <hr>
+        <div class="center"><button id="scalingDialogCloseButton">OK (Enter)</button></div>
+    </dialog>
+
+    <dialog id="addRoomDialog">
+        <span><p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p></span>
+        <hr>
+        <span>
+            <p>Gyors kitöltés:</p>
+            <div class="radio-group" id="roomPrefillRadioSet"></div>
+        </span>
+        <hr>
+        <div class="center">
+            <button id="addRoomButton">Szoba hozzáadása (Enter)</button>
+            <button id="closeRoomDialogButton">Bezárás</button>
+        </div>
+    </dialog>
+
+    <dialog id="pdfUploadDialog">
+        <p id="pdfUploadDialogParagraph"></p>
+        <p><label>Oldalszám:</label><input type="text" id="pdfUploadDialogInput"></p>
+        <hr>
+        <div class="center"><button id="pdfUploadDialogCloseButton">OK (Enter)</button></div>
+    </dialog>
+
+    <dialog id="transportDialog">
+        <p>Amennyiben kér szállítást a rendeléshez, kérjük adja meg itt, km mértékegységben:</p>
+        <p><label for="transportInput">Hossz:</label><input type="text" id="transportInput"> km</p>
+        <hr>
+        <div class="center"><button id="transportDialogOkButton">Letöltése (Enter)</button><button
+                id="transportDialogCloseButton">Mégsem</button></div>
+    </dialog>
+
+    <!-- imported scripts -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="js/appdata/constants.js"></script>
+    <script type="text/javascript" src="js/appdata/errorCodes.js"></script>
+    <script type="text/javascript" src="js/appdata/tooltips.js"></script>
+
+    <script type="text/javascript" src="js/buttons/addBoxGroupButton.js"></script>
+    <script type="text/javascript" src="js/buttons/addRoomsButton.js"></script>
+    <script type="text/javascript" src="js/buttons/addSlabHeaterMenu.js"></script>
+    <script type="text/javascript" src="js/buttons/buttons.js"></script>
+    <script type="text/javascript" src="js/buttons/componentManageButtons.js"></script>
+    <script type="text/javascript" src="js/buttons/downloadSummaryButton.js"></script>
+    <script type="text/javascript" src="js/buttons/helpButton.js"></script>
+    <script type="text/javascript" src="js/buttons/manageBlueprintButtons.js"></script>
+    <script type="text/javascript" src="js/buttons/scaleButton.js"></script>
+
+    <script type="text/javascript" src="js/helpers/boxHelpers.js"></script>
+    <script type="text/javascript" src="js/helpers/helpers.js"></script>
+    <script type="text/javascript" src="js/helpers/keystrokeRecorder.js"></script>
+    <script type="text/javascript" src="js/helpers/setupHelpers.js"></script>
+    <script type="text/javascript" src="js/helpers/slabHeaterHelpers.js"></script>
+    <script type="text/javascript" src="js/helpers/uiHelpers.js"></script>
+    <script type="text/javascript" src="js/helpers/classes/checkClass.js"></script>
+    <script type="text/javascript" src="js/helpers/classes/getClassName.js"></script>
+    <script type="text/javascript" src="js/helpers/debug/debug.js"></script>
+    <script type="text/javascript" src="js/helpers/debug/drawDebugInfo.js"></script>
+    <script type="text/javascript" src="js/helpers/errordialog/errordialog.js"></script>
+    <script type="text/javascript" src="js/helpers/html/createRadioButton.js"></script>
+    <script type="text/javascript" src="js/helpers/math/formatNumber.js"></script>
+    <script type="text/javascript" src="js/helpers/math/misc.js"></script>
+    <script type="text/javascript" src="js/helpers/math/randomChoice.js"></script>
+    <script type="text/javascript" src="js/helpers/math/roundNumber.js"></script>
+
+    <script type="text/javascript" src="js/managers/BlueprintManager.js"></script>
+    <script type="text/javascript" src="js/managers/SlabHeaterGroupManager.js"></script>
+    <script type="text/javascript" src="js/managers/SlabHeaterManager.js"></script>
+
+    <script type="text/javascript" src="js/operations/blueprint/calc/blueprintDataIsPresent.js"></script>
+    <script type="text/javascript" src="js/operations/blueprint/create/createBlueprint.js"></script>
+    <script type="text/javascript" src="js/operations/blueprint/delete/clearBlueprints.js"></script>
+    <script type="text/javascript" src="js/operations/blueprint/render/drawBlueprint.js"></script>
+    <script type="text/javascript" src="js/operations/box/calc/calculateBoxCenterPositionWithCorrection.js"></script>
+    <script type="text/javascript" src="js/operations/box/calc/getBoxById.js"></script>
+    <script type="text/javascript" src="js/operations/box/calc/mouseCursorIsInsideBox.js"></script>
+    <script type="text/javascript" src="js/operations/box/create/createBox.js"></script>
+    <script type="text/javascript" src="js/operations/box/render/drawBox.js"></script>
+    <script type="text/javascript" src="js/operations/box/update/attachToSelectedBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/box/update/detachBoxFromGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/calc/boxGroupIsHorizontal.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/calc/getBoxGroupById.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/calc/getBoxGroupWithEndNodeAtPipeDriversLastPoint.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/calc/mouseCursorIsInsideBoxGroupMember.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/create/createBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/render/drawBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/select/clearBoxGroupSelectionCache.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/select/deselectBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/select/removeSelectedBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/select/selectBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/update/addBoxToSelectedGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/update/removeLastBoxFromSelectedGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/update/rotateSelectedBoxGroup.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/update/updateBoxGroupMemberPosition.js"></script>
+    <script type="text/javascript" src="js/operations/boxgroup/update/updateBoxGroupPipeDriverEndNodePosition.js"></script>
+    <script type="text/javascript" src="js/operations/grid/calc/getClosestGridPointToPoint.js"></script>
+    <script type="text/javascript" src="js/operations/grid/create/setGridSeed.js"></script>
+    <script type="text/javascript" src="js/operations/grid/delete/removeGridSeed.js"></script>
+    <script type="text/javascript" src="js/operations/grid/update/updateGridResolution.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/getDirectionBetweenTwoPoints.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/getNextDirectionOfPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/getNextPointToAddToPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/getPipeDriverById.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/mouseCursorIsInsidePipeDriversPoint.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/selectedPipeDriverIsFullyConfigured.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/validateAllPipeDrivers.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/validateNextPointOfPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/calc/validatePipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/create/addPointToSelectedPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/delete/resetPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/delete/resetPipeDriverIfOnlyHas2Points.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/delete/resetSelectedPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/render/drawPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/select/clearPipeDriverSelectionCache.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/select/deselectPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/select/selectPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/update/adjustLastPointOfPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/update/calculatePipes.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/update/removeUnnecessaryPointsOfPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/update/updatePipeDriverFirstPoint.js"></script>
+    <script type="text/javascript" src="js/operations/pipeDriver/update/updateSelectedPointOfPipeDriver.js"></script>
+    <script type="text/javascript" src="js/operations/point/create/createPoint.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/configuredRoomsExist.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/getPointsToDrawRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/getRoomContainingPoint.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/getRoomMiddlePoint.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/getRoomNames.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/mouseCursorIsInsideRoomName.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/pointIsInsideRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/roomIsConfigured.js"></script>
+    <script type="text/javascript" src="js/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
+    <script type="text/javascript" src="js/operations/room/create/addPointToSelectedRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/create/createRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/delete/clearRooms.js"></script>
+    <script type="text/javascript" src="js/operations/room/delete/removeSelectedRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/render/drawRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/select/clearRoomSelectionCache.js"></script>
+    <script type="text/javascript" src="js/operations/room/select/deselectRoom.js"></script>
+    <script type="text/javascript" src="js/operations/room/select/selectRoom.js"></script>
+    <script type="text/javascript" src="js/operations/scale/calc/processScalingValue.js"></script>
+    <script type="text/javascript" src="js/operations/scale/create/addScalingReferencePoint.js"></script>
+    <script type="text/javascript" src="js/operations/scale/create/startScaling.js"></script>
+    <script type="text/javascript" src="js/operations/scale/delete/clearScaling.js"></script>
+    <script type="text/javascript" src="js/operations/scale/render/drawScaler.js"></script>
+    <script type="text/javascript" src="js/operations/screen/calc/adjustScreenForExport.js"></script>
+    <script type="text/javascript" src="js/operations/screen/calc/getCanvasSize.js"></script>
+    <script type="text/javascript" src="js/operations/screen/calc/getCurrentDragValue.js"></script>
+    <script type="text/javascript" src="js/operations/screen/calc/getMousePosition.js"></script>
+    <script type="text/javascript" src="js/operations/screen/calc/translateScreen.js"></script>
+    <script type="text/javascript" src="js/operations/screen/update/dragAndZoom.js"></script>
+    <script type="text/javascript" src="js/operations/screen/update/toggleScreenControls.js"></script>
+    <script type="text/javascript" src="js/operations/screen/update/updateScreenSumDrag.js"></script>
+    <script type="text/javascript" src="js/operations/selection/clearSelectionCache.js"></script>
+    <script type="text/javascript" src="js/operations/selection/deselectObject.js"></script>
+    <script type="text/javascript" src="js/operations/selection/removeSelectedObject.js"></script>
+    <script type="text/javascript" src="js/operations/selection/searchForSelectableObject.js"></script>
+    <script type="text/javascript" src="js/operations/selection/selectObject.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/calc/calculateSlabHeaterBoundaryPoints.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/calc/calculateSlabHeaterCenterPositionWithCorrection.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/calc/getSlabHeaterById.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/calc/mouseCursorIsInsideSlabHeatersTextbox.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/create/createSlabHeater.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/render/drawSlabHeater.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/update/attachToSelectedSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeater/update/detachSlabHeaterFromGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/calculatePipeBeginningPointsOfSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/calculatePipeDriverFirstPoint.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/fullyConfiguredSlabHeaterGroupsExist.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/getSlabHeaterGroupById.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/slabHeaterGroupIsHorizontal.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/calc/validateSlabHeaterGroupPositionAndGetContainingRoom.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/create/createSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/delete/clearSlabHeaterGroups.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/delete/removeSelectedSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/render/drawSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/select/clearSlabHeaterGroupSelectionCache.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/select/deselectSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/select/selectSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/update/addSlabHeaterToSelectedGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/update/removeLastSlabHeaterFromSelectedGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/update/rotateSelectedSlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/update/updateSelectedSlabHeaterGroupDimensions.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/update/updateSlabHeaterGroupMemberPosition.js"></script>
+    <script type="text/javascript" src="js/operations/slabHeaterGroup/update/updateSlabHeaterGroupType.js"></script>
+    <script type="text/javascript" src="js/operations/tooltip/render/drawTooltips.js"></script>
+
+
+    <script type="text/javascript" src="js/quote/excelGenerator.js"></script>
+    <script type="text/javascript" src="js/quote/excelGeneratorUtil.js"></script>
+
+    <script type="text/javascript" src="js/rendered/Blueprint.js"></script>
+    <script type="text/javascript" src="js/rendered/Box.js"></script>
+    <script type="text/javascript" src="js/rendered/BoxGroup.js"></script>
+    <script type="text/javascript" src="js/rendered/PipeDriver.js"></script>
+    <script type="text/javascript" src="js/rendered/Room.js"></script>
+    <script type="text/javascript" src="js/rendered/SlabHeater.js"></script>
+    <script type="text/javascript" src="js/rendered/SlabHeaterGroup.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/ButtonWrapper.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/MenuLine.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/OptionsBar.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/Point.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/Tooltip.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/draw/drawButtonWrapper.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/draw/drawMenuLine.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/draw/drawOptionsBar.js"></script>
+    <script type="text/javascript" src="js/rendered/uiElements/draw/drawUiBackground.js"></script>
+
+    <script type="text/javascript" src="js/renderer/renderAbsolutePositionObjects.js"></script>
+    <script type="text/javascript" src="js/renderer/renderTranslatedObjects.js"></script>
+
+    <script type="text/javascript" src="js/renderers/TooltipRenderer.js"></script>
+
+    <script type="text/javascript" src="js/save/load.js"></script>
+    <script type="text/javascript" src="js/save/save.js"></script>
+
+    <script type="text/javascript" src="js/store/ElementStore.js"></script>
+
+    <script type="text/javascript" src="js/p5/draw.js"></script>
+    <script type="text/javascript" src="js/p5/mousePressed.js"></script>
+    <script type="text/javascript" src="js/p5/mouseReleased.js"></script>
+    <script type="text/javascript" src="js/p5/mouseWheel.js"></script>
+    <script type="text/javascript" src="js/p5/setup.js"></script>
+</body>
+
+</html>

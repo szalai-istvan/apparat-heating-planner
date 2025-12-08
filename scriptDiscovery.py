@@ -1,62 +1,93 @@
 import projectSizeCalculator
 import os
 
-SCRIPT_TAG_TEMPLATE = '<script type="text/javascript" src="$src"></script>'
 SRC = '$src'
+SCRIPT_TAG_TEMPLATE = f'<script type="text/javascript" src="{SRC}"></script>'
 JS = '.js'
-VERSION4 = 'v4'
 DISCRIMINATOR_PATH_PART = 2
+STOP_SIGN = '<!-- scripts -->'
+FOUR_SPACES = '    '
+EMPTY_STRING = ''
+P5 = 'p5'
+
+
+HTML_FILE_PROJECT_MAPPING = {
+    'heating-planner.html': ['common', 'heating-planner'],
+    'slab-heating-planner.html': ['common', 'slab-heating-planner']
+}
+
+
+def addScriptsToFile(file):
+    jsFiles = getJsFilesForFile(file)
+    htmlContent = readHtmlContent(file)
+    htmlContent = getFullHtmlContent(htmlContent, jsFiles)
+    
+    with open(file, 'w') as apparat:
+        apparat.write(htmlContent)
+
+def getJsFilesForFile(file):
+    projects = HTML_FILE_PROJECT_MAPPING[file]
+    cwd = os.getcwd()
+
+    jsFiles = []
+    for root, subdirs, files in os.walk(cwd):
+        for file in files:
+            fullPath = os.path.join(root, file)
+            relativePath = fullPath.replace(cwd, '')[1:].replace('\\', '/')
+            if fullPath[-3:] == JS and fileBelongsToProjects(relativePath, projects):
+                jsFiles.append(fullPath)
+    return jsFiles
+
+def fileBelongsToProjects(relativePath, projects):
+    for p in projects:
+        print(f'project={relativePath.split('/')[0]}')
+        if p == relativePath.split('/')[0]:
+            return True
+    return False
+
+def readHtmlContent(file):
+    lines = []
+    with open(file) as apparat:
+        for line in apparat:
+            indexLines.append(line)
+            if STOP_SIGN in line:
+                break
+    return lines
+
+def getFullHtmlContent(htmlContent, jsFiles):
+    lastDir = ''
+    rows = []
+    p5Rows = []
+
+    for jsFile in jsFiles:
+        directory = jsFile.split('/')[DISCRIMINATOR_PATH_PART]
+        print(f'{directory=}')
+        if directory != lastDir:
+            rows.append(EMPTY_STRING)
+        lastDir = directory
+
+        if P5 not in jsFile:
+            rows.append(FOUR_SPACES + createScriptTag(jsFile))
+        else:
+            p5Rows.append(FOUR_SPACES + createScriptTag(jsFile))
+    
+    allRows = []
+    [allRows.append(row) for row in htmlContent]
+    [allRows.append(row) for row in rows]
+    allRows.append(EMPTY_STRING)
+    [allRows.append(row) for row in p5Rows]
+    allRows = [row + '\n' for row in allRows]
+    
+    allRows.append('</body>\n')
+    allRows.append('\n')
+    allRows.append('</html>\n')
+
+    return ''.join(allRows)
 
 def createScriptTag(path):
     return SCRIPT_TAG_TEMPLATE.replace(SRC, path)
 
-cwd = os.getcwd()
-
-jsFiles = []
-for root, subdirs, files in os.walk(cwd):
-    for file in files:
-        fullPath = os.path.join(root, file)
-        if fullPath[-3:] == JS and VERSION4 in fullPath:
-            jsFiles.append(fullPath)
-
-jsFiles = [jsf.replace(cwd, '')[1:].replace('\\', '/') for jsf in jsFiles]
-scriptTags = [createScriptTag(jsf) for jsf in jsFiles]
-
-rows = []
-p5Rows = []
-lastDir = 'appdata'
-for jsFile in jsFiles:
-    directory = jsFile.split('/')[DISCRIMINATOR_PATH_PART]
-    if directory != lastDir:
-        rows.append('')
-    lastDir = directory
-
-    if 'p5' not in jsFile:
-        rows.append('    ' + createScriptTag(jsFile))
-    else:
-        p5Rows.append('    ' + createScriptTag(jsFile))
-
-rows.append('')
-[rows.append(r) for r in p5Rows]
-rows = [r + '\n' for r in rows]
-
-indexLines = []
-stop = '<!-- scripts -->'
-with open('apparat.html') as apparat:
-    for line in apparat:
-        indexLines.append(line)
-        if stop in line:
-            break
-
-for row in rows:
-    indexLines.append(row)
-
-indexLines.append('</body>\n')
-indexLines.append('\n')
-indexLines.append('</html>\n')
-
-with open('apparat.html', 'w') as apparat:
-    apparat.write(''.join(indexLines))
-
+files = list(HTML_FILE_PROJECT_MAPPING.keys())
+for f in files:
+    addScriptsToFile(f)
 print('✅ Scripts updated in apparat.html')
-projectSizeCalculator.calculateProjectSize()
