@@ -136,6 +136,8 @@ def formatAndPrintProjectData(projects):
     print('+' + '-'*len(projectNames[0]) + '+' + '-'*len(projectFileCounts[0]) + '+' + '-'*len(projectLineCounts[0]) + '+')
     for i in range(len(projectNames)):
         print(f'|{projectNames[i]}|{projectFileCounts[i]}|{projectLineCounts[i]}|')
+        if i == len(projectNames) - 2:
+            print('+' + '-'*len(projectNames[0]) + '+' + '-'*len(projectFileCounts[0]) + '+' + '-'*len(projectLineCounts[0]) + '+')
     print('+' + '-'*len(projectNames[0]) + '+' + '-'*len(projectFileCounts[0]) + '+' + '-'*len(projectLineCounts[0]) + '+')
 
 def process():
