@@ -1,4 +1,3 @@
-import projectSizeCalculator
 import os
 
 SRC = '$src'
