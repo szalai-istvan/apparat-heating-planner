@@ -1,5 +1,5 @@
 import os
-check = {'fileDuplications': False, 'functionDuplications': False, 'classDuplications': True}
+check = {'fileDuplications': True, 'functionDuplications': True, 'classDuplications': False}
 
 cwd = os.getcwd()
 jsFiles = []
@@ -21,6 +21,7 @@ if check['fileDuplications']:
         else:
             fileNameMap[fileName] = [jsf]
 
+    print('File duplications:')
     for key in fileNameMap.keys():
         value = fileNameMap[key]
         if len(value) > 1:
@@ -41,6 +42,7 @@ if check['functionDuplications']:
                     else:
                         functionMap[functionName] = [jsf]
 
+    print('Function duplications:')
     for key in functionMap.keys():
         value = functionMap[key]
         if len(value) > 1:
@@ -61,6 +63,7 @@ if check['classDuplications']:
                     else:
                         classMap[className] = [jsf]
 
+    print('Class duplications:')
     for key in classMap.keys():
         value = classMap[key]
         if len(value) > 1:

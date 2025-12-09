@@ -72,33 +72,3 @@ function createButtons() {
         shouldBeActive: () => true
     });
 }
-
-function sidePanelButtonPosition(sideRibbonButtonSizes) {
-  const sumButtonHeight = sideRibbonButtonSizes
-    .map((trbs) => trbs.y)
-    .reduce(sumFunction, 0);
-  const sumGap = (sideRibbonButtonSizes.length + 1) * BUTTON_GAP_Y;
-  return {
-    x: 10,
-    y: 55 + sumButtonHeight + sumGap,
-  };
-}
-
-function bottomPosition(size) {
-  return { x: 10, y: window.innerHeight - 10 - size.y };
-}
-
-function addTopRibbonDelimeter(x) {
-  DELIMITER_POSITIONS.push({
-    p1: { x: x, y: 0 },
-    p2: { x: x, y: TOP_RIBBON_HEIGHT },
-  });
-}
-
-function addLeftRibbonDelimeter(y) {
-  y -= BUTTON_GAP_Y / 2;
-  DELIMITER_POSITIONS.push({
-    p1: { x: 0, y: y },
-    p2: { x: LEFT_RIBBON_WIDTH, y: y },
-  });
-}

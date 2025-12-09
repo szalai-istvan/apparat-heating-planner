@@ -3,7 +3,7 @@
  * 
  * @returns {undefined}
  */
-function renderTranslatedObjects() {
+function renderTranslatedObjects() { //Project-specific
     elementStore.blueprints.forEach(bluePrint => drawBlueprint(bluePrint));
     elementStore.rooms.forEach(room => drawRoom(room));
     elementStore.panelGroups.forEach(pg => drawPanelGroup(pg));
@@ -16,10 +16,10 @@ function renderTranslatedObjects() {
     if (debugEnabled) {
         elementStore.rooms.forEach(r => drawRectangle(r.boundingBox));
         elementStore.rooms.forEach(r => drawRectangle(r.textBox));
-        // elementStore.panelGroups.forEach(pg => drawRectangle(pg.boundingBox));
+        elementStore.panelGroups.forEach(pg => drawRectangle(pg.boundingBox));
         elementStore.panelGroups.forEach(pg => drawRectangle(pg.boundingBoxIncludingPipes));
-        // elementStore.panels.forEach(p => drawRectangle(p.boundingBox));
-        // elementStore.panels.forEach(p => drawRectangle(p.textBox));
+        elementStore.panels.forEach(p => drawRectangle(p.boundingBox));
+        elementStore.panels.forEach(p => drawRectangle(p.textBox));
         drawAxis();
     }
 }

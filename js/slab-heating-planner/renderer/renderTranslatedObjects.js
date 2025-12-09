@@ -3,7 +3,7 @@
  * 
  * @returns {undefined}
  */
-function renderTranslatedObjects() {
+function renderTranslatedObjects() { //Project-specific
     elementStore.blueprints.forEach(bluePrint => drawBlueprint(bluePrint));
     elementStore.rooms.forEach(room => drawRoom(room));
     drawScaler();

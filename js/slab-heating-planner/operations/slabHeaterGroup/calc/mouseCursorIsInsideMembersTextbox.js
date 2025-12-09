@@ -4,7 +4,7 @@
  * @param {SlabHeaterGroup} slabHeaterGroup 
  * @returns {boolean}
  */
-function mouseCursorIsInsideMembersTextbox(slabHeaterGroup) {
+function mouseCursorIsInsideMembersTextbox(slabHeaterGroup) { // Project-specific
     if (slabHeaterGroup.cursorIsInsideCache === null) {
         const slabHeaters = getSlabHeatersByIdList(slabHeaterGroup.slabHeaterIds);
         const selectable = slabHeaters.filter(sh => mouseCursorIsInsideSlabHeatersTextbox(sh));

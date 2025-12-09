@@ -6,9 +6,8 @@
 function clearRooms() {
     elementStore.rooms = [];
     elementStore.roomsById = {};
-
-    clearRoomAttachedElements && clearRoomAttachedElements();
-
+    
     deselectRoom();
-    clearPanelGroups();
+    
+    onRoomsCleared && onRoomsCleared();
 }

@@ -4,7 +4,7 @@
  * @param {PanelGroup} panelGroup, fűtőelem csoport 
  * @returns {boolean} true, ha valamely tag szövegdobozában található a kurzor
  */
-function mouseCursorIsInsideMembersTextbox(panelGroup) {
+function mouseCursorIsInsideMembersTextbox(panelGroup) { // Project-specific
     if (panelGroup.cursorIsInsideCache === null) {
         const panels = getPanelsByIdList(panelGroup.panelIds);
         const selectable = panels.filter(p => mouseCursorIsInsidePanelsTextbox(p));

@@ -1,9 +1,11 @@
 /**
- * Törli az összes szobákhoz csatolt objektumokat.
+ * Szobák törlése utáni műveletek
  * 
  * @returns {undefined}
  */
-function clearRoomAttachedElements() {
+function onRoomsCleared() {
     elementStore.structureElements = [];
     elementStore.structureElementsById = {};
+
+    clearPanelGroups();
 }

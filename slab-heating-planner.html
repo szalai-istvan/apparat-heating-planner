@@ -95,14 +95,30 @@
     <script type="text/javascript" src="js/common/actions/blueprint/create/createBlueprint.js"></script>
     <script type="text/javascript" src="js/common/actions/blueprint/delete/clearBlueprints.js"></script>
     <script type="text/javascript" src="js/common/actions/blueprint/render/drawBlueprint.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/calc/configuredRoomsExist.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/calc/getRoomMiddlePoint.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/calc/getRoomNames.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/calc/mouseCursorIsInsideRoomName.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/calc/pointIsInsideRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/calc/roomIsConfigured.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/create/addPointToSelectedRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/create/createRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/delete/clearRooms.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/render/drawRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/render/getPointsToDrawRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/select/deselectRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/select/selectRoom.js"></script>
+    <script type="text/javascript" src="js/common/actions/room/update/calculateTextCenterPositionOfRoom.js"></script>
 
     <script type="text/javascript" src="js/common/appdata/constants.js"></script>
 
     <script type="text/javascript" src="js/common/buttons/addRoomsButton.js"></script>
-    <script type="text/javascript" src="js/common/buttons/createButtons.js"></script>
+    <script type="text/javascript" src="js/common/buttons/createCommonButtons.js"></script>
     <script type="text/javascript" src="js/common/buttons/downloadSummaryButton.js"></script>
+    <script type="text/javascript" src="js/common/buttons/manageBlueprintButtons.js"></script>
     <script type="text/javascript" src="js/common/buttons/scaleButton.js"></script>
     <script type="text/javascript" src="js/common/buttons/helpers/buttonPositionHelpers.js"></script>
+    <script type="text/javascript" src="js/common/buttons/helpers/uiExtraFeatures.js"></script>
 
     <script type="text/javascript" src="js/common/definitions/Blueprint.js"></script>
     <script type="text/javascript" src="js/common/definitions/Room.js"></script>
@@ -110,6 +126,7 @@
     <script type="text/javascript" src="js/common/geometry/grid/GridDefinition.js"></script>
     <script type="text/javascript" src="js/common/geometry/grid/removeGridSeed.js"></script>
     <script type="text/javascript" src="js/common/geometry/grid/setGridSeed.js"></script>
+    <script type="text/javascript" src="js/common/geometry/grid/updateGridResolution.js"></script>
     <script type="text/javascript" src="js/common/geometry/point/createPoint.js"></script>
     <script type="text/javascript" src="js/common/geometry/point/Point.js"></script>
     <script type="text/javascript" src="js/common/geometry/point/pointOperations.js"></script>
@@ -122,7 +139,9 @@
     <script type="text/javascript" src="js/common/ui/MenuLine/drawMenuLine.js"></script>
     <script type="text/javascript" src="js/common/ui/MenuLine/MenuLine.js"></script>
     <script type="text/javascript" src="js/common/ui/message/messageDialog.js"></script>
+    <script type="text/javascript" src="js/common/ui/screen/cursor.js"></script>
     <script type="text/javascript" src="js/common/ui/screen/toggleScreenControls.js"></script>
+    <script type="text/javascript" src="js/common/ui/screen/translateScreen.js"></script>
     <script type="text/javascript" src="js/common/ui/tooltip/drawTooltips.js"></script>
 
     <script type="text/javascript" src="js/common/utilities/math/formatNumber.js"></script>
@@ -138,11 +157,9 @@
     <script type="text/javascript" src="js/slab-heating-planner/buttons/componentManageButtons.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/buttons/createButtons.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/buttons/helpButton.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/buttons/manageBlueprintButtons.js"></script>
 
     <script type="text/javascript" src="js/slab-heating-planner/helpers/boxHelpers.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/helpers/helpers.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/helpers/keystrokeRecorder.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/helpers/slabHeaterHelpers.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/helpers/uiHelpers.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/helpers/classes/checkClass.js"></script>
@@ -178,7 +195,6 @@
     <script type="text/javascript" src="js/slab-heating-planner/operations/boxgroup/update/updateBoxGroupMemberPosition.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/boxgroup/update/updateBoxGroupPipeDriverEndNodePosition.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/grid/calc/getClosestGridPointToPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/grid/update/updateGridResolution.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/pipeDriver/calc/getDirectionBetweenTwoPoints.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/pipeDriver/calc/getNextDirectionOfPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/pipeDriver/calc/getNextPointToAddToPipeDriver.js"></script>
@@ -201,22 +217,11 @@
     <script type="text/javascript" src="js/slab-heating-planner/operations/pipeDriver/update/removeUnnecessaryPointsOfPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/pipeDriver/update/updatePipeDriverFirstPoint.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/pipeDriver/update/updateSelectedPointOfPipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/configuredRoomsExist.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/getPointsToDrawRoom.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/getRoomContainingPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/getRoomMiddlePoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/getRoomNames.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/pointIsInsideRoom.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/roomIsConfigured.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/create/addPointToSelectedRoom.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/create/createRoom.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/delete/clearRooms.js"></script>
+    <script type="text/javascript" src="js/slab-heating-planner/operations/room/delete/onRoomsCleared.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/room/delete/removeSelectedRoom.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/render/drawRoom.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/room/select/clearRoomSelectionCache.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/room/select/deselectRoom.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/room/select/selectRoom.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/scale/calc/processScalingValue.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/scale/create/addScalingReferencePoint.js"></script>
@@ -227,7 +232,6 @@
     <script type="text/javascript" src="js/slab-heating-planner/operations/screen/calc/getCanvasSize.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/screen/calc/getCurrentDragValue.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/screen/calc/getMousePosition.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/operations/screen/calc/translateScreen.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/screen/update/dragAndZoom.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/screen/update/updateScreenSumDrag.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/operations/selection/clearSelectionCache.js"></script>
