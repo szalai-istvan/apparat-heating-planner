@@ -43,18 +43,12 @@ getPointsToDrawRoom.js
 getRoomMiddlePoint.js
  - js/heating-planner/operations/room/calc/getRoomMiddlePoint.js
  - js/slab-heating-planner/operations/room/calc/getRoomMiddlePoint.js
-getRoomNames.js
- - js/heating-planner/operations/room/calc/getRoomNames.js
- - js/slab-heating-planner/operations/room/calc/getRoomNames.js
 mouseCursorIsInsideRoomName.js
  - js/heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js
  - js/slab-heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js
 pointIsInsideRoom.js
  - js/heating-planner/operations/room/calc/pointIsInsideRoom.js
  - js/slab-heating-planner/operations/room/calc/pointIsInsideRoom.js
-roomIsConfigured.js
- - js/heating-planner/operations/room/calc/roomIsConfigured.js
- - js/slab-heating-planner/operations/room/calc/roomIsConfigured.js
 selectedRoomIsConfiguredOrNoRoomIsSelected.js
  - js/heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js
  - js/slab-heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js

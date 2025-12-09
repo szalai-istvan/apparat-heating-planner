@@ -1,5 +1,4 @@
 function createButtons() {
-    console.log('createButtons');
     const topRibbonButtonSizes = [];
     const leftRibbonButtonSizes = [];
     createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes);
