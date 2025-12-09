@@ -1,10 +1,11 @@
 /**
  * Létrehoz egy szobát.
  * 
- * @param {string} name szoba neve 
+ * @param {string} name szoba neve
+ * @param {boolean} tilted boolean flag, ferde-e a szoba 
  * @returns {boolean} true, ha sikerült a szobát létrehozni, egyébként false
  */
-function createRoom(name) {
+function createRoom(name, tilted) {
     checkClass(name, CLASS_STRING);
 
     name = name.trim();
@@ -14,10 +15,11 @@ function createRoom(name) {
         return false;
     }
 
-    const room = new Room(name);
-    elementStore.register(room);
-
+    const room = new Room(name, tilted);
     selectObject(room);
+
+    onRoomIsCreated && onRoomIsCreated(room);
+
     return true;
 }
 

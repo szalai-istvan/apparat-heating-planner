@@ -25,15 +25,6 @@ manageBlueprintButtons.js
 uiHelpers.js
  - js/heating-planner/helpers/uiHelpers.js
  - js/slab-heating-planner/helpers/uiHelpers.js
-drawBlueprint.js
- - js/heating-planner/operations/blueprint/render/drawBlueprint.js
- - js/slab-heating-planner/operations/blueprint/render/drawBlueprint.js
-removeGridSeed.js
- - js/heating-planner/operations/grid/delete/removeGridSeed.js
- - js/slab-heating-planner/operations/grid/delete/removeGridSeed.js
-updateGridResolution.js
- - js/heating-planner/operations/grid/update/updateGridResolution.js
- - js/slab-heating-planner/operations/grid/update/updateGridResolution.js
 mouseCursorIsInsideMembersTextbox.js
  - js/heating-planner/operations/panelgroup/calc/mouseCursorIsInsideMembersTextbox.js
  - js/slab-heating-planner/operations/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js
@@ -70,9 +61,6 @@ selectedRoomIsConfiguredOrNoRoomIsSelected.js
 addPointToSelectedRoom.js
  - js/heating-planner/operations/room/create/addPointToSelectedRoom.js
  - js/slab-heating-planner/operations/room/create/addPointToSelectedRoom.js
-createRoom.js
- - js/heating-planner/operations/room/create/createRoom.js
- - js/slab-heating-planner/operations/room/create/createRoom.js
 clearRooms.js
  - js/heating-planner/operations/room/delete/clearRooms.js
  - js/slab-heating-planner/operations/room/delete/clearRooms.js
