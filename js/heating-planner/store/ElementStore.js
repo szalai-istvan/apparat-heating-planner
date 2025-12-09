@@ -20,6 +20,8 @@ class ElementStore {
 
     /** @type {ButtonWrapper[]} */
     buttons = [];
+    /** @type {MenuLine[]} */
+    menuLines = [];
 
     constructor() { }
 
@@ -45,6 +47,8 @@ class ElementStore {
         } else if (className === CLASS_STRUCTURE_ELEMENTS) {
             this.structureElements.push(obj);
             this.#addById(this.structureElementsById, obj);
+        } else if (className === CLASS_MENU_LINE) {
+            this.menuLines.push(obj);
         } else {
             throw new Error(`Attempt to register unexpected render type: ${className}`);
         }

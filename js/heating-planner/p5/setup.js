@@ -13,10 +13,8 @@ function setup() {
     cicisNeni = loadImage(CICIS_NENI);
     
     angleMode(DEGREES);
-    createButtons();
+    // createButtons();
     
-    applicationStarted();
-
     if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
         loadProject();        
     }

@@ -23,10 +23,10 @@
     </div>
 
     <!-- dialogs -->
-    <dialog id="errorDialog">
-        <p id="errorMessageParagraph" style="max-width: 450px;"></p>
+    <dialog id="messageDialog">
+        <p id="messageParagraph" style="max-width: 450px;"></p>
         <hr>
-        <div class="center"><button id="errorMessageOkButton">OK (Enter)</button></div>
+        <div class="center"><button id="messageOkButton">OK (Enter)</button></div>
     </dialog>
 
     <dialog id="fileUploadDialogConfirm">
@@ -114,31 +114,59 @@
     
     <!-- scripts -->
 
+    <script type="text/javascript" src="js/common/actions/blueprint/calc/blueprintDataIsPresent.js"></script>
+    <script type="text/javascript" src="js/common/actions/blueprint/create/createBlueprint.js"></script>
+    <script type="text/javascript" src="js/common/actions/blueprint/delete/clearBlueprints.js"></script>
+
+    <script type="text/javascript" src="js/common/appdata/constants.js"></script>
+
+    <script type="text/javascript" src="js/common/buttons/addRoomsButton.js"></script>
+    <script type="text/javascript" src="js/common/buttons/createButtons.js"></script>
+    <script type="text/javascript" src="js/common/buttons/downloadSummaryButton.js"></script>
+    <script type="text/javascript" src="js/common/buttons/scaleButton.js"></script>
+    <script type="text/javascript" src="js/common/buttons/helpers/buttonPositionHelpers.js"></script>
+
+    <script type="text/javascript" src="js/common/definitions/Blueprint.js"></script>
+    <script type="text/javascript" src="js/common/definitions/Room.js"></script>
+
+    <script type="text/javascript" src="js/common/geometry/grid/GridDefinition.js"></script>
+    <script type="text/javascript" src="js/common/geometry/point/createPoint.js"></script>
+    <script type="text/javascript" src="js/common/geometry/point/Point.js"></script>
+    <script type="text/javascript" src="js/common/geometry/point/pointOperations.js"></script>
+
+    <script type="text/javascript" src="js/common/setup/setupSteps.js"></script>
+
+    <script type="text/javascript" src="js/common/ui/ButtonWrapper/ButtonWrapper.js"></script>
+    <script type="text/javascript" src="js/common/ui/ButtonWrapper/drawButtonWrapper.js"></script>
+    <script type="text/javascript" src="js/common/ui/keystroke/keystrokeRecorder.js"></script>
+    <script type="text/javascript" src="js/common/ui/MenuLine/drawMenuLine.js"></script>
+    <script type="text/javascript" src="js/common/ui/MenuLine/MenuLine.js"></script>
+    <script type="text/javascript" src="js/common/ui/message/messageDialog.js"></script>
+    <script type="text/javascript" src="js/common/ui/screen/toggleScreenControls.js"></script>
+    <script type="text/javascript" src="js/common/ui/tooltip/drawTooltips.js"></script>
+
+    <script type="text/javascript" src="js/common/utilities/math/formatNumber.js"></script>
+    <script type="text/javascript" src="js/common/utilities/math/reductionFunctions.js"></script>
+    <script type="text/javascript" src="js/common/utilities/math/roundNumber.js"></script>
+    <script type="text/javascript" src="js/common/utilities/random/randomChoice.js"></script>
+
     <script type="text/javascript" src="js/heating-planner/appdata/constants.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/errorCodes.js"></script>
     <script type="text/javascript" src="js/heating-planner/appdata/excelConstants.js"></script>
     <script type="text/javascript" src="js/heating-planner/appdata/panelTypes.js"></script>
     <script type="text/javascript" src="js/heating-planner/appdata/prices.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/tooltips.js"></script>
     <script type="text/javascript" src="js/heating-planner/appdata/translations.js"></script>
     <script type="text/javascript" src="js/heating-planner/appdata/units.js"></script>
 
-    <script type="text/javascript" src="js/heating-planner/buttons/addRoomsButton.js"></script>
     <script type="text/javascript" src="js/heating-planner/buttons/createButtons.js"></script>
-    <script type="text/javascript" src="js/heating-planner/buttons/downloadSummaryButton.js"></script>
     <script type="text/javascript" src="js/heating-planner/buttons/manageBlueprintButtons.js"></script>
     <script type="text/javascript" src="js/heating-planner/buttons/rotateBlueprintDialog.js"></script>
     <script type="text/javascript" src="js/heating-planner/buttons/rotateSelectedObject.js"></script>
-    <script type="text/javascript" src="js/heating-planner/buttons/scaleButton.js"></script>
 
-    <script type="text/javascript" src="js/heating-planner/geometry/griddefinition/GridDefinition.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/line/calculateIntersectionPointOfTwoLines.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/line/createLine.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/line/Line.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/line/linesIntersect.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/point/calculateDistance.js"></script>
-    <script type="text/javascript" src="js/heating-planner/geometry/point/createPoint.js"></script>
-    <script type="text/javascript" src="js/heating-planner/geometry/point/Point.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/point/pointIsInsideRectangle.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/rectangle/createRectangle.js"></script>
     <script type="text/javascript" src="js/heating-planner/geometry/rectangle/drawRectangle.js"></script>
@@ -147,25 +175,15 @@
     <script type="text/javascript" src="js/heating-planner/geometry/rectangle/rectanglesOverlap.js"></script>
 
     <script type="text/javascript" src="js/heating-planner/helpers/debugHelpers.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/errordialog.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/keystrokeRecorder.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/setupHelpers.js"></script>
+    <script type="text/javascript" src="js/heating-planner/helpers/onKeyStrokeRecordUpdated.js"></script>
     <script type="text/javascript" src="js/heating-planner/helpers/uiHelpers.js"></script>
     <script type="text/javascript" src="js/heating-planner/helpers/validationHelpers.js"></script>
     <script type="text/javascript" src="js/heating-planner/helpers/math/angleConverter.js"></script>
     <script type="text/javascript" src="js/heating-planner/helpers/math/createUniqueId.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/math/formatNumber.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/math/misc.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/math/randomChoice.js"></script>
-    <script type="text/javascript" src="js/heating-planner/helpers/math/roundNumber.js"></script>
 
-    <script type="text/javascript" src="js/heating-planner/operations/blueprint/calc/blueprintDataIsPresent.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/blueprint/calc/createBlueprintBoundingBox.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/blueprint/calc/getBlueprintContentSize.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/blueprint/calc/mouseCursorIsInsideBlueprint.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/blueprint/create/createBlueprint.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/blueprint/definition/Blueprint.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/blueprint/delete/clearBlueprints.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/blueprint/delete/removeSelectedBlueprint.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/blueprint/render/drawBlueprint.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/blueprint/select/deselectBlueprint.js"></script>
@@ -228,7 +246,6 @@
     <script type="text/javascript" src="js/heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/room/create/addPointToSelectedRoom.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/room/create/createRoom.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/room/definition/Room.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/room/delete/clearRooms.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/room/delete/removeSelectedRoom.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/room/render/drawRoom.js"></script>
@@ -251,7 +268,6 @@
     <script type="text/javascript" src="js/heating-planner/operations/screen/render/drawUiBackground.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/screen/update/adjustScreenForExport.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/screen/update/dragAndZoom.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/screen/update/toggleScreenControls.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/screen/update/translateScreen.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/screen/update/updateCursorType.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/screen/update/updateScreenSumDrag.js"></script>
@@ -266,12 +282,7 @@
     <script type="text/javascript" src="js/heating-planner/operations/structureelements/render/drawStructureElements.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/structureelements/render/drawUD30.js"></script>
     <script type="text/javascript" src="js/heating-planner/operations/structureelements/update/recalculateBeamDefinitions.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/tooltip/render/drawTooltips.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/tooltip/update/tooltipManagers.js"></script>
-    <script type="text/javascript" src="js/heating-planner/operations/tooltip/update/tooltipMessages.js"></script>
 
-
-    <script type="text/javascript" src="js/heating-planner/rendered/drawButtonWrapper.js"></script>
 
     <script type="text/javascript" src="js/heating-planner/renderer/renderAbsolutePositionObjects.js"></script>
     <script type="text/javascript" src="js/heating-planner/renderer/renderTranslatedObjects.js"></script>
@@ -280,8 +291,6 @@
     <script type="text/javascript" src="js/heating-planner/save/save.js"></script>
 
     <script type="text/javascript" src="js/heating-planner/store/ElementStore.js"></script>
-
-    <script type="text/javascript" src="js/heating-planner/uiElements/ButtonWrapper.js"></script>
 
     <script type="text/javascript" src="js/heating-planner/p5/draw.js"></script>
     <script type="text/javascript" src="js/heating-planner/p5/mousePressed.js"></script>

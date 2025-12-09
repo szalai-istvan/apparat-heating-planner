@@ -18,3 +18,692 @@ optional:
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
 - Szoba overlap validációt megcsinálni JÓRA.
+
+manageBlueprintButtons.js
+ - js/heating-planner/buttons/manageBlueprintButtons.js
+ - js/slab-heating-planner/buttons/manageBlueprintButtons.js
+uiHelpers.js
+ - js/heating-planner/helpers/uiHelpers.js
+ - js/slab-heating-planner/helpers/uiHelpers.js
+drawBlueprint.js
+ - js/heating-planner/operations/blueprint/render/drawBlueprint.js
+ - js/slab-heating-planner/operations/blueprint/render/drawBlueprint.js
+setGridSeed.js
+ - js/heating-planner/operations/grid/create/setGridSeed.js
+ - js/slab-heating-planner/operations/grid/create/setGridSeed.js
+removeGridSeed.js
+ - js/heating-planner/operations/grid/delete/removeGridSeed.js
+ - js/slab-heating-planner/operations/grid/delete/removeGridSeed.js
+updateGridResolution.js
+ - js/heating-planner/operations/grid/update/updateGridResolution.js
+ - js/slab-heating-planner/operations/grid/update/updateGridResolution.js
+mouseCursorIsInsideMembersTextbox.js
+ - js/heating-planner/operations/panelgroup/calc/mouseCursorIsInsideMembersTextbox.js
+ - js/slab-heating-planner/operations/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js
+excelGenerator.js
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+excelGeneratorUtil.js
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+configuredRoomsExist.js
+ - js/heating-planner/operations/room/calc/configuredRoomsExist.js
+ - js/slab-heating-planner/operations/room/calc/configuredRoomsExist.js
+getPointsToDrawRoom.js
+ - js/heating-planner/operations/room/calc/getPointsToDrawRoom.js
+ - js/slab-heating-planner/operations/room/calc/getPointsToDrawRoom.js
+getRoomMiddlePoint.js
+ - js/heating-planner/operations/room/calc/getRoomMiddlePoint.js
+ - js/slab-heating-planner/operations/room/calc/getRoomMiddlePoint.js
+getRoomNames.js
+ - js/heating-planner/operations/room/calc/getRoomNames.js
+ - js/slab-heating-planner/operations/room/calc/getRoomNames.js
+mouseCursorIsInsideRoomName.js
+ - js/heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js
+ - js/slab-heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js
+pointIsInsideRoom.js
+ - js/heating-planner/operations/room/calc/pointIsInsideRoom.js
+ - js/slab-heating-planner/operations/room/calc/pointIsInsideRoom.js
+roomIsConfigured.js
+ - js/heating-planner/operations/room/calc/roomIsConfigured.js
+ - js/slab-heating-planner/operations/room/calc/roomIsConfigured.js
+selectedRoomIsConfiguredOrNoRoomIsSelected.js
+ - js/heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js
+ - js/slab-heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js
+addPointToSelectedRoom.js
+ - js/heating-planner/operations/room/create/addPointToSelectedRoom.js
+ - js/slab-heating-planner/operations/room/create/addPointToSelectedRoom.js
+createRoom.js
+ - js/heating-planner/operations/room/create/createRoom.js
+ - js/slab-heating-planner/operations/room/create/createRoom.js
+clearRooms.js
+ - js/heating-planner/operations/room/delete/clearRooms.js
+ - js/slab-heating-planner/operations/room/delete/clearRooms.js
+removeSelectedRoom.js
+ - js/heating-planner/operations/room/delete/removeSelectedRoom.js
+ - js/slab-heating-planner/operations/room/delete/removeSelectedRoom.js
+drawRoom.js
+ - js/heating-planner/operations/room/render/drawRoom.js
+ - js/slab-heating-planner/operations/room/render/drawRoom.js
+clearRoomSelectionCache.js
+ - js/heating-planner/operations/room/select/clearRoomSelectionCache.js
+ - js/slab-heating-planner/operations/room/select/clearRoomSelectionCache.js
+deselectRoom.js
+ - js/heating-planner/operations/room/select/deselectRoom.js
+ - js/slab-heating-planner/operations/room/select/deselectRoom.js
+selectRoom.js
+ - js/heating-planner/operations/room/select/selectRoom.js
+ - js/slab-heating-planner/operations/room/select/selectRoom.js
+processScalingValue.js
+ - js/heating-planner/operations/scale/calc/processScalingValue.js
+ - js/slab-heating-planner/operations/scale/calc/processScalingValue.js
+addScalingReferencePoint.js
+ - js/heating-planner/operations/scale/create/addScalingReferencePoint.js
+ - js/slab-heating-planner/operations/scale/create/addScalingReferencePoint.js
+startScaling.js
+ - js/heating-planner/operations/scale/create/startScaling.js
+ - js/slab-heating-planner/operations/scale/create/startScaling.js
+clearScaling.js
+ - js/heating-planner/operations/scale/delete/clearScaling.js
+ - js/slab-heating-planner/operations/scale/delete/clearScaling.js
+drawScaler.js
+ - js/heating-planner/operations/scale/render/drawScaler.js
+ - js/slab-heating-planner/operations/scale/render/drawScaler.js
+getCanvasSize.js
+ - js/heating-planner/operations/screen/calc/getCanvasSize.js
+ - js/slab-heating-planner/operations/screen/calc/getCanvasSize.js
+getCurrentDragValue.js
+ - js/heating-planner/operations/screen/calc/getCurrentDragValue.js
+ - js/slab-heating-planner/operations/screen/calc/getCurrentDragValue.js
+getMousePosition.js
+ - js/heating-planner/operations/screen/calc/getMousePosition.js
+ - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
+translateScreen.js
+ - js/heating-planner/operations/screen/calc/translateScreen.js
+ - js/heating-planner/operations/screen/update/translateScreen.js
+ - js/slab-heating-planner/operations/screen/calc/translateScreen.js
+drawUiBackground.js
+ - js/heating-planner/operations/screen/render/drawUiBackground.js
+ - js/slab-heating-planner/rendered/uiElements/draw/drawUiBackground.js
+adjustScreenForExport.js
+ - js/heating-planner/operations/screen/update/adjustScreenForExport.js
+ - js/slab-heating-planner/operations/screen/calc/adjustScreenForExport.js
+dragAndZoom.js
+ - js/heating-planner/operations/screen/update/dragAndZoom.js
+ - js/slab-heating-planner/operations/screen/update/dragAndZoom.js
+updateScreenSumDrag.js
+ - js/heating-planner/operations/screen/update/updateScreenSumDrag.js
+ - js/slab-heating-planner/operations/screen/update/updateScreenSumDrag.js
+clearSelectionCache.js
+ - js/heating-planner/operations/selection/clearSelectionCache.js
+ - js/slab-heating-planner/operations/selection/clearSelectionCache.js
+deselectObject.js
+ - js/heating-planner/operations/selection/deselectObject.js
+ - js/slab-heating-planner/operations/selection/deselectObject.js
+removeSelectedObject.js
+ - js/heating-planner/operations/selection/removeSelectedObject.js
+ - js/slab-heating-planner/operations/selection/removeSelectedObject.js
+searchForSelectableObject.js
+ - js/heating-planner/operations/selection/searchForSelectableObject.js
+ - js/slab-heating-planner/operations/selection/searchForSelectableObject.js
+selectObject.js
+ - js/heating-planner/operations/selection/selectObject.js
+ - js/slab-heating-planner/operations/selection/selectObject.js
+drawTooltips.js
+ - js/heating-planner/operations/tooltip/render/drawTooltips.js
+ - js/slab-heating-planner/operations/tooltip/render/drawTooltips.js
+draw.js
+ - js/heating-planner/p5/draw.js
+ - js/slab-heating-planner/p5/draw.js
+mousePressed.js
+ - js/heating-planner/p5/mousePressed.js
+ - js/slab-heating-planner/p5/mousePressed.js
+mouseReleased.js
+ - js/heating-planner/p5/mouseReleased.js
+ - js/slab-heating-planner/p5/mouseReleased.js
+mouseWheel.js
+ - js/heating-planner/p5/mouseWheel.js
+ - js/slab-heating-planner/p5/mouseWheel.js
+setup.js
+ - js/heating-planner/p5/setup.js
+ - js/slab-heating-planner/p5/setup.js
+renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js
+load.js
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+save.js
+ - js/heating-planner/save/save.js
+ - js/slab-heating-planner/save/save.js
+ElementStore.js
+ - js/heating-planner/store/ElementStore.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js
+load.js
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+save.js
+ - js/heating-planner/save/save.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js
+load.js
+ - js/heating-planner/save/load.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js
+load.js
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+save.js
+ - js/heating-planner/save/save.js
+ - js/slab-heating-planner/save/save.js
+ElementStore.js
+ - js/heating-planner/store/ElementStore.js
+ - js/slab-heating-planner/store/ElementStore.js
+
+createRadioButton
+ - js/common/buttons/addRoomsButton.js
+ - js/slab-heating-planner/helpers/html/createRadioButton.js
+sidePanelButtonPosition
+ - js/common/buttons/helpers/buttonPositionHelpers.js
+ - js/heating-planner/buttons/createButtons.js
+createButtons
+ - js/heating-planner/buttons/createButtons.js
+ - js/slab-heating-planner/buttons/buttons.js
+bottomPosition
+ - js/heating-planner/buttons/createButtons.js
+ - js/slab-heating-planner/helpers/uiHelpers.js
+addTopRibbonDelimeter
+ - js/heating-planner/buttons/createButtons.js
+ - js/slab-heating-planner/helpers/uiHelpers.js
+addLeftRibbonDelimeter
+ - js/heating-planner/buttons/createButtons.js
+ - js/slab-heating-planner/helpers/uiHelpers.js
+openTransportDialog
+ - js/heating-planner/buttons/downloadSummaryButton.js
+ - js/slab-heating-planner/buttons/downloadSummaryButton.js
+upload
+ - js/heating-planner/buttons/manageBlueprintButtons.js
+ - js/slab-heating-planner/buttons/manageBlueprintButtons.js
+handleFileSelect
+ - js/heating-planner/buttons/manageBlueprintButtons.js
+ - js/slab-heating-planner/buttons/manageBlueprintButtons.js
+displayPageSelector
+ - js/heating-planner/buttons/manageBlueprintButtons.js
+ - js/slab-heating-planner/buttons/manageBlueprintButtons.js
+rotateSelectedObject
+ - js/heating-planner/buttons/rotateSelectedObject.js
+ - js/slab-heating-planner/buttons/componentManageButtons.js
+showScalingDialog
+ - js/heating-planner/buttons/scaleButton.js
+ - js/slab-heating-planner/buttons/scaleButton.js
+calculateDistance
+ - js/heating-planner/geometry/point/calculateDistance.js
+ - js/slab-heating-planner/helpers/helpers.js
+createPoint
+ - js/heating-planner/geometry/point/createPoint.js
+ - js/slab-heating-planner/operations/point/create/createPoint.js
+toggleDisplayDebugInfo
+ - js/heating-planner/helpers/debugHelpers.js
+ - js/slab-heating-planner/helpers/debug/debug.js
+evictLocalStorageAndReload
+ - js/heating-planner/helpers/debugHelpers.js
+ - js/slab-heating-planner/helpers/debug/debug.js
+drawAxis
+ - js/heating-planner/helpers/debugHelpers.js
+ - js/slab-heating-planner/helpers/debug/drawDebugInfo.js
+drawCursorDebugInfo
+ - js/heating-planner/helpers/debugHelpers.js
+ - js/slab-heating-planner/helpers/debug/drawDebugInfo.js
+displayMessage
+ - js/heating-planner/helpers/errordialog.js
+ - js/slab-heating-planner/helpers/errordialog/errordialog.js
+displayHelpData
+ - js/heating-planner/helpers/errordialog.js
+ - js/slab-heating-planner/helpers/errordialog/errordialog.js
+recordKey
+ - js/heating-planner/helpers/keystrokeRecorder.js
+ - js/slab-heating-planner/helpers/keystrokeRecorder.js
+disableContextMenu
+ - js/heating-planner/helpers/setupHelpers.js
+ - js/slab-heating-planner/helpers/setupHelpers.js
+disableEscapeButton
+ - js/heating-planner/helpers/setupHelpers.js
+ - js/slab-heating-planner/helpers/setupHelpers.js
+handleDeleteButton
+ - js/heating-planner/helpers/setupHelpers.js
+ - js/slab-heating-planner/helpers/setupHelpers.js
+handleWindowResize
+ - js/heating-planner/helpers/setupHelpers.js
+ - js/slab-heating-planner/helpers/setupHelpers.js
+enableEnterForConfirm
+ - js/heating-planner/helpers/setupHelpers.js
+ - js/slab-heating-planner/helpers/setupHelpers.js
+noModalsAreOpened
+ - js/heating-planner/helpers/uiHelpers.js
+ - js/heating-planner/operations/screen/update/toggleScreenControls.js
+ - js/slab-heating-planner/operations/screen/update/toggleScreenControls.js
+getDocumentDimensions
+ - js/heating-planner/helpers/uiHelpers.js
+ - js/slab-heating-planner/p5/setup.js
+calculateCorrector
+ - js/heating-planner/helpers/uiHelpers.js
+ - js/slab-heating-planner/helpers/uiHelpers.js
+checkClass
+ - js/heating-planner/helpers/validationHelpers.js
+ - js/slab-heating-planner/helpers/classes/checkClass.js
+getClassName
+ - js/heating-planner/helpers/validationHelpers.js
+ - js/slab-heating-planner/helpers/classes/getClassName.js
+createUniqueId
+ - js/heating-planner/helpers/math/createUniqueId.js
+ - js/slab-heating-planner/helpers/helpers.js
+formatNumber
+ - js/heating-planner/helpers/math/formatNumber.js
+ - js/slab-heating-planner/helpers/math/formatNumber.js
+randomChoice
+ - js/heating-planner/helpers/math/randomChoice.js
+ - js/slab-heating-planner/helpers/math/randomChoice.js
+roundNumber
+ - js/heating-planner/helpers/math/roundNumber.js
+ - js/slab-heating-planner/helpers/math/roundNumber.js
+blueprintDataIsPresent
+ - js/heating-planner/operations/blueprint/calc/blueprintDataIsPresent.js
+ - js/slab-heating-planner/operations/blueprint/calc/blueprintDataIsPresent.js
+createBlueprint
+ - js/heating-planner/operations/blueprint/create/createBlueprint.js
+ - js/slab-heating-planner/operations/blueprint/create/createBlueprint.js
+getBlueprintSizeData
+ - js/heating-planner/operations/blueprint/create/createBlueprint.js
+ - js/slab-heating-planner/operations/blueprint/create/createBlueprint.js
+getSizeData
+ - js/heating-planner/operations/blueprint/create/createBlueprint.js
+ - js/slab-heating-planner/operations/blueprint/create/createBlueprint.js
+clearBlueprints
+ - js/heating-planner/operations/blueprint/delete/clearBlueprints.js
+ - js/slab-heating-planner/operations/blueprint/delete/clearBlueprints.js
+drawBlueprint
+ - js/heating-planner/operations/blueprint/render/drawBlueprint.js
+ - js/slab-heating-planner/operations/blueprint/render/drawBlueprint.js
+getBlueprintTopLeftCoordinates
+ - js/heating-planner/operations/blueprint/render/drawBlueprint.js
+ - js/slab-heating-planner/operations/blueprint/render/drawBlueprint.js
+setGridSeed
+ - js/heating-planner/operations/grid/create/setGridSeed.js
+ - js/slab-heating-planner/operations/grid/create/setGridSeed.js
+removeGridSeed
+ - js/heating-planner/operations/grid/delete/removeGridSeed.js
+ - js/slab-heating-planner/operations/grid/delete/removeGridSeed.js
+updateGridResolution
+ - js/heating-planner/operations/grid/update/updateGridResolution.js
+ - js/slab-heating-planner/operations/grid/update/updateGridResolution.js
+mouseCursorIsInsideMembersTextbox
+ - js/heating-planner/operations/panelgroup/calc/mouseCursorIsInsideMembersTextbox.js
+ - js/slab-heating-planner/operations/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js
+startExcelExport
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+downloadExcel
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+createColumnsForRooms
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillRoomNames
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillPanelCounts
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillRoomSummaryFormulas
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillPanelCountFormulas
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillCoolingAndHeatingFormulas
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillPanelPriceFormulas
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillPanelPipeLengthFormulas
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillPanelAreaFormulas
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+fillSummaryTable
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+adjustRoomColumnWidths
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+addPicture
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+base64ToArrayBuffer
+ - js/heating-planner/operations/quote/excelGenerator.js
+ - js/slab-heating-planner/quote/excelGenerator.js
+getNumberOfRows
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+emptyCells
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+fillRangeWithColor
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+getRangeName
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+getCellName
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+setFormula
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+addOptionTableAndReturnOptionsRange
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+createDropDown
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+ROUNDUP
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+SUM
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+VLOOKUP
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+IF
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+IFERROR
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+alap
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+alapArr
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+alapRange
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+alapPair
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+getCollectorConfig
+ - js/heating-planner/operations/quote/excelGeneratorUtil.js
+ - js/slab-heating-planner/quote/excelGeneratorUtil.js
+configuredRoomsExist
+ - js/heating-planner/operations/room/calc/configuredRoomsExist.js
+ - js/slab-heating-planner/operations/room/calc/configuredRoomsExist.js
+getPointsToDrawRoom
+ - js/heating-planner/operations/room/calc/getPointsToDrawRoom.js
+ - js/slab-heating-planner/operations/room/calc/getPointsToDrawRoom.js
+getRoomMiddlePoint
+ - js/heating-planner/operations/room/calc/getRoomMiddlePoint.js
+ - js/slab-heating-planner/operations/room/calc/getRoomMiddlePoint.js
+getRoomNames
+ - js/heating-planner/operations/room/calc/getRoomNames.js
+ - js/slab-heating-planner/operations/room/calc/getRoomNames.js
+mouseCursorIsInsideRoomName
+ - js/heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js
+ - js/slab-heating-planner/operations/room/calc/mouseCursorIsInsideRoomName.js
+pointIsInsideRoom
+ - js/heating-planner/operations/room/calc/pointIsInsideRoom.js
+ - js/slab-heating-planner/operations/room/calc/pointIsInsideRoom.js
+mousePointerIsInsideRoom
+ - js/heating-planner/operations/room/calc/pointIsInsideRoom.js
+ - js/slab-heating-planner/operations/room/calc/pointIsInsideRoom.js
+roomIsConfigured
+ - js/heating-planner/operations/room/calc/roomIsConfigured.js
+ - js/slab-heating-planner/operations/room/calc/roomIsConfigured.js
+selectedRoomIsConfiguredOrNoRoomIsSelected
+ - js/heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js
+ - js/slab-heating-planner/operations/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js
+addPointToSelectedRoom
+ - js/heating-planner/operations/room/create/addPointToSelectedRoom.js
+ - js/slab-heating-planner/operations/room/create/addPointToSelectedRoom.js
+pointCanBeAddedToSelectedRoom
+ - js/heating-planner/operations/room/create/addPointToSelectedRoom.js
+ - js/slab-heating-planner/operations/room/create/addPointToSelectedRoom.js
+addPointToRoom
+ - js/heating-planner/operations/room/create/addPointToSelectedRoom.js
+ - js/slab-heating-planner/operations/room/create/addPointToSelectedRoom.js
+createRoom
+ - js/heating-planner/operations/room/create/createRoom.js
+ - js/slab-heating-planner/operations/room/create/createRoom.js
+roomNameAlreadyExists
+ - js/heating-planner/operations/room/create/createRoom.js
+ - js/slab-heating-planner/operations/room/create/createRoom.js
+clearRooms
+ - js/heating-planner/operations/room/delete/clearRooms.js
+ - js/slab-heating-planner/operations/room/delete/clearRooms.js
+removeSelectedRoom
+ - js/heating-planner/operations/room/delete/removeSelectedRoom.js
+ - js/slab-heating-planner/operations/room/delete/removeSelectedRoom.js
+drawRoom
+ - js/heating-planner/operations/room/render/drawRoom.js
+ - js/slab-heating-planner/operations/room/render/drawRoom.js
+updateSettingsToDraw
+ - js/heating-planner/operations/room/render/drawRoom.js
+ - js/slab-heating-planner/operations/room/render/drawRoom.js
+drawRoomSize
+ - js/heating-planner/operations/room/render/drawRoom.js
+ - js/slab-heating-planner/operations/room/render/drawRoom.js
+updateSettingsToText
+ - js/heating-planner/operations/room/render/drawRoomName.js
+ - js/slab-heating-planner/operations/room/render/drawRoom.js
+clearRoomSelectionCache
+ - js/heating-planner/operations/room/select/clearRoomSelectionCache.js
+ - js/slab-heating-planner/operations/room/select/clearRoomSelectionCache.js
+deselectRoom
+ - js/heating-planner/operations/room/select/deselectRoom.js
+ - js/slab-heating-planner/operations/room/select/deselectRoom.js
+selectRoom
+ - js/heating-planner/operations/room/select/selectRoom.js
+ - js/slab-heating-planner/operations/room/select/selectRoom.js
+checkForSelectableRoom
+ - js/heating-planner/operations/room/select/selectRoom.js
+ - js/slab-heating-planner/operations/room/select/selectRoom.js
+processScalingValue
+ - js/heating-planner/operations/scale/calc/processScalingValue.js
+ - js/slab-heating-planner/operations/scale/calc/processScalingValue.js
+addScalingReferencePoint
+ - js/heating-planner/operations/scale/create/addScalingReferencePoint.js
+ - js/slab-heating-planner/operations/scale/create/addScalingReferencePoint.js
+startScaling
+ - js/heating-planner/operations/scale/create/startScaling.js
+ - js/slab-heating-planner/operations/scale/create/startScaling.js
+clearScaling
+ - js/heating-planner/operations/scale/delete/clearScaling.js
+ - js/slab-heating-planner/operations/scale/delete/clearScaling.js
+drawScaler
+ - js/heating-planner/operations/scale/render/drawScaler.js
+ - js/slab-heating-planner/operations/scale/render/drawScaler.js
+getCanvasSize
+ - js/heating-planner/operations/screen/calc/getCanvasSize.js
+ - js/slab-heating-planner/operations/screen/calc/getCanvasSize.js
+getCurrentDragValue
+ - js/heating-planner/operations/screen/calc/getCurrentDragValue.js
+ - js/slab-heating-planner/operations/screen/calc/getCurrentDragValue.js
+getMousePosition
+ - js/heating-planner/operations/screen/calc/getMousePosition.js
+ - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
+getMousePositionAbsolute
+ - js/heating-planner/operations/screen/calc/getMousePosition.js
+ - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
+getCorrectedMousePositionAbsolute
+ - js/heating-planner/operations/screen/calc/getMousePosition.js
+ - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
+mouseCursorIsInsideUi
+ - js/heating-planner/operations/screen/calc/mouseCursorIsInsideUi.js
+ - js/slab-heating-planner/helpers/uiHelpers.js
+translateScreen
+ - js/heating-planner/operations/screen/calc/translateScreen.js
+ - js/heating-planner/operations/screen/update/translateScreen.js
+ - js/slab-heating-planner/operations/screen/calc/translateScreen.js
+drawUiBackground
+ - js/heating-planner/operations/screen/render/drawUiBackground.js
+ - js/slab-heating-planner/rendered/uiElements/draw/drawUiBackground.js
+adjustScreenForExport
+ - js/heating-planner/operations/screen/update/adjustScreenForExport.js
+ - js/slab-heating-planner/operations/screen/calc/adjustScreenForExport.js
+startDragging
+ - js/heating-planner/operations/screen/update/dragAndZoom.js
+ - js/slab-heating-planner/operations/screen/update/dragAndZoom.js
+stopDragging
+ - js/heating-planner/operations/screen/update/dragAndZoom.js
+ - js/slab-heating-planner/operations/screen/update/dragAndZoom.js
+zoomIn
+ - js/heating-planner/operations/screen/update/dragAndZoom.js
+ - js/slab-heating-planner/operations/screen/update/dragAndZoom.js
+zoomOut
+ - js/heating-planner/operations/screen/update/dragAndZoom.js
+ - js/slab-heating-planner/operations/screen/update/dragAndZoom.js
+toggleScreenControls
+ - js/heating-planner/operations/screen/update/toggleScreenControls.js
+ - js/slab-heating-planner/operations/screen/update/toggleScreenControls.js
+updateScreenSumDrag
+ - js/heating-planner/operations/screen/update/updateScreenSumDrag.js
+ - js/slab-heating-planner/operations/screen/update/updateScreenSumDrag.js
+clearSelectionCache
+ - js/heating-planner/operations/selection/clearSelectionCache.js
+ - js/slab-heating-planner/operations/selection/clearSelectionCache.js
+deselectObject
+ - js/heating-planner/operations/selection/deselectObject.js
+ - js/slab-heating-planner/operations/selection/deselectObject.js
+removeSelectedObject
+ - js/heating-planner/operations/selection/removeSelectedObject.js
+ - js/slab-heating-planner/operations/selection/removeSelectedObject.js
+searchSelectableObject
+ - js/heating-planner/operations/selection/searchForSelectableObject.js
+ - js/slab-heating-planner/operations/selection/searchForSelectableObject.js
+selectObject
+ - js/heating-planner/operations/selection/selectObject.js
+ - js/slab-heating-planner/operations/selection/selectObject.js
+draw
+ - js/heating-planner/p5/draw.js
+ - js/slab-heating-planner/p5/draw.js
+mousePressed
+ - js/heating-planner/p5/mousePressed.js
+ - js/slab-heating-planner/p5/mousePressed.js
+rightMouseButtonPressedFunc
+ - js/heating-planner/p5/mousePressed.js
+ - js/slab-heating-planner/p5/mousePressed.js
+mouseReleased
+ - js/heating-planner/p5/mouseReleased.js
+ - js/slab-heating-planner/p5/mouseReleased.js
+leftMouseButtonPressedFunc
+ - js/heating-planner/p5/mouseReleased.js
+ - js/slab-heating-planner/p5/mousePressed.js
+mouseWheel
+ - js/heating-planner/p5/mouseWheel.js
+ - js/slab-heating-planner/p5/mouseWheel.js
+setup
+ - js/heating-planner/p5/setup.js
+ - js/slab-heating-planner/p5/setup.js
+setupWindow
+ - js/heating-planner/p5/setup.js
+ - js/slab-heating-planner/p5/setup.js
+initializeComponents
+ - js/heating-planner/p5/setup.js
+ - js/slab-heating-planner/p5/setup.js
+renderAbsolutePositionObjects
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
+renderTranslatedObjects
+ - js/heating-planner/renderer/renderTranslatedObjects.js
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js
+uploadProject
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+loadProject
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+loadProjectStateFromLocalStorage
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+handleJsonSelect
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+prepareLoading
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+loadBlueprints
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+loadScreenData
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+loadRooms
+ - js/heating-planner/save/load.js
+ - js/slab-heating-planner/save/load.js
+downloadProjectState
+ - js/heating-planner/save/save.js
+ - js/slab-heating-planner/save/save.js
+saveProjectToLocalStorage
+ - js/heating-planner/save/save.js
+ - js/slab-heating-planner/save/save.js
+getProjectState
+ - js/heating-planner/save/save.js
+ - js/slab-heating-planner/save/save.js
+getProjectStateSize
+ - js/heating-planner/save/save.js
+ - js/slab-heating-planner/save/save.js
+
+Blueprint
+ - js/heating-planner/operations/blueprint/definition/Blueprint.js
+ - js/slab-heating-planner/rendered/Blueprint.js
+Room
+ - js/heating-planner/operations/room/definition/Room.js
+ - js/slab-heating-planner/rendered/Room.js
+ElementStore
+ - js/heating-planner/store/ElementStore.js
+ - js/slab-heating-planner/store/ElementStore.js

@@ -1,66 +1,8 @@
 function createButtons() {
+    console.log('createButtons');
     const topRibbonButtonSizes = [];
-
-    fileUploadButton = new ButtonWrapper({
-        text: 'Alaprajz feltöltése',
-        size: REGULAR_BUTTON_SIZE,
-        position: topRibbonButtonPosition(topRibbonButtonSizes),
-        onClick: () => upload(),
-        shouldBeActive: () => true
-    });
-    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
-
-    scaleButton = new ButtonWrapper({
-        text: 'Méretarány felvétele',
-        size: REGULAR_BUTTON_SIZE,
-        position: topRibbonButtonPosition(topRibbonButtonSizes),
-        onClick: () => startScaling(),
-        shouldBeActive: () => blueprintDataIsPresent()
-    });
-    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
-
-    addRoomsButton = new ButtonWrapper({
-        text: 'Helyiség felvétele',
-        size: REGULAR_BUTTON_SIZE,
-        position: topRibbonButtonPosition(topRibbonButtonSizes),
-        onClick: () => showAddRoomDialog(),
-        shouldBeActive: () => pixelsPerMetersRatio
-    });
-    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
-
-    addTopRibbonDelimeter(topRibbonButtonPosition(topRibbonButtonSizes).x);
-    topRibbonButtonSizes.push(REGULAR_BUTTON_SIZE);
-
     const leftRibbonButtonSizes = [];
-
-    new ButtonWrapper({
-        text: 'Projekt mentése',
-        size: TALL_SMALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => downloadProjectState(),
-        shouldBeActive: () => true
-    });
-    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
-
-    new ButtonWrapper({
-        text: 'Projekt betöltése',
-        size: TALL_SMALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => uploadProject(),
-        shouldBeActive: () => true
-    });
-    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
-
-    addLeftRibbonDelimeter(sidePanelButtonPosition(leftRibbonButtonSizes).y);
-
-    clearBlueprintsButton = new ButtonWrapper({
-        text: 'Alaprajzok eltávolítása',
-        size: TALL_SMALL_BUTTON_SIZE,
-        position: sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => promptToClearBlueprints(),
-        shouldBeActive: () => blueprintDataIsPresent()
-    });
-    leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
+    createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes);
 
     for (let type in panelTypes) {
         new ButtonWrapper({
@@ -130,17 +72,6 @@ function createButtons() {
         onClick: () => displayHelpData(),
         shouldBeActive: () => true
     });
-}
-
-function topRibbonButtonPosition(topRibbonButtonSizes) {
-  const sumButtonWidth = topRibbonButtonSizes
-    .map((trbs) => trbs.x)
-    .reduce(sumFunction, 0);
-  const sumGap = (topRibbonButtonSizes.length + 1) * BUTTON_GAP_X;
-  return {
-    x: 100 + sumButtonWidth + sumGap,
-    y: 10,
-  };
 }
 
 function sidePanelButtonPosition(sideRibbonButtonSizes) {

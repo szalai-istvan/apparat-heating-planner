@@ -9,7 +9,6 @@ FOUR_SPACES = '    '
 EMPTY_STRING = ''
 P5 = 'p5'
 
-
 HTML_FILE_PROJECT_MAPPING = {
     'heating-planner.html': ['common', 'heating-planner'],
     'slab-heating-planner.html': ['common', 'slab-heating-planner']
@@ -122,17 +121,17 @@ def formatAndPrintProjectData(projects):
     projectLineCounts = [p[2] for p in projectData]
 
     maxProjectLength = max([len(pn) for pn in projectNames])
-    projectNames = [pn + ' ' * (maxProjectLength + 4 - len(pn)) for pn in projectNames]
+    projectNames = [' ' + pn + ' ' * (maxProjectLength + 4 - len(pn)) for pn in projectNames]
 
-    projectFileCounts = [f'{pfc:_} files'.replace('_', ' ') for pfc in projectFileCounts]
+    projectFileCounts = [f'{pfc:_} files '.replace('_', ' ') for pfc in projectFileCounts]
     maxProjectFileCountsLength = max([len(pfc) for pfc in projectFileCounts])
     projectFileCounts = [' ' * (maxProjectFileCountsLength + 4 - len(pfc)) + pfc for pfc in projectFileCounts]
 
-    projectLineCounts = [f'{plc:_} lines'.replace('_', ' ') for plc in projectLineCounts]
+    projectLineCounts = [f'{plc:_} lines '.replace('_', ' ') for plc in projectLineCounts]
     maxProjectLineCountsLength = max([len(plc) for plc in projectLineCounts])
     projectLineCounts = [' ' * (maxProjectLineCountsLength + 4 - len(plc)) + plc for plc in projectLineCounts]
 
-    print('\n🎯 Project brief summary:')
+    print('\n🎯  Project brief summary:')
     print('+' + '-'*len(projectNames[0]) + '+' + '-'*len(projectFileCounts[0]) + '+' + '-'*len(projectLineCounts[0]) + '+')
     for i in range(len(projectNames)):
         print(f'|{projectNames[i]}|{projectFileCounts[i]}|{projectLineCounts[i]}|')
@@ -144,13 +143,15 @@ def process():
     files = list(HTML_FILE_PROJECT_MAPPING.keys())
     projects = []
     for f in files:
-        addScriptsToFile(f)
-        print(f'✅ Scripts updated in {f}')
-
+        try:
+            addScriptsToFile(f)
+            print(f'✅  \033[1m{f}\033[0;0m scripts updated successfully!')
+        except:
+            print(f'❌  \033[1m{f}\033[0;0m script update failed!')
         for p in HTML_FILE_PROJECT_MAPPING[f]:
             projects.append(p)
 
-    projects = set(projects)
+    projects = sorted(set(projects))
     formatAndPrintProjectData(projects)
 
 process()
