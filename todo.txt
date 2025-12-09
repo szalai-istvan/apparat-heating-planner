@@ -28,9 +28,6 @@ uiHelpers.js
 drawBlueprint.js
  - js/heating-planner/operations/blueprint/render/drawBlueprint.js
  - js/slab-heating-planner/operations/blueprint/render/drawBlueprint.js
-setGridSeed.js
- - js/heating-planner/operations/grid/create/setGridSeed.js
- - js/slab-heating-planner/operations/grid/create/setGridSeed.js
 removeGridSeed.js
  - js/heating-planner/operations/grid/delete/removeGridSeed.js
  - js/slab-heating-planner/operations/grid/delete/removeGridSeed.js
