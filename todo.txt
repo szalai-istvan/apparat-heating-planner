@@ -68,9 +68,6 @@ drawUiBackground.js
 adjustScreenForExport.js
  - js/heating-planner/operations/screen/update/adjustScreenForExport.js
  - js/slab-heating-planner/operations/screen/calc/adjustScreenForExport.js
-dragAndZoom.js
- - js/heating-planner/operations/screen/update/dragAndZoom.js
- - js/slab-heating-planner/operations/screen/update/dragAndZoom.js
 updateScreenSumDrag.js
  - js/heating-planner/operations/screen/update/updateScreenSumDrag.js
  - js/slab-heating-planner/operations/screen/update/updateScreenSumDrag.js
