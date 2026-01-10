@@ -1,4 +1,4 @@
-class ElementStore {
+class ElementStore { //Project-specific
     /** @type {Blueprint[]} */
     blueprints = [];
     /** @type {Room[]} */

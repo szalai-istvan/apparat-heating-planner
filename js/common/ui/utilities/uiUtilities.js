@@ -14,18 +14,6 @@ function modalIsOpen(dialog) {
 }
 
 /**
- * Visszaadja a dokumntum befoglaló méreteit
- * 
- * @returns {{vw: number, vh: number}}, a dokumentum méretei
- */
-function getDocumentDimensions() {
-    return {
-        vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
-        vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-    };
-}
-
-/**
  * Korrigálja az adott limithez a paraméterül kapott koordinátát
  * 
  * @param {number} lim limit paraméter
@@ -33,7 +21,8 @@ function getDocumentDimensions() {
  * @returns korrigált koordinátaérték
  */
 function calculateCorrector(lim, coord) {
-    return (Math.abs(lim - coord) + lim - coord) / (2 * screenZoom);
+    const dif = lim - coord;
+    return (Math.abs(dif) + dif) / (2 * screenZoom);
 }
 
 /**

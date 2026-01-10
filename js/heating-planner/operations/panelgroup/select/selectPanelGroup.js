@@ -42,7 +42,7 @@ function checkForSelectablePanelGroup() {
         return cachedSelectablePanelGroup;
     }
 
-    const selection = elementStore.panelGroups.filter(pg => mouseCursorIsInsideMembersTextbox(pg));
+    const selection = elementStore.panelGroups.filter(pg => mouseCursorIsInsidePanelGroupMembersTextbox(pg));
     const panelGroup = selection[0];
     if (panelGroup) {
         cachedSelectablePanelGroup = panelGroup;

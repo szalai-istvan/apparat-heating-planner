@@ -1,9 +1,11 @@
+//Project-specific
+
 /**
  * Szobák törlése utáni műveletek
  * 
  * @returns {undefined}
  */
-function onRoomsCleared() {
+function onRoomsCleared() { //Project-specific
     elementStore.structureElements = [];
     elementStore.structureElementsById = {};
 

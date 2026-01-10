@@ -1,3 +1,5 @@
+//Project-specific
+
 // Szoba szerkezeti elem konstansok
 const BEAM_COLOR = "lightgrey";
 const BEAM_WIDTH_METER = 0.06;

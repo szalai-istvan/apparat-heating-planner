@@ -1,3 +1,4 @@
+//Project-specific
 // tooltip konstansok
 const CURSOR_TOOLTIP_DURATION = 15_000;
 

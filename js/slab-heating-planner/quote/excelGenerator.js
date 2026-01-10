@@ -1,6 +1,7 @@
+//Project-specific
 let EXCEL_ARRAY_BUFFER = null;
 
-function startExcelExport(transportKm) {
+function startExcelExport(transportKm) { //Project-specific
     const summary = summaryCalculator.calculateSummary();
     summary.additionalElements.transport = transportKm || null;
     createExcelFile(summary);

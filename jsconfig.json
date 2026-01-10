@@ -5,5 +5,5 @@
     "checkJs": false,
     "baseUrl": "./"
   },
-  "include": ["**/*.js", "**/*.html"]
+  "include": ["**/common/**/*.js", "**/heating-planner/**/*.js", "**/slab-heating-planner/**/*.js", "**/*.html"]
 }

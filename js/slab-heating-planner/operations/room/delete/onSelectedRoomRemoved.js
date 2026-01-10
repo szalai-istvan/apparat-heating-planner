@@ -1,22 +1,12 @@
+//Project-specific
+
 /**
- * Törli a kiválasztott szobát és a benne található födémfűtő csoportokat.
+ * Kiválasztott szoba törlése utáni műveletek
  * 
  * @returns {undefined}
  */
-function removeSelectedRoom() {
-    const room = selectedRoom;
-    if (room) {
-        elementStore.remove(room);
-        selectedRoom = null;
-        giveBackSlabHeaterColor(room.slabHeaterColor);
-    }
-
+function onSelectedRoomRemoved() { //Project-specific
     removeSlabHeatersFromDeletedRoom(room);
-
-    deselectObject();
-    if (elementStore.rooms.length === 0) {
-        removeGridSeed();
-    }
 }
 
 function removeSlabHeatersFromDeletedRoom(room) {

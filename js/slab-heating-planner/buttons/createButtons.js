@@ -1,4 +1,6 @@
-function createButtons() {
+//Project-specific
+
+function createButtons() { //Project-Specific
     const topRibbonButtonSizes = [];
     const leftRibbonButtonSizes = [];
     createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes);

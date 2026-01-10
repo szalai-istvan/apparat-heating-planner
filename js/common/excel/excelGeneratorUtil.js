@@ -6,7 +6,6 @@ function emptyCells(n) {
     return Array(n).fill(null);
 }
 
-
 function fillRangeWithColor(range, color) {
     range.fill = {
         type: "pattern",

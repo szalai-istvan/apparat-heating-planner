@@ -8,12 +8,8 @@ function setup() {
     canvas = createCanvas(docSize.vw, window.innerHeight);
     canvas.parent(BODY);
     screenCanvas = canvas;
-
-    apparatLogo = loadImage(APPARAT_LOGO);
-    cicisNeni = loadImage(CICIS_NENI);
     
     angleMode(DEGREES);
-    // createButtons();
     
     if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
         loadProject();        
@@ -32,9 +28,11 @@ function setupWindow() {
 
 function initializeComponents() {
     screenSumDrag = createPoint(0, 0);
-    apparatLogo = loadImage('img/APPARAT_transparent.PNG');
     testPoint = createPoint(TEST_POINT_COORDINATE, TEST_POINT_COORDINATE);
     pointOrigin = createPoint(0, 0);
+
+    apparatLogo = loadImage(APPARAT_LOGO);
+    cicisNeni = loadImage(CICIS_NENI);
 
     createButtons();
 }

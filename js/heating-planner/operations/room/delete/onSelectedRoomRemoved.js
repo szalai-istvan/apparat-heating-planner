@@ -1,26 +1,15 @@
+//Project-specific
+
 /**
- * Törli a kiválasztott szobát és a benne található fűtőelem csoportokat.
+ * Kiválasztott szoba törlése utáni műveletek
  * 
  * @returns {undefined}
  */
-function removeSelectedRoom() {
-    const room = selectedRoom;
-    if (!room) {
-        return;
-    }
-
-    elementStore.remove(room);
-    selectedRoom = null;
-
+function onSelectedRoomRemoved() { //Project-specific
     const structureElements = getStructureElementsById(room.structureElementsId);
     elementStore.remove(structureElements);
 
     removePanelGroupsFromDeletedRoom(room);
-
-    deselectObject();
-    if (elementStore.rooms.length === 0) {
-        removeGridSeed();
-    }
 }
 
 /** @param {Room} room */
