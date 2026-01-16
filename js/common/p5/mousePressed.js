@@ -11,6 +11,7 @@ function mousePressed() {
         rightMouseButtonPressedFunc();
     } else if (mouseButton === LEFT) {
         startDragging();
+        searchSelectableObject(); // TODO ellenőrizni hogy ez kell-e ide: Az egyik projektben nincs itt
     }
 }
 

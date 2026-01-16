@@ -1,55 +1,22 @@
+- boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
+- pipedriver pont mozgatás lehetősége
+- Csövek ne lehessenek 20 m-nél hosszabbak!
+- Födémfűtő label alatt legyen leírva fölfelé kerekítve fél méter hozzáadással a csőhossz
+    - (L + 0.5) felfelé kerekítve félméterenkénti felbontássa
+- dobozcsoport lehelyezésekor legyen validálva, hogy szobában van.
+- Excel szerkesztés
+- Pont törlése (pipeDriver)
+- Forgatás lehetősége (alaprajz és minden)
+- Lehessen kézzel a panelokat csoportosítani
+- Minden szobában két szín váltakozzon a paneloknál
+- Minta: Szarvas Gábor út GFH-8
+
+optional:
+- Szobák ne téglalap hanem körberajzolhatóak legyenek
+    - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
+- Szoba overlap validációt megcsinálni JÓRA.
+
 File duplications:
-getCanvasSize.js
- - js/heating-planner/operations/screen/calc/getCanvasSize.js
- - js/slab-heating-planner/operations/screen/calc/getCanvasSize.js
-getCurrentDragValue.js
- - js/heating-planner/operations/screen/calc/getCurrentDragValue.js
- - js/slab-heating-planner/operations/screen/calc/getCurrentDragValue.js
-getMousePosition.js
- - js/heating-planner/operations/screen/calc/getMousePosition.js
- - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
-drawUiBackground.js
- - js/heating-planner/operations/screen/render/drawUiBackground.js
- - js/slab-heating-planner/rendered/uiElements/draw/drawUiBackground.js
-adjustScreenForExport.js
- - js/heating-planner/operations/screen/update/adjustScreenForExport.js
- - js/slab-heating-planner/operations/screen/calc/adjustScreenForExport.js
-updateScreenSumDrag.js
- - js/heating-planner/operations/screen/update/updateScreenSumDrag.js
- - js/slab-heating-planner/operations/screen/update/updateScreenSumDrag.js
-clearSelectionCache.js
- - js/heating-planner/operations/selection/clearSelectionCache.js
- - js/slab-heating-planner/operations/selection/clearSelectionCache.js
-deselectObject.js
- - js/heating-planner/operations/selection/deselectObject.js
- - js/slab-heating-planner/operations/selection/deselectObject.js
-removeSelectedObject.js
- - js/heating-planner/operations/selection/removeSelectedObject.js
- - js/slab-heating-planner/operations/selection/removeSelectedObject.js
-searchForSelectableObject.js
- - js/heating-planner/operations/selection/searchForSelectableObject.js
- - js/slab-heating-planner/operations/selection/searchForSelectableObject.js
-selectObject.js
- - js/heating-planner/operations/selection/selectObject.js
- - js/slab-heating-planner/operations/selection/selectObject.js
-draw.js
- - js/heating-planner/p5/draw.js
- - js/slab-heating-planner/p5/draw.js
-mousePressed.js
- - js/heating-planner/p5/mousePressed.js
- - js/slab-heating-planner/p5/mousePressed.js
-mouseReleased.js
- - js/heating-planner/p5/mouseReleased.js
- - js/slab-heating-planner/p5/mouseReleased.js
-mouseWheel.js
- - js/heating-planner/p5/mouseWheel.js
- - js/slab-heating-planner/p5/mouseWheel.js
-renderAbsolutePositionObjects.js
- - js/heating-planner/renderer/renderAbsolutePositionObjects.js
- - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
-renderTranslatedObjects.js
- - js/heating-planner/renderer/renderTranslatedObjects.js
- - js/slab-heating-planner/renderer/renderTranslatedObjects.js
 load.js
  - js/heating-planner/save/load.js
  - js/slab-heating-planner/save/load.js
@@ -61,15 +28,6 @@ ElementStore.js
  - js/slab-heating-planner/store/ElementStore.js
 
 Function duplications:
-createRadioButton
- - js/common/buttons/addRoomsButton.js
- - js/slab-heating-planner/helpers/html/createRadioButton.js
-mouseCursorIsInsideUi
- - js/common/ui/screen/cursor.js
- - js/heating-planner/operations/screen/calc/mouseCursorIsInsideUi.js
-noModalsAreOpened
- - js/common/ui/screen/toggleScreenControls.js
- - js/common/ui/utilities/uiUtilities.js
 rotateSelectedObject
  - js/heating-planner/buttons/rotateSelectedObject.js
  - js/slab-heating-planner/buttons/componentManageButtons.js
@@ -97,66 +55,6 @@ getClassName
 createUniqueId
  - js/heating-planner/helpers/math/createUniqueId.js
  - js/slab-heating-planner/helpers/helpers.js
-getCanvasSize
- - js/heating-planner/operations/screen/calc/getCanvasSize.js
- - js/slab-heating-planner/operations/screen/calc/getCanvasSize.js
-getCurrentDragValue
- - js/heating-planner/operations/screen/calc/getCurrentDragValue.js
- - js/slab-heating-planner/operations/screen/calc/getCurrentDragValue.js
-getMousePosition
- - js/heating-planner/operations/screen/calc/getMousePosition.js
- - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
-getMousePositionAbsolute
- - js/heating-planner/operations/screen/calc/getMousePosition.js
- - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
-getCorrectedMousePositionAbsolute
- - js/heating-planner/operations/screen/calc/getMousePosition.js
- - js/slab-heating-planner/operations/screen/calc/getMousePosition.js
-drawUiBackground
- - js/heating-planner/operations/screen/render/drawUiBackground.js
- - js/slab-heating-planner/rendered/uiElements/draw/drawUiBackground.js
-adjustScreenForExport
- - js/heating-planner/operations/screen/update/adjustScreenForExport.js
- - js/slab-heating-planner/operations/screen/calc/adjustScreenForExport.js
-updateScreenSumDrag
- - js/heating-planner/operations/screen/update/updateScreenSumDrag.js
- - js/slab-heating-planner/operations/screen/update/updateScreenSumDrag.js
-clearSelectionCache
- - js/heating-planner/operations/selection/clearSelectionCache.js
- - js/slab-heating-planner/operations/selection/clearSelectionCache.js
-deselectObject
- - js/heating-planner/operations/selection/deselectObject.js
- - js/slab-heating-planner/operations/selection/deselectObject.js
-removeSelectedObject
- - js/heating-planner/operations/selection/removeSelectedObject.js
- - js/slab-heating-planner/operations/selection/removeSelectedObject.js
-searchSelectableObject
- - js/heating-planner/operations/selection/searchForSelectableObject.js
- - js/slab-heating-planner/operations/selection/searchForSelectableObject.js
-selectObject
- - js/heating-planner/operations/selection/selectObject.js
- - js/slab-heating-planner/operations/selection/selectObject.js
-draw
- - js/heating-planner/p5/draw.js
- - js/slab-heating-planner/p5/draw.js
-mousePressed
- - js/heating-planner/p5/mousePressed.js
- - js/slab-heating-planner/p5/mousePressed.js
-rightMouseButtonPressedFunc
- - js/heating-planner/p5/mousePressed.js
- - js/slab-heating-planner/p5/mousePressed.js
-mouseReleased
- - js/heating-planner/p5/mouseReleased.js
- - js/slab-heating-planner/p5/mouseReleased.js
-leftMouseButtonPressedFunc
- - js/heating-planner/p5/mouseReleased.js
- - js/slab-heating-planner/p5/mousePressed.js
-mouseWheel
- - js/heating-planner/p5/mouseWheel.js
- - js/slab-heating-planner/p5/mouseWheel.js
-renderAbsolutePositionObjects
- - js/heating-planner/renderer/renderAbsolutePositionObjects.js
- - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js
 uploadProject
  - js/heating-planner/save/load.js
  - js/slab-heating-planner/save/load.js

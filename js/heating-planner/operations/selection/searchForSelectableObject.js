@@ -1,9 +1,10 @@
+//Project-specific
 /**
  * Megkeresi az első objektumot, amelyet ki lehet választani és visszaadja.
  * 
  * @returns {*} Kiválasztható objektum
  */
-function searchSelectableObject() {
+function searchSelectableObject() { //Project-specific
     const selectedRoom = selectRoom();
     if (selectedRoom) {
         selectedObject = selectedRoom;

@@ -1,4 +1,11 @@
 /**
+ * Függvény, amely lefut a szoba létrehozása után.
+ * 
+ * @param {Room} room 
+ */
+let onRoomCreatedCallback = (room) => {};
+
+/**
  * Létrehoz egy szobát.
  * 
  * @param {string} name szoba neve
@@ -18,11 +25,15 @@ function createRoom(name, tilted) {
     const room = new Room(name, tilted);
     selectObject(room);
 
-    onRoomIsCreated && onRoomIsCreated(room);
+    onRoomCreatedCallback(room);
 
     return true;
 }
 
 function roomNameAlreadyExists(name) {
     return elementStore.rooms.map(room => room.name.toLowerCase()).includes(name.toLowerCase());
+}
+
+function onRoomIsCreated(callback) {
+    onRoomCreatedCallback = callback;
 }

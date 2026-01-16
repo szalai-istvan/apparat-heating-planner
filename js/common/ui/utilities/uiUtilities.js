@@ -1,19 +1,4 @@
 /**
- * Megállapítja, hogy van-e pillanatnyilag nyitott dialógus.
- * 
- * @returns {boolean} true, ha egy dialógus sincs megnyitva
- */
-function noModalsAreOpened() {
-    return (
-        MODALS.filter((modal) => modalIsOpen(modal)).length === 0
-    );
-}
-
-function modalIsOpen(dialog) {
-    return dialog.getAttribute(OPEN) !== null;
-}
-
-/**
  * Korrigálja az adott limithez a paraméterül kapott koordinátát
  * 
  * @param {number} lim limit paraméter

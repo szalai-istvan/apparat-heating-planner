@@ -1,9 +1,10 @@
+// Project-specific
 /**
  * Felrajzolja a kijelzőre az abszolút pozíciójú elemeket.
  * 
  * @returns {undefined}
  */
-function renderAbsolutePositionObjects() {
+function renderAbsolutePositionObjects() { // Project-specific
     drawUiBackground();
     drawTooltips();
     elementStore.buttons.forEach(button => drawButtonWrapper(button));

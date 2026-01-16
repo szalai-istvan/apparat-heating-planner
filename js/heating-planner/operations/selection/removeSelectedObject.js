@@ -1,9 +1,10 @@
+//Project-specific
 /**
  * Törli a kijelölt objektumot.
  * 
  * @returns {undefined}
  */
-function removeSelectedObject() {
+function removeSelectedObject() { //Project-specific
     const selected = selectedObject;
     if (!selected) {
         return;

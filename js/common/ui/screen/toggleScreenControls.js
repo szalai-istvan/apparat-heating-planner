@@ -9,6 +9,20 @@ function toggleScreenControls() {
     controlsAreEnabled = noModalsAreOpened();
 }
 
+/**
+ * Megállapítja, hogy van-e pillanatnyilag nyitott dialógus.
+ * 
+ * @returns {boolean} true, ha egy dialógus sincs megnyitva
+ */
 function noModalsAreOpened() {
-    return MODALS.filter((modal) => modal.getAttribute(OPEN) !== null).length === 0;
+    return MODALS.filter((modal) => modalIsOpen(modal)).length === 0;
+}
+
+/**
+ * Megállapítja, hogy a paraméterül kapott dialógus nyitva van-e.
+ * 
+ * @returns {boolean} true, ha nyitva van.
+ */
+function modalIsOpen(dialog) {
+    return dialog.getAttribute(OPEN) !== null;
 }

@@ -1,3 +1,4 @@
+//Project-specific
 /**
  * Felrajzolja a kijelzőre a draggel korrigált pozíciójú elemeket.
  * 

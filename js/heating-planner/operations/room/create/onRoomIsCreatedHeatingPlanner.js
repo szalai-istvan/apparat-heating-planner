@@ -4,9 +4,11 @@
  * @param {Room} room szoba
  * @returns {undefined}
  */
-function onRoomIsCreated(room) {
+function onRoomIsCreatedHeatingPlanner(room) {
     const structureElements = new StructureElements(room);
     room.structureElementsId = structureElements.id;
     elementStore.register(room);
     elementStore.register(structureElements);
 }
+
+onRoomIsCreated(onRoomIsCreatedHeatingPlanner);

@@ -1,3 +1,4 @@
+//Project-specific
 let selectedObject;
 
 /**
@@ -6,7 +7,7 @@ let selectedObject;
  * @param {*} obj 
  * @returns 
  */
-function selectObject(obj) {
+function selectObject(obj) { //Project-specific
     const className = getClassName(obj);
     if (className === CLASS_ROOM) {
         if (selectRoom(obj)) {

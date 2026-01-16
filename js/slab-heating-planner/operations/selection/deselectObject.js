@@ -1,9 +1,10 @@
+//Project-specific
 /**
  * Megszűnteti a kijelölt objektum kiválasztását és visszaküldi, hogy sikerült-e
  * 
  * @returns {boolean} a művelet sikeressége
  */
-function deselectObject() {
+function deselectObject() { //Project-specific
     const selected = selectedObject;
     if (selected === null || selected === undefined) {
         return true;
