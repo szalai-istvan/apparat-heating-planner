@@ -8,6 +8,6 @@ function clearRooms() {
     elementStore.roomsById = {};
     
     deselectRoom();
-    
-    onRoomsCleared && onRoomsCleared();
+
+    dispatchCustomEvent(ROOMS_CLEARED, {});
 }

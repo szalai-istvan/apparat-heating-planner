@@ -123,3 +123,15 @@ const TYPE = 'type';
 const VALUE = 'value';
 
 const WHITE = 'white';
+
+// ID-k
+const ROOM_PREFILL_RADIO_SET = 'roomPrefillRadioSet';
+
+// Validáció konstansok
+const TEST_POINT_COORDINATE = 20_000_000;
+
+// Geometria konstansok
+const PARALLELITY_TRESHOLD = 0.0001;
+const MAXIMUM_LINE_INTERSECTION_ROUNDING_ERROR = 0.0001;
+const INFINITE_LINE_LENGTH = 20_000_000;
+const DELTA_X_VERTICALITY_THRESHOLD = 0.00001;

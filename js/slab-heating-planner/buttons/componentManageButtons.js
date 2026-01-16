@@ -10,7 +10,7 @@ var removeFromGroupButton;
  * @param {Number} direction
  * @returns {undefined}
  */
-function rotateSelectedObject(direction) {
+function rotateSelectedObjectSlabHeatingPlanner(direction) {
     if (selectedSlabHeaterGroup) {
         rotateSelectedSlabHeaterGroup(direction);
     } else if (selectedBoxGroup) {
@@ -33,3 +33,5 @@ function removeLastFromSelectedGroup() {
         removeLastBoxFromSelectedGroup();
     }
 }
+
+registerEventListener(ROTATE_SELECTED_OBJECT, event => rotateSelectedObjectSlabHeatingPlanner(event.detail.direction));

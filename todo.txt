@@ -16,78 +16,105 @@ optional:
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
 - Szoba overlap validációt megcsinálni JÓRA.
 
-File duplications:
-load.js
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-save.js
- - js/heating-planner/save/save.js
- - js/slab-heating-planner/save/save.js
-ElementStore.js
- - js/heating-planner/store/ElementStore.js
- - js/slab-heating-planner/store/ElementStore.js
+long-term:
+- Szögek egységesítése (rad vs. deg)
 
 Function duplications:
-rotateSelectedObject
- - js/heating-planner/buttons/rotateSelectedObject.js
- - js/slab-heating-planner/buttons/componentManageButtons.js
-calculateDistance
- - js/heating-planner/geometry/point/calculateDistance.js
- - js/slab-heating-planner/helpers/helpers.js
-toggleDisplayDebugInfo
- - js/heating-planner/helpers/debugHelpers.js
- - js/slab-heating-planner/helpers/debug/debug.js
-evictLocalStorageAndReload
- - js/heating-planner/helpers/debugHelpers.js
- - js/slab-heating-planner/helpers/debug/debug.js
-drawAxis
- - js/heating-planner/helpers/debugHelpers.js
- - js/slab-heating-planner/helpers/debug/drawDebugInfo.js
-drawCursorDebugInfo
- - js/heating-planner/helpers/debugHelpers.js
- - js/slab-heating-planner/helpers/debug/drawDebugInfo.js
-checkClass
- - js/heating-planner/helpers/validationHelpers.js
- - js/slab-heating-planner/helpers/classes/checkClass.js
-getClassName
- - js/heating-planner/helpers/validationHelpers.js
- - js/slab-heating-planner/helpers/classes/getClassName.js
-createUniqueId
- - js/heating-planner/helpers/math/createUniqueId.js
- - js/slab-heating-planner/helpers/helpers.js
-uploadProject
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-loadProject
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-loadProjectStateFromLocalStorage
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-handleJsonSelect
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-prepareLoading
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-loadBlueprints
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-loadScreenData
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-loadRooms
- - js/heating-planner/save/load.js
- - js/slab-heating-planner/save/load.js
-downloadProjectState
- - js/heating-planner/save/save.js
- - js/slab-heating-planner/save/save.js
-saveProjectToLocalStorage
- - js/heating-planner/save/save.js
- - js/slab-heating-planner/save/save.js
-getProjectState
- - js/heating-planner/save/save.js
- - js/slab-heating-planner/save/save.js
-getProjectStateSize
- - js/heating-planner/save/save.js
- - js/slab-heating-planner/save/save.js
+onSelectedRoomRemoved.js
+ - js/heating-planner/actions/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
+clearSelectionCache.js
+ - js/heating-planner/actions/selection/clearSelectionCache.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/clearSelectionCache.js --- PROJECT SPECIFIC
+deselectObject.js
+ - js/heating-planner/actions/selection/deselectObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/deselectObject.js --- PROJECT SPECIFIC
+removeSelectedObject.js
+ - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/removeSelectedObject.js --- PROJECT SPECIFIC
+searchForSelectableObject.js
+ - js/heating-planner/actions/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
+selectObject.js
+ - js/heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/selectObject.js --- PROJECT SPECIFIC
+excelGenerator.js
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+renderAbsolutePositionObjects.js
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
+renderTranslatedObjects.js
+ - js/heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
+
+Function duplications:
+onSelectedRoomRemoved
+ - js/heating-planner/actions/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
+clearSelectionCache
+ - js/heating-planner/actions/selection/clearSelectionCache.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/clearSelectionCache.js --- PROJECT SPECIFIC
+deselectObject
+ - js/heating-planner/actions/selection/deselectObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/deselectObject.js --- PROJECT SPECIFIC
+removeSelectedObject
+ - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/removeSelectedObject.js --- PROJECT SPECIFIC
+searchSelectableObject
+ - js/heating-planner/actions/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
+selectObject
+ - js/heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/operations/selection/selectObject.js --- PROJECT SPECIFIC
+startExcelExport
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+downloadExcel
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+createColumnsForRooms
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillRoomNames
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillPanelCounts
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillRoomSummaryFormulas
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillPanelCountFormulas
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillCoolingAndHeatingFormulas
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillPanelPriceFormulas
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillPanelPipeLengthFormulas
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillPanelAreaFormulas
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+fillSummaryTable
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+adjustRoomColumnWidths
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+addPicture
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+base64ToArrayBuffer
+ - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
+renderAbsolutePositionObjects
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
+renderTranslatedObjects
+ - js/heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC

@@ -2,7 +2,7 @@ import os
 check = {'fileDuplications': True, 'functionDuplications': True, 'classDuplications': True}
 
 PROJECT_SPECIFIC = ' --- PROJECT SPECIFIC'
-PRINT_PROJECT_SPECIFIC = False
+PRINT_PROJECT_SPECIFIC = True
 
 cwd = os.getcwd()
 jsFiles = []
