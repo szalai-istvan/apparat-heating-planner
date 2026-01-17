@@ -67,8 +67,3 @@ function recalculatePipeDriverConfiguration(pipeDriver) {
         pipeDriver.isFullyConfigured = true;
     }
 }
-
-// todo ezek setup lépések
-registerProjectSpecificLoadingStep(loadSlabHeaters);
-registerProjectSpecificLoadingStep(loadBoxes);
-registerProjectSpecificLoadingStep(loadPipeDrivers);

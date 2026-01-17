@@ -9,7 +9,7 @@ const projectSpecificLoadingSteps = [];
  */
 function loadProject(text = undefined) {
     try {
-        saveOrLoadInProgress = true;
+        disableRendering();
         const projectState = text ? JSON.parse(text) : loadProjectStateFromLocalStorage();
         if (!projectState) {
             return;
@@ -26,7 +26,7 @@ function loadProject(text = undefined) {
 
         selectableObject && selectObject(selectableObject);
     } finally {
-        saveOrLoadInProgress = false;
+        enableRendering();
     }
 }
 

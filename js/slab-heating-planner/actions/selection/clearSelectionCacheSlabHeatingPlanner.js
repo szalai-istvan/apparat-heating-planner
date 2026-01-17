@@ -1,11 +1,9 @@
-//Project-specific
 /**
  * Törli az összes kijelölhető objektum kijelölő cache értékét
  * 
  * @returns {undefined}
  */
-function clearSelectionCache() { //Project-specific
-    cachedSelectableRoom = null;
+function clearSelectionCacheSlabHeatingPlanner() {
     cachedSelectableSlabHeaterGroup = null;
     cachedSelectableBoxGroup = null;
     cachedSelectablePipeDriver = null;

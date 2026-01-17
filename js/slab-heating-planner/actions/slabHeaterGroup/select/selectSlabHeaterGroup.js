@@ -4,6 +4,19 @@ let selectedSlabHeaterGroup = null;
 let cachedSelectableSlabHeaterGroup = null;
 
 /**
+ * Megkeresi és visszaadja a kiválasztható födémfűtő csoportot.
+ * 
+ * @returns {SlabHeaterGroup}
+ */
+function searchForSelectableSlabHeaterGroup() {
+    const selectedSlabHeaterGroup = selectSlabHeaterGroup();
+    if (selectedSlabHeaterGroup) {
+        selectedObject = selectedSlabHeaterGroup;
+        return selectedSlabHeaterGroup;
+    }
+}
+
+/**
  * Megkeresi és kiválasztja a födémfűtő csoportot és visszaadja
  * 
  * @param {SlabHeaterGroup} slabHeaterGroup Opcionális paraméter, specifikálható a kiválasztandó födémfűtő csoport.

@@ -4,6 +4,19 @@ let selectedBoxGroup = null;
 let cachedSelectableBoxGroup = null;
 
 /**
+ * Megkeresi és visszaadja a kiválasztható dobozcsoportot.
+ * 
+ * @returns {BoxGroup}
+ */
+function searchForSelectableBoxGroup() {
+    const selectedBoxGroup = selectBoxGroup();
+    if (selectedBoxGroup) {
+        selectedObject = selectedBoxGroup;
+        return selectedBoxGroup;
+    }
+}
+
+/**
  * Megkeresi és kiválasztja a doboz csoportot és visszaadja
  * 
  * @param {BoxGroup} boxGroup Opcionális paraméter, specifikálható a kiválasztandó csoport.

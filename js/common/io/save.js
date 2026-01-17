@@ -1,5 +1,3 @@
-/** @type {boolean}, folyamatban van-e mentés vagy betöltés */
-let saveOrLoadInProgress = false;
 /** @type {Function[]} */
 const projectSpecificSavingSteps = [];
 
@@ -10,7 +8,7 @@ const projectSpecificSavingSteps = [];
  */
 function downloadProjectState() {
     try {
-        saveOrLoadInProgress = true;
+        disableRendering();
         const projectState = getProjectState();
         var aElement = document.createElement('a');
 
@@ -31,7 +29,7 @@ function downloadProjectState() {
         document.body.removeChild(aElement);
 
     } finally {
-        saveOrLoadInProgress = false;
+        enableRendering();
     }
 }
 
@@ -42,14 +40,14 @@ function downloadProjectState() {
  */
 function saveProjectToLocalStorage() {
     try {
-        saveOrLoadInProgress = true;
+        disableRendering();
         PROJECT_STATE_LOGGING_ENABLED && console.log('>>> Saving project to local storage');
         const stateStr = getProjectState();
         PROJECT_STATE_LOGGING_ENABLED && console.log('Project size: ' + getProjectStateSize(stateStr));
         localStorage.setItem(LOCAL_STORAGE_DATA_KEY, stateStr);
     } finally {
         PROJECT_STATE_LOGGING_ENABLED && console.log('<<< Saving project to local storage');
-        saveOrLoadInProgress = false;
+        enableRendering();
     }
 }
 
@@ -114,7 +112,6 @@ function getProjectStateSize(stateStr) {
 function addProjectSpecificObjectsToProjectState(projectState) {
     projectSpecificSavingSteps.forEach(psss => psss(projectState));
 }
-
 
 /**
  * Rögzít egy projekt specifikus mentési lépést.

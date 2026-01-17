@@ -1,16 +1,11 @@
-//Project-specific
-
 /**
  * Kiválasztott szoba törlése utáni műveletek
  * 
+ * @param {Room} room, eltávolított szoba.
  * @returns {undefined}
  */
-function onSelectedRoomRemoved() { //Project-specific
-    removeSlabHeatersFromDeletedRoom(room);
-}
-
-function removeSlabHeatersFromDeletedRoom(room) {
-    const slabHeaterGroupsToDelete = elementStore.slabHeaterGroups.filter(shg => shg.room === room);
+function onSelectedRoomRemovedSlabHeatingPlanner(room) {
+    const slabHeaterGroupsToDelete = elementStore.slabHeaterGroups.filter(shg => shg.roomId === room.id);
     
     const slabHeatersToDelete = [];
     for (let slabHeaterGroup of slabHeaterGroupsToDelete) {

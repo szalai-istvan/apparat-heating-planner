@@ -19,54 +19,30 @@ optional:
 long-term:
 - Szögek egységesítése (rad vs. deg)
 
-Function duplications:
-onSelectedRoomRemoved.js
- - js/heating-planner/actions/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
-clearSelectionCache.js
- - js/heating-planner/actions/selection/clearSelectionCache.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/clearSelectionCache.js --- PROJECT SPECIFIC
-deselectObject.js
- - js/heating-planner/actions/selection/deselectObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/deselectObject.js --- PROJECT SPECIFIC
+File duplications:
 removeSelectedObject.js
- - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/removeSelectedObject.js --- PROJECT SPECIFIC
-searchForSelectableObject.js
- - js/heating-planner/actions/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
+ - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC     
+ - js/slab-heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
 selectObject.js
  - js/heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/selectObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC        
 excelGenerator.js
  - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
  - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
 renderAbsolutePositionObjects.js
- - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC     
  - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
 renderTranslatedObjects.js
  - js/heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC      
 
 Function duplications:
-onSelectedRoomRemoved
- - js/heating-planner/actions/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/room/delete/onSelectedRoomRemoved.js --- PROJECT SPECIFIC
-clearSelectionCache
- - js/heating-planner/actions/selection/clearSelectionCache.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/clearSelectionCache.js --- PROJECT SPECIFIC
-deselectObject
- - js/heating-planner/actions/selection/deselectObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/deselectObject.js --- PROJECT SPECIFIC
 removeSelectedObject
- - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/removeSelectedObject.js --- PROJECT SPECIFIC
-searchSelectableObject
- - js/heating-planner/actions/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/searchForSelectableObject.js --- PROJECT SPECIFIC
+ - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC     
+ - js/slab-heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
 selectObject
  - js/heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/operations/selection/selectObject.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC        
 startExcelExport
  - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
  - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC

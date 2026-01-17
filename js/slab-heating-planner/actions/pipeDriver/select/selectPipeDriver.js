@@ -4,6 +4,20 @@ let selectedPipeDriver = null;
 let cachedSelectablePipeDriver = null;
 
 /**
+ * Megkeresi és visszaadja a kiválaszthatü csővezetőt
+ * 
+ * @returns {PipeDriver}
+ */
+function searchForSelectablePipeDriver() {
+    const selectedPipeDriver = selectPipeDriver();
+    if (selectedPipeDriver) {
+        selectedObject = selectedPipeDriver;
+        return selectedPipeDriver;
+    }
+}
+
+
+/**
  * Megkeresi, kiválasztja és visszaadja a kiválasztható csővezetőt
  * 
  * @param {PipeDriver} pipeDriver csővezető paraméter

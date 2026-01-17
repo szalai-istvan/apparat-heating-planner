@@ -14,6 +14,8 @@ function setup() {
     if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
         loadProject();        
     }
+
+    dispatchCustomEvent(SETUP, {});
 }
 
 function setupWindow() {
@@ -33,6 +35,4 @@ function initializeComponents() {
 
     apparatLogo = loadImage(APPARAT_LOGO);
     cicisNeni = loadImage(CICIS_NENI);
-
-    createButtons();
 }

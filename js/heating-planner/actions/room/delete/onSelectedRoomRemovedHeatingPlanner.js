@@ -1,19 +1,16 @@
-//Project-specific
-
 /**
  * Kiválasztott szoba törlése utáni műveletek
  * 
+ * @param {Room} room, eltávolított szoba
  * @returns {undefined}
  */
-function onSelectedRoomRemoved() { //Project-specific
+function onSelectedRoomRemovedHeatingPlanner(room) {
     const structureElements = getStructureElementsById(room.structureElementsId);
     elementStore.remove(structureElements);
 
-    removePanelGroupsFromDeletedRoom(room);
-}
-
-/** @param {Room} room */
-function removePanelGroupsFromDeletedRoom(room) {
     const panelGroupsToDelete = elementStore.panelGroups.filter(pg => pg.roomId === room.id);
     panelGroupsToDelete.forEach(pg => removePanelGroup(pg));
 }
+
+// todo ez setup step
+registerEventListener(SELECTED_ROOM_REMOVED, onSelectedRoomRemovedHeatingPlanner);

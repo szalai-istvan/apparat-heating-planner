@@ -17,5 +17,3 @@ function addHeatingPlannerObjectsToProjectState(projectState) {
         panels: elementStore.panels
     };
 }
-
-registerProjectSpecificSavingStep(addHeatingPlannerObjectsToProjectState); // todo ez setup lépés

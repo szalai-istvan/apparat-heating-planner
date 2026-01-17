@@ -19,5 +19,3 @@ function loadPanels(projectState) {
 
     return panelGroups.filter(pg => pg.isSelected)[0];
 }
-
-registerProjectSpecificLoadingStep(loadPanels); // todo ez egy setup step

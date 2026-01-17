@@ -12,10 +12,10 @@ function removeSelectedRoom() {
     elementStore.remove(room);
     selectedRoom = null;
 
-    onSelectedRoomRemoved();
-
     deselectObject();
     if (elementStore.rooms.length === 0) {
         removeGridSeed();
     }
+
+    dispatchCustomEvent(SELECTED_ROOM_REMOVED, {room: room});
 }

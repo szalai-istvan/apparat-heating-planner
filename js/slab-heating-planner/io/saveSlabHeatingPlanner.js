@@ -25,5 +25,3 @@ function addSlabHeatingPlannerObjectsToProjectState(projectState) {
         pipeDrivers: elementStore.pipeDrivers
     };
 }
-
-registerProjectSpecificSavingStep(addHeatingPlannerObjectsToProjectState); // todo ez setup lépés
