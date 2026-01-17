@@ -15,6 +15,8 @@ optional:
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
 - Szoba overlap validációt megcsinálni JÓRA.
+- package script (egy .js file per projekt előállítása, projekt csomagolása)
+- landing page, ahonnan meg lehet nyitni az egyes rajzolókat.
 
 long-term:
 - Szögek egységesítése (rad vs. deg)
