@@ -6,5 +6,3 @@
 function onRoomsClearedSlabHeatingPlanner() {
     clearSlabHeaterGroups();
 }
-
-registerEventListener(ROOMS_CLEARED, onRoomsClearedSlabHeatingPlanner);

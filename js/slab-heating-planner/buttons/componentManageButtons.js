@@ -33,5 +33,3 @@ function removeLastFromSelectedGroup() {
         removeLastBoxFromSelectedGroup();
     }
 }
-
-registerEventListener(ROTATE_SELECTED_OBJECT, event => rotateSelectedObjectSlabHeatingPlanner(event.detail.direction));

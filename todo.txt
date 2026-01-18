@@ -22,15 +22,6 @@ long-term:
 - Szögek egységesítése (rad vs. deg)
 
 File duplications:
-removeSelectedObject.js
- - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC     
- - js/slab-heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
-selectObject.js
- - js/heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC        
-excelGenerator.js
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
 renderAbsolutePositionObjects.js
  - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC     
  - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
@@ -39,60 +30,9 @@ renderTranslatedObjects.js
  - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC      
 
 Function duplications:
-removeSelectedObject
- - js/heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC     
- - js/slab-heating-planner/actions/selection/removeSelectedObject.js --- PROJECT SPECIFIC
-selectObject
- - js/heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/actions/selection/selectObject.js --- PROJECT SPECIFIC        
-startExcelExport
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-downloadExcel
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-createColumnsForRooms
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillRoomNames
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillPanelCounts
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillRoomSummaryFormulas
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillPanelCountFormulas
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillCoolingAndHeatingFormulas
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillPanelPriceFormulas
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillPanelPipeLengthFormulas
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillPanelAreaFormulas
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-fillSummaryTable
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-adjustRoomColumnWidths
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-addPicture
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
-base64ToArrayBuffer
- - js/heating-planner/excel/excelGenerator.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/quote/excelGenerator.js --- PROJECT SPECIFIC
 renderAbsolutePositionObjects
- - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
+ - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC     
  - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
 renderTranslatedObjects
  - js/heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
+ - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC      

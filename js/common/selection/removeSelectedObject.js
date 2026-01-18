@@ -1,10 +1,9 @@
-//Project-specific
 /**
  * Törli a kijelölt objektumot.
  * 
  * @returns {undefined}
  */
-function removeSelectedObject() { //Project-specific
+function removeSelectedObject() {
     const selected = selectedObject;
     if (!selected) {
         return;
@@ -13,9 +12,11 @@ function removeSelectedObject() { //Project-specific
     
     if (className === CLASS_ROOM) {
         removeSelectedRoom();
-    } else if (className === CLASS_PANEL_GROUP) {
-        removeSelectedPanelGroup();
     } else if (className === CLASS_BLUEPRINT) {
         removeSelectedBlueprint();
+    } else {
+        dispatchCustomEvent(REMOVE_SELECTED_OBJECT, {className: className});
     }
+
+    selectedObject = null;
 }

@@ -23,5 +23,3 @@ function rotateSelectedPanelGroup() {
 
     recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
 }
-
-registerEventListener(ROTATE_SELECTED_OBJECT, rotateSelectedPanelGroup);

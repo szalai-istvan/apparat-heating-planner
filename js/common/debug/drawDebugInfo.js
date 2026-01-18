@@ -1,25 +1,13 @@
 /**
- * Felrajzolja a rajzlapra a debug információkat
- * 
- * @returns {undefined}
- */
-function drawDebugInfo() {
-    if (!debugEnabled) {
-        return;
-    }
-
-    push();
-    drawAxis();
-    drawCursorDebugInfo();
-    pop();
-}
-
-/**
  * Felrajzolja a képernyőre az x, és y koordinátatengelyeket.
  * 
  * @returns {undefined}
  */
 function drawAxis() {
+    if (!debugEnabled) {
+        return;
+    }
+
     push();
     textSize(12);
     for (let i = -10_000; i < 10_000; i += 50) {
@@ -51,6 +39,10 @@ function drawAxis() {
  * @returns {undefined}
  */
 function drawCursorDebugInfo() {
+    if (!debugEnabled) {
+        return;
+    }
+    
     push();
 
     const mouse = getMousePositionAbsolute();

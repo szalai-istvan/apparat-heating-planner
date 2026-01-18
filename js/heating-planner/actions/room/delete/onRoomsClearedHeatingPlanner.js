@@ -9,5 +9,3 @@ function onRoomsClearedHeatingPlanner() {
 
     clearPanelGroups();
 }
-
-registerEventListener(ROOMS_CLEARED, onRoomsClearedHeatingPlanner);

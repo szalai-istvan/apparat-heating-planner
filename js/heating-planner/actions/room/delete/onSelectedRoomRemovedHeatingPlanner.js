@@ -11,6 +11,3 @@ function onSelectedRoomRemovedHeatingPlanner(room) {
     const panelGroupsToDelete = elementStore.panelGroups.filter(pg => pg.roomId === room.id);
     panelGroupsToDelete.forEach(pg => removePanelGroup(pg));
 }
-
-// todo ez setup step
-registerEventListener(SELECTED_ROOM_REMOVED, onSelectedRoomRemovedHeatingPlanner);

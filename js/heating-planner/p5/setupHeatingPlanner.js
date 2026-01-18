@@ -12,9 +12,6 @@ function setupHeatingPlanner() {
     registerProjectSpecificLoadingStep(loadPanels);
     registerProjectSpecificSavingStep(addHeatingPlannerObjectsToProjectState);
 
-    // removal config
-    registerEventListener(SELECTED_ROOM_REMOVED, onSelectedRoomRemovedHeatingPlanner);
-
     // selection config
     setSelectableObjectSearchStep([
         searchForSelectableRoom,
@@ -23,7 +20,17 @@ function setupHeatingPlanner() {
     ]);
     setProjectSpecificClearSelectionCacheFunction(clearSelectionCacheHeatingPlanner);
     setProjectSpecificDeselectFunction(deselectObjectHeatingPlanner);
+    setProjectSpecificSelectObjectFunction(selectObjectHeatingPlanner);
 
+    // rendering config
+    setprojectSpecificRenderTranslatedObjects(renderTranslatedObjectsHeatingPlanner);
+    setprojectSpecificDebugOnlyRenderTranslatedObjects(renderDebugOnlyTranslatedObjectsHeatingPlanner);
+
+    // other listeners
+    registerEventListener(ROOMS_CLEARED, onRoomsClearedHeatingPlanner);
+    registerEventListener(ROTATE_SELECTED_OBJECT, rotateSelectedPanelGroup);
+    registerEventListener(SELECTED_ROOM_REMOVED, event => onSelectedRoomRemovedHeatingPlanner(event.detail.room));
+    registerEventListener(REMOVE_SELECTED_OBJECT, event => removeSelectedObjectHeatingPlanner(event.detail.className));
 }
 
 setupHeatingPlanner();
