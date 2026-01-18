@@ -67,7 +67,8 @@ function getProjectState() {
                 data: elementStore.blueprints.map((bp) => bp.data.canvas.toDataURL("image/png")),
                 topLeft: elementStore.blueprints.map((bp) => bp.topLeftPosition),
                 center: elementStore.blueprints.map((bp) => bp.centerPosition),
-                angleDeg: elementStore.blueprints.map((bp) => bp.angleDeg)
+                angleDeg: elementStore.blueprints.map((bp) => bp.angleDeg),
+                isSelected: elementStore.blueprints.map((bp) => bp.isSelected)
             },
             scale: {
                 pixelsPerMeterRatio: pixelsPerMetersRatio,

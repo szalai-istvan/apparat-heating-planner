@@ -18,11 +18,14 @@ function loadProject(text = undefined) {
         let selectableObject = null;
 
         prepareLoading();
-        selectableObject = selectableObject ?? loadBlueprints(projectState);
+        const selectableBlueprint = loadBlueprints(projectState)
+        selectableObject = selectableObject || selectableBlueprint
         loadScreenData(projectState);
         updateGridResolution();
-        selectableObject = selectableObject ?? loadRooms(projectState);
-        selectableObject = selectableObject ?? loadProjectSpecificObjects(projectState);
+        const selectableRoom = loadRooms(projectState);
+        selectableObject = selectableObject || selectableRoom;
+        const selectableProjectSpecificObject = loadProjectSpecificObjects(projectState);
+        selectableObject = selectableObject || selectableProjectSpecificObject;
 
         selectableObject && selectObject(selectableObject);
     } finally {
@@ -72,10 +75,12 @@ function loadBlueprints(projectState) {
     const topLeftCoordinates = projectState.blueprints.topLeft;
     const centerCoordinates = projectState.blueprints.center;
     const angeleDeg = projectState.blueprints.angleDeg;
+    const isSelected = projectState.blueprints.isSelected;
     for (let i = 0; i < topLeftCoordinates.length; i++) {
         elementStore.blueprints[i].topLeftPosition = topLeftCoordinates[i];
         elementStore.blueprints[i].centerPosition = centerCoordinates[i];
         elementStore.blueprints[i].angleDeg = angeleDeg[i];
+        elementStore.blueprints[i].isSelected = isSelected[i];
     }
 
     return elementStore.blueprints.filter(bp => bp.isSelected)[0];
