@@ -35,6 +35,11 @@ function selectPanelGroup(panelGroup = undefined) {
         panelGroup.isSelected = true;
         panelGroup.isSelectedForDrag = true;
         setSelectedPanelGroupIndex(panelGroup);
+        const room = getRoomById(panelGroup.roomId);
+        if (room) {
+            panelGroup.roomId = null;
+            recalculateBeamDefinitions(room);
+        }
         return panelGroup;
     }
 

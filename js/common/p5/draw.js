@@ -2,7 +2,7 @@
 let renderingEnabled = false;
 
 function draw() {
-    if (saveOrLoadInProgress) {
+    if (!renderingEnabled) {
         return;
     }
 

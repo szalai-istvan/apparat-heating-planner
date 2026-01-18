@@ -19,3 +19,17 @@ function loadPanels(projectState) {
 
     return panelGroups.filter(pg => pg.isSelected)[0];
 }
+
+/**
+ * Betölti a szerkezeti elemeket.
+ * 
+ * @param {object} projectState
+ * @returns {undefined}
+ */
+function loadStructureElements(projectState) {
+    const structureElements = projectState.structureElements.structureElements || [];
+    structureElements.forEach((se) => (se.constructor = {name: CLASS_STRUCTURE_ELEMENTS}));
+    structureElements.forEach((se) => elementStore.register(se));
+
+    return undefined;
+}

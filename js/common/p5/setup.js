@@ -10,10 +10,6 @@ function setup() {
     screenCanvas = canvas;
     
     angleMode(DEGREES);
-    
-    if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
-        loadProject();        
-    }
 
     dispatchCustomEvent(SETUP, {});
 }

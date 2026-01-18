@@ -20,19 +20,3 @@ optional:
 
 long-term:
 - Szögek egységesítése (rad vs. deg)
-
-File duplications:
-renderAbsolutePositionObjects.js
- - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC     
- - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
-renderTranslatedObjects.js
- - js/heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC      
-
-Function duplications:
-renderAbsolutePositionObjects
- - js/heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC     
- - js/slab-heating-planner/renderer/renderAbsolutePositionObjects.js --- PROJECT SPECIFIC
-renderTranslatedObjects
- - js/heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC
- - js/slab-heating-planner/renderer/renderTranslatedObjects.js --- PROJECT SPECIFIC      

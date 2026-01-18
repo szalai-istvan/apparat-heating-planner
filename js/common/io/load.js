@@ -40,7 +40,9 @@ function loadProjectSpecificObjects(projectState) { // todo ez a heating-planner
     let selectableObject = null;
 
     for (let i = 0; i < projectSpecificLoadingSteps.length; i++) {
-        selectableObject = selectableObject ?? projectSpecificLoadingSteps[i](projectState);
+        const func = projectSpecificLoadingSteps[i];
+        const result = func(projectState);
+        selectableObject = selectableObject || result;
     }
 
     return selectableObject;
@@ -95,10 +97,6 @@ function loadRooms(projectState) {
     const rooms = projectState.rooms.rooms;
     rooms.forEach((room) => (room.constructor = { name: CLASS_ROOM }));
     rooms.forEach((room) => elementStore.register(room));
-
-    const structureElements = projectState.structureElements.structureElements;
-    structureElements.forEach((se) => (se.constructor = {name: CLASS_STRUCTURE_ELEMENTS}));
-    structureElements.forEach((se) => elementStore.register(se));
 
     return rooms.filter(r => r.isSelected)[0];
 }

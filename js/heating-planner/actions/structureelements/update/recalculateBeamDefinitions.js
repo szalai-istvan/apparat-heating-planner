@@ -7,9 +7,9 @@
 function recalculateBeamDefinitions(room) {
     checkClass(room, CLASS_ROOM);
 
-    if (selectedPanelGroup.isSelectedForDrag) {
-        return;
-    }
+    // if (selectedPanelGroup.isSelectedForDrag) {
+        // return;
+    // } TODO Ez vajon kell?
 
     const structureElements = getStructureElementsById(room.structureElementsId);
     const panelGroups = elementStore.panelGroups.filter(x => x.roomId === room.id);

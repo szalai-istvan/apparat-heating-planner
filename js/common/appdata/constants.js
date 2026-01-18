@@ -126,6 +126,7 @@ const WHITE = 'white';
 
 // ID-k
 const ROOM_PREFILL_RADIO_SET = 'roomPrefillRadioSet';
+const ROOM_PREFILL = 'roomPrefill';
 
 // Validáció konstansok
 const TEST_POINT_COORDINATE = 20_000_000;
