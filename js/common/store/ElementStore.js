@@ -76,7 +76,7 @@ class ElementStore {
                 throw new Error(`Deleting render object of type ${className} is unspecified.`);
             }
 
-            array.filter(x => x !== obj);
+            this[arrayField] = array.filter(x => x !== obj);
             this.#removeById(byId, obj);
         }
     }

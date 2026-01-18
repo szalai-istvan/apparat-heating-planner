@@ -1,12 +1,12 @@
 function mouseReleased() {
     
     if (mouseButton === LEFT) {
-        leftMouseButtonPressedFunc()
+        leftMouseButtonReleasedFunc()
     }
     stopDragging();
 }
 
-function leftMouseButtonPressedFunc() {
+function leftMouseButtonReleasedFunc() {
     if (mouseCursorIsInsideUi()) {
         return;
     }

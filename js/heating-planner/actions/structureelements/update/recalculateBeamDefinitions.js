@@ -38,6 +38,10 @@ function recalculateBeamDefinitions(room) {
 function calculateAlignedBeamsOfPanelGroup(room, panelGroup) {
     const panels = getPanelsByIdList(panelGroup.panelIds);
 
+    if (panels.length === 0) {
+        return [];
+    }
+
     const referencePoints = panels.map(p => p.boundingBox).map(bb => bb.points[0]);
     referencePoints.push(panels[panels.length - 1].boundingBox.points[1]);
     referencePoints.push(panels[0].boundingBox.points[1]);
