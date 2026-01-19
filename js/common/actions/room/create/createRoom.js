@@ -23,6 +23,7 @@ function createRoom(name, tilted) {
     }
 
     const room = new Room(name, tilted);
+    elementStore.register(room);
     selectObject(room);
 
     onRoomCreatedCallback(room);

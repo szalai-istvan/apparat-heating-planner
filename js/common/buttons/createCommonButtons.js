@@ -44,7 +44,7 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
         buttons: ['Új projekt', 'Projekt mentése', 'Projekt betöltése'],
         buttonsClickFunctions: [() => clearBlueprints(), () => downloadProjectState(), () => uploadProject()],
         selectionMenuMode: false,
-        shouldBeRendered: () => true
+        shouldBeActive: () => true
     });
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
     addLeftRibbonDelimeter(sidePanelButtonPosition(leftRibbonButtonSizes).y);

@@ -5,7 +5,7 @@
  * @returns {undefined}
  */
 function drawMenuLine(menuLine) {
-    if (menuLine.shouldBeRendered()) {
+    if (menuLine.shouldBeActive()) {
         menuLine.baseButton.show();
     } else {
         menuLine.baseButton.hide();

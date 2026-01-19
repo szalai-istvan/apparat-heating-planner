@@ -8,10 +8,10 @@ class OptionsBar {
     perColumnSelection;
     onchange;
 
-    shouldBeRendered;
+    shouldBeActive;
 
-    constructor({ topLeftPosition, buttonSize, gap, columns, valueResolver, shouldBeRendered, title, perColumnSelection, onchange }) {
-        this.shouldBeRendered = shouldBeRendered;
+    constructor({ topLeftPosition, buttonSize, gap, columns, valueResolver, shouldBeActive, title, perColumnSelection, onchange }) {
+        this.shouldBeActive = shouldBeActive;
         this.valueResolver = valueResolver;
         this.title = title;
         if (onchange) {
@@ -41,7 +41,7 @@ class OptionsBar {
                     size: buttonSize,
                     position: getButtonPosition(topLeftPosition, buttonSize, gap, columnIndex, buttonIndex + offset),
                     onClick: () => this.setValue(ci_, text),
-                    shouldBeRendered: () => this.shouldBeRendered(),
+                    shouldBeActive: () => this.shouldBeActive(),
                 });
                 col.push(button);
             }

@@ -36,6 +36,7 @@ function setupSlabHeatingPlanner() {
     registerEventListener(SELECTED_ROOM_REMOVED, event => onSelectedRoomRemovedSlabHeatingPlanner(event.detail.room));
     registerEventListener(ROTATE_SELECTED_OBJECT, event => rotateSelectedObjectSlabHeatingPlanner(event.detail.direction));
     registerEventListener(REMOVE_SELECTED_OBJECT, event => removeSelectedObjectSlabHeatingPlanner(event.detail.className));
+    registerEventListener(UPDATE_RENDER_SIZE_VALUE, updateRenderSizeValuesSlabHeatingPlanner);
 
     if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
         loadProject();

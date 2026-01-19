@@ -7,14 +7,14 @@ class MenuLine {
     menuItemsShown = false;
     hideTimeOutId;
     valueSet = {};
-    shouldBeRendered;
+    shouldBeActive;
     selectionMenuMode;
 
-    constructor({position, size, optionSize, text, buttons, labelerFunc, shouldBeRendered, buttonsClickFunctions, selectionMenuMode}) {
+    constructor({position, size, optionSize, text, buttons, labelerFunc, shouldBeActive, buttonsClickFunctions, selectionMenuMode}) {
         this.position = position;
         this.size = size;
         this.text = text + ' >';
-        this.shouldBeRendered = shouldBeRendered;
+        this.shouldBeActive = shouldBeActive;
         this.selectionMenuMode = selectionMenuMode ?? true;
 
         this.baseButton = createButton(this.text);

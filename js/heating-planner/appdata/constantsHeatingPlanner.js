@@ -26,11 +26,6 @@ const ENTERABLE_BUTTONS = [rotateBlueprintDialogOkButton, messageOkButton, fileU
 const HALF_WIDTH_BUTTON_SIZE = { x: 50, y: 30 };
 const TALL_SMALL_BUTTON_SIZE = { x: 100, y: 45 };
 
-const SELECT_DRAG_THRESHOLD = 10;
-
-// Resource útvonalak
-const CICIS_NENI = 'img/cicis_neni.png';
-
 // Debug konstansok
 const RECTANGLE_COLOR = 'red';
 const RECTANGLE_STROKE_WEIGHT = 1;

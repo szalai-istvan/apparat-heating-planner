@@ -41,9 +41,11 @@ const DELIMITER_POSITIONS = [];
 const UI_TEXT_SIZE = 12;
 const UI_TEXTS = [];
 const KEY_STROKE_RECORD_LENGTH = 30;
+const SELECT_DRAG_THRESHOLD = 10;
 
 // Resource útvonalak
 const APPARAT_LOGO = 'img/APPARAT_transparent.PNG';
+const CICIS_NENI = 'img/cicis_neni.png';
 
 // Debug konstansok
 const SAVE_TO_LOCAL_STORAGE_ENABLED = true;

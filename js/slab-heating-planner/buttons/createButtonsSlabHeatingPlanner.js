@@ -16,7 +16,7 @@ function createButtonsSlabHeatingPlanner() {
         onchange: () => updateSelectedSlabHeaterGroupDimensions(),
         title: 'Szélesség (m)',
         perColumnSelection: false,
-        shouldBeRendered: () => configuredRoomsExist()
+        shouldBeActive: () => configuredRoomsExist()
     });
     leftRibbonButtonSizes.push({ x: 0, y: HALF_WIDTH_BUTTON_SIZE.y / 3 });
     leftRibbonButtonSizes.push({ x: 0, y: HALF_WIDTH_BUTTON_SIZE.y / 2 });
@@ -28,7 +28,7 @@ function createButtonsSlabHeatingPlanner() {
         columns: [{ header: 'm', buttons: SLAB_HEATER_TYPES.length.m }, { header: 'cm', buttons: SLAB_HEATER_TYPES.length.cm }],
         valueResolver: optionsBar => resolveSlabHeaterLengthOptionBarValue(optionsBar),
         onchange: () => updateSelectedSlabHeaterGroupDimensions(),
-        shouldBeRendered: () => configuredRoomsExist(),
+        shouldBeActive: () => configuredRoomsExist(),
         title: 'Hosszúság'
     });
     leftRibbonButtonSizes.push({ x: 0, y: HALF_WIDTH_BUTTON_SIZE.y / 3 });
@@ -44,7 +44,7 @@ function createButtonsSlabHeatingPlanner() {
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => createSlabHeaterGroup(),
-        shouldBeRendered: () => slabHeaterLengthOptionsBar.allValuesAreSet() && slabHeaterWidthOptionsBar.allValuesAreSet() && configuredRoomsExist()
+        shouldBeActive: () => slabHeaterLengthOptionsBar.allValuesAreSet() && slabHeaterWidthOptionsBar.allValuesAreSet() && configuredRoomsExist()
     });
     leftRibbonButtonSizes.push(SMALL_BUTTON_SIZE);
     addLeftRibbonDelimeter(sidePanelButtonPosition(leftRibbonButtonSizes).y);
@@ -58,7 +58,7 @@ function createButtonsSlabHeatingPlanner() {
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => createBoxGroup(),
-        shouldBeRendered: () => configuredRoomsExist()
+        shouldBeActive: () => configuredRoomsExist()
     });
 
     leftRibbonButtonSizes.push(SMALL_BUTTON_SIZE);
@@ -69,7 +69,7 @@ function createButtonsSlabHeatingPlanner() {
         size: SMALL_BUTTON_SIZE,
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => removeSelectedObject(),
-        shouldBeRendered: () => selectedObject
+        shouldBeActive: () => selectedObject
     });
     leftRibbonButtonSizes.push(SMALL_BUTTON_SIZE);
 
@@ -79,7 +79,7 @@ function createButtonsSlabHeatingPlanner() {
         size: HALF_WIDTH_BUTTON_SIZE,
         position: rotatePosition,
         onClick: () => rotateSelectedObject(-1),
-        shouldBeRendered: () => selectedSlabHeaterGroup || selectedBoxGroup
+        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup
     });
 
     rotatePosition.x += HALF_WIDTH_BUTTON_SIZE.x;
@@ -88,7 +88,7 @@ function createButtonsSlabHeatingPlanner() {
         size: HALF_WIDTH_BUTTON_SIZE,
         position: rotatePosition,
         onClick: () => rotateSelectedObject(1),
-        shouldBeRendered: () => selectedSlabHeaterGroup || selectedBoxGroup
+        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup
     });
     leftRibbonButtonSizes.push(HALF_WIDTH_BUTTON_SIZE);
 
@@ -98,7 +98,7 @@ function createButtonsSlabHeatingPlanner() {
         size: HALF_WIDTH_BUTTON_SIZE,
         position: groupManagerPosition,
         onClick: () => removeLastFromSelectedGroup(),
-        shouldBeRendered: () => selectedSlabHeaterGroup || selectedBoxGroup
+        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup
     });
 
     groupManagerPosition.x += HALF_WIDTH_BUTTON_SIZE.x;
@@ -107,7 +107,7 @@ function createButtonsSlabHeatingPlanner() {
         size: HALF_WIDTH_BUTTON_SIZE,
         position: groupManagerPosition,
         onClick: () => addToSelectedGroup(),
-        shouldBeRendered: () => selectedSlabHeaterGroup || selectedBoxGroup
+        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup
     });
     leftRibbonButtonSizes.push(HALF_WIDTH_BUTTON_SIZE);
 
@@ -118,7 +118,7 @@ function createButtonsSlabHeatingPlanner() {
         size: TALL_SMALL_BUTTON_SIZE,
         position: downloadButtonPos,
         onClick: () => openTransportDialog(),
-        shouldBeRendered: () => fullyConfiguredSlabHeaterGroupsExist()
+        shouldBeActive: () => fullyConfiguredSlabHeaterGroupsExist()
     });
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);
 
@@ -127,6 +127,6 @@ function createButtonsSlabHeatingPlanner() {
         size: SMALL_BUTTON_SIZE,
         position: bottomPosition(SMALL_BUTTON_SIZE),
         onClick: () => displayHelpData(),
-        shouldBeRendered: () => true
+        shouldBeActive: () => true
     });
 }

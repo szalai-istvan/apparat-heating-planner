@@ -30,7 +30,8 @@
     </dialog>
 
     <dialog id="fileUploadDialogConfirm">
-        <p>A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket. Folytatja?
+        <p>A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket.
+            Folytatja?
         </p>
         <hr>
         <div class="center">
@@ -56,8 +57,17 @@
     </dialog>
 
     <dialog id="addRoomDialog">
-        <span><p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p></span>
+        <span>
+            <p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p>
+        </span>
+
         <hr>
+        <span>
+            <input type="checkbox" id="3pointdefinition" name="3pointdefinition" value="3pointdefinition">
+            <label for="3pointdefinition">Ferde szoba</label><br>
+        </span>
+        <hr>
+
         <span>
             <p>Gyors kitöltés:</p>
             <div class="radio-group" id="roomPrefillRadioSet"></div>
@@ -82,6 +92,16 @@
         <hr>
         <div class="center"><button id="transportDialogOkButton">Letöltése (Enter)</button><button
                 id="transportDialogCloseButton">Mégsem</button></div>
+    </dialog>
+
+    <dialog id="rotateBlueprintDialog" class="nobackdrop">
+        <p id="rotateBlueprintParagraph">Alaprajz elforgatása:</p>
+        <p><label>Szög:</label><input type="number" id="rotateBlueprintDialogInput"> ° </p>
+        <hr>
+        <div class="center">
+            <button id="rotateBlueprintDialogOkButton">OK (Enter)</button>
+            <button id="rotateBlueprintDialogCloseButton">Mégsem</button>
+        </div>
     </dialog>
 
     <!-- imported scripts -->
@@ -118,7 +138,8 @@
     <script type="text/javascript" src="js/common/actions/room/calc/pointIsInsideRoom.js"></script>
     <script type="text/javascript" src="js/common/actions/room/calc/roomIsConfigured.js"></script>
     <script type="text/javascript" src="js/common/actions/room/calc/roomPositionIsInvalid.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
+    <script type="text/javascript"
+        src="js/common/actions/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
     <script type="text/javascript" src="js/common/actions/room/create/addPointToSelectedRoom.js"></script>
     <script type="text/javascript" src="js/common/actions/room/create/createRoom.js"></script>
     <script type="text/javascript" src="js/common/actions/room/delete/clearRooms.js"></script>
@@ -231,84 +252,141 @@
 
     <script type="text/javascript" src="js/common/validations/validationHelpers.js"></script>
 
-    <script type="text/javascript" src="js/slab-heating-planner/actions/box/calc/calculateBoxCenterPositionWithCorrection.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/box/calc/calculateBoxCenterPositionWithCorrection.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/box/calc/getBoxById.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/box/calc/mouseCursorIsInsideBox.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/box/calc/offsetBoxCenterPosition.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/box/create/createBox.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/box/render/drawBox.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/box/update/attachToSelectedBoxGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/box/update/attachToSelectedBoxGroup.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/box/update/detachBoxFromGroup.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/calc/boxGroupIsHorizontal.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/calc/getBoxGroupById.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/calc/getBoxGroupWithEndNodeAtPipeDriversLastPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/calc/mouseCursorIsInsideBoxGroupMember.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/calc/getBoxGroupWithEndNodeAtPipeDriversLastPoint.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/calc/mouseCursorIsInsideBoxGroupMember.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/create/createBoxGroup.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/render/drawBoxGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/select/clearBoxGroupSelectionCache.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/select/clearBoxGroupSelectionCache.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/select/deselectBoxGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/select/removeSelectedBoxGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/select/removeSelectedBoxGroup.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/select/selectBoxGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/update/addBoxToSelectedGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/update/removeLastBoxFromSelectedGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/update/rotateSelectedBoxGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/update/updateBoxGroupMemberPosition.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/boxgroup/update/updateBoxGroupPipeDriverEndNodePosition.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/grid/calc/getClosestGridPointToPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/getDirectionBetweenTwoPoints.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/getNextDirectionOfPipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/getNextPointToAddToPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/update/addBoxToSelectedGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/update/removeLastBoxFromSelectedGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/update/rotateSelectedBoxGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/update/updateBoxGroupMemberPosition.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/boxgroup/update/updateBoxGroupPipeDriverEndNodePosition.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/grid/calc/getClosestGridPointToPoint.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/getDirectionBetweenTwoPoints.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/getNextDirectionOfPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/getNextPointToAddToPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/getPipeDriverById.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/mouseCursorIsInsidePipeDriversPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/selectedPipeDriverIsFullyConfigured.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/validateAllPipeDrivers.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/validateNextPointOfPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/mouseCursorIsInsidePipeDriversPoint.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/selectedPipeDriverIsFullyConfigured.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/validateAllPipeDrivers.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/calc/validateNextPointOfPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/calc/validatePipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/create/addPointToSelectedPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/create/addPointToSelectedPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/delete/resetPipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/delete/resetPipeDriverIfOnlyHas2Points.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/delete/resetSelectedPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/delete/resetPipeDriverIfOnlyHas2Points.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/delete/resetSelectedPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/render/drawPipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/select/clearPipeDriverSelectionCache.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/select/deselectPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/select/clearPipeDriverSelectionCache.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/select/deselectPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/select/selectPipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/update/adjustLastPointOfPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/update/adjustLastPointOfPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/update/calculatePipes.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/update/removeUnnecessaryPointsOfPipeDriver.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/update/updatePipeDriverFirstPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/pipeDriver/update/updateSelectedPointOfPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/update/removeUnnecessaryPointsOfPipeDriver.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/update/updatePipeDriverFirstPoint.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/pipeDriver/update/updateSelectedPointOfPipeDriver.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/room/calc/getRoomContainingPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/room/delete/onRoomsClearedSlabHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/room/delete/onSelectedRoomRemovedSlabHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterBoundaryPoints.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterCenterPositionWithCorrection.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/room/delete/onRoomsClearedSlabHeatingPlanner.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/room/delete/onSelectedRoomRemovedSlabHeatingPlanner.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/scale/updateRenderSizeValuesSlabHeatingPlanner.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterBoundaryPoints.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterCenterPositionWithCorrection.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/calc/getSlabHeaterById.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/calc/mouseCursorIsInsideSlabHeatersTextbox.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeater/calc/mouseCursorIsInsideSlabHeatersTextbox.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/calc/slabHeaterColors.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/create/createSlabHeater.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/render/drawSlabHeater.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/update/attachToSelectedSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeater/update/detachSlabHeaterFromGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/calculatePipeBeginningPointsOfSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/calculatePipeDriverFirstPoint.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/fullyConfiguredSlabHeaterGroupsExist.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/getSlabHeaterGroupById.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/slabHeaterGroupIsHorizontal.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/calc/validateSlabHeaterGroupPositionAndGetContainingRoom.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/create/createSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/delete/clearSlabHeaterGroups.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/delete/removeSelectedSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/render/drawSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/select/clearSlabHeaterGroupSelectionCache.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/select/deselectSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/select/selectSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/update/addSlabHeaterToSelectedGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/update/removeLastSlabHeaterFromSelectedGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/update/rotateSelectedSlabHeaterGroup.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/update/updateSelectedSlabHeaterGroupDimensions.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupMemberPosition.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupType.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeater/update/attachToSelectedSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeater/update/detachSlabHeaterFromGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/calculatePipeBeginningPointsOfSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/calculatePipeDriverFirstPoint.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/fullyConfiguredSlabHeaterGroupsExist.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/getSlabHeaterGroupById.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/slabHeaterGroupIsHorizontal.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/calc/validateSlabHeaterGroupPositionAndGetContainingRoom.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/create/createSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/delete/clearSlabHeaterGroups.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/delete/removeSelectedSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/render/drawSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/select/clearSlabHeaterGroupSelectionCache.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/select/deselectSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/select/selectSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/update/addSlabHeaterToSelectedGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/update/removeLastSlabHeaterFromSelectedGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/update/rotateSelectedSlabHeaterGroup.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/update/updateSelectedSlabHeaterGroupDimensions.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupMemberPosition.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupType.js"></script>
 
     <script type="text/javascript" src="js/slab-heating-planner/appdata/constantsSlabHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/appdata/errorCodes.js"></script>
@@ -331,13 +409,16 @@
     <script type="text/javascript" src="js/slab-heating-planner/rendered/SlabHeater.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/rendered/SlabHeaterGroup.js"></script>
 
-    <script type="text/javascript" src="js/slab-heating-planner/renderer/renderTranslatedObjectsSlabHeatingPlanner.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/renderer/renderTranslatedObjectsSlabHeatingPlanner.js"></script>
 
     <script type="text/javascript" src="js/slab-heating-planner/renderers/TooltipRenderer.js"></script>
 
-    <script type="text/javascript" src="js/slab-heating-planner/selection/clearSelectionCacheSlabHeatingPlanner.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/selection/clearSelectionCacheSlabHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/selection/deselectObjectSlabHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/slab-heating-planner/selection/removeSelectedObjectSlabHeatingPlanner.js"></script>
+    <script type="text/javascript"
+        src="js/slab-heating-planner/selection/removeSelectedObjectSlabHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/slab-heating-planner/selection/selectObjectSlabHeatingPlanner.js"></script>
 
     <script type="text/javascript" src="js/slab-heating-planner/store/ElementStoreSlabHeatingPlanner.js"></script>

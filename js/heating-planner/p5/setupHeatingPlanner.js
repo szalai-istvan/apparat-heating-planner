@@ -32,6 +32,7 @@ function setupHeatingPlanner() {
     registerEventListener(ROTATE_SELECTED_OBJECT, rotateSelectedPanelGroup);
     registerEventListener(SELECTED_ROOM_REMOVED, event => onSelectedRoomRemovedHeatingPlanner(event.detail.room));
     registerEventListener(REMOVE_SELECTED_OBJECT, event => removeSelectedObjectHeatingPlanner(event.detail.className));
+    registerEventListener(UPDATE_RENDER_SIZE_VALUE, updateRenderSizeValuesHeatingPlanner);
 
     if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
         loadProject();        
