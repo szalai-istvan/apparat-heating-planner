@@ -1,4 +1,6 @@
 - updateRenderSizeValues kell belőle projekt specifikus implementáció
+    - Oda bevezetni az összes (x * pixelsPerMetersRatio) szorzást
+- Boundingbox és Textbox fieldeket bevezetni a projekt specifikus objektumokra
 - Blueprint forgatást be kell vezetni
 - boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
 - pipedriver pont mozgatás lehetősége

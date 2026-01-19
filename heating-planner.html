@@ -239,6 +239,7 @@
     <script type="text/javascript" src="js/common/ui/OptionsBar/drawOptionsBar.js"></script>
     <script type="text/javascript" src="js/common/ui/OptionsBar/OptionsBar.js"></script>
     <script type="text/javascript" src="js/common/ui/screen/adjustScreenForExport.js"></script>
+    <script type="text/javascript" src="js/common/ui/screen/calculateScreenPositionOfPoint.js"></script>
     <script type="text/javascript" src="js/common/ui/screen/cursor.js"></script>
     <script type="text/javascript" src="js/common/ui/screen/dragAndZoom.js"></script>
     <script type="text/javascript" src="js/common/ui/screen/drawUiBackground.js"></script>
@@ -254,12 +255,13 @@
 
     <script type="text/javascript" src="js/common/validations/validationHelpers.js"></script>
 
+    <script type="text/javascript" src="js/heating-planner/actions/panel/Panel.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panel/calc/calculatePanelBoundingBox.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panel/calc/getPanelById.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panel/calc/mouseCursorIsInsidePanelsTextbox.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panel/definition/Panel.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panel/render/drawPanel.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panel/render/drawPanelGroupType.js"></script>
+    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/PanelGroup.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/calculatePanelGroupBoundingBox.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/calculatePanelGroupBoundingBoxIncludingPipes.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/getContainingRoom.js"></script>
@@ -268,7 +270,6 @@
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/panelGroupAlignmentIsValid.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/panelGroupsExist.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/create/createOrReplacePanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/definition/PanelGroup.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/delete/clearPanelGroups.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/delete/removeSelectedPanelGroup.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/panelgroup/render/drawPanelGroup.js"></script>
@@ -287,14 +288,13 @@
     <script type="text/javascript" src="js/heating-planner/actions/room/delete/onRoomsClearedHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/room/delete/onSelectedRoomRemovedHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/scale/updateRenderSizeValuesHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/screen/calc/calculateScreenPositionOfPoint.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/selection/clearSelectionCacheHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/selection/deselectObjectHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/selection/removeSelectedObjectHeatingPlanner.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/selection/selectObjectHeatingPlanner.js"></script>
+    <script type="text/javascript" src="js/heating-planner/actions/structureelements/StructureElements.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/structureelements/calc/getStructureElementsById.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/structureelements/create/createStructureElementsInRoom.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/definition/StructureElements.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/structureelements/render/drawStructureElements.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/structureelements/render/drawUD30.js"></script>
     <script type="text/javascript" src="js/heating-planner/actions/structureelements/update/recalculateBeamDefinitions.js"></script>

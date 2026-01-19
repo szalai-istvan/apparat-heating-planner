@@ -24,7 +24,7 @@ function drawSlabHeater(slabHeater) {
     const lengthFrom = - length / 2;
     const lengthTo = length / 2;
     const p = SLAB_HEATER_TEXT_POP_FACTOR;
-    const pointIsInsideRect = mouseCursorIsInsidePanelGroupMembersTextbox(group);
+    const pointIsInsideRect = mouseCursorIsInsideSlabHeaterGroupMembersTextbox(group);
     const notDragging = !group.isSelectedForDrag;
     const stopThreshold = SLAB_HEATER_STOP_DRAWING_THRESHOLD_IN_METERS * ratio;
 
