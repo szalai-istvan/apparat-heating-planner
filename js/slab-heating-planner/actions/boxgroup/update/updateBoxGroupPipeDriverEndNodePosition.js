@@ -6,7 +6,6 @@
 function updateBoxGroupPipeDriverEndNodePosition(boxGroup) {
     checkClass(boxGroup, CLASS_BOX_GROUP);
 
-    const ratio = pixelsPerMetersRatio;
     const boxes = getBoxesByIdList(boxGroup.boxIds);
     const firstBox = boxes[0];
     const firstCenterPoint = firstBox.centerPosition;
@@ -15,9 +14,9 @@ function updateBoxGroupPipeDriverEndNodePosition(boxGroup) {
         return undefined;
     }
 
-    const width = BOX_WIDTH_IN_METERS * ratio;
-    const length = BOX_LENGTH_IN_METERS * ratio;
-    const additionalOffset = PIPE_DRIVER_ADDITIONAL_OFFSET_METERS * ratio;
+    const width = boxWidthInPixels;
+    const length = boxLengthInPixels;
+    const additionalOffset = pipeDriverAdditionalOffsetInPixels;
     const widthOffset = (boxes.length - 1) * width / 2;
     const lengthOffset = length / 2 + additionalOffset;
 

@@ -51,6 +51,8 @@ const CICIS_NENI = 'img/cicis_neni.png';
 const SAVE_TO_LOCAL_STORAGE_ENABLED = true;
 const PROJECT_STATE_LOGGING_ENABLED = false;
 const LOCAL_STORAGE_DATA_KEY = 'rajzolator-project-save';
+const RECTANGLE_COLOR = 'blue';
+const RECTANGLE_STROKE_WEIGHT = 1;
 
 // grid konstansok
 const GRID_RESOLUTION_METER = 0.05;

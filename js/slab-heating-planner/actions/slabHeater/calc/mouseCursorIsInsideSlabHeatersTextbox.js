@@ -16,21 +16,7 @@ function mouseCursorIsInsideSlabHeatersTextbox(slabHeater) {
     }
 
     if (slabHeater.cursorIsInsideCache === null) {
-        if (group.alignment % 2 === 1) {
-            slabHeater.cursorIsInsideCache = pointIsInside(
-                getMousePositionAbsolute(),
-                slabHeater.centerPosition,
-                slabHeater.rectHeight,
-                slabHeater.rectWidth
-            );
-        } else {
-            slabHeater.cursorIsInsideCache = pointIsInside(
-                getMousePositionAbsolute(),
-                slabHeater.centerPosition,
-                slabHeater.rectWidth,
-                slabHeater.rectHeight
-            );
-        }
+        slabHeater.cursorIsInsideCache = pointIsInsideRectangle(getMousePositionAbsolute(), slabHeater.textBox);
     }
 
     return slabHeater.cursorIsInsideCache;

@@ -32,7 +32,7 @@ function getSecondPointOfPipeDriver(/** @type {PipeDriver} */ pipeDriver) {
     const slabHeaterGroup = getSlabHeaterGroupById(pipeDriver.slabHeaterGroupId);
     const alignment = slabHeaterGroup.alignment;
     const firstPoint = pipeDriver.points[0];
-    const minimumOffset = PIPE_LENGTH_FIRST_SEGMENT_MINIMUM_LENGTH_IN_METERS * pixelsPerMetersRatio;
+    const minimumOffset = pipeLengthFirstSegmentMinimumLengthInPixels;
     const mousePosition = getClosestGridPointToCursorsCorrectedPosition();
 
     let x, y;

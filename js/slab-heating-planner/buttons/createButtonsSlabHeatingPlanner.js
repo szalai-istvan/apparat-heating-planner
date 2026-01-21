@@ -79,7 +79,7 @@ function createButtonsSlabHeatingPlanner() {
         size: HALF_WIDTH_BUTTON_SIZE,
         position: rotatePosition,
         onClick: () => rotateSelectedObject(-1),
-        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup
+        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup || selectedBlueprint
     });
 
     rotatePosition.x += HALF_WIDTH_BUTTON_SIZE.x;
@@ -88,7 +88,7 @@ function createButtonsSlabHeatingPlanner() {
         size: HALF_WIDTH_BUTTON_SIZE,
         position: rotatePosition,
         onClick: () => rotateSelectedObject(1),
-        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup
+        shouldBeActive: () => selectedSlabHeaterGroup || selectedBoxGroup || selectedBlueprint
     });
     leftRibbonButtonSizes.push(HALF_WIDTH_BUTTON_SIZE);
 

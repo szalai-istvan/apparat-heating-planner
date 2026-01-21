@@ -10,8 +10,8 @@ function drawBox(box) {
     const center = box.centerPosition;
     const boxGroup = getBoxGroupById(box.groupId);
     const alignment = boxGroup.alignment;
-    const width = BOX_WIDTH_IN_METERS * pixelsPerMetersRatio;
-    const length = BOX_LENGTH_IN_METERS * pixelsPerMetersRatio;
+    const width = boxWidthInPixels;
+    const length = boxLengthInPixels;
     const mouseIsInside = mouseCursorIsInsideBoxGroupMember(boxGroup);
 
     if (!center) {
@@ -28,7 +28,7 @@ function drawBox(box) {
     } else {
         stroke(BLACK);
     }
-    strokeWeight(BOX_LINE_WEIGHT_IN_METERS * pixelsPerMetersRatio);
+    strokeWeight(boxLineWeightInPixels);
 
     fill(WHITE);
     rect(0, 0, width, length);

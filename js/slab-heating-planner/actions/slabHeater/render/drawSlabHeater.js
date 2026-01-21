@@ -8,25 +8,25 @@ function drawSlabHeater(slabHeater) {
     const group = getSlabHeaterGroupById(slabHeater.groupId);
 
     const ratio = pixelsPerMetersRatio;
-    const color = group.color;
+    const color = group.color || BLACK;
     const width = group.width * ratio;
     const length = group.length * ratio;
     const tubeDistance = roundNumber(TUBE_DISTANCE_IN_METER * ratio, 2);
     const alignment = group.alignment;
     const centerPosition = slabHeater.centerPosition;
     const diameter = tubeDistance;
-    const lineWeight = slabHeater.lineWeight;
+    const lineWeight = slabHeaterLineWeightInPixels;
     const type = group.type;
-    const textSizePixels = slabHeater.textSize;
-    const rectWidth = slabHeater.rectWidth;
-    const rectHeight = slabHeater.rectHeight;
+    const textSizePixels = slabHeaterTextSizeInPixels;
+    const rectWidth = slabHeaterTextboxWidthInPixels;
+    const rectHeight = slabHeaterTextboxHeightInPixels;
     const isSelected = group.isSelected;
     const lengthFrom = - length / 2;
     const lengthTo = length / 2;
     const p = SLAB_HEATER_TEXT_POP_FACTOR;
-    const pointIsInsideRect = mouseCursorIsInsideSlabHeaterGroupMembersTextbox(group);
+    const pointIsInsideGroupMemberTextBox = mouseCursorIsInsideSlabHeaterGroupMembersTextbox(group);
     const notDragging = !group.isSelectedForDrag;
-    const stopThreshold = SLAB_HEATER_STOP_DRAWING_THRESHOLD_IN_METERS * ratio;
+    const stopThreshold = slabHeaterStopDrawingThresholdInPixels;
 
     if (!centerPosition) {
         return;
@@ -59,14 +59,13 @@ function drawSlabHeater(slabHeater) {
 
     textAlign(CENTER, CENTER);
 
-
-    textSize(textSizePixels * (1 + p * isSelected + p * (pointIsInsideRect * notDragging)));
+    textSize(textSizePixels * (1 + p * isSelected + p * (pointIsInsideGroupMemberTextBox * notDragging)));
     stroke(BLACK);
     fill(WHITE);
     rectMode(CENTER);
     rect(0, 0, rectWidth, rectHeight);
 
-    if (isSelected || (pointIsInsideRect && notDragging)) {
+    if (isSelected || (pointIsInsideGroupMemberTextBox && notDragging)) {
         fill(SELECTED_TEXT_COLOR);
     } else {
         fill(DEFAULT_TEXT_COLOR);

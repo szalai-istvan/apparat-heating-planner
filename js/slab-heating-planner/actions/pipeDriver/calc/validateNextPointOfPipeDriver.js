@@ -10,7 +10,7 @@ function validateNextPointOfPipeDriver(pipeDriver, nextPoint) {
     const lastPoint = points[points.length - 1];
     const slabHeaterGroup = getSlabHeaterGroupById(pipeDriver.slabHeaterGroupId);
 
-    const minimumDistance = 2 * PIPE_DRIVER_DISTANCE_BETWEEN_PIPES_IN_METERS * slabHeaterGroup.slabHeaterIds.length * pixelsPerMetersRatio;
+    const minimumDistance = 2 * pipeDriverDistanceBetweenPipesInPixels * slabHeaterGroup.slabHeaterIds.length;
     for (let point of points) {
         if (point === lastPoint) {
             continue;

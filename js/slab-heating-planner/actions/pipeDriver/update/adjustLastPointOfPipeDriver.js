@@ -22,7 +22,7 @@ function adjustLastPointOfPipeDriver(pipeDriver, boxGroup) {
     const secondToLastPoint = points[points.length - 2];
     const endNodeCoordinates = boxGroup.pipeDriverEndNodeCoordinates;
 
-    const threshold = GRID_RESOLUTION_METER * pixelsPerMetersRatio;
+    const threshold = gridResolutionInPixels;
     if (points.length > 2 || calculateDistance(lastPoint, endNodeCoordinates) < threshold) {
         const lastDirection = getDirectionBetweenTwoPoints(secondToLastPoint, lastPoint);
 

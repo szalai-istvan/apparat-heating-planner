@@ -10,7 +10,6 @@ function updateBoxGroupMemberPosition(boxGroup) {
     const boxes = getBoxesByIdList(boxGroup.boxIds);
     const first = boxes[0];
     const width = BOX_WIDTH_IN_METERS;
-    const length = BOX_LENGTH_IN_METERS * pixelsPerMetersRatio;
     const firstCenterPosition = boxGroup.isSelectedForDrag ? calculateBoxCenterPositionWithCorrection(first) : first.centerPosition;
 
     for (let index = 0; index < boxes.length; index++) {
@@ -20,5 +19,9 @@ function updateBoxGroupMemberPosition(boxGroup) {
             alignment: boxGroup.alignment,
             index: index - (boxGroup.clickedMemberIndex || 0)
         });
+
+        boxes[index].boundingBox = calculateBoxBoundingBox(boxes[index]);
     }
+
+    boxGroup.boundingBox = calculateBoxGroupBoundingBox(boxGroup);
 }

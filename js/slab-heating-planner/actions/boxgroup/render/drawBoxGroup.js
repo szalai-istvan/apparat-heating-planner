@@ -21,13 +21,13 @@ function drawBoxGroup(boxGroup) {
     if (!pipeDriverEndNode) {
         return;
     }
-    const diameter = PIPE_DRIVER_DIAMETER_IN_METERS * pixelsPerMetersRatio;
+    const diameter = pipeDriverDiameterInPixels;
 
     push();
     ellipseMode(CENTER);
     stroke(BLACK);
     fill(WHITE);
-    strokeWeight(PIPE_DRIVER_THICKNESS_IN_METERS * pixelsPerMetersRatio);
+    strokeWeight(pipeDriverThicknessInPixels);
     ellipse(pipeDriverEndNode.x, pipeDriverEndNode.y, diameter, diameter);
     pop();
 }

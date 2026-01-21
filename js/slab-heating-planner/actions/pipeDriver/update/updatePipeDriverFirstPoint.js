@@ -24,7 +24,7 @@ function updatePipeDriverFirstPoint(pipeDriver, firstPoint) {
         return;
     }
 
-    if (points.some(p => calculateDistance(p, firstPoint) < 0.9 * GRID_RESOLUTION_METER * pixelsPerMetersRatio)) {
+    if (points.some(p => calculateDistance(p, firstPoint) < 0.9 * gridResolutionInPixels)) {
         return;
     }
 

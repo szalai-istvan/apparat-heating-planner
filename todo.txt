@@ -1,19 +1,16 @@
-- updateRenderSizeValues kell belőle projekt specifikus implementáció
-    - Oda bevezetni az összes (x * pixelsPerMetersRatio) szorzást
-- Boundingbox és Textbox fieldeket bevezetni a projekt specifikus objektumokra
-- Blueprint forgatást be kell vezetni
+- slab heater átméretezésnél legyen a téglalapok újraszámolva, +/- nál is
+- Box group +/- esetén legyenek a bounding boxok újraszámolva
 - boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
 - pipedriver pont mozgatás lehetősége
 - Csövek ne lehessenek 20 m-nél hosszabbak!
 - Födémfűtő label alatt legyen leírva fölfelé kerekítve fél méter hozzáadással a csőhossz
     - (L + 0.5) felfelé kerekítve félméterenkénti felbontássa
 - dobozcsoport lehelyezésekor legyen validálva, hogy szobában van.
-- Excel szerkesztés
 - Pont törlése (pipeDriver)
-- Forgatás lehetősége (alaprajz és minden)
 - Lehessen kézzel a panelokat csoportosítani
 - Minden szobában két szín váltakozzon a paneloknál
 - Minta: Szarvas Gábor út GFH-8
+- Excel szerkesztés
 
 optional:
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
@@ -24,3 +21,7 @@ optional:
 
 long-term:
 - Szögek egységesítése (rad vs. deg)
+- "gridResolutionPixel" kettő van, ugyanaz az értéke, egyiket ki kéne vezetni
+- Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
+- Összes renderelési konstanst kivezetni az instance fieldek közül.
+- Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.

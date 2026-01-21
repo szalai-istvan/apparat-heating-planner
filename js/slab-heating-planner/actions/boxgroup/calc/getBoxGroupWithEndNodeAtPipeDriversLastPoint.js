@@ -12,7 +12,7 @@ function getBoxGroupWithEndNodeAtPipeDriversLastPoint(pipeDriver) {
         return null;
     }
     const point = points[points.length - 1];
-    const threshold = GRID_RESOLUTION_METER * pixelsPerMetersRatio;
+    const threshold = gridResolutionPixel;
 
     const boxGroupsFiltered = boxGroups.filter(bg => calculateDistance(bg.pipeDriverEndNodeCoordinates, point) < 2 * threshold);
 

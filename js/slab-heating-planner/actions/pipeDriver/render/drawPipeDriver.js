@@ -7,13 +7,11 @@
 function drawPipeDriver(pipeDriver) {
     checkClass(pipeDriver, CLASS_PIPE_DRIVER);
 
-    const ratio = pixelsPerMetersRatio;
-
     const isSelected = pipeDriver.isSelected;
     const mouseCursorIsInsidePoint = mouseCursorIsInsidePipeDriversPoint(pipeDriver);
-    const lineThickness = PIPE_DRIVER_PIPE_THICKNESS_IN_METERS * ratio;
-    const diameter = PIPE_DRIVER_DIAMETER_IN_METERS * ratio * (1 + mouseCursorIsInsidePoint * 0.2);
-    const ellipseThickness = PIPE_DRIVER_THICKNESS_IN_METERS * ratio;
+    const lineThickness = pipeDriverPipeThicknessInPixels;
+    const diameter = pipeDriverDiameterInPixels * (1 + mouseCursorIsInsidePoint * 0.2);
+    const ellipseThickness = pipeDriverThicknessInPixels;
     const points = getPointsToDrawPipeDriver(pipeDriver);
     const color = getSlabHeaterGroupById(pipeDriver.slabHeaterGroupId).color;
     updateSelectedPointOfPipeDriver(pipeDriver);

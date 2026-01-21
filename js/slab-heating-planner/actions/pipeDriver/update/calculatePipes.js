@@ -30,8 +30,8 @@ function calculatePipes(pipeDriver) {
 }
 
 function getBeginningOffset(/** @type {Number} */ alignment) {
-    const beginningOffset = PIPE_DRIVER_DISTANCE_BETWEEN_PIPES_IN_METERS * pixelsPerMetersRatio;
-    const slabHeaterPipeOffset = TUBE_DISTANCE_IN_METER * pixelsPerMetersRatio / 1.5;
+    const beginningOffset = pipeDriverDistanceBetweenPipesInPixels;
+    const slabHeaterPipeOffset = tubeDistanceInPixels / 1.5;
     if (alignment === 0) {
         return createPoint(-(beginningOffset), 0);
     } else if (alignment === 1) {
@@ -44,7 +44,7 @@ function getBeginningOffset(/** @type {Number} */ alignment) {
 }
 
 function getNonMultipliedOffset(/** @type {Number} */ alignment) {
-    const slabHeaterPipeOffset = TUBE_DISTANCE_IN_METER * pixelsPerMetersRatio / 1.5;
+    const slabHeaterPipeOffset = tubeDistanceInPixels / 1.5;
     if (alignment === 0) {
         return createPoint(-(slabHeaterPipeOffset), 0);
     } else if (alignment === 1) {
@@ -69,7 +69,7 @@ function getThirdPoint(
     alignment) {
 
     const indexOffset = (0.5 * (beginningPoints.length - 1) - index);
-    const offset = pixelsPerMetersRatio * PIPE_DRIVER_DISTANCE_BETWEEN_PIPES_IN_METERS * indexOffset;
+    const offset = pipeDriverDistanceBetweenPipesInPixels * indexOffset;
     const pipeDriverFirstPoint = pipeDriver.points[0];
 
     if (alignment === 0) {

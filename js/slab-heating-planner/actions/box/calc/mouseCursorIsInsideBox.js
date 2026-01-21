@@ -8,29 +8,10 @@ function mouseCursorIsInsideBox(box) {
     checkClass(box, CLASS_BOX);
 
     if (box.cursorIsInsideCache === null) {
-        const centerPosition = box.centerPosition;
-        if (!centerPosition) {
-            return false;
+        if (!box.boundingBox) {
+            box.boundingBox = calculateBoxBoundingBox(box);
         }
-        const width = BOX_WIDTH_IN_METERS * pixelsPerMetersRatio;
-        const length = BOX_LENGTH_IN_METERS * pixelsPerMetersRatio;
-
-        if (boxGroupIsHorizontal(getBoxGroupById(box.groupId))) {
-            box.cursorIsInsideCache = pointIsInside(
-                getMousePositionAbsolute(),
-                centerPosition,
-                length,
-                width
-            );
-
-        } else {
-            box.cursorIsInsideCache = pointIsInside(
-                getMousePositionAbsolute(),
-                centerPosition,
-                width,
-                length
-            );
-        }
+        box.cursorIsInsideCache = pointIsInsideRectangle(getMousePositionAbsolute(), box.boundingBox);
     }
 
     return box.cursorIsInsideCache;

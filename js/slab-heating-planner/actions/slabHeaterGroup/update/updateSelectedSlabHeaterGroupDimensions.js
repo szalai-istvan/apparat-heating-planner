@@ -39,6 +39,7 @@ function updateSelectedSlabHeaterGroupDimensions() {
     } else {
         updateSlabHeaterGroupType(selectedGroup);
         const firstPoint = calculatePipeDriverFirstPoint(selectedGroup);
-        updatePipeDriverFirstPoint(selectedGroup.pipeDriver, firstPoint);
+        const pipeDriver = getPipeDriverById(selectedGroup.pipeDriverId);
+        updatePipeDriverFirstPoint(pipeDriver, firstPoint);
     }
 }

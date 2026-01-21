@@ -16,5 +16,7 @@ function updateSlabHeaterGroupMemberPosition(slabHeaterGroup) {
             alignment: slabHeaterGroup.alignment,
             index: index - (slabHeaterGroup.clickedMemberIndex || 0)
         });
+        slabHeaters[index].boundingBox = calculateSlabHeaterBoundingBox(slabHeaters[index]);
+        slabHeaters[index].textBox = calculateSlabHeaterTextBox(slabHeaters[index]);
     }
 }

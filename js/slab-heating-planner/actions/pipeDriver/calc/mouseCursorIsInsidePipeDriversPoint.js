@@ -7,7 +7,7 @@
 function mouseCursorIsInsidePipeDriversPoint(pipeDriver) {
     if (pipeDriver.cursorIsInsidePointIndexCache === null) {
         const mousePosition = getMousePositionAbsolute();
-        const maxDistance = PIPE_DRIVER_DIAMETER_IN_METERS * pixelsPerMetersRatio / 2;
+        const maxDistance = pipeDriverDiameterInPixels / 2;
         
         const selectablePoints = pipeDriver.points.filter(p => calculateDistance(p, mousePosition) < maxDistance);
         pipeDriver.cursorIsInsidePointIndexCache = selectablePoints.length > 0;

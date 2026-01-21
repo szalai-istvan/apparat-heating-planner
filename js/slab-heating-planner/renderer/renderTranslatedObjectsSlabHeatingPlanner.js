@@ -14,5 +14,14 @@ function renderTranslatedObjectsSlabHeatingPlanner() {
  * @returns {undefined}
  */
 function renderDebugOnlyTranslatedObjectsSlabHeatingPlanner() {
+    elementStore.rooms.forEach(r => drawRectangle(r.boundingBox));
+    elementStore.rooms.forEach(r => drawRectangle(r.textBox));
 
+    elementStore.slabHeaterGroups.forEach(shg => drawRectangle(shg.boundingBox));
+    elementStore.slabHeaterGroups.forEach(shg => drawRectangle(shg.boundingBoxIncludingPipes));
+    elementStore.slabHeaters.forEach(sh => drawRectangle(sh.boundingBox));
+    elementStore.slabHeaters.forEach(sh => drawRectangle(sh.textBox));
+
+    elementStore.boxGroups.forEach(bg => drawRectangle(bg.boundingBox));
+    elementStore.boxes.forEach(b => drawRectangle(b.boundingBox));
 }

@@ -1,6 +1,9 @@
 class Box {
     id;
     centerPosition;
+
+    /** @type {Rectangle} */
+    boundingBox;
     
     groupId;
     cursorIsInsideCache = null;

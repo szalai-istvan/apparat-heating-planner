@@ -28,7 +28,7 @@ function updateSelectedPointOfPipeDriver(pipeDriver) {
     const nextPoint = createPoint(points[selectedIndex + 1].x, points[selectedIndex + 1].y);
     const newPoint = getClosestGridPointToCursorsCorrectedPosition();
 
-    const threshold = 2 * GRID_RESOLUTION_METER * pixelsPerMetersRatio;
+    const threshold = 2 * gridResolutionInPixels;
     if (calculateDistance(newPoint, previousPoint) < threshold || calculateDistance(newPoint, nextPoint) < threshold) {
         return;
     }

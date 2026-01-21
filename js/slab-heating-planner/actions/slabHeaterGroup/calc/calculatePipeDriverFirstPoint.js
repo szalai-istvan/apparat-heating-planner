@@ -20,7 +20,7 @@ function calculatePipeDriverFirstPoint(slabHeaterGroup) {
 
     const width = slabHeaterGroup.width * ratio;
     const length = slabHeaterGroup.length * ratio;
-    const additionalOffset = PIPE_DRIVER_ADDITIONAL_OFFSET_METERS * ratio;
+    const additionalOffset = pipeDriverAdditionalOffsetInPixels;
     const widthOffset = (slabHeaters.length - 1) * width / 2;
     const lengthOffset = length / 2 + additionalOffset;
 

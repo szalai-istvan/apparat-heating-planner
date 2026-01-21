@@ -3,13 +3,23 @@ class SlabHeaterGroup {
 
     type;
     color;
-    length;
-    width;
+
     alignment;
+    length;
+    lengthInPixels;
+    width;
+    widthInPixels;
+
     isSelected;
     isSelectedForDrag;
     clickedMemberIndex;
     
+    angleDeg = 0.00;
+    /** @type {Rectangle} */
+    boundingBox;
+    /** @type {Rectangle} */
+    boundingBoxIncludingPipes;
+
     roomId = null;
     slabHeaterIds = [];
     cursorIsInsideCache = null;
@@ -25,11 +35,13 @@ class SlabHeaterGroup {
 
         this.isSelected = false;
         this.isSelectedForDrag = false;
-
         this.color = BLACK;
+
+        this.alignment = alignment;
         this.length = length;
+        this.lengthInPixels = length * pixelsPerMetersRatio;
         this.width = width;
-        this.alignment = alignment ?? 1;
+        this.widthInPixels = width * pixelsPerMetersRatio;
         updateSlabHeaterGroupType(this);
 
         this.pipeDriverId = new PipeDriver(this).id;

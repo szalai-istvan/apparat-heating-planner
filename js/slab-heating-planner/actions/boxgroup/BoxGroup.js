@@ -7,7 +7,10 @@ class BoxGroup {
     isSelected;
     isSelectedForDrag;
     pipeDriverEndNodeCoordinates = null;
-    
+
+    /** @type {Rectangle} */
+    boundingBox; 
+
     boxIds = [];
     pipeDriverId = null;
 
