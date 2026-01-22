@@ -17,6 +17,7 @@ function resetPipeDriver(pipeDriver) {
     pipeDriver.points = [pipeDriver.points[0]];
     pipeDriver.pipes = [];
     pipeDriver.isFullyConfigured = false;
+    updatePipeLengthLabel(pipeDriver);
 }
 
 
@@ -32,4 +33,5 @@ function forceDeselectPipeDriver(pipeDriver = undefined) {
     pipeDriver.isSelectedForDrag = false;
     pipeDriver.selectedPointIndex = null;
     selectedPipeDriver = null;
+    updatePipeLengthLabel(pipeDriver);
 }

@@ -32,6 +32,7 @@ function calculatePipes(pipeDriver) {
     }
 
     pipeDriver.pipes = pipes;
+    updatePipeLengthLabel(pipeDriver);
 }
 
 function getBeginningOffset(/** @type {Number} */ alignment) {
@@ -158,4 +159,26 @@ function calculateFinishingPoint(pipeLastPoint, firstDirection, firstPoint, midd
     } else {
         throw new Error('Unexpected value of direction: ' + firstDirection);
     }
+}
+
+/** @param {PipeDriver} pipeDriver */
+function updatePipeLengthLabel(pipeDriver) {
+    const slabHeaterGroup = getSlabHeaterGroupById(pipeDriver.slabHeaterGroupId);
+
+    if (!slabHeaterGroup) {
+        return null;
+    }
+
+    const pipeLengths = calculatePipeLengths(pipeDriver);
+    let averagePipeLength = pipeLengths.reduce(sumFunction, 0) / pipeLengths.length;
+    if (averagePipeLength < 0.1) {
+        slabHeaterGroup.pipeLength = null;
+        return null;
+    }
+
+    averagePipeLength = averagePipeLength + 0.5;
+    averagePipeLength = (averagePipeLength + 0.5) - (averagePipeLength % 0.5);
+    averagePipeLength = roundNumber(averagePipeLength, 1);
+    slabHeaterGroup.pipeLength = averagePipeLength;
+    return averagePipeLength;
 }

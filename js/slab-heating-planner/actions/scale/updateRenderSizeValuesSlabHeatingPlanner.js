@@ -64,7 +64,7 @@ function updateRenderSizeValuesSlabHeatingPlanner() {
 
         textSize(slabHeaterTextSizeInPixels);
         slabHeaterTextboxWidthInPixels = ratio ? textWidth('_._ m x _._ m') + slabHeaterTypeRectPaddingInPixels : undefined;
-        slabHeaterTextboxHeightInPixels = ratio ? slabHeaterTextSizeInPixels + slabHeaterTypeRectPaddingInPixels : undefined;
+        slabHeaterTextboxHeightInPixels = ratio ? 2*slabHeaterTextSizeInPixels + slabHeaterTypeRectPaddingInPixels : undefined;
 
         pop();
     }

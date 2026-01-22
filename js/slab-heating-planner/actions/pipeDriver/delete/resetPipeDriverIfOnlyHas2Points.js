@@ -21,4 +21,5 @@ function resetPipeDriverIfOnlyHas2Points(pipeDriver) {
     }
 
     resetPipeDriver(pipeDriver);
+    updatePipeLengthLabel(pipeDriver);
 }

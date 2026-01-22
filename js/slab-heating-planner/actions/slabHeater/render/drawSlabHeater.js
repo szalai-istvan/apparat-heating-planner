@@ -75,7 +75,9 @@ function drawSlabHeater(slabHeater) {
     if (alignment > 1) {
         rotate(180);
     }
-    text(type, 0, 0);
+
+    const label = type + (group.pipeLength ? `\n${group.pipeLength} m` : '');
+    text(label, 0, 0);
 
     pop();
 }
