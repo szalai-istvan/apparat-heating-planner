@@ -20,6 +20,9 @@ function updateSelectedSlabHeaterGroupDimensions() {
     const originalLength = selectedGroup.length;
     selectedGroup.width = width;
     selectedGroup.length = length;
+    selectedGroup.widthInPixels = width * pixelsPerMetersRatio;
+    selectedGroup.lengthInPixels = length * pixelsPerMetersRatio;
+
     updateSlabHeaterGroupMemberPosition(selectedGroup);
 
     const slabHeaters = getSlabHeatersByIdList(selectedGroup.slabHeaterIds);
@@ -34,6 +37,8 @@ function updateSelectedSlabHeaterGroupDimensions() {
         displayMessage('A kiválasztott födémfűtő csoport része vagy egésze szobán kívülre kerülne az átméretezés hatására!');
         selectedGroup.width = originalWidth;
         selectedGroup.length = originalLength;
+        selectedGroup.widthInPixels = originalWidth * pixelsPerMetersRatio;
+        selectedGroup.lengthInPixels = originalLength * pixelsPerMetersRatio;
         setOptionBarValues(selectedGroup);
         updateSlabHeaterGroupMemberPosition(selectedGroup);
     } else {
@@ -41,5 +46,6 @@ function updateSelectedSlabHeaterGroupDimensions() {
         const firstPoint = calculatePipeDriverFirstPoint(selectedGroup);
         const pipeDriver = getPipeDriverById(selectedGroup.pipeDriverId);
         updatePipeDriverFirstPoint(pipeDriver, firstPoint);
+        selectedGroup.boundingBox = calculateSlabHeaterGroupBoundingBox(selectedGroup);
     }
 }

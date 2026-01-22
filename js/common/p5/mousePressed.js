@@ -1,5 +1,5 @@
 function mousePressed() {
-    if (!controlsAreEnabled) {
+    if (!controlsAreEnabled || mouseCursorIsInsideUi()) {
         return;
     }
 
@@ -7,10 +7,10 @@ function mousePressed() {
         return;
     }
 
-    if (mouseButton === RIGHT) {
+    if (mouseButton === LEFT) {
+        leftMouseButtonPressedFunc();
+    } else if (mouseButton === RIGHT) {
         rightMouseButtonPressedFunc();
-    } else if (mouseButton === LEFT) {
-        startDragging();
     }
 }
 
@@ -19,4 +19,8 @@ function rightMouseButtonPressedFunc() {
     addPointToSelectedRoom();
 
     deselectObject();
+}
+
+function leftMouseButtonPressedFunc() {
+    startDragging();
 }

@@ -11,7 +11,9 @@ let pipeDriverThicknessInPixels = undefined;
 /** @type {Number} */
 let pipeLengthFirstSegmentMinimumLengthInPixels = undefined;
 /** @type {Number} */
-let pipeDriverAdditionalOffsetInPixels = undefined;
+let pipeDriverAdditionalOffsetSHGInPixels = undefined;
+/** @type {Number} */
+let pipeDriverAdditionalOffsetBGInPixels = undefined;
 /** @type {Number} */
 let slabHeaterLineWeightInPixels = undefined;
 /** @type {Number} */
@@ -46,7 +48,8 @@ function updateRenderSizeValuesSlabHeatingPlanner() {
     pipeDriverDiameterInPixels = ratio ? PIPE_DRIVER_DIAMETER_IN_METERS * ratio : undefined;
     pipeDriverThicknessInPixels = ratio ? PIPE_DRIVER_THICKNESS_IN_METERS * ratio : undefined;
     pipeLengthFirstSegmentMinimumLengthInPixels = ratio ? PIPE_LENGTH_FIRST_SEGMENT_MINIMUM_LENGTH_IN_METERS * ratio : undefined;
-    pipeDriverAdditionalOffsetInPixels = ratio ? PIPE_DRIVER_ADDITIONAL_OFFSET_METERS * ratio : undefined;
+    pipeDriverAdditionalOffsetSHGInPixels = ratio ? PIPE_DRIVER_ADDITIONAL_OFFSET_SHG_METERS * ratio : undefined;
+    pipeDriverAdditionalOffsetBGInPixels = ratio ? PIPE_DRIVER_ADDITIONAL_OFFSET_BG_METERS * ratio : undefined;
     pipeDriverPipeThicknessInPixels = ratio ? PIPE_DRIVER_PIPE_THICKNESS_IN_METERS * ratio : undefined;
     pipeDriverDistanceBetweenPipesInPixels = ratio ? PIPE_DRIVER_DISTANCE_BETWEEN_PIPES_IN_METERS * ratio : undefined;
     tubeDistanceInPixels = ratio ? TUBE_DISTANCE_IN_METER * ratio : undefined;

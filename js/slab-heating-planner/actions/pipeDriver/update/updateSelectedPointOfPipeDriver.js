@@ -76,4 +76,6 @@ function updateSelectedPointOfPipeDriver(pipeDriver) {
             points[selectedIndex + 1] = nextPoint;
         }
     }
+
+    calculatePipes(pipeDriver);
 }

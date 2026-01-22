@@ -21,7 +21,6 @@ function deselectSlabHeaterGroup() {
     }
 
     slabHeaterGroup.roomId = destinationRoom.id;
-    slabHeaterGroup.color = destinationRoom.slabHeaterColor;
     
     slabHeaterGroup.isSelected = false;
     slabHeaterGroup.isSelectedForDrag = false;

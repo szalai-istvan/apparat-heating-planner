@@ -33,6 +33,9 @@ function selectedPipeDriverIsFullyConfigured() {
         } else if (validationResult === VALIDATION_ALIGNMENT_MISMATCH) {
             displayMessage('A csőnyomvonal utolsó szakasza nem megfelelő irányból közelíti meg a födémáttörést!');
             resetSelectedPipeDriver();
+        } else if (validationResult === VALIDATION_TOO_LONG_PIPE) {
+            displayMessage(`${PIPE_DRIVER_MAX_LENGTH_METERS} m-nél hosszabb cső nem megengedett.`);
+            resetSelectedPipeDriver();
         }
     }
     return pipeDriver.isFullyConfigured;
@@ -56,6 +59,12 @@ function validateBoxGroupAndPipeDriver(/** @type {PipeDriver} */ pipeDriver, /**
         if (lastDirection !== DIRECTION_Y) {
             return VALIDATION_ALIGNMENT_MISMATCH;
         }
+    }
+
+    const pipeLengths = calculatePipeLengths(pipeDriver);
+    const tooLongPipe = pipeLengths.filter(pl => pl > PIPE_DRIVER_MAX_LENGTH_METERS).length > 0;
+    if (tooLongPipe) {
+        return VALIDATION_TOO_LONG_PIPE;
     }
 
     return VALIDATION_OK;

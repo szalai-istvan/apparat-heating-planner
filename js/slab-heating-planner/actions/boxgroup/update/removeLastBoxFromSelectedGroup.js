@@ -18,6 +18,7 @@ function removeLastBoxFromSelectedGroup() {
     detachBoxFromGroup(box);
     elementStore.remove(box);
 
+    selectedGroup.boundingBox = calculateBoxGroupBoundingBox(selectedGroup);
     updateBoxGroupPipeDriverEndNodePosition(selectedGroup);
     resetPipeDriver(getPipeDriverById(selectedGroup.pipeDriverId));
 }

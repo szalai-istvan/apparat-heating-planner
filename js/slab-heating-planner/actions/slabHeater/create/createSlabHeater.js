@@ -8,6 +8,7 @@ function createSlabHeater(addToGroup) {
     const slabHeater = new SlabHeater();    
     if (addToGroup) {
         attachToSelectedSlabHeaterGroup(slabHeater);
+        selectedSlabHeaterGroup.boundingBox = calculateSlabHeaterGroupBoundingBox(selectedSlabHeaterGroup);
     }
 
     return slabHeater;

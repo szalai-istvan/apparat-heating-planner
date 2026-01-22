@@ -22,4 +22,6 @@ function removeLastSlabHeaterFromSelectedGroup() {
     const firstPoint = calculatePipeDriverFirstPoint(slabHeaterGroup);
     updatePipeDriverFirstPoint(pipeDriver, firstPoint);
     resetPipeDriver(pipeDriver);
+
+    slabHeaterGroup.boundingBox = calculateSlabHeaterGroupBoundingBox(slabHeaterGroup);
 }

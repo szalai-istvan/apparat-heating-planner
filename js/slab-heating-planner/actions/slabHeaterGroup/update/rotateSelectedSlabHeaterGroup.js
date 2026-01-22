@@ -29,5 +29,6 @@ function rotateSelectedSlabHeaterGroup(direction, pipeDriverReset = true) {
         rotateSelectedSlabHeaterGroup(-1 * direction, false);
     } else if (pipeDriverReset) {
         resetPipeDriver(group.pipeDriver);
+        group.boundingBox = calculateSlabHeaterGroupBoundingBox(group);
     }
 }

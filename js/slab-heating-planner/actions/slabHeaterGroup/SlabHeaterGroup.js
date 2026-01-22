@@ -23,7 +23,9 @@ class SlabHeaterGroup {
     roomId = null;
     slabHeaterIds = [];
     cursorIsInsideCache = null;
+    
     pipeDriverId = null;
+    pipeLength = null;
 
     constructor({ slabHeater, length, width, alignment }) {
         this.id = createUniqueId();

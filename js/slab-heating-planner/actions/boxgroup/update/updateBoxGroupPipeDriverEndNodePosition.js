@@ -16,7 +16,7 @@ function updateBoxGroupPipeDriverEndNodePosition(boxGroup) {
 
     const width = boxWidthInPixels;
     const length = boxLengthInPixels;
-    const additionalOffset = pipeDriverAdditionalOffsetInPixels;
+    const additionalOffset = pipeDriverAdditionalOffsetBGInPixels;
     const widthOffset = (boxes.length - 1) * width / 2;
     const lengthOffset = length / 2 + additionalOffset;
 

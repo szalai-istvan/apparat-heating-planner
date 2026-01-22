@@ -1,23 +1,19 @@
-- slab heater átméretezésnél legyen a téglalapok újraszámolva, +/- nál is
-- Box group +/- esetén legyenek a bounding boxok újraszámolva
-- boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
-- pipedriver pont mozgatás lehetősége
-- Csövek ne lehessenek 20 m-nél hosszabbak!
 - Födémfűtő label alatt legyen leírva fölfelé kerekítve fél méter hozzáadással a csőhossz
     - (L + 0.5) felfelé kerekítve félméterenkénti felbontássa
 - dobozcsoport lehelyezésekor legyen validálva, hogy szobában van.
-- Pont törlése (pipeDriver)
 - Lehessen kézzel a panelokat csoportosítani
-- Minden szobában két szín váltakozzon a paneloknál
-- Minta: Szarvas Gábor út GFH-8
+    - Egy vagy több slabHeaterGroup kiválasztható, és elnevezhető. Keresztbe vonal, középen textbox, benne név. Egy csoport egy szín.
 - Excel szerkesztés
+
+- Minta: Szarvas Gábor út GFH-8
 
 optional:
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
-- Szoba overlap validációt megcsinálni JÓRA.
 - package script (egy .js file per projekt előállítása, projekt csomagolása)
 - landing page, ahonnan meg lehet nyitni az egyes rajzolókat.
+- boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
+- Pont törlése (pipeDriver)
 
 long-term:
 - Szögek egységesítése (rad vs. deg)
@@ -25,3 +21,4 @@ long-term:
 - Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
 - Összes renderelési konstanst kivezetni az instance fieldek közül.
 - Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
+- Még egy major refaktor, ahol sokkal konzisztensebben vannak a műveletek definiálva és elhatárolva.

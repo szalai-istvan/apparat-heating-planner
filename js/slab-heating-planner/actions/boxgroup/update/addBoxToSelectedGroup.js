@@ -12,7 +12,8 @@ function addBoxToSelectedGroup() {
     const nextPosition = nextBoxPosition(selectedGroup);
     const box = createBox(true);
     box.centerPosition = nextPosition;
-
+    box.boundingBox = calculateBoxBoundingBox(box);
+    selectedGroup.boundingBox = calculateBoxGroupBoundingBox(selectedGroup);
     updateBoxGroupPipeDriverEndNodePosition(selectedGroup);
     resetPipeDriver(getPipeDriverById(selectedGroup.pipeDriverId));
 }

@@ -12,6 +12,11 @@ function calculatePipes(pipeDriver) {
     const beginningOffset = getBeginningOffset(slabHeaterGroup.alignment);
     const nonMultipliedOffset = getNonMultipliedOffset(slabHeaterGroup.alignment);
 
+    if (pipeDriver.points.length < 2) {
+        pipeDriver.pipes = [];
+        return;
+    }
+
     /** @type {Point[][]} */
     const pipes = [];
     for (let index = 0; index < beginningPoints.length; index++) {
