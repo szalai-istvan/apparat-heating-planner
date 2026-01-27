@@ -1,23 +1,21 @@
-- dobozcsoport lehelyezésekor legyen validálva, hogy szobában van.
+- landing page, ahonnan meg lehet nyitni az egyes rajzolókat.
 - Excel szerkesztés
 
-- Minta: Szarvas Gábor út GFH-8
 
 optional:
-- Szobák ne téglalap hanem körberajzolhatóak legyenek
-    - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
 - package script (egy .js file per projekt előállítása, projekt csomagolása)
-- landing page, ahonnan meg lehet nyitni az egyes rajzolókat.
-- boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
-- Pont törlése (pipeDriver)
 - Lehessen kézzel a panelokat csoportosítani
     - Egy vagy több slabHeaterGroup kiválasztható, és elnevezhető. Keresztbe vonal, középen textbox, benne név. Egy csoport egy szín.
 
 long-term:
+- Pont törlése (pipeDriver) ??
+- boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
 - Szögek egységesítése (rad vs. deg)
 - "gridResolutionPixel" kettő van, ugyanaz az értéke, egyiket ki kéne vezetni
 - Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
 - Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
+- Szobák ne téglalap hanem körberajzolhatóak legyenek
+    - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
 - Még egy major refaktor, ahol sokkal konzisztensebben vannak a műveletek definiálva és elhatárolva.
     - Gombokhoz rendelve "top-level" műveletek. (BlueprintAPI, RoomAPI, etc.)
     - API hívja a RoomCalculate, RoomCreate, RoomUpdate, RoomDelete, RoomRender, RoomSelect

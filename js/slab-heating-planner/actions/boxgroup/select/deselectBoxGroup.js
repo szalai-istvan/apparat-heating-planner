@@ -14,6 +14,12 @@ function deselectBoxGroup() {
         removeUnnecessaryPointsOfPipeDriver(pipeDriver);
     }
 
+    const containingRoom = elementStore.rooms
+        .filter(room => rectangleIsInsideRectangle(boxGroup.boundingBox, room.boundingBox))[0];
+    if (!containingRoom) {
+        displayMessage('A födémáttörés csoportnak szobán belül kell lennie!');
+        return false;
+    }
 
     boxGroup.isSelected = false;
     boxGroup.isSelectedForDrag = false;
