@@ -1,7 +1,6 @@
 - landing page, ahonnan meg lehet nyitni az egyes rajzolókat.
 - Excel szerkesztés
 
-
 optional:
 - package script (egy .js file per projekt előállítása, projekt csomagolása)
 - Lehessen kézzel a panelokat csoportosítani

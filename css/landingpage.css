@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    background-image: url("/img/landingpagebackground.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Header */
+.header {
+    height: 60px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    justify-content: flex-end;
+}
+
+/* Hero Section */
+.hero {
+    height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    border: solid 1px black;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px;
+    user-select: none;
+    font-size: 20px;
+}
+
+.button:hover {
+    background-color: lightgray;
+}
+
+img {
+    height: 60px;
+}
+
+.cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.hero-text {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: black;
+    text-align: center;
+}
+
+.button-row {
+    display: flex;
+    gap: 20px;
+}
+
+.hero-box {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    padding: 32px 40px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
