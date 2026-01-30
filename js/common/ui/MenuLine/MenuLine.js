@@ -1,4 +1,9 @@
-class MenuLine {
+import { ElementStore } from "../../store/ElementStore.js";
+
+/**
+ * Egy menüszalagot reprezentáló UI element osztály.
+ */
+export class MenuLine {
     position;
     size;
     baseButton;
@@ -48,18 +53,18 @@ class MenuLine {
         }
 
         this.hideMenuItems();
-        elementStore.register(this);
+        ElementStore.save(this);
     }
 
     selectMenuItem(text) {
         setTimeout(() => this.hideMenuItems(), 300);
         for (let menuItem of this.menuItems) {
-            menuItem.style(BACKGROUND, null);
+            menuItem.style(Constants.strings.background, null);
         }
 
         const selected = this.menuItems.filter(button => button.elt.innerHTML === text)[0];        
         if (this.selectionMenuMode) {
-            selected.style(BACKGROUND, 'darkgrey');
+            selected.style(Constants.strings.background, 'darkgrey');
         }
 
         this.value = this.valueSet[selected.elt.innerHTML];

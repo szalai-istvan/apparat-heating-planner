@@ -1,10 +1,19 @@
-- landing page, ahonnan meg lehet nyitni az egyes rajzolókat.
 - Excel szerkesztés
-
-optional:
-- package script (egy .js file per projekt előállítása, projekt csomagolása)
-- Lehessen kézzel a panelokat csoportosítani
-    - Egy vagy több slabHeaterGroup kiválasztható, és elnevezhető. Keresztbe vonal, középen textbox, benne név. Egy csoport egy szín.
+Minden második sor random színre befesteni
+Váltakozó színű téglalap a panelkák köré, random szín
+Excelben ugyanolyan színű a sor
+Panelkákon legyen sorszám, egyezzen az Excellel
+Sorszám bekarikázva
+csövek rádiuszosak
+Csőnyomvonal rajzolás panelonként, nem csoportonként
+Minden panel fele piros másik fele kék, sorrend mindegy
+A panelen lévő labelen lévő csőhossz csak az egyik, a hosszabb cső
+Csőhossz az *1.1
+F és G oszlop a két cső hossza, mindkét oszlopba a hosszabb kerül
+Doboz szélesség 8 centi
+rádiusz 15 centi
+csőköz 4 centi
+Cső is piros-kék
 
 long-term:
 - Pont törlése (pipeDriver) ??
@@ -18,7 +27,7 @@ long-term:
 - Még egy major refaktor, ahol sokkal konzisztensebben vannak a műveletek definiálva és elhatárolva.
     - Gombokhoz rendelve "top-level" műveletek. (BlueprintAPI, RoomAPI, etc.)
     - API hívja a RoomCalculate, RoomCreate, RoomUpdate, RoomDelete, RoomRender, RoomSelect
-    - A selectorok legyenek mint a service-ek és az elementStore funkcionáljon mint egy adatbázis.
+    - A selectorok legyenek mint a service-ek és az elementStore funkcionáljon mint egy in-memory adatbázis.
         - A selector egy másolatot küldjön vissza, és azon mennek majd a műveletek.
         - Az elementStore-nak kell egy save metódus, amely ha van id-ja akkor felülírja a meglévőt.
     - Ránézni még egyszer a type="module" importoknak.

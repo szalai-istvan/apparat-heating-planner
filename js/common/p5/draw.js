@@ -1,22 +1,23 @@
+import { Constants } from "../appdata/Constants.js";
+import { AbsoluteObjectRenderer } from "../render/AbsoluteObjectRenderer.js";
+import { TranslatedObjectRenderer } from "../render/TranslatedObjectRenderer.js";
+import { MouseCursor } from "../ui/MouseCursor.js";
+
 /** {boolean} flag, hogy a renderelés be van-e kapcsolva. */
 let renderingEnabled = false;
 
-function draw() {
+window.draw = function() {
     if (!renderingEnabled) {
         return;
     }
 
-    setCursorType();
-    clearSelectionCache();
+    // clearSelectionCache(); TODO
+    MouseCursor.setCursorType();
 
-    background(BACKGROUND_COLOR);
+    background(Constants.ui.backgroundColor);
 
-    push();
-    translateScreen();
-    renderTranslatedObjects();
-    pop();
-
-    renderAbsolutePositionObjects();
+    TranslatedObjectRenderer.renderTranslatedObjects();
+    AbsoluteObjectRenderer.renderAbsolutePositionObjects();
 }
 
 /**
@@ -37,8 +38,10 @@ function enableRendering() {
     renderingEnabled = true;
 }
 
-setTimeout(() => {
-    if (!renderingEnabled) {
-        console.log("Don't forget to enable rendering in the setup!");
-    }
-}, 2_000);
+/**
+ * A Draw modul, amely a renderelés vezérléséért felelős.
+ */
+export const Draw = {
+    enableRendering,
+    disableRendering
+};

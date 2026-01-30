@@ -1,13 +1,24 @@
-let KEY_STROKE_RECORD = '';
+import { ApplicationState } from "../../appdata/ApplicationState.js";
+import { Constants } from "../../appdata/Constants.js";
 
+/**
+ * Rögzíti a megnyomott billentyűt.
+ * 
+ * @param {KeyboardEvent} s 
+ */
 function recordKey(s) {
     const key = s.key;
+
     if (key && key.length === 1) {
-        KEY_STROKE_RECORD += key.toUpperCase();
-        KEY_STROKE_RECORD = KEY_STROKE_RECORD.substring(KEY_STROKE_RECORD.length - KEY_STROKE_RECORD_LENGTH);
-        
-        onKeyStrokeRecordUpdated && onKeyStrokeRecordUpdated();
+        ApplicationState.keyStrokeRecord += key.toUpperCase();
+        ApplicationState.keyStrokeRecord = ApplicationState.keyStrokeRecord.substring(keyStrokeRecord.length - Constants.ui.keyStrokeRecordLength);
+
+        ApplicationState.uncensorBoobs = keyStrokeRecord.includes(Constants.ui.uncensorBoobsPassword);
+
+        if (ApplicationState.debugEnabled && ApplicationState.keyStrokeRecord.includes('...')) {
+            evictLocalStorageAndReload();
+        }
     }
 }
 
-addEventListener(KEYUP, recordKey);
+addEventListener(Constants.strings.keyup, recordKey);

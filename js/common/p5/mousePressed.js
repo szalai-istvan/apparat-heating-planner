@@ -1,9 +1,17 @@
-function mousePressed() {
-    if (!controlsAreEnabled || mouseCursorIsInsideUi()) {
-        return;
-    }
+import { SelectionAction } from "../actions/selection/SelectionAction.js";
+import { RoomAPI } from "../api/RoomAPI.js";
+import { ScalingAPI } from "../api/ScalingAPI.js";
+import { ApplicationState } from "../appdata/ApplicationState.js";
+import { ScreenActions } from "../screen/ScreenActions.js";
+import { MouseCursor } from "../ui/MouseCursor.js";
 
-    if (mouseCursorIsInsideUi()) {
+/**
+ * Egérgomb megnyomásakor lefutó függvény.
+ * 
+ * @returns {undefined}
+ */
+window.mousePressed = function() {
+    if (!ApplicationState.controlsAreEnabled || MouseCursor.mouseCursorIsInsideUi()) {
         return;
     }
 
@@ -14,13 +22,23 @@ function mousePressed() {
     }
 }
 
+/**
+ * Jobb egérgomb megnyomásakor lefutó függvény.
+ * 
+ * @returns {undefined}
+ */
 function rightMouseButtonPressedFunc() {
-    addScalingReferencePoint();
-    addPointToSelectedRoom();
+    ScalingAPI.recordScalingPoint();
+    RoomAPI.addPointToSelectedRoom();
 
-    deselectObject();
+    SelectionAction.deselectObject();
 }
 
+/**
+ * Bal egérgomb megnyomásakor lefutó függvény.
+ * 
+ * @returns {undefined}
+ */
 function leftMouseButtonPressedFunc() {
-    startDragging();
+    ScreenActions.startDragging();
 }

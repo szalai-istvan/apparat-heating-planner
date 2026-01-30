@@ -114,218 +114,102 @@
     
     <!-- scripts -->
 
-    <script type="text/javascript" src="js/common/actions/blueprint/Blueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/calc/blueprintDataIsPresent.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/calc/createBlueprintBoundingBox.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/calc/getBlueprintContentSize.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/calc/mouseCursorIsInsideBlueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/create/createBlueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/delete/clearBlueprints.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/delete/removeSelectedBlueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/render/drawBlueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/select/deselectBlueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/select/selectBlueprint.js"></script>
-    <script type="text/javascript" src="js/common/actions/blueprint/update/recalculateBlueprintPositions.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/Room.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/calculateHeightToMouseCursor.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/calculateMiddlePointOfRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/calculateRoomBoundingBox.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/calculateRoomCd3060Amount.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/calculateRoomCircumference.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/configuredRoomsExist.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/getRoomById.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/getRoomContainingMouseCursor.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/getRoomMiddlePoint.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/getRoomNames.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/mouseCursorIsInsideRoomName.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/pointIsInsideRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/roomIsConfigured.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/roomPositionIsInvalid.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/calc/selectedRoomIsConfiguredOrNoRoomIsSelected.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/create/addPointToSelectedRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/create/createRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/delete/clearRooms.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/delete/removeSelectedRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/render/drawRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/render/drawRoomName.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/render/getPointsToDrawRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/select/clearRoomSelectionCache.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/select/deselectRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/select/selectRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/room/update/calculateTextCenterPositionOfRoom.js"></script>
-    <script type="text/javascript" src="js/common/actions/scale/calc/processScalingValue.js"></script>
-    <script type="text/javascript" src="js/common/actions/scale/create/addScalingReferencePoint.js"></script>
-    <script type="text/javascript" src="js/common/actions/scale/create/startScaling.js"></script>
-    <script type="text/javascript" src="js/common/actions/scale/delete/clearScaling.js"></script>
-    <script type="text/javascript" src="js/common/actions/scale/render/drawScaler.js"></script>
-    <script type="text/javascript" src="js/common/actions/scale/update/updateRenderSizeValues.js"></script>
+    <script type="module" src="js/common/actions/blueprint/BlueprintCalculations.js"></script>
+    <script type="module" src="js/common/actions/blueprint/CreateBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/DeleteBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/RenderBlueprint.js"></script>
+    <script type="module" src="js/common/actions/blueprint/SelectBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/UpdateBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/UploadNewBlueprint.js"></script>
+    <script type="module" src="js/common/actions/room/clearRoomSelectionCache.js"></script>
+    <script type="module" src="js/common/actions/room/CreateRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/DeleteRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/RoomCalculations.js"></script>
+    <script type="module" src="js/common/actions/room/SelectRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/UpdateRoomAction.js"></script>
+    <script type="module" src="js/common/actions/scaling/ScalingActions.js"></script>
+    <script type="module" src="js/common/actions/selection/SelectionAction.js"></script>
+    <script type="module" src="js/common/actions/selection/SelectionCriteria.js"></script>
 
-    <script type="text/javascript" src="js/common/appdata/constants.js"></script>
+    <script type="module" src="js/common/api/BlueprintAPI.js"></script>
+    <script type="module" src="js/common/api/RoomAPI.js"></script>
+    <script type="module" src="js/common/api/ScalingAPI.js"></script>
+    <script type="module" src="js/common/api/userActionHandler/UserActionHandler.js"></script>
 
-    <script type="text/javascript" src="js/common/buttons/addRoomsButton.js"></script>
-    <script type="text/javascript" src="js/common/buttons/createCommonButtons.js"></script>
-    <script type="text/javascript" src="js/common/buttons/downloadSummaryButton.js"></script>
-    <script type="text/javascript" src="js/common/buttons/loadProjectButton.js"></script>
-    <script type="text/javascript" src="js/common/buttons/manageBlueprintButtons.js"></script>
-    <script type="text/javascript" src="js/common/buttons/rotateBlueprintDialogButtons.js"></script>
-    <script type="text/javascript" src="js/common/buttons/scaleButton.js"></script>
-    <script type="text/javascript" src="js/common/buttons/helpers/buttonPositionHelpers.js"></script>
-    <script type="text/javascript" src="js/common/buttons/helpers/uiExtraFeatures.js"></script>
+    <script type="module" src="js/common/appdata/ApplicationState.js"></script>
+    <script type="module" src="js/common/appdata/Constants.js"></script>
 
-    <script type="text/javascript" src="js/common/debug/debugToggle.js"></script>
-    <script type="text/javascript" src="js/common/debug/drawDebugInfo.js"></script>
-    <script type="text/javascript" src="js/common/debug/evictLocalStorageAndReload.js"></script>
+    <script type="module" src="js/common/debug/Debug.js"></script>
 
-    <script type="text/javascript" src="js/common/event/customEventTypes.js"></script>
-    <script type="text/javascript" src="js/common/event/dispatchEvent.js"></script>
-    <script type="text/javascript" src="js/common/event/registerEventListener.js"></script>
+    <script type="module" src="js/common/entities/Blueprint.js"></script>
+    <script type="module" src="js/common/entities/Room.js"></script>
 
-    <script type="text/javascript" src="js/common/excel/excelGeneratorUtil.js"></script>
+    <script type="module" src="js/common/event/CustomEventTypes.js"></script>
+    <script type="module" src="js/common/event/Events.js"></script>
 
-    <script type="text/javascript" src="js/common/geometry/grid/getClosestGlobalGridPointToPoint.js"></script>
-    <script type="text/javascript" src="js/common/geometry/grid/getClosestRoomGridPointToPoint.js"></script>
-    <script type="text/javascript" src="js/common/geometry/grid/GridDefinition.js"></script>
-    <script type="text/javascript" src="js/common/geometry/grid/removeGridSeed.js"></script>
-    <script type="text/javascript" src="js/common/geometry/grid/setGridSeed.js"></script>
-    <script type="text/javascript" src="js/common/geometry/grid/updateGridResolution.js"></script>
-    <script type="text/javascript" src="js/common/geometry/line/calculateIntersectionPointOfTwoLines.js"></script>
-    <script type="text/javascript" src="js/common/geometry/line/createLine.js"></script>
-    <script type="text/javascript" src="js/common/geometry/line/Line.js"></script>
-    <script type="text/javascript" src="js/common/geometry/line/linesIntersect.js"></script>
-    <script type="text/javascript" src="js/common/geometry/point/calculateDistance.js"></script>
-    <script type="text/javascript" src="js/common/geometry/point/createPoint.js"></script>
-    <script type="text/javascript" src="js/common/geometry/point/Point.js"></script>
-    <script type="text/javascript" src="js/common/geometry/point/pointIsInsideRectangle.js"></script>
-    <script type="text/javascript" src="js/common/geometry/point/pointOperations.js"></script>
-    <script type="text/javascript" src="js/common/geometry/rectangle/createRectangle.js"></script>
-    <script type="text/javascript" src="js/common/geometry/rectangle/drawRectangle.js"></script>
-    <script type="text/javascript" src="js/common/geometry/rectangle/Rectangle.js"></script>
-    <script type="text/javascript" src="js/common/geometry/rectangle/rectangleIsInsideRectangle.js"></script>
-    <script type="text/javascript" src="js/common/geometry/rectangle/rectanglesOverlap.js"></script>
-    <script type="text/javascript" src="js/common/geometry/rotate/rotateSelectedObject.js"></script>
+    <script type="module" src="js/common/excel/excelGeneratorUtil.js"></script>
 
-    <script type="text/javascript" src="js/common/io/load.js"></script>
-    <script type="text/javascript" src="js/common/io/save.js"></script>
+    <script type="module" src="js/common/geometry/Grid/GridActions.js"></script>
+    <script type="module" src="js/common/geometry/Grid/GridCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Grid/GridDefinition.js"></script>
+    <script type="module" src="js/common/geometry/Line/CreateLine.js"></script>
+    <script type="module" src="js/common/geometry/Line/Line.js"></script>
+    <script type="module" src="js/common/geometry/Line/LineCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Point/CreatePoint.js"></script>
+    <script type="module" src="js/common/geometry/Point/Point.js"></script>
+    <script type="module" src="js/common/geometry/Point/PointCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/CreateRectangle.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/Rectangle.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/RectangleCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/RenderRectangle.js"></script>
 
-    <script type="text/javascript" src="js/common/math/angleConverter.js"></script>
-    <script type="text/javascript" src="js/common/math/createUniqueId.js"></script>
-    <script type="text/javascript" src="js/common/math/formatNumber.js"></script>
-    <script type="text/javascript" src="js/common/math/randomChoice.js"></script>
-    <script type="text/javascript" src="js/common/math/reductionFunctions.js"></script>
-    <script type="text/javascript" src="js/common/math/roundNumber.js"></script>
+    <script type="module" src="js/common/io/load.js"></script>
+    <script type="module" src="js/common/io/save.js"></script>
+
+    <script type="module" src="js/common/math/ID.js"></script>
+    <script type="module" src="js/common/math/MathTools.js"></script>
+    <script type="module" src="js/common/math/ReducerFunctions.js"></script>
+    <script type="module" src="js/common/math/UnitConversions.js"></script>
 
 
-    <script type="text/javascript" src="js/common/rendering/renderAbsolutePositionObjects.js"></script>
-    <script type="text/javascript" src="js/common/rendering/renderTranslatedObjects.js"></script>
+    <script type="module" src="js/common/render/AbsoluteObjectRenderer.js"></script>
+    <script type="module" src="js/common/render/TranslatedObjectRenderer.js"></script>
 
-    <script type="text/javascript" src="js/common/selection/clearSelectionCache.js"></script>
-    <script type="text/javascript" src="js/common/selection/deselectOject.js"></script>
-    <script type="text/javascript" src="js/common/selection/removeSelectedObject.js"></script>
-    <script type="text/javascript" src="js/common/selection/searchForSelectableObject.js"></script>
-    <script type="text/javascript" src="js/common/selection/selectObject.js"></script>
+    <script type="module" src="js/common/screen/ScreenActions.js"></script>
 
-    <script type="text/javascript" src="js/common/setup/setupSteps.js"></script>
+    <script type="module" src="js/common/service/BlueprintService.js"></script>
+    <script type="module" src="js/common/service/RoomService.js"></script>
 
-    <script type="text/javascript" src="js/common/store/ElementStore.js"></script>
-    <script type="text/javascript" src="js/common/store/elementStoreTypeMapping.js"></script>
+    <script type="module" src="js/common/store/ElementStore.js"></script>
 
-    <script type="text/javascript" src="js/common/ui/ButtonWrapper/ButtonWrapper.js"></script>
-    <script type="text/javascript" src="js/common/ui/ButtonWrapper/drawButtonWrapper.js"></script>
-    <script type="text/javascript" src="js/common/ui/keystroke/keystrokeRecorder.js"></script>
-    <script type="text/javascript" src="js/common/ui/keystroke/onKeyStrokeRecordUpdated.js"></script>
-    <script type="text/javascript" src="js/common/ui/MenuLine/drawMenuLine.js"></script>
-    <script type="text/javascript" src="js/common/ui/MenuLine/MenuLine.js"></script>
-    <script type="text/javascript" src="js/common/ui/message/messageDialog.js"></script>
-    <script type="text/javascript" src="js/common/ui/OptionsBar/drawOptionsBar.js"></script>
-    <script type="text/javascript" src="js/common/ui/OptionsBar/OptionsBar.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/adjustScreenForExport.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/calculateScreenPositionOfPoint.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/cursor.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/dragAndZoom.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/drawUiBackground.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/getCanvasSize.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/getCurrentDragValue.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/getDocumentDimensions.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/getMousePosition.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/toggleScreenControls.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/translateScreen.js"></script>
-    <script type="text/javascript" src="js/common/ui/screen/updateScreenSumDrag.js"></script>
-    <script type="text/javascript" src="js/common/ui/tooltip/drawTooltips.js"></script>
-    <script type="text/javascript" src="js/common/ui/utilities/uiUtilities.js"></script>
+    <script type="module" src="js/common/ui/DocumentData.js"></script>
+    <script type="module" src="js/common/ui/ImageAssets.js"></script>
+    <script type="module" src="js/common/ui/MouseCursor.js"></script>
+    <script type="module" src="js/common/ui/UiCalculations.js"></script>
+    <script type="module" src="js/common/ui/UiLayoutDefinition.js"></script>
+    <script type="module" src="js/common/ui/buttons/ButtonWrapper.js"></script>
+    <script type="module" src="js/common/ui/buttons/ButtonWrapperActions.js"></script>
+    <script type="module" src="js/common/ui/dialog/AddRoomDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/Dialogs.js"></script>
+    <script type="module" src="js/common/ui/dialog/MessageDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/RotateBlueprintDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/ScalingDialog.js"></script>
+    <script type="module" src="js/common/ui/keystroke/keystrokeRecorder.js"></script>
+    <script type="module" src="js/common/ui/menuLine/MenuLine.js"></script>
+    <script type="module" src="js/common/ui/menuLine/RenderMenuLine.js"></script>
+    <script type="module" src="js/common/ui/optionsBar/OptionsBar.js"></script>
+    <script type="module" src="js/common/ui/optionsBar/RenderOptionsBar.js"></script>
 
-    <script type="text/javascript" src="js/common/validations/validationHelpers.js"></script>
+    <script type="module" src="js/common/util/ClassUtil.js"></script>
 
-    <script type="text/javascript" src="js/heating-planner/actions/panel/Panel.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panel/calc/calculatePanelBoundingBox.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panel/calc/getPanelById.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panel/calc/mouseCursorIsInsidePanelsTextbox.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panel/render/drawPanel.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panel/render/drawPanelGroupType.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/PanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/calculatePanelGroupBoundingBox.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/calculatePanelGroupBoundingBoxIncludingPipes.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/getContainingRoom.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/getPanelGroupById.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/mouseCursorIsInsidePanelGroupMembersTextbox.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/panelGroupAlignmentIsValid.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/calc/panelGroupsExist.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/create/createOrReplacePanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/delete/clearPanelGroups.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/delete/removeSelectedPanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/render/drawPanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/select/clearPanelGroupSelectionCache.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/select/deselectPanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/select/selectPanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/addPanelToSelectedGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/removePanelFromSelectedGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/rotateSelectedPanelGroup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/setSelectedPanelGroupIndex.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/setupPanelGroupType.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/updatePanelGroupBoundingBoxIncludingMembers.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/updatePanelPosition.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/panelgroup/update/updatePositionsOfAllMembers.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/room/create/onRoomIsCreatedHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/room/delete/onRoomsClearedHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/room/delete/onSelectedRoomRemovedHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/scale/updateRenderSizeValuesHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/selection/clearSelectionCacheHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/selection/deselectObjectHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/selection/removeSelectedObjectHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/selection/selectObjectHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/StructureElements.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/calc/getStructureElementsById.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/create/createStructureElementsInRoom.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/render/drawStructureElements.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/render/drawUD30.js"></script>
-    <script type="text/javascript" src="js/heating-planner/actions/structureelements/update/recalculateBeamDefinitions.js"></script>
+    <script type="module" src="js/common/validators/Validators.js"></script>
 
-    <script type="text/javascript" src="js/heating-planner/appdata/constantsHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/excelConstants.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/panelTypes.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/prices.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/translations.js"></script>
-    <script type="text/javascript" src="js/heating-planner/appdata/units.js"></script>
-
-    <script type="text/javascript" src="js/heating-planner/buttons/createButtonsHeatingPlanner.js"></script>
-
-    <script type="text/javascript" src="js/heating-planner/excel/excelGeneratorHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/excel/QuotePanel.js"></script>
-    <script type="text/javascript" src="js/heating-planner/excel/SummaryCalculator.js"></script>
-
-    <script type="text/javascript" src="js/heating-planner/io/loadHeatingPlanner.js"></script>
-    <script type="text/javascript" src="js/heating-planner/io/saveHeatingPlanner.js"></script>
-
-
-    <script type="text/javascript" src="js/heating-planner/renderer/renderTranslatedObjectsHeatingPlanner.js"></script>
-
-    <script type="text/javascript" src="js/heating-planner/store/ElementStoreHeatingPlanner.js"></script>
-
-    <script type="text/javascript" src="js/common/p5/draw.js"></script>
-    <script type="text/javascript" src="js/common/p5/mousePressed.js"></script>
-    <script type="text/javascript" src="js/common/p5/mouseReleased.js"></script>
-    <script type="text/javascript" src="js/common/p5/mouseWheel.js"></script>
-    <script type="text/javascript" src="js/common/p5/setup.js"></script>
-    <script type="text/javascript" src="js/heating-planner/p5/setupHeatingPlanner.js"></script>
+    <script type="module" src="js/common/p5/draw.js"></script>
+    <script type="module" src="js/common/p5/mousePressed.js"></script>
+    <script type="module" src="js/common/p5/mouseReleased.js"></script>
+    <script type="module" src="js/common/p5/mouseWheel.js"></script>
+    <script type="module" src="js/common/p5/setup.js"></script>
+    <script type="module" src="js/common/p5/setup/setupSteps.js"></script>
 </body>
 
 </html>

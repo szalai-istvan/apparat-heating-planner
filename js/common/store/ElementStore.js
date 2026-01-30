@@ -1,110 +1,209 @@
-class ElementStore {
+import { ID } from "../math/ID.js";
+import { ClassUtil } from "../util/ClassUtil.js";
+
+/**
+ * A renderelendő elemeket tároló objektum.
+ */
+window.elementStore = {
     /** @type {Blueprint[]} */
-    blueprints = [];
+    blueprints: [],
     /** @type {{[key:string]: Blueprint}} */
-    blueprintsById = {};
+    blueprintsById: {},
     /** @type {Room[]} */
-    rooms = [];
+    rooms: [],
     /** @type {{[key:string]: Room}} */
-    roomsById = {};
-
+    roomsById: {},
     /** @type {ButtonWrapper[]} */
-    buttons = [];
+    buttons: [],
     /** @type {MenuLine[]} */
-    menuLines = [];
+    menuLines: [],
     /** @type {OptionsBar[]}*/
-    optionsBars = [];
+    optionsBars: []
+};
 
-    constructor() { }
+/**
+ * Projekt specifikus típus mappelés az element store-ban.
+ * 
+ * @type {{[className:string]: {arrayField: string, byIdField: string}}}
+ */
+const elementStoreTypeMapping = {
+    Blueprint: {
+        arrayField: 'blueprints',
+        byIdField: 'blueprintsById'
+    },
+    Room: {
+        arrayField: 'rooms',
+        byIdField: 'roomsById'
+    },
+    ButtonWrapper: {
+        arrayField: 'buttons',
+    },
+    MenuLine: {
+        arrayField: 'menuLines',
+    },
+    OptionsBar: {
+        arrayField: 'optionsBars',
+    }
+};
 
-    register(obj) {
-        const className = getClassName(obj);
-        if (!className) {
-            return;
-        }
+/**
+ * Regisztrál egy projekt specifikus típus mappelést az element store-ban.
+ * 
+ * @param {string} className 
+ * @param {string} arrayFieldName 
+ * @param {string} byIdFieldName 
+ * @returns {undefined}
+ */
+function registerElementStoreTypeMapping(className, arrayFieldName, byIdFieldName) {
+    elementStore[arrayFieldName] = [];
+    elementStore[byIdFieldName] = {};
 
-        if (className === CLASS_BLUEPRINT) {
-            this.blueprints.push(obj);
-        } else if (className === CLASS_ROOM) {
-            this.rooms.push(obj);
-            this.#addById(this.roomsById, obj);
-        } else if (className === CLASS_BUTTON_WRAPPER) {
-            this.buttons.push(obj);
-        } else if (className === CLASS_MENU_LINE) {
-            this.menuLines.push(obj);
-        } else if (className === CLASS_OPTIONS_BAR) {
-            this.optionsBars.push(obj);
-        } else {
-            const arrayField = elementStoreTypeMapping[className].arrayField;
-            const byIdField = elementStoreTypeMapping[className].byIdField;
-            if (!(arrayField && byIdField)) {
-                throw new Error(`Attempt to register unexpected render type: ${className}`);
-            }
+    elementStoreTypeMapping[className] = {
+        arrayField: arrayFieldName,
+        byIdField: byIdFieldName
+    };
+}
 
-            const array = this[arrayField];
-            const byId = this[byIdField];
-            if (!(array && byId)) {
-                throw new Error(`Attempt to register unexpected render type: ${className}`);
-            }
-
-            array.push(obj);
-            this.#addById(byId, obj);
-        }
+/**
+ * Egy renderelendő objektum elmentése.
+ * 
+ * @param {object} object 
+ * @returns {object} Az elmentett objektum.
+ */
+function save(object) {
+    const className = ClassUtil.getClassName(object);
+    if (!className) {
+        return; // todo throw string
     }
 
-    remove(obj) {
-        const className = getClassName(obj);
-        if (!className) {
-            return;
-        }
+    const arrayField = elementStoreTypeMapping[className].arrayField;
+    const byIdField = elementStoreTypeMapping[className].byIdField;
 
-        if (className === CLASS_BLUEPRINT) {
-            this.blueprints = this.blueprints.filter((x) => x !== obj);
-        } else if (className === CLASS_ROOM) {
-            this.rooms = this.rooms.filter((x) => x !== obj);
-            this.#removeById(this.roomsById, obj);
-        } else {
-            const arrayField = elementStoreTypeMapping[className].arrayField;
-            const byIdField = elementStoreTypeMapping[className].byIdField;
-            if (!(arrayField && byIdField)) {
-                throw new Error(`Deleting render object of type ${className} is unspecified.`);
-            }
-
-            const array = this[arrayField];
-            const byId = this[byIdField];
-            if (!(array && byId)) {
-                throw new Error(`Deleting render object of type ${className} is unspecified.`);
-            }
-
-            this[arrayField] = array.filter(x => x !== obj);
-            this.#removeById(byId, obj);
-        }
+    if (!arrayField) {
+        throw new Error(`Attempt to register unexpected render type: ${className}`); // todo egységes hibakezelése
     }
 
-    getById(obj, id) {
-        return obj[id];
+    if (object.id) {
+        return;
     }
 
-    getByIdList(obj, idList) {
-        return idList.map(id => obj[id]).filter(x => x);
-    }
+    elementStore[arrayField].push(object);
 
-    #addById(objectsById, objectToAdd) {
-        if (!objectToAdd.id) {
-            objectToAdd.id = createUniqueId();
+    if (byIdField) {
+        object.id = ID.createUniqueId();
+        while (elementStore[byIdField][object.id]) {
+            object.id = ID.createUniqueId();
         }
 
-        let existingObject = objectToAdd.id ? objectsById[objectToAdd.id] : undefined;
-        while (existingObject) {
-            objectToAdd.id = createUniqueId();
-            existingObject = objectsById[objectToAdd.id];
-        }
-        objectsById[objectToAdd.id] = objectToAdd;
+        elementStore[byIdField][object.id] = object;
     }
 
-    #removeById(objectsById, objectToRemove) {
-        delete objectsById[objectToRemove.id];
+    return object;
+}
+
+/**
+ * Eltávolít egy renderelendő objektumot az element store-ból.
+ * 
+ * @param {object} obj 
+ * @returns {undefined}
+ */
+function remove(obj) {
+    const className = ClassUtil.getClassName(obj);
+    if (!className) {
+        return; // todo throw string
+    }
+
+    const arrayField = elementStoreTypeMapping[className].arrayField;
+    const byIdField = elementStoreTypeMapping[className].byIdField;
+
+    if (!arrayField) {
+        throw new Error(`Attempt to delete unexpected render type: ${className}`); // todo egységes hibakezelése
+    }
+
+    elementStore[arrayField] = elementStore[arrayField].filter(x => x !== obj);
+
+    if (byIdField) {
+        delete elementStore[byIdField][obj.id];
     }
 }
 
-const elementStore = new ElementStore();
+/**
+ * Visszaadja az adott típus összes példányát.
+ * 
+ * @param {string} className 
+ * @returns {object[]}
+ */
+function findAll(className) {
+    const arrayFieldName = elementStoreTypeMapping[className].arrayField;
+    return elementStore[arrayFieldName];
+}
+
+/**
+ * Megtalálja az adott azonosítójú renderelendő objektumot.
+ * 
+ * @param {string} className 
+ * @param {string} id 
+ * @returns {object|undefined} Az adott azonosítójú renderelendő objektum, vagy undefined, ha nincs ilyen.
+ */
+function findById(className, id) {
+    const byIdField = elementStoreTypeMapping[className].byIdField;
+    return elementStore[byIdField] ? elementStore[byIdField][id] : undefined;
+}
+
+/**
+ * Azonosító lista alapján objektumok lekérdezése.
+ * 
+ * @param {string} className 
+ * @param {string[]} idList 
+ * @returns {object[]}
+ */
+function findByIdList(className, idList) {
+    const byIdFieldName = elementStoreTypeMapping[className].byIdField;
+    const byIdField = elementStore[byIdFieldName];
+    return idList.map(id => byIdField[id]).filter(x => x);
+}
+
+/**
+ * Törli az adott azonosítójú renderelendő objektumot.
+ * 
+ * @param {string} className 
+ * @param {string} id 
+ */
+function removeById(className, id) {
+    const obj = findById(className, id);
+    if (obj) {
+        remove(obj);
+    }
+}
+
+/**
+ * Törli az összes adott típusú entitást.
+ * 
+ * @param {string} className 
+ */
+function removeAll(className) {
+    const arrayField = elementStoreTypeMapping[className].arrayField;
+    const byIdField = elementStoreTypeMapping[className].byIdField;
+
+    if (elementStore[arrayField]) {
+        elementStore[arrayField] = [];
+    }
+
+    if (elementStore[byIdField]) {
+        elementStore[byIdField] = {};
+    }
+}
+
+/**
+ * Renderelendő objektumok tárolásával kapcsolatos műveletek gyűjteménye.
+ */
+export const ElementStore = {
+    registerElementStoreTypeMapping,
+    save,
+    remove,
+    findAll,
+    findById,
+    findByIdList,
+    removeById,
+    removeAll
+};

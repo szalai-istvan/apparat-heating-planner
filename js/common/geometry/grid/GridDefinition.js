@@ -1,4 +1,7 @@
-class GridDefinition {
+/**
+ * Egy négyzetrácsot reprezentáló osztály.
+ */
+export class GridDefinition {
     /** @type {Point} */
     referencePoint;
     /** @type {Number} */

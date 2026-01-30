@@ -1,4 +1,11 @@
-class Line {
+import { Constants } from "../../appdata/Constants.js";
+import { CreatePoint } from "../Point/CreatePoint.js";
+import { PointCalculations } from "../Point/PointCalculations.js";
+
+/**
+ * Egy vonalat reprezentáló osztály.
+ */
+export class Line {
     /** @type {Point} */
     p0;
     /** @type {Point} */
@@ -24,7 +31,7 @@ class Line {
 
         const deltaX = p1.x - p0.x;
         const deltaY = p1.y - p0.y;
-        if (Math.abs(deltaX) > DELTA_X_VERTICALITY_THRESHOLD) {
+        if (Math.abs(deltaX) > Constants.geometry.deltaXVerticalityThreshold) {
             this.n = 1;
             this.a = deltaY / deltaX;
             this.b = p0.y - this.a * p0.x;
@@ -36,33 +43,7 @@ class Line {
             this.angleRad = HALF_PI;
         }
 
-        this.length = calculateDistance(p0, p1);
-        this.middlePoint = createPoint((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+        this.length = PointCalculations.calculateDistance(p0, p1);
+        this.middlePoint = CreatePoint.createPoint((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
     }
-}
-
-/**
- * 
- * @param {Line} line
- * @param {Number} x 
- * @returns {Number}
- */
-function calculateY(line, x) {
-    checkClass(x, CLASS_NUMBER);
-
-    if (line.n === 0) {
-        console.log('Attempt at calculating y value of vertical line!');
-        return NaN;
-    }
-
-    return line.a * x + line.b;
-}
-
-/**
- * 
- * @param {Line} line
- * @returns {Number}
- */
-function calculateLengthOfLineInMeters(line) {
-    return calculateDistance(line.p0, line.p1) / pixelsPerMetersRatio;
 }

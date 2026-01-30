@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>APPARAT Födémizátor</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+
+<body id="body">
+    <!-- buttons -->
+    <div hidden>
+        <div class="side-panel">
+            <label for="imageInput" class="button">Fájlfeltöltés</label>
+            <input type="file" id="imageInput" accept="image/jpeg, image/png, application/pdf" hidden />
+        </div>
+    </div>
+    <div hidden>
+        <div class="side-panel">
+            <label for="jsonInput" class="button">Fájlfeltöltés</label>
+            <input type="file" id="jsonInput" accept="application/JSON" hidden />
+        </div>
+    </div>
+
+    <!-- dialogs -->
+    <dialog id="messageDialog">
+        <p id="messageParagraph" style="max-width: 450px;"></p>
+        <hr>
+        <div class="center"><button id="messageOkButton">OK (Enter)</button></div>
+    </dialog>
+
+    <dialog id="fileUploadDialogConfirm">
+        <p>A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket.
+            Folytatja?
+        </p>
+        <hr>
+        <div class="center">
+            <button id="fileUploadDialogConfirmButton">Igen (Enter)</button>
+            <button id="fileUploadDialogCancelButton">Nem</button>
+        </div>
+    </dialog>
+
+    <dialog id="scalingDialogConfirm">
+        <p>A rajz újraskálázása törölni fogja a korábban felvett szobákat és paneleket. Folytatja?</p>
+        <hr>
+        <div class="center">
+            <button id="scalingDialogConfirmButton">Igen (Enter)</button>
+            <button id="scalingDialogCancelButton">Nem</button>
+        </div>
+    </dialog>
+
+    <dialog id="scalingDialog">
+        <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
+        <p><label for="scalingInput">Hossz:</label><input type="text" id="scalingInput"> m</p>
+        <hr>
+        <div class="center"><button id="scalingDialogCloseButton">OK (Enter)</button></div>
+    </dialog>
+
+    <dialog id="addRoomDialog">
+        <span>
+            <p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p>
+        </span>
+
+        <hr>
+        <span>
+            <input type="checkbox" id="3pointdefinition" name="3pointdefinition" value="3pointdefinition">
+            <label for="3pointdefinition">Ferde szoba</label><br>
+        </span>
+        <hr>
+
+        <span>
+            <p>Gyors kitöltés:</p>
+            <div class="radio-group" id="roomPrefillRadioSet"></div>
+        </span>
+        <hr>
+        <div class="center">
+            <button id="addRoomButton">Szoba hozzáadása (Enter)</button>
+            <button id="closeRoomDialogButton">Bezárás</button>
+        </div>
+    </dialog>
+
+    <dialog id="pdfUploadDialog">
+        <p id="pdfUploadDialogParagraph"></p>
+        <p><label>Oldalszám:</label><input type="text" id="pdfUploadDialogInput"></p>
+        <hr>
+        <div class="center"><button id="pdfUploadDialogCloseButton">OK (Enter)</button></div>
+    </dialog>
+
+    <dialog id="transportDialog">
+        <p>Amennyiben kér szállítást a rendeléshez, kérjük adja meg itt, km mértékegységben:</p>
+        <p><label for="transportInput">Hossz:</label><input type="text" id="transportInput"> km</p>
+        <hr>
+        <div class="center"><button id="transportDialogOkButton">Letöltése (Enter)</button><button
+                id="transportDialogCloseButton">Mégsem</button></div>
+    </dialog>
+
+    <dialog id="rotateBlueprintDialog" class="nobackdrop">
+        <p id="rotateBlueprintParagraph">Alaprajz elforgatása:</p>
+        <p><label>Szög:</label><input type="number" id="rotateBlueprintDialogInput"> ° </p>
+        <hr>
+        <div class="center">
+            <button id="rotateBlueprintDialogOkButton">OK (Enter)</button>
+            <button id="rotateBlueprintDialogCloseButton">Mégsem</button>
+        </div>
+    </dialog>
+
+    <!-- imported scripts -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+
+    <!-- scripts -->
+
+    <script type="module" src="js/old-common/adjustScreenForExport.js"></script>
+
+    <script type="module" src="js/old-common/calculateRoomCd3060Amount.js"></script>
+
+    <script type="module" src="js/old-common/calculateRoomCircumference.js"></script>
+
+    <script type="module" src="js/old-common/calculateTextCenterPositionOfRoom.js"></script>
+
+    <script type="module" src="js/old-common/clearSelectionCache.js"></script>
+
+    <script type="module" src="js/old-common/createBlueprintBoundingBox.js"></script>
+
+    <script type="module" src="js/old-common/deselectBlueprint.js"></script>
+
+    <script type="module" src="js/old-common/downloadSummaryButton.js"></script>
+
+    <script type="module" src="js/old-common/drawRoom.js"></script>
+
+    <script type="module" src="js/old-common/drawRoomName.js"></script>
+
+    <script type="module" src="js/old-common/getBlueprintContentSize.js"></script>
+
+    <script type="module" src="js/old-common/getClosestRoomGridPointToPoint.js"></script>
+
+    <script type="module" src="js/old-common/getPointsToDrawRoom.js"></script>
+
+    <script type="module" src="js/old-common/getRoomContainingMouseCursor.js"></script>
+
+    <script type="module" src="js/old-common/getRoomMiddlePoint.js"></script>
+
+    <script type="module" src="js/old-common/loadProjectButton.js"></script>
+
+    <script type="module" src="js/old-common/mouseCursorIsInsideRoomName.js"></script>
+
+    <script type="module" src="js/old-common/removeGridSeed.js"></script>
+
+    <script type="module" src="js/old-common/removeSelectedBlueprint.js"></script>
+
+    <script type="module" src="js/old-common/removeSelectedObject.js"></script>
+
+    <script type="module" src="js/old-common/removeSelectedRoom.js"></script>
+
+    <script type="module" src="js/old-common/rotateSelectedObject.js"></script>
+
+    <script type="module" src="js/old-common/searchForSelectableObject.js"></script>
+
+    <script type="module" src="js/old-common/selectBlueprint.js"></script>
+
+    <script type="module" src="js/old-heating-planner/actions/panel/Panel.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panel/calc/calculatePanelBoundingBox.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panel/calc/getPanelById.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panel/calc/mouseCursorIsInsidePanelsTextbox.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panel/render/drawPanel.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panel/render/drawPanelGroupType.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/PanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/calculatePanelGroupBoundingBox.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/calculatePanelGroupBoundingBoxIncludingPipes.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/getContainingRoom.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/getPanelGroupById.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/mouseCursorIsInsidePanelGroupMembersTextbox.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/panelGroupAlignmentIsValid.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/calc/panelGroupsExist.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/create/createOrReplacePanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/delete/clearPanelGroups.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/delete/removeSelectedPanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/render/drawPanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/select/clearPanelGroupSelectionCache.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/select/deselectPanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/select/selectPanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/addPanelToSelectedGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/removePanelFromSelectedGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/rotateSelectedPanelGroup.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/setSelectedPanelGroupIndex.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/setupPanelGroupType.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/updatePanelGroupBoundingBoxIncludingMembers.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/updatePanelPosition.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/panelgroup/update/updatePositionsOfAllMembers.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/room/create/onRoomIsCreatedHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/room/delete/onRoomsClearedHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/room/delete/onSelectedRoomRemovedHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/scale/updateRenderSizeValuesHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/selection/clearSelectionCacheHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/selection/deselectObjectHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/selection/removeSelectedObjectHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/selection/selectObjectHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/structureelements/StructureElements.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/structureelements/calc/getStructureElementsById.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/structureelements/create/createStructureElementsInRoom.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/structureelements/render/drawStructureElements.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/structureelements/render/drawUD30.js"></script>
+    <script type="module" src="js/old-heating-planner/actions/structureelements/update/recalculateBeamDefinitions.js"></script>
+
+    <script type="module" src="js/old-heating-planner/appdata/constantsHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/appdata/excelConstants.js"></script>
+    <script type="module" src="js/old-heating-planner/appdata/panelTypes.js"></script>
+    <script type="module" src="js/old-heating-planner/appdata/prices.js"></script>
+    <script type="module" src="js/old-heating-planner/appdata/translations.js"></script>
+    <script type="module" src="js/old-heating-planner/appdata/units.js"></script>
+
+    <script type="module" src="js/old-heating-planner/buttons/createButtonsHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-heating-planner/excel/excelGeneratorHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/excel/QuotePanel.js"></script>
+    <script type="module" src="js/old-heating-planner/excel/SummaryCalculator.js"></script>
+
+    <script type="module" src="js/old-heating-planner/io/loadHeatingPlanner.js"></script>
+    <script type="module" src="js/old-heating-planner/io/saveHeatingPlanner.js"></script>
+
+
+    <script type="module" src="js/old-heating-planner/renderer/renderTranslatedObjectsHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-heating-planner/store/ElementStoreHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/actions/box/Box.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/calc/calculateBoxBoundingBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/calc/calculateBoxCenterPositionWithCorrection.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/calc/getBoxById.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/calc/mouseCursorIsInsideBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/calc/offsetBoxCenterPosition.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/create/createBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/render/drawBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/update/attachToSelectedBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/box/update/detachBoxFromGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/BoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/calc/boxGroupIsHorizontal.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/calc/calculateBoxGroupBoundingBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/calc/getBoxGroupById.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/calc/getBoxGroupWithEndNodeAtPipeDriversLastPoint.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/calc/mouseCursorIsInsideBoxGroupMember.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/create/createBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/render/drawBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/select/clearBoxGroupSelectionCache.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/select/deselectBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/select/removeSelectedBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/select/selectBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/update/addBoxToSelectedGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/update/removeLastBoxFromSelectedGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/update/rotateSelectedBoxGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/update/updateBoxGroupMemberPosition.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/boxgroup/update/updateBoxGroupPipeDriverEndNodePosition.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/grid/calc/getClosestGridPointToPoint.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/PipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/calculatePipeLengths.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/getDirectionBetweenTwoPoints.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/getNextDirectionOfPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/getNextPointToAddToPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/getPipeDriverById.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/mouseCursorIsInsidePipeDriversPoint.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/selectedPipeDriverIsFullyConfigured.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/validateAllPipeDrivers.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/validateNextPointOfPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/calc/validatePipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/create/addPointToSelectedPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/delete/resetPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/delete/resetPipeDriverIfOnlyHas2Points.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/delete/resetSelectedPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/render/drawPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/select/clearPipeDriverSelectionCache.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/select/deselectPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/select/selectPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/update/adjustLastPointOfPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/update/calculatePipes.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/update/removeUnnecessaryPointsOfPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/update/updatePipeDriverFirstPoint.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/pipeDriver/update/updateSelectedPointOfPipeDriver.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/room/calc/getRoomContainingPoint.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/room/delete/onRoomsClearedSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/room/delete/onSelectedRoomRemovedSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/scale/updateRenderSizeValuesSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/SlabHeater.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterBoundaryPoints.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterBoundingBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/calculateSlabHeaterCenterPositionWithCorrection.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/getSlabHeaterById.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/mouseCursorIsInsideSlabHeaterGroupMembersTextbox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/mouseCursorIsInsideSlabHeatersTextbox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/calc/slabHeaterColors.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/create/createSlabHeater.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/render/drawSlabHeater.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/update/attachToSelectedSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeater/update/detachSlabHeaterFromGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/SlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/calculatePipeBeginningPointsOfSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/calculatePipeDriverFirstPoint.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/calculateSlabHeaterGroupBoundingBox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/fullyConfiguredSlabHeaterGroupsExist.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/getSlabHeaterGroupById.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/mouseCursorIsInsideMembersTextbox.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/slabHeaterGroupIsHorizontal.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/calc/validateSlabHeaterGroupPositionAndGetContainingRoom.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/create/createSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/delete/clearSlabHeaterGroups.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/delete/removeSelectedSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/render/drawSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/select/clearSlabHeaterGroupSelectionCache.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/select/deselectSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/select/selectSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/addSlabHeaterToSelectedGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/removeLastSlabHeaterFromSelectedGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/rotateSelectedSlabHeaterGroup.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/updateSelectedSlabHeaterGroupDimensions.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupBoundingBoxIncludingMembers.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupMemberPosition.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/actions/slabHeaterGroup/update/updateSlabHeaterGroupType.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/appdata/constantsSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/appdata/errorCodes.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/buttons/addBoxGroupButton.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/buttons/addSlabHeaterMenu.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/buttons/componentManageButtons.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/buttons/createButtonsSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/buttons/helpButton.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/excel/excelGeneratorSlabHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/io/loadSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/io/saveSlabHeatingPlanner.js"></script>
+
+
+    <script type="module" src="js/old-slab-heating-planner/renderer/renderTranslatedObjectsSlabHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/selection/clearSelectionCacheSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/selection/deselectObjectSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/selection/removeSelectedObjectSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/selection/selectObjectSlabHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-slab-heating-planner/store/ElementStoreSlabHeatingPlanner.js"></script>
+
+    <script type="module" src="js/old-heating-planner/p5/setupHeatingPlanner.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/p5/mouseReleasedSlabHeater.js"></script>
+    <script type="module" src="js/old-slab-heating-planner/p5/setupSlabHeatingPlanner.js"></script>
+</body>
+
+</html>

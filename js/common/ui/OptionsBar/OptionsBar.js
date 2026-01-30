@@ -1,4 +1,9 @@
-class OptionsBar {
+import { Constants } from "../../appdata/Constants.js";
+
+/**
+ * Egy menüsort reprezentáló class.
+ */
+export class OptionsBar {
     columns = [];
     selected = [];
     columnHeaders = [];
@@ -53,7 +58,7 @@ class OptionsBar {
     setValue(columnIndex, text, runOnchange = true) {
         const column = this.getColumnsForSetValue(columnIndex);
         for (let button of column) {
-            button.button.style(BACKGROUND, null);
+            button.button.style(Constants.strings.background, null);
         }
 
         if (this.perColumnSelection) {
@@ -63,7 +68,7 @@ class OptionsBar {
         }
         const selectedButton = column.filter(c => c.button.elt.innerHTML === text)[0];
         if (selectedButton) {
-            selectedButton.button.style(BACKGROUND, 'darkgrey');
+            selectedButton.button.style(Constants.strings.background, Constants.strings.darkgrey);
         }
 
         this.onchange && runOnchange && this.onchange();

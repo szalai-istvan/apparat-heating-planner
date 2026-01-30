@@ -1,5 +1,7 @@
-/** @type {Point}, Ellenőrzésekhez használható pont. */
-let testPoint;
+import { ApplicationState } from "../../appdata/ApplicationState.js";
+import { Point } from "../Point/Point.js";
+import { PointCalculations } from "../Point/PointCalculations.js";
+import { Line } from "./Line.js";
 
 /**
  * Létrehoz és visszaad egy egyenest.
@@ -19,7 +21,7 @@ function createLine(p0, p1) {
  * @returns {Line}
  */
 function createTestLine(p0) {
-    return new Line(p0, testPoint);
+    return new Line(p0, ApplicationState.testPoint);
 }
 
 /**
@@ -31,9 +33,18 @@ function createTestLine(p0) {
  */
 function createLineByPointAndAngle(p0, angleRad) {
     const vector = createUnitVector(angleRad);
-    const offsetPositive = multiplyPoint(vector, INFINITE_LINE_LENGTH);
-    const offsetNegative = multiplyPoint(vector, -1 * INFINITE_LINE_LENGTH);
-    const p1 = addPoints([offsetPositive, p0]);
-    const p2 = addPoints([offsetNegative, p0]);
+    const offsetPositive = PointCalculations.multiplyPoint(vector, INFINITE_LINE_LENGTH);
+    const offsetNegative = PointCalculations.multiplyPoint(vector, -1 * INFINITE_LINE_LENGTH);
+    const p1 = PointCalculations.addPoints([offsetPositive, p0]);
+    const p2 = PointCalculations.addPoints([offsetNegative, p0]);
     return createLine(p1, p2);
 }
+
+/**
+ * Vonal létrehozó függvények gyüjteménye.
+ */
+export const CreateLine = {
+    createLine,
+    createTestLine, 
+    createLineByPointAndAngle
+};

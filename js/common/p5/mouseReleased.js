@@ -1,5 +1,18 @@
-function mouseReleased() {
-    if (!controlsAreEnabled || mouseCursorIsInsideUi()) {
+import { ApplicationState } from "../appdata/ApplicationState.js";
+import { Constants } from "../appdata/Constants.js";
+import { CustomEventTypes } from "../event/customEventTypes.js";
+import { Events } from "../event/Events.js";
+import { PointCalculations } from "../geometry/Point/PointCalculations.js";
+import { ScreenActions } from "../screen/ScreenActions.js";
+import { MouseCursor } from "../ui/MouseCursor.js";
+
+/**
+ * Egér elengedésekor lefutó függvény.
+ * 
+ * @returns {undefined}
+ */
+window.mouseReleased = function() {
+    if (!ApplicationState.controlsAreEnabled || MouseCursor.mouseCursorIsInsideUi()) {
         return;
     }
 
@@ -9,17 +22,27 @@ function mouseReleased() {
         rightMouseButtonReleasedFunc();
     }
 
-    stopDragging();
+    ScreenActions.stopDragging();
 }
 
+/**
+ * Bal egérgomb elengedésekor lefutó függvény.
+ * 
+ * @returns {undefined}
+ */
 function leftMouseButtonReleasedFunc() {
-    if (calculateDistanceFromOrigin(getCurrentDragValue()) < SELECT_DRAG_THRESHOLD) {
-        if (controlsAreEnabled) {
+    if (PointCalculations.calculateDistanceFromOrigin(ScreenActions.getCurrentDragValue()) < Constants.ui.selectDragThreshold) {
+        if (ApplicationState.controlsAreEnabled) {
             searchSelectableObject();
         }
     }
 }
 
+/**
+ * Jobb egérgomb elengedésekor lefutó függvény.
+ * 
+ * @returns {undefined}
+ */
 function rightMouseButtonReleasedFunc() {
-    dispatchCustomEvent(RIGHT_MOUSE_BUTTON_RELEASED, {});
+    Events.dispatchCustomEvent(CustomEventTypes.rightMouseButtonReleased, {});
 }

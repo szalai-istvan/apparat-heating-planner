@@ -1,0 +1,89 @@
+import { Blueprint } from "../../entities/Blueprint.js";
+import { CreatePoint } from "../../geometry/Point/CreatePoint.js";
+import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
+import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
+import { BlueprintService } from "../../service/BlueprintService.js";
+import { BlueprintCalculations } from "./BlueprintCalculations.js";
+
+/**
+ * Újraszámítja a paraméterül kapott tervrajz befoglaló adatait.
+ * 
+ * @param {Blueprint} blueprint 
+ * @returns {undefined}
+ */
+function initializePosition(blueprint) {
+    if (!blueprint || blueprint.boundingBox) {
+        return;
+    }
+
+    const boundingBox = CreateRectangle.createRectangleByMiddlePoint(
+        CreatePoint.createPoint(0, 0),
+        blueprint.data.width,
+        blueprint.data.height,
+        0
+    );
+
+    blueprint.boundingBox = boundingBox;
+    blueprint.selectionBox = boundingBox;
+}
+
+/**
+ * Újraszámolja az összes tervrajz pozícióját
+ * 
+ * @returns {undefined}
+ */
+function recalculateBlueprintPositions() {
+    const blueprints = BlueprintService.findAll();
+    let centerPoint = CreatePoint.createPoint(0, 0);
+
+    if (blueprints.length === 1) {
+        blueprints[0].centerPosition = CreatePoint.createPoint(0, 0);
+    } else {
+        let index = 1;
+        while (index < blueprints.length) {
+            const previousBlueprint = blueprints[index - 1];
+            const blueprint = blueprints[index];
+
+            const xProjectionPrevious = RectangleCalculations.getProjectedSizeX(previousBlueprint.boundingBox);
+            const xProjection = RectangleCalculations.getProjectedSizeX(blueprint.boundingBox);
+            centerPoint.x = centerPoint.x + (xProjectionPrevious + xProjection) / 2;
+
+            blueprint.boundingBox.middlePoint = CreatePoint.createPoint(centerPoint.x, centerPoint.y);
+            blueprint.selectionBox.middlePoint = CreatePoint.createPoint(centerPoint.x, centerPoint.y);
+            index++;
+        }
+    }
+}
+
+/**
+ * Inkrementálja a megadott értékkel a tervrajz szögét.
+ * 
+ * @param {Blueprint} blueprint 
+ * @param {number} angleRad
+ * 
+ * @returns {undefined}
+ */
+function incrementBlueprintAngle(blueprint, angleRad) {
+    if (!blueprint) {
+        return;
+    }
+
+    const blueprintMiddlePoint = blueprint.boundingBox.middlePoint;
+    const boundingBox = CreateRectangle.createRectangleByMiddlePoint(
+        CreatePoint.createPoint(blueprintMiddlePoint.x, blueprintMiddlePoint.y),
+        blueprint.data.width,
+        blueprint.data.height,
+        BlueprintCalculations.getAngleRad(blueprint) + angleRad
+    );
+
+    recalculateBlueprintPositions();
+}
+
+/**
+ * Tervrajzok módosításával kapcsolatos műveletek gyüjteménye.
+ */
+export const UpdateBlueprintAction = {
+    initializePosition,
+    recalculateBlueprintPositions,
+    updateBlueprintAngle: incrementBlueprintAngle
+};

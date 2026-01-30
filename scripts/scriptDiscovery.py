@@ -1,7 +1,8 @@
 import os
 
 SRC = '$src'
-SCRIPT_TAG_TEMPLATE = f'<script type="text/javascript" src="{SRC}"></script>'
+SCRIPT_TYPE = 'module'
+SCRIPT_TAG_TEMPLATE = f'<script type="{SCRIPT_TYPE}" src="{SRC}"></script>'
 JS = '.js'
 DISCRIMINATOR_PATH_PART = 2
 STOP_SIGN = '<!-- scripts -->'
@@ -11,7 +12,8 @@ P5 = 'p5'
 
 HTML_FILE_PROJECT_MAPPING = {
     'heating-planner.html': ['common', 'heating-planner'],
-    'slab-heating-planner.html': ['common', 'slab-heating-planner']
+    'slab-heating-planner.html': ['common', 'slab-heating-planner'],
+    'dummy.html': ['old-common', 'old-slab-heating-planner', 'old-heating-planner']
 }
 
 

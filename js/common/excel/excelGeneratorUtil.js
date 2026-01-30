@@ -158,3 +158,27 @@ function getCollectorConfig(context) {
 
     return {first, second};
 }
+
+/**
+ * Excel generálást segítő függvények.
+ */
+export const ExcelGeneratorUtils = {
+    getNumberOfRows,
+    emptyCells,
+    fillRangeWithColor,
+    getRangeName,
+    getCellName,
+    setFormula,
+    addOptionTableAndReturnOptionsRange,
+    createDropDown,
+    ROUNDUP,
+    SUM,
+    VLOOKUP,
+    IF,
+    IFERROR,
+    alap,
+    alapArr,
+    alapRange,
+    alapPair,
+    getCollectorConfig
+};
