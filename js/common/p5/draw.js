@@ -1,3 +1,4 @@
+import { SelectionAPI } from "../api/SelectionAPI.js";
 import { Constants } from "../appdata/Constants.js";
 import { AbsoluteObjectRenderer } from "../render/AbsoluteObjectRenderer.js";
 import { TranslatedObjectRenderer } from "../render/TranslatedObjectRenderer.js";
@@ -11,7 +12,7 @@ window.draw = function() {
         return;
     }
 
-    // clearSelectionCache(); TODO
+    SelectionAPI.clearSelectionCache();
     MouseCursor.setCursorType();
 
     background(Constants.ui.backgroundColor);

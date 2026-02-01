@@ -1,9 +1,11 @@
 import { RenderBlueprint } from "../actions/blueprint/RenderBlueprint.js";
+import { RenderRoom } from "../actions/room/RenderRoom.js";
 import { ScalingActions } from "../actions/scaling/ScalingActions.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { DebugTools } from "../debug/Debug.js";
 import { ScreenActions } from "../screen/ScreenActions.js";
 import { BlueprintService } from "../service/BlueprintService.js";
+import { RoomService } from "../service/RoomService.js";
 
 let projectSpecificRenderTranslatedObjects = () => {};
 let projectSpecificDebugOnlyRenderTranslatedObjects = () => {};
@@ -18,11 +20,12 @@ function renderTranslatedObjects() {
     ScreenActions.translateScreen();
 
     BlueprintService.findAll().forEach(bp => RenderBlueprint.renderBlueprint(bp));
-    // elementStore.rooms.forEach(room => drawRoom(room));
+    RoomService.findAll().forEach(room => RenderRoom.renderRoom(room));
     
     projectSpecificRenderTranslatedObjects();
 
-    // elementStore.rooms.forEach(room => drawRoomName(room)); TODO
+    BlueprintService.findAll().forEach(room => drawRoomName(room));
+
     ScalingActions.renderScaler();
 
     if (ApplicationState.debugEnabled) {

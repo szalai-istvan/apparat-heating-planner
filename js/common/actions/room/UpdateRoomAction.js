@@ -3,6 +3,7 @@ import { Room } from "../../entities/Room.js";
 import { CreateLine } from "../../geometry/Line/CreateLine.js";
 import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
 import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
+import { SelectionAction } from "../selection/SelectionAction.js";
 import { RoomCalculations } from "./RoomCalculations.js";
 
 /**
@@ -30,6 +31,9 @@ function finalizeRoom(room) {
     }
 
     room.boundingBox = CreateRectangle.createRectangleByMiddlePoint(centerPoint, width, height, angleRad);
+    room.width = width;
+    room.height = height;
+    room.firstPoint = firstPoint;
 
     push();
     textSize(textSize);
@@ -37,7 +41,7 @@ function finalizeRoom(room) {
     room.selectionBox = CreateRectangle.createRectangleByMiddlePoint(centerPoint, textWidth, textSize, angleRad);
     pop();
 
-    // deselect TODO
+    SelectionAction.deselectObject();
 
     if (RoomCalculations.roomPositionIsInvalid(room)) {
         displayMessage('A szoba pozíciója érvénytelen, átfedést okoz szobák között!');

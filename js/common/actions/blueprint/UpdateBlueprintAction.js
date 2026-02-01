@@ -85,5 +85,5 @@ function incrementBlueprintAngle(blueprint, angleRad) {
 export const UpdateBlueprintAction = {
     initializePosition,
     recalculateBlueprintPositions,
-    updateBlueprintAngle: incrementBlueprintAngle
+    incrementBlueprintAngle
 };

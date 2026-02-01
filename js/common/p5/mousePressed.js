@@ -1,6 +1,6 @@
-import { SelectionAction } from "../actions/selection/SelectionAction.js";
 import { RoomAPI } from "../api/RoomAPI.js";
 import { ScalingAPI } from "../api/ScalingAPI.js";
+import { SelectionAPI } from "../api/SelectionAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { ScreenActions } from "../screen/ScreenActions.js";
 import { MouseCursor } from "../ui/MouseCursor.js";
@@ -31,7 +31,7 @@ function rightMouseButtonPressedFunc() {
     ScalingAPI.recordScalingPoint();
     RoomAPI.addPointToSelectedRoom();
 
-    SelectionAction.deselectObject();
+    SelectionAPI.deselectObject();
 }
 
 /**

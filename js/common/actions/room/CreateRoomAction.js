@@ -10,6 +10,7 @@ import { MouseCursor } from "../../ui/MouseCursor.js";
 import { Validators } from "../../validators/Validators.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { RoomCalculations } from "./RoomCalculations.js";
+import { UpdateRoomAction } from "./UpdateRoomAction.js";
 
 /**
  * Függvény, amely lefut a szoba létrehozása után.
@@ -132,6 +133,7 @@ function addPointToRoom(room) {
             ApplicationState.roomCreationTemp.second = mousePosition;
             ApplicationState.roomCreationTemp.width = PointCalculations.calculateDistance(firstPoint, mousePosition);
             if (mousePosition.x < firstPoint.x) {
+                // TODO ez vajon kell, hogy a szélesség negativ lehessen?
                 ApplicationState.roomCreationTemp.width *= -1;
             }
 
@@ -142,7 +144,7 @@ function addPointToRoom(room) {
         if (!height) {
             ApplicationState.roomCreationTemp.third = mousePosition;
             ApplicationState.roomCreationTemp.height = RoomCalculations.calculateHeightToMouseCursor(room);
-            finalizeRoom(room);
+            UpdateRoomAction.finalizeRoom(room);
         }
     } else {
         ApplicationState.roomCreationTemp.second = mousePosition;

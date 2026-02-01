@@ -8,7 +8,7 @@ export const Constants = {
         roomLineWeightInMeters: 0.017,
         roomDefaultTextColor: 'green',
         roomFillColor: '#FFFFFFA0',
-        roomNameOutlineWidthInMeters: 0.025,
+        roomNameOutlineWidthInMeters: 0.0035,
         prefillRoomNames: [
             'Szoba 1',
             'Nappali',

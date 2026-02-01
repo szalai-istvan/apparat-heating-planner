@@ -1,9 +1,12 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
+import { Room } from "../../entities/Room.js";
 import { RoomService } from "../../service/RoomService.js";
+import { ClassUtil } from "../../util/ClassUtil.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { SelectionCriteria } from "../selection/SelectionCriteria.js";
 import { RoomCalculations } from "./RoomCalculations.js";
+import { UpdateRoomAction } from "./UpdateRoomAction.js";
 
 /** @type {Room} */
 let cachedSelectableRoom = null;
@@ -15,7 +18,7 @@ let cachedSelectableRoom = null;
  * @returns {Room} a kiválasztott szoba.
  */
 function selectRoom(room = undefined) {
-    checkClass(room, Constants.classNames.room, true);
+    ClassUtil.checkClass(room, Constants.classNames.room, true);
 
     room = room || checkForSelectableRoom();
 
@@ -37,6 +40,11 @@ function selectRoom(room = undefined) {
     return undefined;
 }
 
+/**
+ * Kiválasztható szoba megkeresése.
+ * 
+ * @returns {Room}
+ */
 function checkForSelectableRoom() {
     if (cachedSelectableRoom) {
         return cachedSelectableRoom;
@@ -57,7 +65,7 @@ function checkForSelectableRoom() {
  * @returns {boolean} a művelet sikeressége
  */
 function deselectRoom() {
-    const room = selectedRoom;
+    const room = ApplicationState.selectedRoom;
     
     if (!room) {
         return true;
@@ -65,14 +73,8 @@ function deselectRoom() {
     
     if (roomIsConfigured(room)) {
         room.isSelected = false;
-        selectedRoom = null;
-
-        if (mousePointerIsInsideRoom(room)) {
-            calculateTextCenterPositionOfRoom(room);
-        } else {
-            calculateTextCenterPositionOfRoom(room, room.originalTextCenterCoordinates);
-            delete room.originalTextCenterCoordinates;
-        }
+        ApplicationState.selectedRoom = null;
+        UpdateRoomAction.updateRoomSelectionBox();
     }
 
     return true;

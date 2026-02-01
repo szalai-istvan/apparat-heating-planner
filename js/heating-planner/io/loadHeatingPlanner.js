@@ -1,19 +1,21 @@
+import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
+
 /**
  * Betölti a panel csoportokat, és visszaadja a kiválasztottat.
  * 
  * @param {object} projectState projekt struktúra
- * @returns {PanelGroup} a kiválasztott panelcsoport 
+ * @returns {panelGroup} a kiválasztott panelcsoport 
  */
 function loadPanels(projectState) {
     const panels = projectState.panels.panels || [];
     for (let panel of panels) {
-        panel.constructor = { name: CLASS_PANEL };
+        panel.constructor = { name: HeatingPlannerConstants.classNames.panel };
         elementStore.register(panel);
     }
 
     const panelGroups = projectState.panelGroups.panelGroups || [];
     for (let panelGroup of panelGroups) {
-        panelGroup.constructor = { name: CLASS_PANEL_GROUP };
+        panelGroup.constructor = { name: HeatingPlannerConstants.classNames.panelGroup };
         elementStore.register(panelGroup);
     }
 
@@ -33,3 +35,11 @@ function loadStructureElements(projectState) {
 
     return undefined;
 }
+
+/**
+ * Projekt specifikus betöltési lépések
+ */
+export const LoadHeatingPlanner = {
+    loadPanels,
+    loadStructureElements
+};

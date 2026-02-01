@@ -1,6 +1,11 @@
-class StructureElements {
+/**
+ * Egy szoba szerkezeti elemeit reprezentáló osztály
+ */
+export class StructureElements {
+    /** @type {string} */
     id;
 
+    /** @type {number} */
     alignment;
     /** @type {Line[]} */
     alignedBeams = [];
@@ -9,10 +14,11 @@ class StructureElements {
     /** @type {Line[]} */
     ud30Beams = [];
 
+    /** @type {string} */
     roomId;
 
     constructor(room) {
-        this.id = createUniqueId();
+        // this.id = createUniqueId(); todo
 
         this.roomId = room.id;
         room.structureElementsId = this.id;

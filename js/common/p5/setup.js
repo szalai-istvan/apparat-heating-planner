@@ -35,10 +35,7 @@ window.setup = function() {
     
     angleMode(RADIANS);
 
-    UiLayoutDefinition.createCommonButtons([], []); // todo ez ide nem fog kelleni
-
     Events.dispatchCustomEvent(CustomEventTypes.setup, {});
-    Draw.enableRendering();
 }
 
 /**

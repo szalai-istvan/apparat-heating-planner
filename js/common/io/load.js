@@ -1,3 +1,15 @@
+import { DeleteBlueprintAction } from "../actions/blueprint/DeleteBlueprintAction.js";
+import { UpdateBlueprintAction } from "../actions/blueprint/UpdateBlueprintAction.js";
+import { ScalingActions } from "../actions/scaling/ScalingActions.js";
+import { ScalingAPI } from "../api/ScalingAPI.js";
+import { ApplicationState } from "../appdata/ApplicationState.js";
+import { Constants } from "../appdata/Constants.js";
+import { GridActions } from "../geometry/Grid/GridActions.js";
+import { CreatePoint } from "../geometry/Point/CreatePoint.js";
+import { Draw } from "../p5/draw.js";
+import { BlueprintService } from "../service/BlueprintService.js";
+import { ElementStore } from "../store/ElementStore.js";
+
 /** @type {Function[]} */
 const projectSpecificLoadingSteps = [];
 
@@ -9,7 +21,7 @@ const projectSpecificLoadingSteps = [];
  */
 function loadProject(text = undefined) {
     try {
-        disableRendering();
+        Draw.disableRendering();
         const projectState = text ? JSON.parse(text) : loadProjectStateFromLocalStorage();
         if (!projectState) {
             return;
@@ -52,6 +64,15 @@ function loadProjectSpecificObjects(projectState) { // todo ez a heating-planner
 }
 
 /**
+ * Projekt betöltése local storage-ból.
+ * 
+ * @returns {string}
+ */
+function loadProjectStateFromLocalStorage() {
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA_KEY));
+}
+
+/**
  * Rögzít egy projekt specifikus betöltési lépést.
  * 
  * @param {Function} loadingStep betöltési lépés függvény
@@ -61,47 +82,48 @@ function registerProjectSpecificLoadingStep(loadingStep) {
     projectSpecificLoadingSteps.push(loadingStep);
 }
 
-function loadProjectStateFromLocalStorage() {
-    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA_KEY));
-}
-
 function prepareLoading() {
-    clearBlueprints();
+    DeleteBlueprintAction.clearBlueprints();
 }
 
 function loadBlueprints(projectState) {
     (projectState.blueprints.data || []).forEach((bp) => createBlueprint(loadImage(bp)));
 
-    const topLeftCoordinates = projectState.blueprints.topLeft;
-    const centerCoordinates = projectState.blueprints.center;
-    const angeleDeg = projectState.blueprints.angleDeg;
-    const isSelected = projectState.blueprints.isSelected;
-    for (let i = 0; i < topLeftCoordinates.length; i++) {
-        elementStore.blueprints[i].topLeftPosition = topLeftCoordinates[i];
-        elementStore.blueprints[i].centerPosition = centerCoordinates[i];
-        elementStore.blueprints[i].angleDeg = angeleDeg[i];
-        elementStore.blueprints[i].isSelected = isSelected[i];
+    const blueprints = BlueprintService.findAll();
+    let index = 0;
+    while (index < blueprints.length) {
+        UpdateBlueprintAction.incrementBlueprintAngle(projectState.blueprints.angleRad[index]);
+        index++;
     }
 
-    return elementStore.blueprints.filter(bp => bp.isSelected)[0];
+    UpdateBlueprintAction.recalculateBlueprintPositions();
+    return blueprints.filter(bp => bp.isSelected)[0];
 }
 
 function loadScreenData(projectState) {
-    pixelsPerMetersRatio = projectState.scale.pixelsPerMeterRatio;
-    updateRenderSizeValues();
+    ApplicationState.pixelsPerMetersRatio = projectState.scale.pixelsPerMeterRatio;
+    ScalingActions.scaleRenderSizeValues();
 
-    screenSumDrag = projectState.screen.sumDrag;
-    screenZoom = projectState.screen.zoom;
+    ApplicationState.screenSumDrag = projectState.screen.sumDrag;
+    ApplicationState.screenZoom = projectState.screen.zoom;
 
     if (projectState.grid.seed) {
-        setGridSeed(createPoint(projectState.grid.seed.x, projectState.grid.seed.y));
+        GridActions.setGlobalGridSeed(CreatePoint.createPoint(projectState.grid.seed.x, projectState.grid.seed.y));
     }
 }
 
 function loadRooms(projectState) {
     const rooms = projectState.rooms.rooms;
-    rooms.forEach((room) => (room.constructor = { name: CLASS_ROOM }));
-    rooms.forEach((room) => elementStore.register(room));
+    rooms.forEach((room) => (room.constructor = { name: Constants.classNames.room }));
+    rooms.forEach((room) => ElementStore.save(room));
 
     return rooms.filter(r => r.isSelected)[0];
 }
+
+/**
+ * Projekt betöltéssel kapcsolatos műveletek.
+ */
+export const Load = {
+    loadProject,
+    registerProjectSpecificLoadingStep,
+};

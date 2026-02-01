@@ -1,3 +1,4 @@
+import { SelectionAPI } from "../../api/SelectionAPI.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
 import { DocumentData } from "../../ui/DocumentData.js";
@@ -38,7 +39,7 @@ function handleDeleteButton() {
     for (let element of document.getElementsByTagName(Constants.strings.body)) {
         element.addEventListener(Constants.strings.keydown, (event) => {
             if (event.key === Constants.strings.delete) {
-                // removeSelectedObject(); todo
+                SelectionAPI.removeSelectedObject()
             }
         });
     }

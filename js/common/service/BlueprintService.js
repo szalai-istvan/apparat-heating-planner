@@ -1,7 +1,8 @@
+import { Constants } from "../appdata/Constants.js";
 import { Blueprint } from "../entities/Blueprint.js";
 import { ElementStore } from "../store/ElementStore.js";
 
-const className = 'Blueprint';
+const className = Constants.classNames.blueprint;
 
 /**
  * Az összes tervrajz lekérdezése.

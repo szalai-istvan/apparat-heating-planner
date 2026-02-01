@@ -28,6 +28,13 @@ export class Room {
     /** @type {boolean} */
     cursorIsInsideCache = null;
 
+    /** @type {number} */
+    width;
+    /** @type {number} */
+    height;
+    /** @type {Point} */
+    firstPoint;
+
     /** @type {string} */
     structureElementsId; // todo ez nem common
 

@@ -1,7 +1,8 @@
+import { Constants } from "../appdata/Constants.js";
 import { Room } from "../entities/Room.js";
 import { ElementStore } from "../store/ElementStore.js";
 
-const className = 'Room';
+const className = Constants.classNames.room;
 
 /**
  * Az összes szoba lekérdezése.

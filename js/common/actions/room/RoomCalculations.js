@@ -73,14 +73,12 @@ function mousePointerIsInsideRoom(room) {
 }
 
 /**
- * Kiszámítja, hogy a szoba alapvonalától milyen távolságra van az egérmutató.
+ * Kiszámítja, hogy a konfigurálatlan szoba alapvonalától milyen távolságra van az egérmutató.
  * 
  * @param {Room} room 
  * @returns {Number}, a kurzor távolsága a szoba alapvonalától
  */
 function calculateHeightToMouseCursor(room) {
-    checkClass(room, Constants.classNames.room);
-
     const angle = getRoomAngleRad(room);
     const firstPoint = ApplicationState.roomCreationTemp.first;
     const mousePosition = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
@@ -134,5 +132,6 @@ export const RoomCalculations = {
     getRoomNames,
     selectedRoomIsConfiguredOrNoRoomIsSelected,
     mousePointerIsInsideRoom,
+    calculateHeightToMouseCursor,
     roomPositionIsInvalid
 };

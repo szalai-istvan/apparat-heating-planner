@@ -1,3 +1,4 @@
+import { SelectionAPI } from "../api/SelectionAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
 import { CustomEventTypes } from "../event/customEventTypes.js";
@@ -11,7 +12,7 @@ import { MouseCursor } from "../ui/MouseCursor.js";
  * 
  * @returns {undefined}
  */
-window.mouseReleased = function() {
+window.mouseReleased = function () {
     if (!ApplicationState.controlsAreEnabled || MouseCursor.mouseCursorIsInsideUi()) {
         return;
     }
@@ -32,9 +33,7 @@ window.mouseReleased = function() {
  */
 function leftMouseButtonReleasedFunc() {
     if (PointCalculations.calculateDistanceFromOrigin(ScreenActions.getCurrentDragValue()) < Constants.ui.selectDragThreshold) {
-        if (ApplicationState.controlsAreEnabled) {
-            searchSelectableObject();
-        }
+        SelectionAPI.searchSelectableObject();
     }
 }
 

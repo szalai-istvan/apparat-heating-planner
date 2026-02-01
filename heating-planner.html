@@ -121,9 +121,9 @@
     <script type="module" src="js/common/actions/blueprint/SelectBlueprintAction.js"></script>
     <script type="module" src="js/common/actions/blueprint/UpdateBlueprintAction.js"></script>
     <script type="module" src="js/common/actions/blueprint/UploadNewBlueprint.js"></script>
-    <script type="module" src="js/common/actions/room/clearRoomSelectionCache.js"></script>
     <script type="module" src="js/common/actions/room/CreateRoomAction.js"></script>
     <script type="module" src="js/common/actions/room/DeleteRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/RenderRoom.js"></script>
     <script type="module" src="js/common/actions/room/RoomCalculations.js"></script>
     <script type="module" src="js/common/actions/room/SelectRoomAction.js"></script>
     <script type="module" src="js/common/actions/room/UpdateRoomAction.js"></script>
@@ -134,6 +134,7 @@
     <script type="module" src="js/common/api/BlueprintAPI.js"></script>
     <script type="module" src="js/common/api/RoomAPI.js"></script>
     <script type="module" src="js/common/api/ScalingAPI.js"></script>
+    <script type="module" src="js/common/api/SelectionAPI.js"></script>
     <script type="module" src="js/common/api/userActionHandler/UserActionHandler.js"></script>
 
     <script type="module" src="js/common/appdata/ApplicationState.js"></script>
@@ -204,12 +205,33 @@
 
     <script type="module" src="js/common/validators/Validators.js"></script>
 
+    <script type="module" src="js/heating-planner/actions/selection/HeatingPlannerSelectionAction.js"></script>
+
+    <script type="module" src="js/heating-planner/appdata/ConstantsHeatingPlanner.js"></script>
+
+    <script type="module" src="js/heating-planner/entities/Panel.js"></script>
+    <script type="module" src="js/heating-planner/entities/PanelGroup.js"></script>
+    <script type="module" src="js/heating-planner/entities/StructureElements.js"></script>
+
+    <script type="module" src="js/heating-planner/io/loadHeatingPlanner.js"></script>
+    <script type="module" src="js/heating-planner/io/SaveHeatingPlanner.js"></script>
+
+
+    <script type="module" src="js/heating-planner/service/PanelGroupService.js"></script>
+    <script type="module" src="js/heating-planner/service/PanelService.js"></script>
+    <script type="module" src="js/heating-planner/service/StructureElementsService.js"></script>
+
+    <script type="module" src="js/heating-planner/store/ElementStoreHeatingPlanner.js"></script>
+
+    <script type="module" src="js/heating-planner/ui/createButtonsHeatingPlanner.js"></script>
+
     <script type="module" src="js/common/p5/draw.js"></script>
     <script type="module" src="js/common/p5/mousePressed.js"></script>
     <script type="module" src="js/common/p5/mouseReleased.js"></script>
     <script type="module" src="js/common/p5/mouseWheel.js"></script>
     <script type="module" src="js/common/p5/setup.js"></script>
     <script type="module" src="js/common/p5/setup/setupSteps.js"></script>
+    <script type="module" src="js/heating-planner/p5/setupHeatingPlanner.js"></script>
 </body>
 
 </html>

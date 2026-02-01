@@ -1,3 +1,9 @@
+import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
+import { ApplicationState } from "../appdata/ApplicationState.js";
+import { Constants } from "../appdata/Constants.js";
+import { Blueprint } from "../entities/Blueprint.js";
+import { Draw } from "../p5/draw.js";
+
 /** @type {Function[]} */
 const projectSpecificSavingSteps = [];
 
@@ -8,7 +14,7 @@ const projectSpecificSavingSteps = [];
  */
 function downloadProjectState() {
     try {
-        disableRendering();
+        Draw.disableRendering();
         const projectState = getProjectState();
         var aElement = document.createElement('a');
 
@@ -29,7 +35,7 @@ function downloadProjectState() {
         document.body.removeChild(aElement);
 
     } finally {
-        enableRendering();
+        Draw.enableRendering();
     }
 }
 
@@ -39,15 +45,16 @@ function downloadProjectState() {
  * @returns {undefined}
  */
 function saveProjectToLocalStorage() {
+    const loggingEnabled = Constants.debug.projectStateLoggingEnabled;
     try {
-        disableRendering();
-        PROJECT_STATE_LOGGING_ENABLED && console.log('>>> Saving project to local storage');
+        Draw.disableRendering();
+        loggingEnabled && console.log('>>> Saving project to local storage');
         const stateStr = getProjectState();
-        PROJECT_STATE_LOGGING_ENABLED && console.log('Project size: ' + getProjectStateSize(stateStr));
-        localStorage.setItem(LOCAL_STORAGE_DATA_KEY, stateStr);
+        loggingEnabled && console.log('Project size: ' + getProjectStateSize(stateStr));
+        localStorage.setItem(Constants.debug.localStorageDataKey, stateStr);
     } finally {
-        PROJECT_STATE_LOGGING_ENABLED && console.log('<<< Saving project to local storage');
-        enableRendering();
+        loggingEnabled && console.log('<<< Saving project to local storage');
+        Draw.enableRendering();
     }
 }
 
@@ -58,36 +65,35 @@ function saveProjectToLocalStorage() {
  */
 function getProjectState() {
     const rooms = elementStore.rooms.filter(room => roomIsConfigured(room));
+    /** @type {Blueprint[]} */
+    const blueprints = elementStore.blueprints;
     let stateStr;
     let projectState = {};
 
     try {
         projectState = {
             blueprints: {
-                data: elementStore.blueprints.map((bp) => bp.data.canvas.toDataURL("image/png")),
-                topLeft: elementStore.blueprints.map((bp) => bp.topLeftPosition),
-                center: elementStore.blueprints.map((bp) => bp.centerPosition),
-                angleDeg: elementStore.blueprints.map((bp) => bp.angleDeg),
-                isSelected: elementStore.blueprints.map((bp) => bp.isSelected)
+                data: blueprints.map((bp) => bp.data.canvas.toDataURL("image/png")),
+                angleRad: blueprints.map(bp => BlueprintCalculations.getAngleRad(bp))
             },
             scale: {
-                pixelsPerMeterRatio: pixelsPerMetersRatio,
+                pixelsPerMeterRatio: ApplicationState.pixelsPerMetersRatio,
             },
             rooms: {
                 rooms: rooms,
             },
             screen: {
-                sumDrag: screenSumDrag,
-                zoom: screenZoom,
+                sumDrag: ApplicationState.screenSumDrag,
+                zoom: ApplicationState.screenZoom,
             },
             grid: {
-                seed: gridSeed,
+                seed: ApplicationState.gridSeed,
             }
         };
 
         addProjectSpecificObjectsToProjectState(projectState);
     } finally {
-        PROJECT_STATE_LOGGING_ENABLED && console.log(projectState);
+        Constants.debug.projectStateLoggingEnabled && console.log(projectState);
         stateStr = JSON.stringify(projectState);
     }
 
@@ -124,6 +130,14 @@ function registerProjectSpecificSavingStep(savingStep) {
     projectSpecificSavingSteps.push(savingStep);
 }
 
-if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
+if (Constants.debug.saveToLocalStorageEnabled) {
     setInterval(saveProjectToLocalStorage, 10_000);
 }
+
+/**
+ * Projekt fájlba való letöltésével kapcsolatos függvények.
+ */
+export const Save = {
+    downloadProjectState,
+    registerProjectSpecificSavingStep
+};

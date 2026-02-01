@@ -5,19 +5,6 @@ let cachedSelectablePanelGroup = null;
 
 
 /**
- * Megkeresi és visszaadja a kiválasztható panelcsoportot.
- * 
- * @returns {PanelGroup}
- */
-function searchForSelectablePanelGroup() {
-    const selectedPanelGroup = selectPanelGroup();
-    if (selectedPanelGroup) {
-        selectedObject = selectedPanelGroup;
-        return selectedPanelGroup;
-    }
-}
-
-/**
  * Megkeresi és kiválasztja a fűtőelem csoportot és visszaadja
  * 
  * @param {PanelGroup} panelGroup specifikálható kiválasztandó fűtőelem csoport (opcionális).
