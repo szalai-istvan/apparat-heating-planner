@@ -4,9 +4,9 @@ import { Room } from "../../entities/Room.js";
 import { GridCalculations } from "../../geometry/Grid/GridCalculations.js";
 import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
 import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
-import { RenderRectangle } from "../../geometry/Rectangle/RenderRectangle.js";
+import { MathTools } from "../../math/MathTools.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
-import { ClassUtil } from "../../util/ClassUtil.js";
+import { Validators } from "../../validators/Validators.js";
 import { RoomCalculations } from "./RoomCalculations.js";
 
 /**
@@ -16,12 +16,12 @@ import { RoomCalculations } from "./RoomCalculations.js";
  * @returns {undefined}
  */
 function renderRoom(room) {
-    ClassUtil.checkClass(room, CLASS_ROOM);
+    Validators.checkClass(room, Constants.classNames.room);
 
     if (RoomCalculations.roomIsConfigured(room)) {
-        renderConfiguredRoom();
+        renderConfiguredRoom(room);
     } else {
-        renderUnconfiguredRoom();
+        renderUnconfiguredRoom(room);
     }
 }
 
@@ -59,6 +59,7 @@ function renderUnconfiguredRoom(room) {
     const color = room.isSelected ? Constants.ui.selectedTextColor : Constants.room.roomDefaultTextColor;
     const tilted = roomCreationTemp.tilted;
     const firstPoint = roomCreationTemp.first;
+    const angleRad = roomCreationTemp.angleRad;
     let secondPoint = roomCreationTemp.second;
     let thirdPoint = roomCreationTemp.third;
     let width = null;
@@ -77,18 +78,22 @@ function renderUnconfiguredRoom(room) {
         width = secondPoint.x - firstPoint.x;
         height = secondPoint.y - firstPoint.y;
 
+        fill(Constants.room.roomFillColor);
         rect(firstPoint.x, firstPoint.y, width, height);
 
     } else {
         if (!secondPoint) {
             secondPoint = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
-            width = secondPoint.x - firstPoint.x;
+            width = PointCalculations.calculateDistance(secondPoint, firstPoint);
             line(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y);
         } else {
             thirdPoint = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
-            width = secondPoint.x - firstPoint.x;
+            width = PointCalculations.calculateDistance(secondPoint, firstPoint);
             height = RoomCalculations.calculateHeightToMouseCursor(room);
-            rect(firstPoint.x, firstPoint.y, width, height);
+
+            translate(firstPoint.x, firstPoint.y);
+            rotate(angleRad);
+            rect(0, 0, width, height);
         }
     }
 
@@ -105,20 +110,27 @@ function renderUnconfiguredRoom(room) {
  * @param {number} roomHeight 
  */
 function drawRoomSize(room, roomWidth, roomHeight) {
+    const pixelsPerMetersRatio = ApplicationState.pixelsPerMetersRatio;
+    const firstPoint = room.firstPoint || ApplicationState.roomCreationTemp.first || null;
+
+    if (!firstPoint) {
+        return;
+    }
+
     push();
 
     textSettings(room);
-    translate(room.firstPoint);
+    translate(firstPoint.x, firstPoint.y);
     rotate(room.angleRad);
 
     if (roomWidth) {
-        const width = `${roundNumber(Math.abs(roomWidth / pixelsPerMetersRatio), 1)} m`;
+        const width = `${MathTools.roundNumber(Math.abs(roomWidth / pixelsPerMetersRatio), 1)} m`;
         textAlign(CENTER, BOTTOM);
         text(width, roomWidth / 2, (Math.min(roomHeight, 0) || 0) - 5);
     }
 
     if (roomHeight) {
-        const height = `${roundNumber(Math.abs(roomHeight / pixelsPerMetersRatio), 1)} m`;
+        const height = `${MathTools.roundNumber(Math.abs(roomHeight / pixelsPerMetersRatio), 1)} m`;
         textAlign(LEFT, CENTER);
         text(height, Math.max(roomWidth, 0) + 5, roomHeight / 2);
     }
@@ -133,13 +145,17 @@ function drawRoomSize(room, roomWidth, roomHeight) {
  * @returns {undefined}
  */
 function renderRoomName(room) {
-    ClassUtil.checkClass(room, CLASS_ROOM);
+    Validators.checkClass(room, Constants.classNames.room);
+
+    if (!RoomCalculations.roomIsConfigured(room)) {
+        return;
+    }
 
     const center = room.selectionBox.middlePoint;
 
     push();
 
-    textSettings();
+    textSettings(room);
     translate(center.x, center.y);
     rotate(room.angleRad);
 
@@ -169,7 +185,7 @@ function drawSettings(room) {
  */
 function textSettings(room) {
     textAlign(CENTER, CENTER);
-    stroke(BLACK);
+    stroke(Constants.strings.black);
     strokeWeight(ApplicationState.roomNameOutlineWidth);
 
     const mousePosition = MouseCursor.getMousePositionAbsolute();

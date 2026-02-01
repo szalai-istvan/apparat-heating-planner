@@ -1,4 +1,5 @@
 import { Constants } from "../../appdata/Constants.js";
+import { ElementStore } from "../../store/ElementStore.js";
 
 /**
  * Egy menüsort reprezentáló class.
@@ -52,7 +53,7 @@ export class OptionsBar {
             }
         }
 
-        elementStore.register(this);
+        ElementStore.save(this);
     }
 
     setValue(columnIndex, text, runOnchange = true) {

@@ -1,5 +1,5 @@
 import { ElementStore } from "../../common/store/ElementStore.js";
-import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
+import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 import { PanelGroup } from "../entities/PanelGroup.js";
 
 const className = HeatingPlannerConstants.classNames.panelGroup;
@@ -50,6 +50,16 @@ function removeAll() {
 }
 
 /**
+ * Visszaadja a megadott szobában lévő panelcsoportokat
+ * 
+ * @param {string} roomId 
+ * @returns {PanelGroup[]}
+ */
+function findByRoomId(roomId) {
+    return findAll().filter(pg => pg.roomId === roomId);
+}
+
+/**
  * PanelGroupekkel kapcsolatos szolgáltatások gyűjteménye.
  */
 export const PanelGroupService = {
@@ -57,5 +67,6 @@ export const PanelGroupService = {
     findById,
     findByIdList,
     removeById,
-    removeAll
+    removeAll,
+    findByRoomId
 }

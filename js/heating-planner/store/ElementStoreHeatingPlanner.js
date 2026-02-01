@@ -1,5 +1,5 @@
 import { ElementStore } from "../../common/store/ElementStore.js";
-import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
+import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 
 /**
  * Elvégzi az elementStore projektre történő testreszabását.

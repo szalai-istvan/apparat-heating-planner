@@ -1,3 +1,6 @@
+import { Point } from "../../common/geometry/Point/Point.js";
+import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
+
 /**
  * Egy panelcsoportot reprezentáló osztály.
  */
@@ -17,6 +20,8 @@ export class PanelGroup {
     type;
     /** @type {object} */
     details;
+    /** @type {Point} */
+    middlePoint;
     /** @type {number} */
     lengthInPixels;
     /** @type {number} */
@@ -28,23 +33,12 @@ export class PanelGroup {
     /** @type {number} */
     clickedMemberIndex = undefined;
     /** @type {string} */
+
     roomId = null;
     /** @type {string[]} */
     panelIds = [];
-    /** @type {boolean} */
-    cursorIsInsideCache = null;
 
-    constructor({ panel, type }) {
-        // this.id = createUniqueId();
-
-        // setupPanelGroupType(this, type); todo
-
-        if (panel) {
-            this.panelIds.push(panel.id);
-            panel.groupId = this.id;
-        }
-
-        this.alignment = cachedPanelGroupAlignment;
-        // elementStore.register(this);
+    constructor() {
+        this.alignment = 1;
     }
 }

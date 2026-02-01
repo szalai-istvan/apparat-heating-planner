@@ -1,5 +1,6 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
+import { GridCalculations } from "../geometry/Grid/GridCalculations.js";
 import { CreatePoint } from "../geometry/Point/CreatePoint.js";
 import { ScreenActions } from "../screen/ScreenActions.js";
 import { DocumentData } from "./DocumentData.js";

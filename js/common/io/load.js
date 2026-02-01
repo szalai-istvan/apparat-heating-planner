@@ -1,6 +1,8 @@
+import { CreateBlueprintAction } from "../actions/blueprint/CreateBlueprintAction.js";
 import { DeleteBlueprintAction } from "../actions/blueprint/DeleteBlueprintAction.js";
 import { UpdateBlueprintAction } from "../actions/blueprint/UpdateBlueprintAction.js";
 import { ScalingActions } from "../actions/scaling/ScalingActions.js";
+import { SelectionAction } from "../actions/selection/SelectionAction.js";
 import { ScalingAPI } from "../api/ScalingAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
@@ -20,9 +22,13 @@ const projectSpecificLoadingSteps = [];
  * @returns {undefined}
  */
 function loadProject(text = undefined) {
+    const loggingEnabled = Constants.debug.projectStateLoggingEnabled;
     try {
         Draw.disableRendering();
         const projectState = text ? JSON.parse(text) : loadProjectStateFromLocalStorage();
+        loggingEnabled && console.log('>>> Loading project');
+        loggingEnabled && console.log(projectState);
+        
         if (!projectState) {
             return;
         }
@@ -33,15 +39,15 @@ function loadProject(text = undefined) {
         const selectableBlueprint = loadBlueprints(projectState)
         selectableObject = selectableObject || selectableBlueprint
         loadScreenData(projectState);
-        updateGridResolution();
         const selectableRoom = loadRooms(projectState);
         selectableObject = selectableObject || selectableRoom;
         const selectableProjectSpecificObject = loadProjectSpecificObjects(projectState);
         selectableObject = selectableObject || selectableProjectSpecificObject;
 
-        selectableObject && selectObject(selectableObject);
+        selectableObject && SelectionAction.selectObject(selectableObject);
     } finally {
-        enableRendering();
+        loggingEnabled && console.log('<<< Loading project');
+        Draw.enableRendering();
     }
 }
 
@@ -69,7 +75,7 @@ function loadProjectSpecificObjects(projectState) { // todo ez a heating-planner
  * @returns {string}
  */
 function loadProjectStateFromLocalStorage() {
-    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA_KEY));
+    return JSON.parse(localStorage.getItem(Constants.debug.localStorageDataKey));
 }
 
 /**
@@ -87,22 +93,23 @@ function prepareLoading() {
 }
 
 function loadBlueprints(projectState) {
-    (projectState.blueprints.data || []).forEach((bp) => createBlueprint(loadImage(bp)));
+    (projectState.blueprints.data || []).forEach((bp) => CreateBlueprintAction.createBlueprint(loadImage(bp)));
 
     const blueprints = BlueprintService.findAll();
-    let index = 0;
-    while (index < blueprints.length) {
-        UpdateBlueprintAction.incrementBlueprintAngle(projectState.blueprints.angleRad[index]);
-        index++;
-    }
+    setTimeout(() => {
+        let index = 0;
+        while (index < blueprints.length) {
+            UpdateBlueprintAction.incrementBlueprintAngle(projectState.blueprints.angleRad[index]);
+            index++;
+        }
+    }, 1_000); // todo erre szebb megoldás.
 
-    UpdateBlueprintAction.recalculateBlueprintPositions();
+
     return blueprints.filter(bp => bp.isSelected)[0];
 }
 
 function loadScreenData(projectState) {
     ApplicationState.pixelsPerMetersRatio = projectState.scale.pixelsPerMeterRatio;
-    ScalingActions.scaleRenderSizeValues();
 
     ApplicationState.screenSumDrag = projectState.screen.sumDrag;
     ApplicationState.screenZoom = projectState.screen.zoom;
@@ -110,13 +117,14 @@ function loadScreenData(projectState) {
     if (projectState.grid.seed) {
         GridActions.setGlobalGridSeed(CreatePoint.createPoint(projectState.grid.seed.x, projectState.grid.seed.y));
     }
+
+    ScalingActions.scaleRenderSizeValues();
 }
 
 function loadRooms(projectState) {
     const rooms = projectState.rooms.rooms;
     rooms.forEach((room) => (room.constructor = { name: Constants.classNames.room }));
     rooms.forEach((room) => ElementStore.save(room));
-
     return rooms.filter(r => r.isSelected)[0];
 }
 

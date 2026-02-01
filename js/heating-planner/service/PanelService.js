@@ -1,4 +1,4 @@
-import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
+import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 import { Panel } from "../entities/Panel.js";
 import { ElementStore } from "../../common/store/ElementStore.js";
 

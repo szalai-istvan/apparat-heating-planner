@@ -123,6 +123,21 @@ function roomPositionIsInvalid(room) {
     return false;
 }
 
+
+/**
+ * Visszaadja a szoba középpontját.
+ * 
+ * @param {Room} room 
+ * @returns {Point}
+ */
+function getMiddlePoint(room) {
+    if (room.boundingBox) {
+        return room.boundingBox.middlePoint;
+    }
+
+    return undefined;
+}
+
 /**
  * Szoba kalkuláció függvények
  */
@@ -133,5 +148,6 @@ export const RoomCalculations = {
     selectedRoomIsConfiguredOrNoRoomIsSelected,
     mousePointerIsInsideRoom,
     calculateHeightToMouseCursor,
+    getMiddlePoint,
     roomPositionIsInvalid
 };

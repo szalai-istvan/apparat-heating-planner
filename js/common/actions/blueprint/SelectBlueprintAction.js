@@ -2,7 +2,7 @@ import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
 import { Blueprint } from "../../entities/Blueprint.js";
 import { BlueprintService } from "../../service/BlueprintService.js";
-import { ClassUtil } from "../../util/ClassUtil.js";
+import { Validators } from "../../validators/Validators.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { SelectionCriteria } from "../selection/SelectionCriteria.js";
 
@@ -16,7 +16,7 @@ let cachedSelectableBlueprint = null;
  * @returns {Blueprint}
  */
 function selectBlueprint(blueprint = undefined) {
-    ClassUtil.checkClass(blueprint, Constants.classNames.blueprint, true);
+    Validators.checkClass(blueprint, Constants.classNames.blueprint, true);
 
     blueprint = blueprint || checkForSelectableBlueprint();
     if (!blueprint) {

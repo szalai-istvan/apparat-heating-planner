@@ -1,11 +1,18 @@
 import { SelectionAction } from "../../common/actions/selection/SelectionAction.js";
+import { Constants } from "../../common/appdata/Constants.js";
 import { CustomEventTypes } from "../../common/event/CustomEventTypes.js";
 import { Events } from "../../common/event/Events.js";
 import { Load } from "../../common/io/load.js";
 import { Save } from "../../common/io/save.js";
+import { Draw } from "../../common/p5/draw.js";
+import { TranslatedObjectRenderer } from "../../common/render/TranslatedObjectRenderer.js";
+import { UpdatePanelGroupAction } from "../actions/panelGroup/UpdatePanelGroupAction.js";
+import { HeatingPlannerDeleteRoomAction } from "../actions/room/HeatingPlannerDeleteRoomAction.js";
+import { HeatingPlannerScalingActions } from "../actions/scaling/HeatingPlannerScalingActions.js";
 import { HeatingPlannerSelectionAction } from "../actions/selection/HeatingPlannerSelectionAction.js";
 import { LoadHeatingPlanner } from "../io/loadHeatingPlanner.js";
 import { SaveHeatingPlanner } from "../io/SaveHeatingPlanner.js";
+import { HeatingPlannerTranslatedObjectRenderer } from "../render/HeatingPlannerTranslatedObjectRenderer.js";
 import { ElementStoreHeatingPlanner } from "../store/ElementStoreHeatingPlanner.js";
 import { UiLayoutHeatingPlanner } from "../ui/createButtonsHeatingPlanner.js";
 
@@ -30,26 +37,26 @@ function setupHeatingPlanner() {
         HeatingPlannerSelectionAction.searchForSelectablePanelGroup,
         SelectionAction.searchForSelectableBlueprint
     ]);
-    SelectionAction.setProjectSpecificClearSelectionCacheFunction(clearSelectionCacheHeatingPlanner);
-    SelectionAction.setProjectSpecificDeselectFunction(deselectObjectHeatingPlanner);
-    SelectionAction.setProjectSpecificSelectObjectFunction(selectObjectHeatingPlanner);
+    SelectionAction.setProjectSpecificClearSelectionCacheFunction(HeatingPlannerSelectionAction.clearSelectionCacheHeatingPlanner);
+    SelectionAction.setProjectSpecificDeselectFunction(HeatingPlannerSelectionAction.deselectObjectHeatingPlanner);
+    SelectionAction.setProjectSpecificSelectObjectFunction(HeatingPlannerSelectionAction.selectObjectHeatingPlanner);
 
     // rendering config
-    setprojectSpecificRenderTranslatedObjects(renderTranslatedObjectsHeatingPlanner);
-    setprojectSpecificDebugOnlyRenderTranslatedObjects(renderDebugOnlyTranslatedObjectsHeatingPlanner);
+    TranslatedObjectRenderer.setProjectSpecificRenderTranslatedObjects(HeatingPlannerTranslatedObjectRenderer.renderTranslatedObjectsHeatingPlanner);
+    TranslatedObjectRenderer.setProjectSpecificDebugOnlyRenderTranslatedObjects(HeatingPlannerTranslatedObjectRenderer.renderDebugOnlyTranslatedObjectsHeatingPlanner);
 
     // other listeners
-    registerEventListener(ROOMS_CLEARED, onRoomsClearedHeatingPlanner);
-    registerEventListener(ROTATE_SELECTED_OBJECT, rotateSelectedPanelGroup);
-    registerEventListener(SELECTED_ROOM_REMOVED, event => onSelectedRoomRemovedHeatingPlanner(event.detail.room));
-    registerEventListener(REMOVE_SELECTED_OBJECT, event => removeSelectedObjectHeatingPlanner(event.detail.className));
-    registerEventListener(UPDATE_RENDER_SIZE_VALUE, updateRenderSizeValuesHeatingPlanner);
+    Events.registerEventListener(CustomEventTypes.roomsCleared, HeatingPlannerDeleteRoomAction.onRoomsClearedHeatingPlanner);
+    Events.registerEventListener(CustomEventTypes.rotateSelectedObject, UpdatePanelGroupAction.rotateSelectedPanelGroup);
+    Events.registerEventListener(CustomEventTypes.selectedRoomRemoved, HeatingPlannerDeleteRoomAction.onSelectedRoomRemovedHeatingPlanner);
+    Events.registerEventListener(CustomEventTypes.removeSelectedObject, HeatingPlannerSelectionAction.removeSelectedObjectHeatingPlanner);
+    Events.registerEventListener(CustomEventTypes.updateRenderSizeValues, HeatingPlannerScalingActions.updateRenderSizeValuesHeatingPlanner);
 
-    if (SAVE_TO_LOCAL_STORAGE_ENABLED) {
-        loadProject();        
+    if (Constants.debug.saveToLocalStorageEnabled) {
+        Load.loadProject();
     }
 
-    enableRendering();
+    Draw.enableRendering();
 }
 
 Events.registerEventListener(CustomEventTypes.setup, setupHeatingPlanner);

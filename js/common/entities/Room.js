@@ -25,9 +25,6 @@ export class Room {
     /** @type {GridDefinition} */
     roomGridDefinition;
 
-    /** @type {boolean} */
-    cursorIsInsideCache = null;
-
     /** @type {number} */
     width;
     /** @type {number} */

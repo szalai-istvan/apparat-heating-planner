@@ -9,11 +9,12 @@ import { Constants } from "../../appdata/Constants.js";
 function recordKey(s) {
     const key = s.key;
 
+    const existingKeyStrokeRecord = ApplicationState.keyStrokeRecord || '';
     if (key && key.length === 1) {
         ApplicationState.keyStrokeRecord += key.toUpperCase();
-        ApplicationState.keyStrokeRecord = ApplicationState.keyStrokeRecord.substring(keyStrokeRecord.length - Constants.ui.keyStrokeRecordLength);
+        ApplicationState.keyStrokeRecord = existingKeyStrokeRecord.substring(existingKeyStrokeRecord.length - Constants.ui.keyStrokeRecordLength);
 
-        ApplicationState.uncensorBoobs = keyStrokeRecord.includes(Constants.ui.uncensorBoobsPassword);
+        ApplicationState.uncensorBoobs = ApplicationState.keyStrokeRecord.includes(Constants.ui.uncensorBoobsPassword);
 
         if (ApplicationState.debugEnabled && ApplicationState.keyStrokeRecord.includes('...')) {
             evictLocalStorageAndReload();

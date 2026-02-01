@@ -1,6 +1,7 @@
 import { Line } from "./Line.js";
 import { Constants } from "../../appdata/Constants.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
+import { Validators } from "../../validators/Validators.js";
 
 /**
  * 
@@ -9,7 +10,7 @@ import { CreatePoint } from "../Point/CreatePoint.js";
  * @returns {Number}
  */
 function calculateY(line, x) {
-    checkClass(x, Constants.classNames.number);
+    Validators.checkClass(x, Constants.classNames.number);
 
     if (line.n === 0) {
         console.log('Attempt at calculating y value of vertical line!');

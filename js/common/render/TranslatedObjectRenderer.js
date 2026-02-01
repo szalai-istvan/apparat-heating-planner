@@ -24,7 +24,7 @@ function renderTranslatedObjects() {
     
     projectSpecificRenderTranslatedObjects();
 
-    BlueprintService.findAll().forEach(room => drawRoomName(room));
+    RoomService.findAll().forEach(room => RenderRoom.renderRoomName(room));
 
     ScalingActions.renderScaler();
 

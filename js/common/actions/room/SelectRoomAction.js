@@ -2,7 +2,7 @@ import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
 import { Room } from "../../entities/Room.js";
 import { RoomService } from "../../service/RoomService.js";
-import { ClassUtil } from "../../util/ClassUtil.js";
+import { Validators } from "../../validators/Validators.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { SelectionCriteria } from "../selection/SelectionCriteria.js";
 import { RoomCalculations } from "./RoomCalculations.js";
@@ -18,7 +18,7 @@ let cachedSelectableRoom = null;
  * @returns {Room} a kiválasztott szoba.
  */
 function selectRoom(room = undefined) {
-    ClassUtil.checkClass(room, Constants.classNames.room, true);
+    Validators.checkClass(room, Constants.classNames.room, true);
 
     room = room || checkForSelectableRoom();
 
@@ -70,14 +70,15 @@ function deselectRoom() {
     if (!room) {
         return true;
     }
-    
-    if (roomIsConfigured(room)) {
+
+    if (RoomCalculations.roomIsConfigured(room)) {
         room.isSelected = false;
         ApplicationState.selectedRoom = null;
         UpdateRoomAction.updateRoomSelectionBox();
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 /**

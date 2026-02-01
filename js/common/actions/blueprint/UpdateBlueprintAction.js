@@ -34,6 +34,11 @@ function initializePosition(blueprint) {
  */
 function recalculateBlueprintPositions() {
     const blueprints = BlueprintService.findAll();
+    const allBlueptintsHaveBoundingBoxSet = blueprints.filter(bp => bp.boundingBox).length === blueprints.length;
+    if (!allBlueptintsHaveBoundingBoxSet) {
+        return;
+    }
+
     let centerPoint = CreatePoint.createPoint(0, 0);
 
     if (blueprints.length === 1) {
@@ -48,8 +53,13 @@ function recalculateBlueprintPositions() {
             const xProjection = RectangleCalculations.getProjectedSizeX(blueprint.boundingBox);
             centerPoint.x = centerPoint.x + (xProjectionPrevious + xProjection) / 2;
 
-            blueprint.boundingBox.middlePoint = CreatePoint.createPoint(centerPoint.x, centerPoint.y);
-            blueprint.selectionBox.middlePoint = CreatePoint.createPoint(centerPoint.x, centerPoint.y);
+            blueprint.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
+                centerPoint,
+                blueprint.data.width,
+                blueprint.data.height,
+                BlueprintCalculations.getAngleRad(blueprint)
+            );
+            blueprint.selectionBox = blueprint.boundingBox;
             index++;
         }
     }

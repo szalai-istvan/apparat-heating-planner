@@ -1,8 +1,8 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { CustomEventTypes } from "../../event/CustomEventTypes.js";
+import { Events } from "../../event/Events.js";
 import { GridActions } from "../../geometry/Grid/GridActions.js";
 import { RoomService } from "../../service/RoomService.js";
-import { ElementStore } from "../../store/ElementStore.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 
 /**
@@ -35,7 +35,7 @@ function removeSelectedRoom() {
         GridActions.clearGrid();
     }
 
-    Events.dispatchCustomEvent(CustomEventTypes.selectedRoomRemoved, {room});
+    Events.dispatchCustomEvent(CustomEventTypes.selectedRoomRemoved, room);
 }
 
 /**

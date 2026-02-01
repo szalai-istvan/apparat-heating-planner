@@ -1,4 +1,5 @@
-import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
+import { ElementStore } from "../../common/store/ElementStore.js";
+import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 
 /**
  * Betölti a panel csoportokat, és visszaadja a kiválasztottat.
@@ -7,16 +8,16 @@ import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
  * @returns {panelGroup} a kiválasztott panelcsoport 
  */
 function loadPanels(projectState) {
-    const panels = projectState.panels.panels || [];
+    const panels = projectState?.panels?.panels || [];
     for (let panel of panels) {
         panel.constructor = { name: HeatingPlannerConstants.classNames.panel };
-        elementStore.register(panel);
+        ElementStore.save(panel);
     }
 
-    const panelGroups = projectState.panelGroups.panelGroups || [];
+    const panelGroups = projectState?.panelGroups?.panelGroups || [];
     for (let panelGroup of panelGroups) {
         panelGroup.constructor = { name: HeatingPlannerConstants.classNames.panelGroup };
-        elementStore.register(panelGroup);
+        ElementStore.save(panelGroup);
     }
 
     return panelGroups.filter(pg => pg.isSelected)[0];
@@ -30,8 +31,8 @@ function loadPanels(projectState) {
  */
 function loadStructureElements(projectState) {
     const structureElements = projectState.structureElements.structureElements || [];
-    structureElements.forEach((se) => (se.constructor = {name: CLASS_STRUCTURE_ELEMENTS}));
-    structureElements.forEach((se) => elementStore.register(se));
+    structureElements.forEach((se) => (se.constructor = {name: HeatingPlannerConstants.classNames.structureElements}));
+    structureElements.forEach((se) => ElementStore.save(se));
 
     return undefined;
 }

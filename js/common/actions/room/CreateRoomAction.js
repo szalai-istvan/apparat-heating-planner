@@ -47,25 +47,6 @@ function createRoom(name, tilted) {
 }
 
 /**
- * Ellenőrzi, hogy létezik-e már a paraméterül megadott nevű szoba.
- * 
- * @param {string} name 
- * @returns {boolean}
- */
-function roomNameAlreadyExists(name) {
-    return RoomCalculations.getRoomNames().map(n => n.toLowerCase()).includes(name.toLowerCase());
-}
-
-/**
- * Regisztrál egy callback függvényt, amely szoba létrehozás után fog lefutni.
- * 
- * @param {Function} callback 
- */
-function onRoomIsCreated(callback) {
-    onRoomCreatedCallback = callback;
-}
-
-/**
  * Hozzáadja a kurzor pillanatnyi abszolút koordinátáit a kijelölt szoba sarkaihoz
  * 
  * @returns {undefined}
@@ -98,6 +79,7 @@ function addPointToSelectedRoom() {
  * @returns {boolean}
  */
 function pointCanBeAddedToSelectedRoom() {
+    const selectedRoom = ApplicationState.selectedRoom;
     return RoomService.findAll()
         .filter(r => r !== selectedRoom)
         .filter(r => RoomCalculations.mousePointerIsInsideRoom(r))
@@ -133,7 +115,6 @@ function addPointToRoom(room) {
             ApplicationState.roomCreationTemp.second = mousePosition;
             ApplicationState.roomCreationTemp.width = PointCalculations.calculateDistance(firstPoint, mousePosition);
             if (mousePosition.x < firstPoint.x) {
-                // TODO ez vajon kell, hogy a szélesség negativ lehessen?
                 ApplicationState.roomCreationTemp.width *= -1;
             }
 
@@ -151,8 +132,27 @@ function addPointToRoom(room) {
         ApplicationState.roomCreationTemp.width = (mousePosition.x - firstPoint.x);
         ApplicationState.roomCreationTemp.height = (mousePosition.y - firstPoint.y);
         ApplicationState.roomCreationTemp.angleRad = 0.00;
-        finalizeRoom(room);
+        UpdateRoomAction.finalizeRoom(room);
     }
+}
+
+/**
+ * Ellenőrzi, hogy létezik-e már a paraméterül megadott nevű szoba.
+ * 
+ * @param {string} name 
+ * @returns {boolean}
+ */
+function roomNameAlreadyExists(name) {
+    return RoomCalculations.getRoomNames().map(n => n.toLowerCase()).includes(name.toLowerCase());
+}
+
+/**
+ * Regisztrál egy callback függvényt, amely szoba létrehozás után fog lefutni.
+ * 
+ * @param {Function} callback 
+ */
+function onRoomIsCreated(callback) {
+    onRoomCreatedCallback = callback;
 }
 
 /**

@@ -18,6 +18,23 @@ rotateBlueprintDialogOkButton.addEventListener(Constants.strings.click, () => {
     Dialogs.toggleScreenControls();
 });
 
+/**
+ * Megnyitja a tervrajz forgató dialógust.
+ * 
+ * @returns {undefined}
+ */
+function openRotateBlueprintDialog() {
+    rotateBlueprintDialog.showModal();
+    rotateBlueprintDialogInput.value = '';
+    Dialogs.toggleScreenControls();
+}
+
+/**
+ * Visszaadja a modal textboxban lévő szögértéket.
+ * 
+ * @returns {number}
+ */
+
 function getAngle() {
     if (Dialogs.modalIsOpen(rotateBlueprintDialog)) {
         return +(rotateBlueprintDialogInput.value || '0');
@@ -30,5 +47,6 @@ function getAngle() {
  * Tervrajz forgató függvények
  */
 export const RotateBlueprintDialog = {
-    getAngle
+    getAngle,
+    openRotateBlueprintDialog
 };

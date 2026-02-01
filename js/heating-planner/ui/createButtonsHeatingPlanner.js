@@ -1,8 +1,13 @@
 import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js";
+import { SelectionAPI } from "../../common/api/SelectionAPI.js";
+import { ApplicationState } from "../../common/appdata/ApplicationState.js";
 import { Constants } from "../../common/appdata/Constants.js";
 import { ButtonWrapper } from "../../common/ui/buttons/ButtonWrapper.js";
 import { UiLayoutDefinition } from "../../common/ui/UiLayoutDefinition.js";
-import { HeatingPlannerConstants } from "../appdata/ConstantsHeatingPlanner.js";
+import { PanelGroupCalculations } from "../actions/panelGroup/PanelGroupCalculations.js";
+import { PanelGroupAPI } from "../api/PanelGroupAPI.js";
+import { HeatingPlannerApplicationState } from "../appdata/HeatingPlannerApplicationState.js";
+import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 
 /**
  * Létrehozza és regisztrálja a projekt specifikus UI vezérlőket.
@@ -19,7 +24,7 @@ function createButtonsHeatingPlanner() {
             text: type,
             size: Constants.ui.smallButtonSize,
             position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
-            onClick: () => createOrReplacePanelGroup(type),
+            onClick: () => PanelGroupAPI.createOrReplacePanelGroup(type),
             shouldBeActive: () => RoomCalculations.configuredRoomsExist()
         });
         leftRibbonButtonSizes.push(Constants.ui.smallButtonSize);
@@ -31,8 +36,8 @@ function createButtonsHeatingPlanner() {
         text: 'Forgatás',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => rotateSelectedObject(),
-        shouldBeActive: () => selectedPanelGroup || selectedBlueprint
+        onClick: () => SelectionAPI.rotateSelectedObject(1),
+        shouldBeActive: () => HeatingPlannerApplicationState.selectedPanelGroup || ApplicationState.selectedBlueprint
     });
     leftRibbonButtonSizes.push(Constants.ui.smallButtonSize);
 
@@ -41,8 +46,8 @@ function createButtonsHeatingPlanner() {
         text: '-',
         size: Constants.ui.halfWidthButtonSize,
         position: addButtonPosition,
-        onClick: () => removePanelFromSelectedGroup(),
-        shouldBeActive: () => selectedPanelGroup
+        onClick: () => PanelGroupAPI.removePanelFromSelectedGroup(),
+        shouldBeActive: () => HeatingPlannerApplicationState.selectedPanelGroup
     });
 
     addButtonPosition.x += Constants.ui.halfWidthButtonSize.x;
@@ -50,8 +55,8 @@ function createButtonsHeatingPlanner() {
         text: '+',
         size: Constants.ui.halfWidthButtonSize,
         position: addButtonPosition,
-        onClick: () => addPanelToSelectedGroup(),
-        shouldBeActive: () => selectedPanelGroup
+        onClick: () => PanelGroupAPI.addPanelToSelectedGroup(),
+        shouldBeActive: () => HeatingPlannerApplicationState.selectedPanelGroup
     });
     leftRibbonButtonSizes.push(Constants.ui.halfWidthButtonSize);
 
@@ -59,8 +64,8 @@ function createButtonsHeatingPlanner() {
         text: 'Törlés',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => removeSelectedObject(),
-        shouldBeActive: () => selectedPanelGroup || selectedRoom || selectedBlueprint
+        onClick: () => SelectionAPI.removeSelectedObject(),
+        shouldBeActive: () => HeatingPlannerApplicationState.selectedPanelGroup || ApplicationState.selectedRoom || ApplicationState.selectedBlueprint
     });
     leftRibbonButtonSizes.push(Constants.ui.smallButtonSize);
 
@@ -71,7 +76,7 @@ function createButtonsHeatingPlanner() {
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
         onClick: () => openTransportDialog(),
-        shouldBeActive: () => panelGroupsExist() && !(selectedPanelGroup?.isSelectedForDrag)
+        shouldBeActive: () => PanelGroupCalculations.panelGroupsExist() && !(HeatingPlannerApplicationState.selectedPanelGroup?.isSelectedForDrag)
     });
     leftRibbonButtonSizes.push(Constants.ui.tallSmallButtonSize);
 }

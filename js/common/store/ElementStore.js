@@ -83,15 +83,10 @@ function save(object) {
         throw new Error(`Attempt to register unexpected render type: ${className}`); // todo egységes hibakezelése
     }
 
-    if (object.id) {
-        return;
-    }
-
     elementStore[arrayField].push(object);
 
     if (byIdField) {
-        object.id = ID.createUniqueId();
-        while (elementStore[byIdField][object.id]) {
+        while (!object.id || elementStore[byIdField][object.id]) {
             object.id = ID.createUniqueId();
         }
 

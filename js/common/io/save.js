@@ -1,8 +1,11 @@
 import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
+import { RoomCalculations } from "../actions/room/RoomCalculations.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
 import { Blueprint } from "../entities/Blueprint.js";
+import { MathTools } from "../math/MathTools.js";
 import { Draw } from "../p5/draw.js";
+import { RoomService } from "../service/RoomService.js";
 
 /** @type {Function[]} */
 const projectSpecificSavingSteps = [];
@@ -48,6 +51,7 @@ function saveProjectToLocalStorage() {
     const loggingEnabled = Constants.debug.projectStateLoggingEnabled;
     try {
         Draw.disableRendering();
+        // loggingEnabled && console.clear();
         loggingEnabled && console.log('>>> Saving project to local storage');
         const stateStr = getProjectState();
         loggingEnabled && console.log('Project size: ' + getProjectStateSize(stateStr));
@@ -64,7 +68,7 @@ function saveProjectToLocalStorage() {
  * @returns {string} Projekt állapota JSON string-ben
  */
 function getProjectState() {
-    const rooms = elementStore.rooms.filter(room => roomIsConfigured(room));
+    const rooms = RoomService.findAll().filter(room => RoomCalculations.roomIsConfigured(room));
     /** @type {Blueprint[]} */
     const blueprints = elementStore.blueprints;
     let stateStr;
@@ -107,7 +111,7 @@ function getProjectState() {
  * @returns {string} Projekt állapota
  */
 function getProjectStateSize(stateStr) {
-    return roundNumber((stateStr || getProjectState()).length / 1024 / 1024, 2) + " MB";
+    return MathTools.roundNumber((stateStr || getProjectState()).length / 1024 / 1024, 2) + " MB";
 }
 
 /**

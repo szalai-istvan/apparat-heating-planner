@@ -1,5 +1,6 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
+import { CreatePoint } from "../Point/CreatePoint.js";
 
 /**
  * Visszaadja a paraméterül kapott ponthoz legközelebbi globális grid pontot
@@ -18,7 +19,7 @@ function getClosestGlobalGridPoint(point) {
     const x = gridSeed.x + Math.round((point.x - gridSeed.x) / gridResolutionPixel) * gridResolutionPixel;
     const y = gridSeed.y + Math.round((point.y - gridSeed.y) / gridResolutionPixel) * gridResolutionPixel;
 
-    return createPoint(x, y);
+    return CreatePoint.createPoint(x, y);
 }
 
 /**

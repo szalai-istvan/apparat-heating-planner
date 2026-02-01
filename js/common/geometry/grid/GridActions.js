@@ -1,5 +1,7 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
+import { Validators } from "../../validators/Validators.js";
+import { CreatePoint } from "../Point/CreatePoint.js";
 /**
  * Beállítja a paraméterül kapott pontot a grid origójaként.
  * 
@@ -7,13 +9,13 @@ import { Constants } from "../../appdata/Constants.js";
  * @returns {undefined} 
  */
 function setGlobalGridSeed(point) {
-    Validations.checkClass(point, Constants.classNames.point);
+    Validators.checkClass(point, Constants.classNames.point);
 
     if (ApplicationState.gridSeed) {
         return;
     }
 
-    ApplicationState.gridSeed = createPoint(point.x, point.y);
+    ApplicationState.gridSeed = CreatePoint.createPoint(point.x, point.y);
 }
 
 /**

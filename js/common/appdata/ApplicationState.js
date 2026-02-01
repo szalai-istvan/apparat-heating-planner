@@ -22,7 +22,7 @@ export const ApplicationState = {
     /** @type {boolean} */
     screenDraggingInProgress: false,
     /** @type {boolean} */
-    debugEnabled: false,
+    debugEnabled: true,
     /** @type {Array} */
     delimiterPositions: [],
     /** @type {Array} */
@@ -68,3 +68,5 @@ export const ApplicationState = {
     selectedRoom: null
 
 };
+
+window.applicationState = ApplicationState;

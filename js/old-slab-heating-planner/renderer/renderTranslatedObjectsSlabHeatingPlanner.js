@@ -14,14 +14,14 @@ function renderTranslatedObjectsSlabHeatingPlanner() {
  * @returns {undefined}
  */
 function renderDebugOnlyTranslatedObjectsSlabHeatingPlanner() {
-    elementStore.rooms.forEach(r => drawRectangle(r.boundingBox));
-    elementStore.rooms.forEach(r => drawRectangle(r.textBox));
+    elementStore.rooms.forEach(r => RenderRectangle.renderRectangle(r.boundingBox));
+    elementStore.rooms.forEach(r => RenderRectangle.renderRectangle(r.textBox));
 
-    elementStore.slabHeaterGroups.forEach(shg => drawRectangle(shg.boundingBox, RED, 2));
-    elementStore.slabHeaterGroups.forEach(shg => drawRectangle(shg.boundingBoxIncludingPipes, RED, 2));
-    elementStore.slabHeaters.forEach(sh => drawRectangle(sh.boundingBox));
-    elementStore.slabHeaters.forEach(sh => drawRectangle(sh.textBox));
+    elementStore.slabHeaterGroups.forEach(shg => RenderRectangle.renderRectangle(shg.boundingBox, RED, 2));
+    elementStore.slabHeaterGroups.forEach(shg => RenderRectangle.renderRectangle(shg.boundingBoxIncludingPipes, RED, 2));
+    elementStore.slabHeaters.forEach(sh => RenderRectangle.renderRectangle(sh.boundingBox));
+    elementStore.slabHeaters.forEach(sh => RenderRectangle.renderRectangle(sh.textBox));
 
-    elementStore.boxGroups.forEach(bg => drawRectangle(bg.boundingBox, RED, 2));
-    elementStore.boxes.forEach(b => drawRectangle(b.boundingBox));
+    elementStore.boxGroups.forEach(bg => RenderRectangle.renderRectangle(bg.boundingBox, RED, 2));
+    elementStore.boxes.forEach(b => RenderRectangle.renderRectangle(b.boundingBox));
 }

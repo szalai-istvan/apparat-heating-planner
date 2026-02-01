@@ -2,6 +2,7 @@ function handleUserActionNoParam(func) {
     try {
         func();
     } catch (error) {
+        console.trace();
         console.error(error);
         // todo displayMessage és hasonlók
     }

@@ -1,3 +1,5 @@
+import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
+
 /**
  * Egy fűtőpanelt reprezentáló entitás
  */
@@ -9,15 +11,9 @@ export class Panel {
     /** @type {Rectangle} */
     selectionBox;
 
-    /** @type {boolean} */
-    cursorIsInsideCache;
-    
+   
     /** @type {string} */
     groupId;
 
-    constructor() {
-        // this.id = createUniqueId();
-        // this.centerPosition = getCorrectedMousePositionAbsolute();
-        // elementStore.register(this); TODO ez mind a createPAnel dolga
-    }
+    constructor() {}
 }

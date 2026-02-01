@@ -56,7 +56,7 @@ export const Constants = {
 
     debug: {
         saveToLocalStorageEnabled: true,
-        projectStateLoggingEnabled: false,
+        projectStateLoggingEnabled: true,
         localStorageDataKey: window.location.href.split('/').filter(sp => sp.includes('html'))[0].replaceAll('.html', '') + '-project-save'
     },
 
@@ -139,5 +139,4 @@ export const Constants = {
     }
 };
 
-const DELIMITER_POSITIONS = []; // TODO áthelyezni egy külön fájlba
-const UI_TEXTS = []; // TODO áthelyezni egy külön fájlba
+window.Constants = Constants;

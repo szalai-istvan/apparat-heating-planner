@@ -1,5 +1,6 @@
 import { ReducerFunctions } from "../../math/ReducerFunctions.js";
 import { CreateLine } from "../Line/CreateLine.js";
+import { LineCalculations } from "../Line/LineCalculations.js";
 import { Rectangle } from "./Rectangle.js";
 
 /**
@@ -32,7 +33,7 @@ function pointIsInsideRectangle(point, rectangle) {
     const testerLine = CreateLine.createTestLine(point);
     let intersectedLines = 0;
     for (let line of lines) {
-        if (linesIntersect(line, testerLine)) {
+        if (LineCalculations.linesIntersect(line, testerLine)) {
             intersectedLines += 1;
         }
     }

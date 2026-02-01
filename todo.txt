@@ -14,6 +14,9 @@ Doboz szélesség 8 centi
 rádiusz 15 centi
 csőköz 4 centi
 Cső is piros-kék
+ferde szoba bugos!
+- Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
+hibakezelés egységesítés
 
 long-term:
 - Pont törlése (pipeDriver) ??
@@ -21,13 +24,5 @@ long-term:
 - Szögek egységesítése (rad vs. deg)
 - "gridResolutionPixel" kettő van, ugyanaz az értéke, egyiket ki kéne vezetni
 - Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
-- Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod
-- Még egy major refaktor, ahol sokkal konzisztensebben vannak a műveletek definiálva és elhatárolva.
-    - Gombokhoz rendelve "top-level" műveletek. (BlueprintAPI, RoomAPI, etc.)
-    - API hívja a RoomCalculate, RoomCreate, RoomUpdate, RoomDelete, RoomRender, RoomSelect
-    - A selectorok legyenek mint a service-ek és az elementStore funkcionáljon mint egy in-memory adatbázis.
-        - A selector egy másolatot küldjön vissza, és azon mennek majd a műveletek.
-        - Az elementStore-nak kell egy save metódus, amely ha van id-ja akkor felülírja a meglévőt.
-    - Ránézni még egyszer a type="module" importoknak.

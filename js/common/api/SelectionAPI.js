@@ -29,6 +29,19 @@ function clearSelectionCache() {
     UserActionHandler.handleUserActionNoParam(SelectionAction.clearSelectionCache);
 }
 
+/**
+ * Kiválasztott objektum elforgatása
+ * 
+ * @param {number} direction 
+ */
+function rotateSelectedObject(direction) {
+    UserActionHandler.handleUserActionParam1(SelectionAction.rotateSelectedObject, direction);
+}
+/**
+ * Törli a kiválasztott objektumot.
+ * 
+ * @returns {undefined}
+ */
 function removeSelectedObject() {
     UserActionHandler.handleUserActionNoParam(SelectionAction.removeSelectedObject);
 }
@@ -40,5 +53,6 @@ export const SelectionAPI = {
     searchSelectableObject,
     deselectObject,
     clearSelectionCache,
+    rotateSelectedObject,
     removeSelectedObject
 };

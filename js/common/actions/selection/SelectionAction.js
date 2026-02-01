@@ -1,11 +1,13 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
-import { SelectRoomAction } from "../room/SelectRoomAction.js";
-import { ClassUtil } from "../../util/ClassUtil.js";
-import { SelectBlueprintAction } from "../blueprint/SelectBlueprintAction.js";
 import { CustomEventTypes } from "../../event/CustomEventTypes.js";
-import { DeleteRoomAction } from "../room/DeleteRoomAction.js";
+import { Events } from "../../event/Events.js";
+import { RotateBlueprintDialog } from "../../ui/dialog/RotateBlueprintDialog.js";
+import { ClassUtil } from "../../util/ClassUtil.js";
 import { DeleteBlueprintAction } from "../blueprint/DeleteBlueprintAction.js";
+import { SelectBlueprintAction } from "../blueprint/SelectBlueprintAction.js";
+import { DeleteRoomAction } from "../room/DeleteRoomAction.js";
+import { SelectRoomAction } from "../room/SelectRoomAction.js";
 
 /** @type {Function} */
 let projectSpecificSelectObjectFunction = (obj) => {};
@@ -25,7 +27,7 @@ function searchSelectableObject() {
     for (let searchFunction of selectableObjectSearchSteps) {
         const searchFunctionResult = searchFunction();
         if (searchFunctionResult) {
-            selectedObject = searchFunctionResult;
+            ApplicationState.selectedObject = searchFunctionResult;
             return searchFunctionResult;
         }
     }
@@ -98,6 +100,26 @@ function clearSelectionCache() {
 }
 
 /**
+ * Elforgatja a kiválasztott objektumot.
+ * 
+ * @param {Number} direction Forgatás iránya
+ * @returns {undefined}
+ */
+function rotateSelectedObject(direction) {
+    if (!ApplicationState.selectedObject) {
+        return;
+    }
+
+    const className = ClassUtil.getClassName(ApplicationState.selectedObject);
+    
+    if (className === Constants.classNames.blueprint) {
+        RotateBlueprintDialog.openRotateBlueprintDialog();
+    } else {
+        Events.dispatchCustomEvent(CustomEventTypes.rotateSelectedObject, direction);
+    }
+}
+
+/**
  * Törli a kijelölt objektumot.
  * 
  * @returns {undefined}
@@ -114,7 +136,7 @@ function removeSelectedObject() {
     } else if (className === Constants.classNames.blueprint) {
         DeleteBlueprintAction.removeSelectedBlueprint();
     } else {
-        Events.dispatchCustomEvent(CustomEventTypes.removeSelectedObject, {className});
+        Events.dispatchCustomEvent(CustomEventTypes.removeSelectedObject, className);
     }
 
     ApplicationState.selectedObject = null;
@@ -211,5 +233,6 @@ export const SelectionAction = {
     setProjectSpecificSelectObjectFunction,
     setProjectSpecificDeselectFunction,
     setProjectSpecificClearSelectionCacheFunction,
-    setSelectableObjectSearchStep
+    setSelectableObjectSearchStep,
+    rotateSelectedObject
 };
