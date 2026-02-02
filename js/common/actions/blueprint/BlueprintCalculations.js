@@ -1,12 +1,11 @@
-import { isReadonlyKeywordOrPlusOrMinusToken } from "typescript";
 import { Blueprint } from "../../entities/Blueprint.js";
 import { CreatePoint } from "../../geometry/Point/CreatePoint.js";
 import { Point } from "../../geometry/Point/Point.js";
+import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
 import { Rectangle } from "../../geometry/Rectangle/Rectangle.js";
+import { ReducerFunctions } from "../../math/ReducerFunctions.js";
 import { BlueprintService } from "../../service/BlueprintService.js";
 import { RoomService } from "../../service/RoomService.js";
-import { ReducerFunctions } from "../../math/ReducerFunctions.js";
-import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
 
 /**
  * Visszaadja a tervrajz szögét.

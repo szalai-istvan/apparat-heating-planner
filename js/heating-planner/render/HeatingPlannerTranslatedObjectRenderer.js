@@ -1,11 +1,11 @@
-import { Blueprint } from "../../common/entities/Blueprint.js";
 import { RenderRectangle } from "../../common/geometry/Rectangle/RenderRectangle.js";
 import { BlueprintService } from "../../common/service/BlueprintService.js";
 import { RoomService } from "../../common/service/RoomService.js";
 import { RenderPanelGroup } from "../actions/panelGroup/RenderPanelGroup.js";
-import { PanelGroup } from "../entities/PanelGroup.js";
+import { RenderStructureElements } from "../actions/structureElements/RenderStructureElements.js";
 import { PanelGroupService } from "../service/PanelGroupService.js";
 import { PanelService } from "../service/PanelService.js";
+import { StructureElementsService } from "../service/StructureElementsService.js";
 
 /**
  * Felrajzolja a kijelzőre a draggel korrigált pozíciójú elemeket.
@@ -13,10 +13,13 @@ import { PanelService } from "../service/PanelService.js";
  * @returns {undefined}
  */
 function renderTranslatedObjectsHeatingPlanner() {
-    elementStore.panelGroups.forEach(pg => RenderPanelGroup.renderPanelGroup(pg));
-    // elementStore.structureElements.forEach(se => drawStructureElements(se));
-    // elementStore.structureElements.forEach(se => drawUd30(se)); // todo
-    elementStore.panelGroups.forEach(pg => RenderPanelGroup.renderPanelGroupType(pg));
+    const panelGroups = PanelGroupService.findAll();
+    const structureElements = StructureElementsService.findAll();
+
+    panelGroups.forEach(pg => RenderPanelGroup.renderPanelGroup(pg));
+    structureElements.forEach(se => RenderStructureElements.renderStructureElements(se));
+    structureElements.forEach(se => RenderStructureElements.renderUd30(se));
+    panelGroups.forEach(pg => RenderPanelGroup.renderPanelGroupType(pg));
 }
 
 /**

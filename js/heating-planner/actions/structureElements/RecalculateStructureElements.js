@@ -77,8 +77,8 @@ function calculateAlignedBeamsOfPanelGroup(room, panelGroup) {
             .filter(x => x);
 
         const beam = CreateLine.createLine(
-            CreatePoint.rotatePoint(PointCalculations.addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
-            CreatePoint.rotatePoint(PointCalculations.addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+            PointCalculations.rotatePoint(PointCalculations.addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            PointCalculations.rotatePoint(PointCalculations.addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
         );
 
         // intentionally used invalid fields!
@@ -156,8 +156,8 @@ function calculateCrossBeams(room, panelGroups) {
         );
 
         // intentionally used invalid fields!
-        beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
-        beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
+        beam.leftPoint = CreateLine.createLine(beam.p0, beam.middlePoint).middlePoint;
+        beam.rightPoint = CreateLine.createLine(beam.p1, beam.middlePoint).middlePoint;
         beams.push(beam);
     }
 

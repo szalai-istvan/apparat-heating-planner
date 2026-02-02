@@ -38,8 +38,7 @@ function handleError(error) {
             MessageDialog.displayMessage(translation);
         }
     } else {
-        console.trace();
-        console.error(error);
+        // console.log(error);
     }
 }
 

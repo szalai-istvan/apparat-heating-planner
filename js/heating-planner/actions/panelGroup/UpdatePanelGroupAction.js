@@ -3,6 +3,7 @@ import { Constants } from "../../../common/appdata/Constants.js";
 import { Room } from "../../../common/entities/Room.js";
 import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
 import { Errors } from "../../../common/errors/Errors.js";
+import { GridCalculations } from "../../../common/geometry/Grid/GridCalculations.js";
 import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
 import { Point } from "../../../common/geometry/Point/Point.js";
 import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
@@ -30,12 +31,16 @@ function rotateSelectedPanelGroup() {
     }
 
     panelGroup.alignment = (panelGroup.alignment + 1) % 4;
+    updateAngleRadAndCenterPositions(panelGroup);
     updatePositionDataIncludingMembers(panelGroup);
-
     if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.getContainingRoom(panelGroup)) {
         panelGroup.alignment = (panelGroup.alignment + 3) % 4;
         updatePositionDataIncludingMembers(panelGroup);
         Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
+    } else if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.panelGroupAlignmentIsValid(panelGroup)) {
+        panelGroup.alignment = (panelGroup.alignment + 3) % 4;
+        updatePositionDataIncludingMembers(panelGroup);
+        Errors.throwError(ErrorCodes.INVALID_PANEL_ALIGNMENT);
     }
 
     RecalculateStructureElements.recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
@@ -95,7 +100,7 @@ function updatePositionDataOfPanelGroup(panelGroup) {
  * Kiszámítja a panel befoglaló téglalpját.
  * 
  * @param {PanelGroup} panelGroup
- * @param {Panel} panel 
+ * @param {Panel} panel
  * @returns {undefined}
  */
 function updatePanelBoundingBoxAndSelectionBox(panelGroup, panel) {
@@ -183,14 +188,12 @@ function assignPanelGroupToRoom(panelGroup, room) {
  * @returns {Point}
  */
 function calculateMiddlePointOfPanel(panelGroup, panel) {
-    if (!panelGroup.isSelectedForDrag) {
-        return panel.boundingBox.middlePoint;
-    }
-    
     const clickedMemberIndex = panelGroup.clickedMemberIndex;
     const index = panelGroup.panelIds.indexOf(panel.id);
     const offset = index - clickedMemberIndex;
-    const basePoint = MouseCursor.getCorrectedMousePositionAbsolute();
+    const basePoint = panelGroup.isSelectedForDrag ?
+        GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition() :
+        PanelService.findById(panelGroup.panelIds[clickedMemberIndex]).boundingBox.middlePoint;
     const width = panelGroup.widthInPixels;
 
     return CreatePoint.createPoint(
@@ -209,12 +212,12 @@ function addPanelToSelectedGroup() {
     if (!panelGroup) {
         return;
     }
-    
+
     const panel = new Panel();
     ElementStore.save(panel);
     assignPanelToGroup(panel, panelGroup);
     updatePositionDataIncludingMembers(panelGroup);
-    
+
     if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.getContainingRoom(panelGroup)) {
         removePanelFromSelectedGroup();
         Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);

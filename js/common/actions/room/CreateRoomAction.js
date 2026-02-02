@@ -102,8 +102,6 @@ function addPointToRoom(room) {
 
     const mousePosition = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
     const firstPoint = ApplicationState.roomCreationTemp.first;
-    const secondPoint = ApplicationState.roomCreationTemp.second;
-    const thirdPoint = ApplicationState.roomCreationTemp.third;
     const width = ApplicationState.roomCreationTemp.width;
     const height = ApplicationState.roomCreationTemp.height;
 

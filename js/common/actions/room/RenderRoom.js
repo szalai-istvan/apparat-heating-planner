@@ -55,13 +55,10 @@ function renderConfiguredRoom(room) {
  */
 function renderUnconfiguredRoom(room) {
     const roomCreationTemp = ApplicationState.roomCreationTemp;
-    const thickness = ApplicationState.roomLineWeight * (1 + Number(room.isSelected) * Constants.room.roomTextPopFactor);
-    const color = room.isSelected ? Constants.ui.selectedTextColor : Constants.room.roomDefaultTextColor;
     const tilted = roomCreationTemp.tilted;
     const firstPoint = roomCreationTemp.first;
     const angleRad = roomCreationTemp.angleRad;
     let secondPoint = roomCreationTemp.second;
-    let thirdPoint = roomCreationTemp.third;
     let width = null;
     let height = null;
 

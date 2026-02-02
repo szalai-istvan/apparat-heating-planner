@@ -112,8 +112,8 @@ function deselectPanelGroup() {
     UpdatePanelGroupAction.updatePositionDataIncludingMembers(selectedPanelGroup);
     selectedPanelGroup.isSelected = false;
     selectedPanelGroup.isSelectedForDrag = false;
-    RecalculateStructureElements.recalculateBeamDefinitions(containingRoom);
     HeatingPlannerApplicationState.selectedPanelGroup = null;
+    RecalculateStructureElements.recalculateBeamDefinitions(containingRoom);
 
     return true;
 }

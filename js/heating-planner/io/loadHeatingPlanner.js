@@ -1,11 +1,12 @@
 import { ElementStore } from "../../common/store/ElementStore.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
+import { PanelGroup } from "../entities/PanelGroup.js";
 
 /**
  * Betölti a panel csoportokat, és visszaadja a kiválasztottat.
  * 
  * @param {object} projectState projekt struktúra
- * @returns {panelGroup} a kiválasztott panelcsoport 
+ * @returns {PanelGroup} a kiválasztott panelcsoport 
  */
 function loadPanels(projectState) {
     const panels = projectState?.panels?.panels || [];
@@ -30,7 +31,7 @@ function loadPanels(projectState) {
  * @returns {undefined}
  */
 function loadStructureElements(projectState) {
-    const structureElements = projectState.structureElements.structureElements || [];
+    const structureElements = projectState?.structureElements?.structureElements || [];
     structureElements.forEach((se) => (se.constructor = {name: HeatingPlannerConstants.classNames.structureElements}));
     structureElements.forEach((se) => ElementStore.save(se));
 
