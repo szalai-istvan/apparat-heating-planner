@@ -1,10 +1,10 @@
+import { Errors } from "../../errors/Errors.js";
+
 function handleUserActionNoParam(func) {
     try {
         func();
     } catch (error) {
-        console.trace();
-        console.error(error);
-        // todo displayMessage és hasonlók
+        Errors.handleError(error);
     }
 }
 
@@ -18,8 +18,7 @@ function handleUserActionParam1(func, param) {
     try {
         func(param);
     } catch (error) {
-        console.error(error);
-        // todo displayMessage és hasonlók
+        Errors.handleError(error);
     }
 }
 

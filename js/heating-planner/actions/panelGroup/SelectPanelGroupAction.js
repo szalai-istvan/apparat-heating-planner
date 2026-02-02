@@ -1,6 +1,7 @@
 import { SelectionAction } from "../../../common/actions/selection/SelectionAction.js";
 import { SelectionCriteria } from "../../../common/actions/selection/SelectionCriteria.js";
-import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
+import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
+import { Errors } from "../../../common/errors/Errors.js";
 import { RoomService } from "../../../common/service/RoomService.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { HeatingPlannerApplicationState } from "../../appdata/HeatingPlannerApplicationState.js";
@@ -8,7 +9,7 @@ import { HeatingPlannerConstants } from "../../appdata/HeatingPlannerConstants.j
 import { PanelGroup } from "../../entities/PanelGroup.js";
 import { PanelGroupService } from "../../service/PanelGroupService.js";
 import { PanelService } from "../../service/PanelService.js";
-import { HeatingPlannerUpdateRoomAction } from "../room/HeatingPlannerUpdateRoomAction.js";
+import { RecalculateStructureElements } from "../structureElements/RecalculateStructureElements.js";
 import { PanelGroupCalculations } from "./PanelGroupCalculations.js";
 import { UpdatePanelGroupAction } from "./UpdatePanelGroupAction.js";
 
@@ -37,7 +38,7 @@ function selectPanelGroup(panelGroup = undefined) {
         setSelectedPanelGroupIndex(panelGroup);
         const room = RoomService.findById(panelGroup.roomId);
         panelGroup.roomId = null;
-        HeatingPlannerUpdateRoomAction.recalculateBeamDefinitions(room);
+        RecalculateStructureElements.recalculateBeamDefinitions(room);
         return panelGroup;
     }
 
@@ -84,9 +85,9 @@ function clearPanelGroupSelectionCache() {
 }
 
 /**
- * Megszűnteti a panelcsoport kijelölését
+ * Megszűnteti a panelcsoport kijelölését, visszaadja hogy sikerült-e.
  * 
- * @returns {undefined}
+ * @returns {boolean}
  */
 function deselectPanelGroup() {
     const selectedPanelGroup = HeatingPlannerApplicationState.selectedPanelGroup;
@@ -97,22 +98,22 @@ function deselectPanelGroup() {
     const containingRoom = PanelGroupCalculations.getContainingRoom(selectedPanelGroup);
 
     if (!containingRoom) {
-        displayMessage('A panelcsoport része vagy egésze szobán kívülre esik!');
+        Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
         return false;
     }
+
     UpdatePanelGroupAction.assignPanelGroupToRoom(selectedPanelGroup, containingRoom);
     
     if (!PanelGroupCalculations.panelGroupAlignmentIsValid(containingRoom, selectedPanelGroup)) {
-        displayMessage('Egymásra merőleges panelek nem lehetnek egy szobában!');
+        Errors.throwError(ErrorCodes.INVALID_PANEL_ALIGNMENT);
         return false;
     }
 
     UpdatePanelGroupAction.updatePositionDataIncludingMembers(selectedPanelGroup);
     selectedPanelGroup.isSelected = false;
     selectedPanelGroup.isSelectedForDrag = false;
-    HeatingPlannerUpdateRoomAction.recalculateBeamDefinitions(containingRoom);
+    RecalculateStructureElements.recalculateBeamDefinitions(containingRoom);
     HeatingPlannerApplicationState.selectedPanelGroup = null;
-
 
     return true;
 }

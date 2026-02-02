@@ -73,7 +73,7 @@ function drawPanelType(panel, group) {
     }
 
     const p = HeatingPlannerConstants.panel.panelTextPopFactor;
-    textSize(sizeMultiplier * panelTextSize * (1 + p * group.isSelected + p * pointIsInsideTextBox));
+    textSize(sizeMultiplier * panelTextSize * (1 + p * Number(group.isSelected) + p * Number(pointIsInsideTextBox)));
     textAlign(CENTER, CENTER);
     noStroke();
     text(group.type, 0, 0);

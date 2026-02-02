@@ -1,3 +1,5 @@
+import { MenuLine } from "./MenuLine.js";
+
 /**
  * Felrajzolja a kijelzőre a paraméterül kapott MenuLine objektumot
  * 

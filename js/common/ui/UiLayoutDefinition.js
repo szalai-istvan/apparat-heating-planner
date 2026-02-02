@@ -1,10 +1,14 @@
 import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
+import { DeleteBlueprintAction } from "../actions/blueprint/DeleteBlueprintAction.js";
 import { BlueprintAPI } from "../api/BlueprintAPI.js";
 import { RoomAPI } from "../api/RoomAPI.js";
 import { ScalingAPI } from "../api/ScalingAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
 import { CreatePoint } from "../geometry/Point/CreatePoint.js";
+import { Point } from "../geometry/Point/Point.js";
+import { Load } from "../io/load.js";
+import { Save } from "../io/save.js";
 import { ReducerFunctions } from "../math/ReducerFunctions.js";
 import { ButtonWrapper } from "./buttons/ButtonWrapper.js";
 import { MenuLine } from "./menuLine/MenuLine.js";
@@ -52,7 +56,7 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
         optionSize: Constants.ui.tallSmallButtonSize,
         text: 'Projekt',
         buttons: ['Új projekt', 'Projekt mentése', 'Projekt betöltése'],
-        buttonsClickFunctions: [() => clearBlueprints(), () => downloadProjectState(), () => uploadProject()],
+        buttonsClickFunctions: [() => DeleteBlueprintAction.clearBlueprints(), () => Save.downloadProjectState(), () => Load.uploadProject()],
         selectionMenuMode: false,
         shouldBeActive: () => true
     });

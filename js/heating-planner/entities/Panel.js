@@ -10,7 +10,6 @@ export class Panel {
     boundingBox;
     /** @type {Rectangle} */
     selectionBox;
-
    
     /** @type {string} */
     groupId;

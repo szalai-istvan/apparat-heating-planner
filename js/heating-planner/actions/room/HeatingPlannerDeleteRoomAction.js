@@ -1,13 +1,17 @@
+import { Room } from "../../../common/entities/Room.js";
+import { PanelGroupService } from "../../service/PanelGroupService.js";
+import { StructureElementsService } from "../../service/StructureElementsService.js";
+import { DeletePanelGroupAction } from "../panelGroup/DeletePanelGroupAction.js";
+import { RecalculateStructureElements } from "../structureElements/RecalculateStructureElements.js";
+
 /**
  * Szobák törlése utáni projektspecifikus műveletek
  * 
  * @returns {undefined}
  */
 function onRoomsClearedHeatingPlanner() {
-    elementStore.structureElements = [];
-    elementStore.structureElementsById = {};
-
-    clearPanelGroups();
+    StructureElementsService.removeAll();
+    DeletePanelGroupAction.clearPanelGroups();
 }
 
 /**
@@ -17,11 +21,10 @@ function onRoomsClearedHeatingPlanner() {
  * @returns {undefined}
  */
 function onSelectedRoomRemovedHeatingPlanner(room) {
-    const structureElements = getStructureElementsById(room.structureElementsId);
-    elementStore.remove(structureElements);
+    StructureElementsService.removeById(room.structureElementsId);
 
-    const panelGroupsToDelete = elementStore.panelGroups.filter(pg => pg.roomId === room.id);
-    panelGroupsToDelete.forEach(pg => removePanelGroup(pg));
+    const panelGroupsToDelete = PanelGroupService.findByRoomId(room.id);
+    panelGroupsToDelete.forEach(pg => PanelGroupService.removeById(pg.id));
 }
 
 export const HeatingPlannerDeleteRoomAction = {

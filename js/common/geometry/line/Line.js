@@ -1,5 +1,6 @@
 import { Constants } from "../../appdata/Constants.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
+import { Point } from "../Point/Point.js";
 import { PointCalculations } from "../Point/PointCalculations.js";
 
 /**
@@ -14,7 +15,7 @@ export class Line {
     angleRad;
     /** @type {Number} */
     length;
-    /** @type {Number} */
+    /** @type {Point} */
     middlePoint;
 
     // n*y = a*x+b egyenlet paraméterei nem függőleges vonal esetén

@@ -74,7 +74,7 @@ function deselectRoom() {
     if (RoomCalculations.roomIsConfigured(room)) {
         room.isSelected = false;
         ApplicationState.selectedRoom = null;
-        UpdateRoomAction.updateRoomSelectionBox();
+        UpdateRoomAction.updateRoomSelectionBox(room);
         return true;
     }
 

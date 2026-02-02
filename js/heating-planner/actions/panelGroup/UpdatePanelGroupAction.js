@@ -1,9 +1,12 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { Constants } from "../../../common/appdata/Constants.js";
 import { Room } from "../../../common/entities/Room.js";
+import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
+import { Errors } from "../../../common/errors/Errors.js";
 import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
 import { Point } from "../../../common/geometry/Point/Point.js";
 import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
+import { Rectangle } from "../../../common/geometry/Rectangle/Rectangle.js";
 import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { Validators } from "../../../common/validators/Validators.js";
@@ -30,9 +33,9 @@ function rotateSelectedPanelGroup() {
     updatePositionDataIncludingMembers(panelGroup);
 
     if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.getContainingRoom(panelGroup)) {
-        displayMessage('A forgatás hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt elforgatja!');
-        panelGroup.alignment = (selectedPanelGroup.alignment + 3) % 4;
+        panelGroup.alignment = (panelGroup.alignment + 3) % 4;
         updatePositionDataIncludingMembers(panelGroup);
+        Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
     }
 
     RecalculateStructureElements.recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
@@ -93,7 +96,7 @@ function updatePositionDataOfPanelGroup(panelGroup) {
  * 
  * @param {PanelGroup} panelGroup
  * @param {Panel} panel 
- * @returns {Rectangle}
+ * @returns {undefined}
  */
 function updatePanelBoundingBoxAndSelectionBox(panelGroup, panel) {
     const middlePoint = calculateMiddlePointOfPanel(panelGroup, panel);
@@ -191,8 +194,8 @@ function calculateMiddlePointOfPanel(panelGroup, panel) {
     const width = panelGroup.widthInPixels;
 
     return CreatePoint.createPoint(
-        basePoint.x + (width * offset * ((panelGroup.alignment % 2) === 1)),
-        basePoint.y + (width * offset * ((panelGroup.alignment % 2) === 0))
+        basePoint.x + (width * offset * Number((panelGroup.alignment % 2) === 1)),
+        basePoint.y + (width * offset * Number((panelGroup.alignment % 2) === 0))
     );
 }
 
@@ -213,10 +216,10 @@ function addPanelToSelectedGroup() {
     updatePositionDataIncludingMembers(panelGroup);
     
     if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.getContainingRoom(panelGroup)) {
-        displayMessage('Újabb panel hozzáadásának hatására a panelcsoport egy része szobán kívülre kerülne!<br/>Helyezze át, mielőtt hozzáad a csoporthoz!');
         removePanelFromSelectedGroup();
+        Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
     } else {
-        recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
+        RecalculateStructureElements.recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
     }
 
 }
@@ -245,7 +248,7 @@ function removePanelFromSelectedGroup() {
     PanelService.removeById(lastId);
 
     updatePositionDataIncludingMembers(panelGroup);
-    recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
+    RecalculateStructureElements.recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
 }
 
 /**

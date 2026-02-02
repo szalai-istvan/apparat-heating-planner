@@ -1,7 +1,9 @@
 import { Constants } from "../../appdata/Constants.js";
 import { Dialogs } from "./Dialogs.js";
 import { UpdateBlueprintAction } from "../../actions/blueprint/UpdateBlueprintAction.js";
+import { ApplicationState } from "../../appdata/ApplicationState.js";
 
+/** @type {HTMLDialogElement} */
 const rotateBlueprintDialog = document.getElementById('rotateBlueprintDialog');
 const rotateBlueprintDialogInput = document.getElementById('rotateBlueprintDialogInput');
 const rotateBlueprintDialogOkButton = document.getElementById('rotateBlueprintDialogOkButton');

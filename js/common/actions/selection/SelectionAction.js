@@ -1,5 +1,7 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
+import { Blueprint } from "../../entities/Blueprint.js";
+import { Room } from "../../entities/Room.js";
 import { CustomEventTypes } from "../../event/CustomEventTypes.js";
 import { Events } from "../../event/Events.js";
 import { RotateBlueprintDialog } from "../../ui/dialog/RotateBlueprintDialog.js";

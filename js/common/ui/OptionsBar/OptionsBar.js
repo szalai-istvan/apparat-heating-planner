@@ -1,5 +1,6 @@
 import { Constants } from "../../appdata/Constants.js";
 import { ElementStore } from "../../store/ElementStore.js";
+import { ButtonWrapper } from "../buttons/ButtonWrapper.js";
 
 /**
  * Egy menüsort reprezentáló class.

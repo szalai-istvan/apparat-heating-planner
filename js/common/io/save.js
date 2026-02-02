@@ -5,6 +5,7 @@ import { Constants } from "../appdata/Constants.js";
 import { Blueprint } from "../entities/Blueprint.js";
 import { MathTools } from "../math/MathTools.js";
 import { Draw } from "../p5/draw.js";
+import { BlueprintService } from "../service/BlueprintService.js";
 import { RoomService } from "../service/RoomService.js";
 
 /** @type {Function[]} */
@@ -70,7 +71,7 @@ function saveProjectToLocalStorage() {
 function getProjectState() {
     const rooms = RoomService.findAll().filter(room => RoomCalculations.roomIsConfigured(room));
     /** @type {Blueprint[]} */
-    const blueprints = elementStore.blueprints;
+    const blueprints = BlueprintService.findAll();
     let stateStr;
     let projectState = {};
 

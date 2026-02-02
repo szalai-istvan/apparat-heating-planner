@@ -1,10 +1,15 @@
+import { Blueprint } from "../entities/Blueprint.js";
+import { Room } from "../entities/Room.js";
 import { ID } from "../math/ID.js";
+import { ButtonWrapper } from "../ui/buttons/ButtonWrapper.js";
+import { MenuLine } from "../ui/menuLine/MenuLine.js";
+import { OptionsBar } from "../ui/OptionsBar/OptionsBar.js";
 import { ClassUtil } from "../util/ClassUtil.js";
 
 /**
  * A renderelendő elemeket tároló objektum.
  */
-window.elementStore = {
+const elementStore = {
     /** @type {Blueprint[]} */
     blueprints: [],
     /** @type {{[key:string]: Blueprint}} */
@@ -24,7 +29,7 @@ window.elementStore = {
 /**
  * Projekt specifikus típus mappelés az element store-ban.
  * 
- * @type {{[className:string]: {arrayField: string, byIdField: string}}}
+ * @type {{[className:string]: {arrayField: string, byIdField?: string}}}
  */
 const elementStoreTypeMapping = {
     Blueprint: {
@@ -202,3 +207,5 @@ export const ElementStore = {
     removeById,
     removeAll
 };
+
+window.elementStore = elementStore;

@@ -30,7 +30,7 @@ function roomIsConfigured(room) {
         return false;
     }
 
-    return room.boundingBox && room.selectionBox;
+    return Boolean(room.boundingBox && room.selectionBox);
 }
 
 /**
@@ -58,7 +58,7 @@ function getRoomNames() {
 /**
  * Megállapítja, hogy az egérmutató a paraméterül kapott szobában található-e.
  * 
- * @param {Room} Room
+ * @param {Room} room
  * @returns {boolean}
  */
 function mousePointerIsInsideRoom(room) {

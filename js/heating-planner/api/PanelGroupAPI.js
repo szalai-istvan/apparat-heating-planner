@@ -1,8 +1,6 @@
 import { UserActionHandler } from "../../common/api/userActionHandler/UserActionHandler.js";
-import { ElementStore } from "../../common/store/ElementStore.js";
 import { CreatePanelGroupAction } from "../actions/panelGroup/CreatePanelGroupAction.js";
 import { UpdatePanelGroupAction } from "../actions/panelGroup/UpdatePanelGroupAction.js";
-import { HeatingPlannerApplicationState } from "../appdata/HeatingPlannerApplicationState.js";
 
 /**
  * Új panelcsoport létrehozása. Amennyiben van kiválasztott panelcsoport, úgy a meglévő típusát váltja le.

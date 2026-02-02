@@ -76,6 +76,7 @@ export const Constants = {
     },
 
     classNames: {
+        appError: 'AppError',
         number: 'number',
         string: 'string',
         point: 'Point',

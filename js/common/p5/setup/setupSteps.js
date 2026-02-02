@@ -63,7 +63,7 @@ function handleWindowResize() {
         canvas.canvas.style = `width: ${width}px; height: ${height}px;`;
         canvas.width = width;
         canvas.height = height;
-        resizeCanvas(windowWidth, windowHeight);
+        resizeCanvas(width, height);
     });
 }
 

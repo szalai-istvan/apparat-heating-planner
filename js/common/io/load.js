@@ -3,7 +3,6 @@ import { DeleteBlueprintAction } from "../actions/blueprint/DeleteBlueprintActio
 import { UpdateBlueprintAction } from "../actions/blueprint/UpdateBlueprintAction.js";
 import { ScalingActions } from "../actions/scaling/ScalingActions.js";
 import { SelectionAction } from "../actions/selection/SelectionAction.js";
-import { ScalingAPI } from "../api/ScalingAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
 import { GridActions } from "../geometry/Grid/GridActions.js";
@@ -99,11 +98,10 @@ function loadBlueprints(projectState) {
     setTimeout(() => {
         let index = 0;
         while (index < blueprints.length) {
-            UpdateBlueprintAction.incrementBlueprintAngle(projectState.blueprints.angleRad[index]);
+            UpdateBlueprintAction.incrementBlueprintAngle(blueprints[index], projectState.blueprints.angleRad[index]);
             index++;
         }
     }, 1_000); // todo erre szebb megoldás.
-
 
     return blueprints.filter(bp => bp.isSelected)[0];
 }

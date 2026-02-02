@@ -39,7 +39,7 @@ function renderTranslatedObjects() {
 /**
  * Beállítja a projekt specifikus renderelési függvényt.
  * 
- * @param {Function} func 
+ * @param {() => void} func 
  */
 function setProjectSpecificRenderTranslatedObjects(func) {
     projectSpecificRenderTranslatedObjects = func;
@@ -49,7 +49,7 @@ function setProjectSpecificRenderTranslatedObjects(func) {
 /**
  * Beállítja a projekt specifikus debug-only renderelési függvényt.
  * 
- * @param {Function} func 
+ * @param {() => void} func 
  */
 function setProjectSpecificDebugOnlyRenderTranslatedObjects(func) {
     projectSpecificDebugOnlyRenderTranslatedObjects = func;

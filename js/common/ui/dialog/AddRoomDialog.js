@@ -2,9 +2,12 @@ import { CreateRoomAction } from "../../actions/room/CreateRoomAction.js";
 import { RoomCalculations } from "../../actions/room/RoomCalculations.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
+import { ErrorCodes } from "../../errors/ErrorCodes.js";
+import { Errors } from "../../errors/Errors.js";
 import { UiCalculations } from "../UICalculations.js";
 import { Dialogs } from "./Dialogs.js";
 
+/** @type {HTMLDialogElement} */
 const addRoomDialog = document.getElementById('addRoomDialog');
 const addRoomInput = document.getElementById('addRoomInput');
 const addRoomButton = document.getElementById('addRoomButton');
@@ -65,7 +68,7 @@ addRoomButton.addEventListener(Constants.strings.click, () => {
             Dialogs.toggleScreenControls();
         }
     } else {
-        displayMessage('Név nélkül nem vehető fel szoba!');
+        Errors.throwError(ErrorCodes.MISSING_ROOM_NAME);
     }
 });
 

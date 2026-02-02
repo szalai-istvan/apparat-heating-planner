@@ -4,6 +4,7 @@ import { Events } from "../../event/Events.js";
 import { GridActions } from "../../geometry/Grid/GridActions.js";
 import { RoomService } from "../../service/RoomService.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
+import { SelectRoomAction } from "./SelectRoomAction.js";
 
 /**
  * Törli az összes létrehozott szobát
@@ -12,7 +13,7 @@ import { SelectionAction } from "../selection/SelectionAction.js";
  */
 function clearRooms() {
     RoomService.removeAll();
-    deselectRoom();
+    SelectRoomAction.deselectRoom();
     Events.dispatchCustomEvent(CustomEventTypes.roomsCleared, {});
 }
 

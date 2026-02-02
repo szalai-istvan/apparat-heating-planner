@@ -2,6 +2,8 @@ import { Line } from "./Line.js";
 import { Constants } from "../../appdata/Constants.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
 import { Validators } from "../../validators/Validators.js";
+import { ApplicationState } from "../../appdata/ApplicationState.js";
+import { Point } from "../Point/Point.js";
 
 /**
  * 
@@ -26,7 +28,7 @@ function calculateY(line, x) {
  * @returns {Number}
  */
 function calculateLengthOfLineInMeters(line) {
-    return line.length / pixelsPerMetersRatio;
+    return line.length / ApplicationState.pixelsPerMetersRatio;
 }
 
 /**
@@ -125,5 +127,6 @@ export const LineCalculations = {
     calculateY,
     calculateLengthOfLineInMeters,
     linesIntersect,
-    pointIsWithinLineBounds
+    pointIsWithinLineBounds,
+    calculateIntersectionPointOfTwoLines
 };

@@ -2,6 +2,7 @@ import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
 import { Validators } from "../../validators/Validators.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
+import { Point } from "../Point/Point.js";
 /**
  * Beállítja a paraméterül kapott pontot a grid origójaként.
  * 

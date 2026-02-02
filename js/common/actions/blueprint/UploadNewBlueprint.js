@@ -1,16 +1,23 @@
+import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
+import { ErrorCodes } from "../../errors/ErrorCodes.js";
+import { Errors } from "../../errors/Errors.js";
+import { Dialogs } from "../../ui/dialog/Dialogs.js";
 import { ScalingActions } from "../scaling/ScalingActions.js";
 import { CreateBlueprintAction } from "./CreateBlueprintAction.js";
+import { DeleteBlueprintAction } from "./DeleteBlueprintAction.js";
 
 var fileUploadButton;
 var clearBlueprintsButton;
 
 const imageInput = document.getElementById('imageInput');
 
+/** @type {HTMLDialogElement} */
 const fileUploadDialogConfirm = document.getElementById('fileUploadDialogConfirm');
 const fileUploadDialogConfirmButton = document.getElementById('fileUploadDialogConfirmButton');
 const fileUploadDialogCancelButton = document.getElementById('fileUploadDialogCancelButton');
 
+/** @type {HTMLDialogElement} */
 const pdfUploadDialog = document.getElementById('pdfUploadDialog');
 const pdfUploadDialogParagraph = document.getElementById('pdfUploadDialogParagraph');
 const pdfUploadDialogInput = document.getElementById('pdfUploadDialogInput');
@@ -21,26 +28,26 @@ let fileName = '';
 imageInput.addEventListener(Constants.strings.change, handleFileSelect);
 fileUploadDialogConfirmButton.addEventListener(Constants.strings.click, () => {
     fileUploadDialogConfirm.close();
-    toggleScreenControls();
-    clearBlueprints();
+    Dialogs.toggleScreenControls();
+    DeleteBlueprintAction.clearBlueprints();
 });
 
 fileUploadDialogCancelButton.addEventListener(Constants.strings.click, () => {
     fileUploadDialogConfirm.close();
-    toggleScreenControls();
+    Dialogs.toggleScreenControls();
 });
 
 pdfUploadDialogCloseButton.addEventListener(Constants.strings.click, async () => {
     let pageNumber = Number(pdfUploadDialogInput.value);
     if (!(pageNumber > 0) || pageNumber > pdf._pdfInfo.numPages) {
-        displayMessage(`Érvénytelen oldalszám: ${pdfUploadDialogInput.value}. Az első oldal lesz megjelenítve.`);
         pageNumber = 1;
+        Errors.throwError(ErrorCodes.INVALID_PAGE_NUMBER);
     }
 
     pdfUploadDialogInput.value = '';
     parsePdfPage(pageNumber);
     pdfUploadDialog.close();
-    toggleScreenControls();
+    Dialogs.toggleScreenControls();
 });
 
 /**
@@ -53,11 +60,13 @@ function uploadBlueprint() {
 }
 
 function promptToClearBlueprints() {
+    const pixelsPerMetersRatio = ApplicationState.pixelsPerMetersRatio;
+
     if (pixelsPerMetersRatio) {
         fileUploadDialogConfirm.showModal();
-        toggleScreenControls();
+        Dialogs.toggleScreenControls();
     } else {
-        clearBlueprints();
+        DeleteBlueprintAction.clearBlueprints();
     }
 
 }
@@ -89,7 +98,7 @@ function handleFileSelect(event) {
         };
         reader.readAsArrayBuffer(file);
     } else {
-        displayMessage(`Váratlan fájl típus: ${fileType}.<br/>Válasszon jpg, png vagy pdf fájlt a folytatáshoz.`);
+        Errors.throwError(ErrorCodes.UNEXPECTED_FILE_TYPE);
     }
 }
 
@@ -108,7 +117,7 @@ async function readPdfFile(reader) {
 function displayPageSelector(numberOfPages) {
     pdfUploadDialogParagraph.innerHTML = `Adja meg, hogy hanyadik oldalt szeretné beolvasni (maximum: ${numberOfPages}):`;
     pdfUploadDialog.showModal();
-    toggleScreenControls();
+    Dialogs.toggleScreenControls();
 }
 
 async function parsePdfPage(pageNumber) {
@@ -123,7 +132,7 @@ async function parsePdfPage(pageNumber) {
     await page.render(renderContext).promise;
     const imageDataUrl = canvas.toDataURL("image/png");
     CreateBlueprintAction.createBlueprint(loadImage(imageDataUrl));
-    clearScaling();
+    ScalingActions.clearScaling();
     pdf = null;
 }
 

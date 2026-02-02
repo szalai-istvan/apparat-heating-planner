@@ -1,9 +1,12 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/Constants.js";
 import { DebugTools } from "../debug/Debug.js";
+import { ElementStore } from "../store/ElementStore.js";
 import { ButtonWrapperActions } from "../ui/buttons/ButtonWrapperActions.js";
 import { DocumentData } from "../ui/DocumentData.js";
 import { ImageAssets } from "../ui/ImageAssets.js";
+import { RenderMenuLine } from "../ui/MenuLine/RenderMenuLine.js";
+import { RenderOptionsBar } from "../ui/OptionsBar/RenderOptionsBar.js";
 
 /**
  * Felrajzolja a kijelzőre az abszolút pozíciójú elemeket.
@@ -12,9 +15,13 @@ import { ImageAssets } from "../ui/ImageAssets.js";
  */
 function renderAbsolutePositionObjects() {
     drawUiBackground();
-    elementStore.buttons.forEach(button => ButtonWrapperActions.renderButtonWrapper(button));
-    // elementStore.menuLines.forEach(menu => drawMenuLine(menu));
-    // elementStore.optionsBars.forEach(opt => drawOptionsBar(opt));
+    const buttons = ElementStore.findAll(Constants.classNames.buttonWrapper);
+    const menuLines = ElementStore.findAll(Constants.classNames.menuLine);
+    const optionsBars = ElementStore.findAll(Constants.classNames.optionsBar);
+    
+    buttons.forEach(button => ButtonWrapperActions.renderButtonWrapper(button));
+    menuLines.forEach(menu => RenderMenuLine.renderMenuLine(menu));
+    optionsBars.forEach(opt => RenderOptionsBar.renderOptionsBar(opt));
 
     DebugTools.drawCursorDebugInfo();
 }

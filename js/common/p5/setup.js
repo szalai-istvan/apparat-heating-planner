@@ -4,11 +4,8 @@ import { CustomEventTypes } from "../event/customEventTypes.js";
 import { Events } from "../event/Events.js";
 import { CreatePoint } from "../geometry/Point/CreatePoint.js";
 import { Point } from "../geometry/Point/Point.js";
-import { ScreenActions } from "../screen/ScreenActions.js";
-import { UiLayoutDefinition } from "../ui/UiLayoutDefinition.js";
 import { DocumentData } from "../ui/DocumentData.js";
 import { ImageAssets } from "../ui/ImageAssets.js";
-import { Draw } from "./draw.js";
 import { SetupSteps } from "./setup/setupSteps.js";
 
 /** @type {Point} */

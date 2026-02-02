@@ -1,4 +1,5 @@
 import { CreatePoint } from "../Point/CreatePoint.js";
+import { Point } from "../Point/Point.js";
 import { PointCalculations } from "../Point/PointCalculations.js";
 import { Rectangle } from "./Rectangle.js";
 

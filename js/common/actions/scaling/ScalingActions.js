@@ -1,8 +1,9 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
+import { ErrorCodes } from "../../errors/ErrorCodes.js";
+import { Errors } from "../../errors/Errors.js";
 import { CustomEventTypes } from "../../event/CustomEventTypes.js";
 import { Events } from "../../event/Events.js";
-import { GridActions } from "../../geometry/Grid/GridActions.js";
 import { Point } from "../../geometry/Point/Point.js";
 import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
 import { MathTools } from "../../math/MathTools.js";
@@ -11,7 +12,6 @@ import { ScalingDialog } from "../../ui/dialog/ScalingDialog.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
 import { UiCalculations } from "../../ui/UICalculations.js";
 import { Validators } from "../../validators/Validators.js";
-import { DeleteRoomAction } from "../room/DeleteRoomAction.js";
 import { RoomCalculations } from "../room/RoomCalculations.js";
 
 /** @type {Point} */
@@ -85,7 +85,7 @@ function processScalingValue(scalingValue) {
         scaleRenderSizeValues();
         Dialogs.toggleScreenControls();
     } else {
-        displayMessage('Érvénytelen méretarány. Csak pozitív szám adható meg!');
+        Errors.throwError(ErrorCodes.INVALID_SCALE);
     }
 }
 

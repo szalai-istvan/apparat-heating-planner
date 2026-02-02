@@ -1,3 +1,4 @@
+import { Constants } from "../../appdata/Constants.js";
 import { ElementStore } from "../../store/ElementStore.js";
 
 /**
@@ -15,7 +16,7 @@ export class MenuLine {
     shouldBeActive;
     selectionMenuMode;
 
-    constructor({position, size, optionSize, text, buttons, labelerFunc, shouldBeActive, buttonsClickFunctions, selectionMenuMode}) {
+    constructor({position, size, optionSize, text, buttons, labelerFunc = undefined, shouldBeActive, buttonsClickFunctions, selectionMenuMode}) {
         this.position = position;
         this.size = size;
         this.text = text + ' >';
@@ -72,7 +73,8 @@ export class MenuLine {
     }
 
     showMenuItems() {
-        elementStore.menuLines.forEach(menu => menu.hideMenuItems());
+        const menuLines = ElementStore.findAll(Constants.classNames.menuLine);
+        menuLines.forEach(menu => menu.hideMenuItems());
         this.menuItemsShown = true;
         for (let button of this.menuItems) {
             button.show();

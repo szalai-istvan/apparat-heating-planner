@@ -17,7 +17,7 @@ export const ApplicationState = {
     controlsAreEnabled: true,
     /** @type {Point} */
     screenSumDrag: null,
-    /** @type {Point} */
+    /** @type {number} */
     screenZoom: 1,
     /** @type {boolean} */
     screenDraggingInProgress: false,

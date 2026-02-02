@@ -1,4 +1,6 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
+import { Constants } from "../../appdata/Constants.js";
+import { CreatePoint } from "../Point/CreatePoint.js";
 import { Point } from "../Point/Point.js";
 import { PointCalculations } from "../Point/PointCalculations.js";
 import { Line } from "./Line.js";
@@ -32,9 +34,9 @@ function createTestLine(p0) {
  * @returns {Line}
  */
 function createLineByPointAndAngle(p0, angleRad) {
-    const vector = createUnitVector(angleRad);
-    const offsetPositive = PointCalculations.multiplyPoint(vector, INFINITE_LINE_LENGTH);
-    const offsetNegative = PointCalculations.multiplyPoint(vector, -1 * INFINITE_LINE_LENGTH);
+    const vector = CreatePoint.createUnitVector(angleRad);
+    const offsetPositive = PointCalculations.multiplyPoint(vector, Constants.geometry.infiniteLineLength);
+    const offsetNegative = PointCalculations.multiplyPoint(vector, -1 * Constants.geometry.infiniteLineLength);
     const p1 = PointCalculations.addPoints([offsetPositive, p0]);
     const p2 = PointCalculations.addPoints([offsetNegative, p0]);
     return createLine(p1, p2);

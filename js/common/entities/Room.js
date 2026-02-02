@@ -1,5 +1,6 @@
 import { Rectangle } from "../geometry/Rectangle/Rectangle.js";
 import { GridDefinition } from "../geometry/Grid/GridDefinition.js";
+import { Point } from "../geometry/Point/Point.js";
 
 /**
  * Egy szobát reprezentáló entitás

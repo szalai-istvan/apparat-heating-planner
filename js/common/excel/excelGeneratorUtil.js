@@ -1,3 +1,9 @@
+import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
+import { ApplicationState } from "../appdata/ApplicationState.js";
+import { DocumentData } from "../ui/DocumentData.js";
+
+const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
 function getNumberOfRows(sheet) {
     return sheet._rows.length;
 }
@@ -139,7 +145,9 @@ function alapPair(keyCol, valueCol, rowStart, rowEnd) {
 
 function getCollectorConfig(context) {
     const rounds = context.summary.numberOfRounds;
+    /** @type {any} */
     let first = 0;
+    /** @type {any} */
     let second = 0;
 
     if (rounds < 12) {
@@ -157,6 +165,65 @@ function getCollectorConfig(context) {
     second = second < 2 ? 'nem kell' : second + ' körös osztógyűjtő';
 
     return {first, second};
+}
+
+function addPicture(context) {
+    const workbook = context.workbook;
+    const blueprintSheet = context.sheets.blueprintSheet;
+
+    const screenSumDrag = ApplicationState.screenSumDrag;
+    const screenZoom = ApplicationState.screenZoom;
+
+    const beforeScreenData = { x: screenSumDrag.x, y: screenSumDrag.y, zoom: screenZoom };
+    const canvasOriginalSize = DocumentData.getCanvasSize();
+    
+    try {
+        const contentBoundingBox = BlueprintCalculations.getDrawingBoundingBox();
+
+        // zoom = 1
+        // sumDrag = middlePoint
+        // canvasSize = width, height
+        // draw
+
+        const contentSize = getBlueprintContentSize();
+        const contentWidth = screenZoom * contentSize.w + 100;
+        const contentHeight = screenZoom * contentSize.h + 100;
+        resizeCanvas(contentWidth + LEFT_RIBBON_WIDTH, contentHeight + TOP_RIBBON_HEIGHT);
+        adjustScreenForExport();
+        draw();
+
+        let buffer = createGraphics(contentWidth, contentHeight);
+        extracted = get(LEFT_RIBBON_WIDTH, TOP_RIBBON_HEIGHT, contentWidth, contentHeight);
+        buffer.image(extracted, 0, 0);
+
+        const base64Image = buffer.elt.toDataURL("image/png");
+
+        const imageId = workbook.addImage({
+            buffer: base64ToArrayBuffer(base64Image.split(',')[1]),
+            extension: "png"
+        });
+
+        blueprintSheet.addImage(imageId, {
+            tl: { col: 0, row: 0 },
+            ext: { width: contentWidth, height: contentHeight }
+        });
+
+
+    } finally {
+        screenSumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
+        screenZoom = beforeScreenData.zoom;
+        resizeCanvas(canvasOriginalSize.x, canvasOriginalSize.y);
+    }
+}
+
+function base64ToArrayBuffer(base64) {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes;
 }
 
 /**
@@ -180,5 +247,6 @@ export const ExcelGeneratorUtils = {
     alapArr,
     alapRange,
     alapPair,
-    getCollectorConfig
+    getCollectorConfig,
+    addPicture
 };

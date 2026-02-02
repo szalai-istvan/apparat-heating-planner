@@ -1,5 +1,6 @@
 import { Constants } from "../../appdata/Constants.js";
 import { Validators } from "../../validators/Validators.js";
+import { ButtonWrapper } from "./ButtonWrapper.js";
 
 /**
  * Felrajzolja a képernyője a paraméterül kapott gombot

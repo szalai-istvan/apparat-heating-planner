@@ -1,7 +1,8 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
-import { Constants } from "../../../common/appdata/Constants.js";
 import { ClassUtil } from "../../../common/util/ClassUtil.js";
 import { HeatingPlannerConstants } from "../../appdata/HeatingPlannerConstants.js";
+import { PanelGroup } from "../../entities/PanelGroup.js";
+import { DeletePanelGroupAction } from "../panelGroup/DeletePanelGroupAction.js";
 import { SelectPanelGroupAction } from "../panelGroup/SelectPanelGroupAction.js";
 
 /**
@@ -53,7 +54,7 @@ function clearSelectionCacheHeatingPlanner() {
  */
 function removeSelectedObjectHeatingPlanner(className) {
     if (className === HeatingPlannerConstants.classNames.panelGroup) {
-        removeSelectedPanelGroup();
+        DeletePanelGroupAction.removeSelectedPanelGroup();
     }
 }
 

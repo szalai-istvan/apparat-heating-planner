@@ -1,8 +1,19 @@
 import { Constants } from "../../../common/appdata/Constants.js";
+import { Room } from "../../../common/entities/Room.js";
+import { CreateLine } from "../../../common/geometry/Line/CreateLine.js";
+import { Line } from "../../../common/geometry/Line/Line.js";
+import { LineCalculations } from "../../../common/geometry/line/LineCalculations.js";
+import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
+import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
+import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
+import { ReducerFunctions } from "../../../common/math/ReducerFunctions.js";
 import { RoomService } from "../../../common/service/RoomService.js";
 import { Validators } from "../../../common/validators/Validators.js";
+import { HeatingPlannerApplicationState } from "../../appdata/HeatingPlannerApplicationState.js";
 import { PanelGroup } from "../../entities/PanelGroup.js";
+import { StructureElements } from "../../entities/StructureElements.js";
 import { PanelGroupService } from "../../service/PanelGroupService.js";
+import { PanelService } from "../../service/PanelService.js";
 import { StructureElementsService } from "../../service/StructureElementsService.js";
 
 /**
@@ -43,7 +54,7 @@ function recalculateBeamDefinitions(room) {
  * @returns {Line[]}
  */
 function calculateAlignedBeamsOfPanelGroup(room, panelGroup) {
-    const panels = getPanelsByIdList(panelGroup.panelIds);
+    const panels = PanelService.findByIdList(panelGroup.panelIds);
 
     if (panels.length === 0) {
         return [];
@@ -55,23 +66,24 @@ function calculateAlignedBeamsOfPanelGroup(room, panelGroup) {
 
     const boundingBoxLines = room.boundingBox.lines;
     const direction = room.angleRad + panelGroup.alignment * HALF_PI;
-    const firstPointCorrector = multiplyPoint(room.firstPoint, -1);
+    const firstPointCorrector = PointCalculations.multiplyPoint(room.firstPoint, -1);
 
     /** @type {Line[]} */
     const beams = [];
     for (let referencePoint of referencePoints) {
-        const referenceLine = createLineByPointAndAngle(referencePoint, direction);
+        const referenceLine = CreateLine.createLineByPointAndAngle(referencePoint, direction);
         const intersectionPoints = boundingBoxLines
-            .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
+            .map(bbl => LineCalculations.calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 
-        const beam = createLine(
-            rotatePoint(addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
-            rotatePoint(addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+        const beam = CreateLine.createLine(
+            CreatePoint.rotatePoint(PointCalculations.addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            CreatePoint.rotatePoint(PointCalculations.addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
         );
 
-        beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
-        beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
+        // intentionally used invalid fields!
+        beam.leftPoint = CreateLine.createLine(beam.p0, beam.middlePoint).middlePoint;
+        beam.rightPoint = CreateLine.createLine(beam.p1, beam.middlePoint).middlePoint;
         beams.push(beam);
     }
 
@@ -96,51 +108,54 @@ function calculateCrossBeams(room, panelGroups) {
     panelDirection = panelDirection - (panelDirection > HALF_PI ? PI : 0);
     const crossDirection = ((panelDirection + HALF_PI) % PI);
 
-    const panelLine = createLineByPointAndAngle(middlePoint, panelDirection);
+    const panelLine = CreateLine.createLineByPointAndAngle(middlePoint, panelDirection);
     const widthIntersections = boundingBox.lines
-        .map(l => calculateIntersectionPointOfTwoLines(l, panelLine))
+        .map(l => LineCalculations.calculateIntersectionPointOfTwoLines(l, panelLine))
         .filter(x => x);
-    const roomWidth = calculateDistance(widthIntersections[0], widthIntersections[1]);
+    const roomWidth = PointCalculations.calculateDistance(widthIntersections[0], widthIntersections[1]);
 
-    const crossLine = createLineByPointAndAngle(middlePoint, panelDirection);
+    const crossLine = CreateLine.createLineByPointAndAngle(middlePoint, panelDirection);
     const intersectionsSorted = boundingBox.lines
-        .map(l => calculateIntersectionPointOfTwoLines(l, crossLine))
+        .map(l => LineCalculations.calculateIntersectionPointOfTwoLines(l, crossLine))
         .filter(x => x)
         .sort((a, b) => {
-            if (Math.abs(a.x - b.x) > PARALLELITY_TRESHOLD) {
+            if (Math.abs(a.x - b.x) > Constants.geometry.parallelityTreshold) {
                 return a.x - b.x;
             }
             return a.y - b.y;
         });
 
+    const pixelsBetweenBeams = HeatingPlannerApplicationState.pixelsBetweenBeams;
     const leftPoint = intersectionsSorted[0];
     const initialOffset = (roomWidth % pixelsBetweenBeams) / 2;
-    const initialOffsetVector = multiplyPoint(createUnitVector(panelDirection), initialOffset);
-    const offsetVector = multiplyPoint(createUnitVector(panelDirection), pixelsBetweenBeams);
-    const referencePoints = [addPoints([leftPoint, initialOffsetVector])];
+    const initialOffsetVector = PointCalculations.multiplyPoint(CreatePoint.createUnitVector(panelDirection), initialOffset);
+    const offsetVector = PointCalculations.multiplyPoint(CreatePoint.createUnitVector(panelDirection), pixelsBetweenBeams);
+    const referencePoints = [PointCalculations.addPoints([leftPoint, initialOffsetVector])];
 
     while (true) {
         const lastPoint = referencePoints[referencePoints.length - 1];
-        const nextPoint = addPoints([lastPoint, offsetVector]);
-        if (pointIsInsideRectangle(nextPoint, boundingBox)) {
+        const nextPoint = PointCalculations.addPoints([lastPoint, offsetVector]);
+        if (RectangleCalculations.pointIsInsideRectangle(nextPoint, boundingBox)) {
             referencePoints.push(nextPoint);
         } else {
             break;
         }
     }
 
-    const firstPointCorrector = multiplyPoint(room.firstPoint, -1);
+    const firstPointCorrector = PointCalculations.multiplyPoint(room.firstPoint, -1);
     const beams = [];
     for (let referencePoint of referencePoints) {
-        const referenceLine = createLineByPointAndAngle(referencePoint, crossDirection);
+        const referenceLine = CreateLine.createLineByPointAndAngle(referencePoint, crossDirection);
         const intersectionPoints = boundingBox.lines
-            .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
+            .map(bbl => LineCalculations.calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 
-        const beam = createLine(
-            rotatePoint(addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
-            rotatePoint(addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+        const beam = CreateLine.createLine(
+            PointCalculations.rotatePoint(PointCalculations.addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            PointCalculations.rotatePoint(PointCalculations.addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
         );
+
+        // intentionally used invalid fields!
         beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
         beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
         beams.push(beam);
@@ -153,7 +168,7 @@ function calculateCrossBeams(room, panelGroups) {
  * UD30 tartógerendák kiszámítása.
  * 
  * @param {Room} room 
- * @param {PanelGroup} panelGroups 
+ * @param {PanelGroup[]} panelGroups 
  * @returns {Line[]}
  */
 function calculateUd30Beams(room, panelGroups) {
@@ -166,29 +181,31 @@ function calculateUd30Beams(room, panelGroups) {
     const roomMiddlePoint = boundingBox.middlePoint;
     const lines = boundingBox.lines;
     const middlePoints = lines.map(l => l.middlePoint);
-    const offsetInPixels = 0.5 * UD30_WIDTH_METER * pixelsPerMetersRatio;
-    const firstPointCorrector = multiplyPoint(room.firstPoint, -1);
+    const offsetInPixels = 0.5 * HeatingPlannerApplicationState.ud30WidthPixel;
+    const firstPointCorrector = PointCalculations.multiplyPoint(room.firstPoint, -1);
 
     const beams = [];
     for (let line of lines) {
         const middlePoint = line.middlePoint;
-        const negativeMiddlePoint = multiplyPoint(middlePoint, -1);
-        const vectorTowardsMiddle = addPoints([roomMiddlePoint, negativeMiddlePoint]);
-        const unitVectorTowardsMiddle = multiplyPoint(vectorTowardsMiddle, 1 / calculateDistanceFromOrigin(vectorTowardsMiddle));
-        const scaledVectorTowardsMiddle = multiplyPoint(unitVectorTowardsMiddle, offsetInPixels);
-        const offsetMiddlePoint = addPoints([middlePoint, scaledVectorTowardsMiddle]);
+        const negativeMiddlePoint = PointCalculations.multiplyPoint(middlePoint, -1);
+        const vectorTowardsMiddle = PointCalculations.addPoints([roomMiddlePoint, negativeMiddlePoint]);
+        const unitVectorTowardsMiddle = PointCalculations.multiplyPoint(vectorTowardsMiddle, 1 / PointCalculations.calculateDistanceFromOrigin(vectorTowardsMiddle));
+        const scaledVectorTowardsMiddle = PointCalculations.multiplyPoint(unitVectorTowardsMiddle, offsetInPixels);
+        const offsetMiddlePoint = PointCalculations.addPoints([middlePoint, scaledVectorTowardsMiddle]);
 
-        const referenceLine = createLineByPointAndAngle(offsetMiddlePoint, line.angleRad);
+        const referenceLine = CreateLine.createLineByPointAndAngle(offsetMiddlePoint, line.angleRad);
         const intersectionPoints = lines
-            .map(bbl => calculateIntersectionPointOfTwoLines(bbl, referenceLine))
+            .map(bbl => LineCalculations.calculateIntersectionPointOfTwoLines(bbl, referenceLine))
             .filter(x => x);
 
-        const beam = createLine(
-            rotatePoint(addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
-            rotatePoint(addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
+        const beam = CreateLine.createLine(
+            PointCalculations.rotatePoint(PointCalculations.addPoints([intersectionPoints[0], firstPointCorrector]), - room.angleRad),
+            PointCalculations.rotatePoint(PointCalculations.addPoints([intersectionPoints[1], firstPointCorrector]), - room.angleRad)
         );
-        beam.leftPoint = createLine(beam.p0, beam.middlePoint).middlePoint;
-        beam.rightPoint = createLine(beam.p1, beam.middlePoint).middlePoint;
+
+        // intentionally used invalid fields!
+        beam.leftPoint = CreateLine.createLine(beam.p0, beam.middlePoint).middlePoint;
+        beam.rightPoint = CreateLine.createLine(beam.p1, beam.middlePoint).middlePoint;
         beams.push(beam);
     }
 
@@ -217,10 +234,10 @@ function purifyStructureElements(room, structureElements) {
             const bjp1 = bj.p1;
 
             const minimumDistance = [[bip0, bjp0], [bip0, bjp1], [bip1, bjp0], [bip1, bjp1]]
-                .map(b => calculateDistance(b[0], b[1]))
-                .reduce(minimumFunction);
+                .map(b => PointCalculations.calculateDistance(b[0], b[1]))
+                .reduce(ReducerFunctions.minimumFunction);
 
-            if (minimumDistance < beamWidthPixel) {
+            if (minimumDistance < HeatingPlannerApplicationState.beamWidthPixel) {
                 alignedBeamsToDelete.push(bi);
             }
 
@@ -240,12 +257,12 @@ function purifyStructureElements(room, structureElements) {
         let minimumDistance = Number.MAX_SAFE_INTEGER;
         for (let p1 of room.boundingBox.points) {
             for (let p2 of [beam.p0, beam.p1]) {
-                minimumDistance = Math.min(minimumDistance, calculateDistance(p1, p2));
+                minimumDistance = Math.min(minimumDistance, PointCalculations.calculateDistance(p1, p2));
             }
         }
 
-        if (minimumDistance < beamsMinimumOffset) {
-            crossBeamsToDelete.push(beams);
+        if (minimumDistance < HeatingPlannerApplicationState.beamsMinimumOffset) {
+            crossBeamsToDelete.push(beam);
         }
 
         i++;

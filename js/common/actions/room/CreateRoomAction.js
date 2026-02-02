@@ -1,6 +1,8 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
 import { Room } from "../../entities/Room.js";
+import { ErrorCodes } from "../../errors/ErrorCodes.js";
+import { Errors } from "../../errors/Errors.js";
 import { GridActions } from "../../geometry/Grid/GridActions.js";
 import { GridCalculations } from "../../geometry/Grid/GridCalculations.js";
 import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
@@ -33,7 +35,7 @@ function createRoom(name, tilted) {
     name = name.trim();
 
     if (roomNameAlreadyExists(name)) {
-        displayMessage(`${name} nevű szoba már létezik. Egyedi nevet kell megadni.`);
+        Errors.throwError(ErrorCodes.ROOM_NAME_NOT_UNIQUE);
         return false;
     }
 
@@ -62,7 +64,7 @@ function addPointToSelectedRoom() {
     }
 
     if (!pointCanBeAddedToSelectedRoom()) {
-        displayMessage('A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.');
+        Errors.throwError(ErrorCodes.ROOM_OVERLAP);
         return;
     }
 
@@ -149,7 +151,7 @@ function roomNameAlreadyExists(name) {
 /**
  * Regisztrál egy callback függvényt, amely szoba létrehozás után fog lefutni.
  * 
- * @param {Function} callback 
+ * @param {(room: Room) => undefined} callback 
  */
 function onRoomIsCreated(callback) {
     onRoomCreatedCallback = callback;

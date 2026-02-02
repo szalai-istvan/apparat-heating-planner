@@ -6,50 +6,12 @@ class SummaryCalculator {
         const quotePanelArray = calculateQuotePanelArray();
         const invalidPanels = this.searchForInvalidPositionPanels(quotePanelArray);
         if (invalidPanels) {
-            displayMessage('A rajzon nem minden panel tartozik szobához. Kérem nézze át a panelek elhelyezését.');
             return null;
         }
 
         return this.summarizeByRoom(quotePanelArray);
     }
 
-    calculateSummaryAndMapToHtml() {
-        const summary = this.calculateSummary();
-        if (!summary) return null;
-
-        const table = createTable();
-        for (let room in summary) {
-            const roomSummary = summary[room];
-            if (typeof(roomSummary) !== 'object') continue;
-            
-            if (!(roomSummary.count > 0)) {
-                continue;
-            }
-
-            const headerText = room === 'additionalElements' ? 'Szerelési anyagok és egyéb költségek' : room;
-            addHeaderRow(table, headerText, 4);
-
-            const backgroundColors = ['white', 'lightgrey'];
-            let backgroundColorIndex = 0;
-            for (let type in roomSummary) {
-                if (['count', 'numberOfRounds'].includes(type)) {
-                    continue;
-                }
-
-                const summarized = roomSummary[type];
-                const count = formatNumber(summarized.count);
-                const unitPrice = formatNumber(summarized.unitPrice);
-                const price = formatNumber(summarized.price);
-                const unit = UNITS[type] || 'db';
-                addRow(table, [TRANSLATIONS[type] || type, `${count} ${unit}`, `${unitPrice} Ft/${unit}`, `${price} Ft`], backgroundColors[backgroundColorIndex]);
-                backgroundColorIndex = (backgroundColorIndex + 1) % backgroundColors.length; 
-            }
-        }
-
-        return table;
-    }
-
-    
     searchForInvalidPositionPanels(quotePanelArray) {
         if (!quotePanelArray || !quotePanelArray.length) {
             return;

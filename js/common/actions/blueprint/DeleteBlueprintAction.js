@@ -1,5 +1,4 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Blueprint } from "../../entities/Blueprint.js";
 import { BlueprintService } from "../../service/BlueprintService.js";
 import { ScalingActions } from "../scaling/ScalingActions.js";
 import { SelectionAction } from "../selection/SelectionAction.js";

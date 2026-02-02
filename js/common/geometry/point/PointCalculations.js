@@ -78,7 +78,7 @@ function rotatePoint(point, angleRad) {
     }
 
     angle += angleRad;
-    return multiplyPoint(createUnitVector(angle), absValue);
+    return multiplyPoint(CreatePoint.createUnitVector(angle), absValue);
 }
 
 /**

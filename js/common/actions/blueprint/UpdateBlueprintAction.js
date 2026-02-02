@@ -42,7 +42,13 @@ function recalculateBlueprintPositions() {
     let centerPoint = CreatePoint.createPoint(0, 0);
 
     if (blueprints.length === 1) {
-        blueprints[0].centerPosition = CreatePoint.createPoint(0, 0);
+        const blueprint = blueprints[0];
+        blueprint.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
+            centerPoint,
+            blueprint.data.width,
+            blueprint.data.height,
+            BlueprintCalculations.getAngleRad(blueprint)
+        );
     } else {
         let index = 1;
         while (index < blueprints.length) {

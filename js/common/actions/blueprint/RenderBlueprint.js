@@ -1,13 +1,11 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/Constants.js";
 import { Blueprint } from "../../entities/Blueprint.js";
+import { RenderRectangle } from "../../geometry/rectangle/RenderRectangle.js";
 import { UnitConversions } from "../../math/UnitConversions.js";
-import { Dialogs } from "../../ui/dialog/Dialogs.js";
 import { RotateBlueprintDialog } from "../../ui/dialog/RotateBlueprintDialog.js";
 import { Validators } from "../../validators/Validators.js";
-import { UpdateBlueprintAction } from "./UpdateBlueprintAction.js";
 import { BlueprintCalculations } from "./BlueprintCalculations.js";
-import { RenderRectangle } from "../../geometry/Rectangle/RenderRectangle.js";
 
 /**
  * Felrajzol egy tervrajzot a rajzlapra.

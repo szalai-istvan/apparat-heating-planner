@@ -1,8 +1,9 @@
+import { ReducerFunctions } from "../../math/ReducerFunctions.js";
+import { CreateLine } from "../Line/CreateLine.js";
+import { Line } from "../Line/Line.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
 import { Point } from "../Point/Point.js";
-import { Line } from "../Line/Line.js";
-import { CreateLine } from "../Line/CreateLine.js";
-import { ReducerFunctions } from "../../math/ReducerFunctions.js";
+import { PointCalculations } from "../Point/PointCalculations.js";
 
 /**
  * Téglalap osztály.
@@ -17,7 +18,7 @@ export class Rectangle {
 
     constructor(points) {
         if (!points || points.length !== 4) {
-            throw new Error($`Rectangle definition needs exactly four points. ${points.length} provided`);
+            throw new Error(`Rectangle definition needs exactly four points. ${points.length} provided`);
         }
 
         this.points = points;
@@ -47,5 +48,5 @@ function calculateRectangleCircumference(rectangle) {
     const p1 = points[1];
     const p2 = points[2];
 
-    return 2 * (calculateDistance(p0, p1) + calculateDistance(p1, p2));
+    return 2 * (PointCalculations.calculateDistance(p0, p1) + PointCalculations.calculateDistance(p1, p2));
 }

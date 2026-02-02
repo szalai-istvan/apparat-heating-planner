@@ -1,9 +1,11 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Room } from "../../entities/Room.js";
+import { ErrorCodes } from "../../errors/ErrorCodes.js";
+import { Errors } from "../../errors/Errors.js";
 import { GridDefinition } from "../../geometry/Grid/GridDefinition.js";
 import { CreateLine } from "../../geometry/Line/CreateLine.js";
-import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
 import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
+import { ElementStore } from "../../store/ElementStore.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { RoomCalculations } from "./RoomCalculations.js";
 
@@ -45,8 +47,8 @@ function finalizeRoom(room) {
 
     
     if (RoomCalculations.roomPositionIsInvalid(room)) {
-        displayMessage('A szoba pozíciója érvénytelen, átfedést okoz szobák között!');
-        elementStore.remove(room);
+        Errors.throwError(ErrorCodes.ROOM_OVERLAP);
+        ElementStore.remove(room);
         return;
     }
     

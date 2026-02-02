@@ -1,4 +1,5 @@
 import { Constants } from "../../appdata/Constants.js";
+import { Rectangle } from "./Rectangle.js";
 
 /**
  * Felrajzolja a képernyőre a téglalapot.

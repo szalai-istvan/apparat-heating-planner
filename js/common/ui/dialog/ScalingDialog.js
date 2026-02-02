@@ -3,10 +3,12 @@ import { ScalingActions } from "../../actions/scaling/ScalingActions.js";
 import { Constants } from "../../appdata/Constants.js";
 import { Dialogs } from "./Dialogs.js";
 
+/** @type {HTMLDialogElement} */
 const scalingDialog = document.getElementById('scalingDialog');
 const scalingInput = document.getElementById('scalingInput');
 const scalingDialogCloseButton = document.getElementById('scalingDialogCloseButton');
 
+/** @type {HTMLDialogElement} */
 const scalingDialogConfirm = document.getElementById('scalingDialogConfirm');
 const scalingDialogConfirmButton = document.getElementById('scalingDialogConfirmButton');
 const scalingDialogCancelButton = document.getElementById('scalingDialogCancelButton');

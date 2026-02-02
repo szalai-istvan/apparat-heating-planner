@@ -1,6 +1,7 @@
 import { ReducerFunctions } from "../../math/ReducerFunctions.js";
 import { CreateLine } from "../Line/CreateLine.js";
-import { LineCalculations } from "../Line/LineCalculations.js";
+import { LineCalculations } from "../line/LineCalculations.js";
+import { Point } from "../Point/Point.js";
 import { Rectangle } from "./Rectangle.js";
 
 /**

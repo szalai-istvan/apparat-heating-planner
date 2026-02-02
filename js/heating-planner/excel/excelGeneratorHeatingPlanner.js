@@ -1,4 +1,28 @@
+import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js";
+import { Constants } from "../../common/appdata/Constants.js";
+import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
+import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
+import { HeatingPlannerExcelConstants } from "./excelConstants.js";
+
 let EXCEL_ARRAY_BUFFER = null;
+
+const emptyCells = ExcelGeneratorUtils.emptyCells;
+const getCellName = ExcelGeneratorUtils.getCellName;
+const setFormula = ExcelGeneratorUtils.setFormula;
+const getRangeName = ExcelGeneratorUtils.getRangeName;
+const alap = ExcelGeneratorUtils.alap;
+const getCollectorConfig = ExcelGeneratorUtils.getCollectorConfig;
+const addOptionTableAndReturnOptionsRange = ExcelGeneratorUtils.addOptionTableAndReturnOptionsRange;
+const createDropDown = ExcelGeneratorUtils.createDropDown;
+const alapPair = ExcelGeneratorUtils.alapPair;
+const addPicture = ExcelGeneratorUtils.addPicture;
+
+const ROUNDUP = ExcelGeneratorUtils.ROUNDUP;
+const SUM = ExcelGeneratorUtils.SUM;
+const IF = ExcelGeneratorUtils.IF;
+const IFERROR = ExcelGeneratorUtils.IFERROR;
+const VLOOKUP = ExcelGeneratorUtils.VLOOKUP;
+const PRICES = HeatingPlannerConstants.prices;
 
 function startExcelExport(transportKm) {
     const summary = summaryCalculator.calculateSummary();
@@ -7,7 +31,7 @@ function startExcelExport(transportKm) {
 }
 
 async function createExcelFile(summary) {
-    let roomNames = getRoomNames();
+    let roomNames = RoomCalculations.getRoomNames();
     if (!(roomNames && roomNames.length)) {
         return;
     }
@@ -16,8 +40,8 @@ async function createExcelFile(summary) {
     const workbook = await loadExcelTemplate();
     context.workbook = workbook;
 
-    const summarySheet = workbook.getWorksheet(SUMMARY_SHEET_NAME);
-    const blueprintSheet = workbook.getWorksheet(BLUEPRINT_SHEET_NAME);
+    const summarySheet = workbook.getWorksheet(HeatingPlannerExcelConstants.SUMMARY_SHEET_NAME);
+    const blueprintSheet = workbook.getWorksheet(HeatingPlannerExcelConstants.BLUEPRINT_SHEET_NAME);
     context.sheets = { summarySheet, blueprintSheet };
 
     createColumnsForRooms(context);
@@ -35,14 +59,13 @@ async function createExcelFile(summary) {
     addPicture(context);
 
     downloadExcel(context);
-    displayMessage('A kalkulációt tartalmazó fájlt küldje el<br/>az sjb@apparat.hu e-mail címre.');
     return context;
 }
 
 async function loadExcelTemplate() {
     if (!EXCEL_ARRAY_BUFFER) {
-        const response = await fetch(FILE_PATH);
-        if (!response.ok) throw new Error("Failed to fetch Excel template from path " + FILE_PATH);
+        const response = await fetch(HeatingPlannerExcelConstants.FILE_PATH);
+        if (!response.ok) throw new Error("Failed to fetch Excel template from path " + HeatingPlannerExcelConstants.FILE_PATH);
         EXCEL_ARRAY_BUFFER = await response.arrayBuffer();
     }
 
@@ -119,9 +142,13 @@ function fillRoomSummaryFormulas(context) {
 
     let columnIndex = 8;
     for (let roomName of roomNames) {
+        /** @type {any} */
         let coolingFormula = [];
+        /** @type {any} */
         let heatingFormula = [];
+        /** @type {any} */
         let roundsFormula = [];
+        /** @type {any} */
         let areaFormula = [];
 
         let rowIndex = 3;
@@ -212,7 +239,7 @@ function fillPanelPriceFormulas(context) {
     let rowIndex = 3;
     while (rowIndex < 10) {
         const type = summarySheet.getRow(rowIndex).getCell(7).value;
-        const price = alap('B' + ALAP_ROW[type]);
+        const price = alap('B' + HeatingPlannerExcelConstants.ALAP_ROW[type]);
 
         setFormula(summarySheet.getRow(rowIndex).getCell(targetColumn), `${getCellName({ row: rowIndex, column: panelCountsColumn })}*${price}`);
         rowIndex++;
@@ -370,7 +397,7 @@ function fillSummaryTable(context) {
 
     const distBoxOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 8, PRICES.distBox);
     createDropDown(firstCell, distBoxOptionsRange.dropdown);
-    firstCell.value = NEM_KELL;
+    firstCell.value = Constants.strings.nemKell;
     setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
     rowIndex++;
 
@@ -380,7 +407,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
 
     createDropDown(firstCell, distBoxOptionsRange.dropdown);
-    firstCell.value = NEM_KELL;
+    firstCell.value = Constants.strings.nemKell;
     setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
     rowIndex += 3;
 
@@ -424,56 +451,4 @@ function adjustRoomColumnWidths(context) {
     while (columnIndex <= context.lastRoomColumn) {
         summarySheet.getColumn(columnIndex++).width = 18;
     }
-}
-
-function addPicture(context) {
-    const workbook = context.workbook;
-    const blueprintSheet = context.sheets.blueprintSheet;
-    const beforeScreenData = { x: screenSumDrag.x, y: screenSumDrag.y, zoom: screenZoom };
-    const canvasOriginalSize = getCanvasSize();
-    
-    try {
-        const docSize = getDocumentDimensions();
-        const screenWidth = docSize.vw;
-        const screenHeight = docSize.vh;
-        
-        const contentSize = getBlueprintContentSize();
-        const contentWidth = screenZoom * contentSize.w + 100;
-        const contentHeight = screenZoom * contentSize.h + 100;
-        resizeCanvas(contentWidth + LEFT_RIBBON_WIDTH, contentHeight + TOP_RIBBON_HEIGHT);
-        adjustScreenForExport();
-        draw();
-
-        let buffer = createGraphics(contentWidth, contentHeight);
-        extracted = get(LEFT_RIBBON_WIDTH, TOP_RIBBON_HEIGHT, contentWidth, contentHeight);
-        buffer.image(extracted, 0, 0);
-
-        const base64Image = buffer.elt.toDataURL("image/png");
-
-        const imageId = workbook.addImage({
-            buffer: base64ToArrayBuffer(base64Image.split(',')[1]),
-            extension: "png"
-        });
-
-        blueprintSheet.addImage(imageId, {
-            tl: { col: 0, row: 0 },
-            ext: { width: contentWidth, height: contentHeight }
-        });
-
-
-    } finally {
-        screenSumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
-        screenZoom = beforeScreenData.zoom;
-        resizeCanvas(canvasOriginalSize.x, canvasOriginalSize.y);
-    }
-}
-
-function base64ToArrayBuffer(base64) {
-    const binaryString = atob(base64);
-    const len = binaryString.length;
-    const bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-    return bytes;
 }
