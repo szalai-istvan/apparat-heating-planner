@@ -57,7 +57,7 @@ function getRotationAngle(blueprint) {
     let angleRad = BlueprintCalculations.getAngleRad(blueprint);
 
     if (blueprint === ApplicationState.selectedBlueprint) {
-        angleRad -= UnitConversions.toRadians(RotateBlueprintDialog.getAngle());
+        angleRad += RotateBlueprintDialog.getAngle();
     }
 
     return angleRad;

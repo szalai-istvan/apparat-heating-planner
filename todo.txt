@@ -18,6 +18,7 @@ ferde szoba bugos!
 - Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
 hibakezelés egységesítés
 szobanév mozgatást újra meg kell csinálni.
+paraméteres hibaüzenetek
 
 long-term:
 - Pont törlése (pipeDriver) ??

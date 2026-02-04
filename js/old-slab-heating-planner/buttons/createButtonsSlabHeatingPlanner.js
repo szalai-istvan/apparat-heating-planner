@@ -117,7 +117,7 @@ function createButtonsSlabHeatingPlanner() {
         text: 'Árkalkuláció letöltése',
         size: TALL_SMALL_BUTTON_SIZE,
         position: downloadButtonPos,
-        onClick: () => openTransportDialog(),
+        onClick: () => TransportDialog.openTransportDialog(),
         shouldBeActive: () => fullyConfiguredSlabHeaterGroupsExist()
     });
     leftRibbonButtonSizes.push(TALL_SMALL_BUTTON_SIZE);

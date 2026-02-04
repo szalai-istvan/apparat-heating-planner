@@ -2,7 +2,8 @@ import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js"
 import { Constants } from "../../common/appdata/Constants.js";
 import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
-import { HeatingPlannerExcelConstants } from "./excelConstants.js";
+import { HeatingPlannerExcelConstants } from "./ExcelConstants.js";
+import { summaryCalculator } from "./SummaryCalculator.js";
 
 let EXCEL_ARRAY_BUFFER = null;
 
@@ -99,10 +100,11 @@ function createColumnsForRooms(context) {
         summarySheet.eachRow((row, rowIndex) => {
             const sourceCell = row.getCell(8);
             const targetCell = row.getCell(9);
-
+            console.log(sourceCell);
+            console.log(targetCell);
             targetCell.value = sourceCell.value;
             targetCell.style = { ...sourceCell.style };
-            targetCell.formula = sourceCell.formula;
+            // targetCell.formula = sourceCell.formula;
         });
     }
 }
@@ -452,3 +454,10 @@ function adjustRoomColumnWidths(context) {
         summarySheet.getColumn(columnIndex++).width = 18;
     }
 }
+
+/**
+ * Excel export műveletek
+ */
+export const HeatingPlannerExcelExport = {
+    startExcelExport
+};

@@ -57,9 +57,10 @@ function renderUnconfiguredRoom(room) {
     const roomCreationTemp = ApplicationState.roomCreationTemp;
     const tilted = roomCreationTemp.tilted;
     const firstPoint = roomCreationTemp.first;
-    const angleRad = roomCreationTemp.angleRad;
+    let angleRad = roomCreationTemp.angleRad;
     let secondPoint = roomCreationTemp.second;
-    let width = null;
+    let thirdPoint = roomCreationTemp.third;
+    let width = roomCreationTemp.width;
     let height = null;
 
     if (!firstPoint) {
@@ -72,7 +73,7 @@ function renderUnconfiguredRoom(room) {
 
     if (!tilted) {
         secondPoint = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
-        width = secondPoint.x - firstPoint.x;
+        width = roomCreationTemp.width || (secondPoint.x - firstPoint.x);
         height = secondPoint.y - firstPoint.y;
 
         fill(Constants.room.roomFillColor);
@@ -82,10 +83,13 @@ function renderUnconfiguredRoom(room) {
         if (!secondPoint) {
             secondPoint = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
             width = PointCalculations.calculateDistance(secondPoint, firstPoint);
+            if (secondPoint.x < firstPoint.x) {
+                width *= -1;
+            }
+            angleRad = Math.atan((secondPoint.y - firstPoint.y) / (secondPoint.x - firstPoint.x));;
             line(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y);
         } else {
             thirdPoint = GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition();
-            width = PointCalculations.calculateDistance(secondPoint, firstPoint);
             height = RoomCalculations.calculateHeightToMouseCursor(room);
 
             translate(firstPoint.x, firstPoint.y);
@@ -96,7 +100,7 @@ function renderUnconfiguredRoom(room) {
 
     pop();
 
-    drawRoomSize(room, width, height);
+    drawRoomSize(room, width, height, angleRad);
 }
 
 /**
@@ -105,10 +109,13 @@ function renderUnconfiguredRoom(room) {
  * @param {Room} room 
  * @param {number} roomWidth 
  * @param {number} roomHeight 
+ * @param {number} angleRad
+ * @returns {undefined}
  */
-function drawRoomSize(room, roomWidth, roomHeight) {
+function drawRoomSize(room, roomWidth, roomHeight, angleRad) {
     const pixelsPerMetersRatio = ApplicationState.pixelsPerMetersRatio;
     const firstPoint = room.firstPoint || ApplicationState.roomCreationTemp.first || null;
+    angleRad = angleRad ?? room.angleRad ?? ApplicationState.roomCreationTemp.angleRad;
 
     if (!firstPoint) {
         return;
@@ -118,7 +125,7 @@ function drawRoomSize(room, roomWidth, roomHeight) {
 
     textSettings(room);
     translate(firstPoint.x, firstPoint.y);
-    rotate(room.angleRad);
+    rotate(angleRad);
 
     if (roomWidth) {
         const width = `${MathTools.roundNumber(Math.abs(roomWidth / pixelsPerMetersRatio), 1)} m`;

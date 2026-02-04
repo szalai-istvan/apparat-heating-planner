@@ -2,6 +2,7 @@ import { ReducerFunctions } from "../../math/ReducerFunctions.js";
 import { CreateLine } from "../Line/CreateLine.js";
 import { LineCalculations } from "../line/LineCalculations.js";
 import { Point } from "../Point/Point.js";
+import { PointCalculations } from "../Point/PointCalculations.js";
 import { Rectangle } from "./Rectangle.js";
 
 /**
@@ -83,11 +84,27 @@ function rectangleIsInsideRectangle(insideRectangle, outsideRectangle) {
 }
 
 /**
+ * Kiszámítja és visszaadja a téglalap kerületét pixel mértékegységben
+ * 
+ * @param {Rectangle} rectangle 
+ * @returns {Number}
+ */
+function calculateRectangleCircumference(rectangle) {
+    const points = rectangle.points;
+    const p0 = points[0];
+    const p1 = points[1];
+    const p2 = points[2];
+
+    return 2 * (PointCalculations.calculateDistance(p0, p1) + PointCalculations.calculateDistance(p1, p2));
+}
+
+/**
  * Téglalap kalkulációk.
  */
 export const RectangleCalculations = {
     getProjectedSizeX,
     pointIsInsideRectangle,
     rectanglesOverlap,
-    rectangleIsInsideRectangle
+    rectangleIsInsideRectangle,
+    calculateRectangleCircumference
 };

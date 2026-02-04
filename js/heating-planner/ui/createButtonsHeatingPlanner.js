@@ -8,6 +8,7 @@ import { PanelGroupCalculations } from "../actions/panelGroup/PanelGroupCalculat
 import { PanelGroupAPI } from "../api/PanelGroupAPI.js";
 import { HeatingPlannerApplicationState } from "../appdata/HeatingPlannerApplicationState.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
+import { TransportDialog } from "./dialog/TransportDialog.js";
 
 /**
  * Létrehozza és regisztrálja a projekt specifikus UI vezérlőket.
@@ -75,7 +76,7 @@ function createButtonsHeatingPlanner() {
         text: 'Árkalkuláció letöltése',
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
-        onClick: () => openTransportDialog(),
+        onClick: () => TransportDialog.openTransportDialog(),
         shouldBeActive: () => PanelGroupCalculations.panelGroupsExist() && !(HeatingPlannerApplicationState.selectedPanelGroup?.isSelectedForDrag)
     });
     leftRibbonButtonSizes.push(Constants.ui.tallSmallButtonSize);

@@ -10,6 +10,7 @@ export const ErrorCodes = {
     MISSING_ROOM_NAME: 'MISSING_ROOM_NAME',
     PANEL_GROUP_OUTSIDE_ROOM: 'PANEL_GROUP_OUTSIDE_ROOM',
     INVALID_PANEL_ALIGNMENT: 'INVALID_PANEL_ALIGNMENT',
+    INVALID_DISTANCE: 'INVALID_DISTANCE'
 };
 
 /**
@@ -23,5 +24,6 @@ export const ErrorTranslations = {
     INVALID_SCALE: 'Érvénytelen méretarány. Csak pozitív szám adható meg!',
     MISSING_ROOM_NAME: 'Név nélkül nem vehető fel szoba!',
     PANEL_GROUP_OUTSIDE_ROOM: 'A panelcsoport egy része szobán kívülre kerülne!',
-    INVALID_PANEL_ALIGNMENT: 'Egymásra merőleges panelek nem lehetnek egy szobában!'
+    INVALID_PANEL_ALIGNMENT: 'Egymásra merőleges panelek nem lehetnek egy szobában!',
+    INVALID_DISTANCE: 'Érvénytelen távolság!'
 };

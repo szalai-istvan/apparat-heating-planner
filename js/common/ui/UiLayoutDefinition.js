@@ -11,6 +11,7 @@ import { Load } from "../io/load.js";
 import { Save } from "../io/save.js";
 import { ReducerFunctions } from "../math/ReducerFunctions.js";
 import { ButtonWrapper } from "./buttons/ButtonWrapper.js";
+import { LoadProjectButton } from "./buttons/LoadProjectButton.js";
 import { MenuLine } from "./menuLine/MenuLine.js";
 
 /**
@@ -56,7 +57,7 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
         optionSize: Constants.ui.tallSmallButtonSize,
         text: 'Projekt',
         buttons: ['Új projekt', 'Projekt mentése', 'Projekt betöltése'],
-        buttonsClickFunctions: [() => DeleteBlueprintAction.clearBlueprints(), () => Save.downloadProjectState(), () => Load.uploadProject()],
+        buttonsClickFunctions: [() => DeleteBlueprintAction.clearBlueprints(), () => Save.downloadProjectState(), () => LoadProjectButton.uploadProject()],
         selectionMenuMode: false,
         shouldBeActive: () => true
     });

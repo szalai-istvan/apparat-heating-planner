@@ -18,7 +18,9 @@ import { UpdatePanelGroupAction } from "./UpdatePanelGroupAction.js";
  */
 function renderPanelGroup(panelGroup) {
     Validators.checkClass(panelGroup, HeatingPlannerConstants.classNames.panelGroup);
-    UpdatePanelGroupAction.updateAngleRadAndCenterPositions(panelGroup);
+    if (panelGroup.isSelectedForDrag) {
+        UpdatePanelGroupAction.updateAngleRadAndCenterPositions(panelGroup);
+    }
     const panels = PanelService.findByIdList(panelGroup.panelIds);
     panels.forEach(p => renderPanel(p));
 }

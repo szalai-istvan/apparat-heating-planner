@@ -14,6 +14,8 @@ export class Blueprint {
     isSelected;
     /** @type {boolean} */
     isSelectedForDrag = false;
+    /** @type {number} */
+    angleRad = 0.00;
 
     /** @type {object} */
     data;

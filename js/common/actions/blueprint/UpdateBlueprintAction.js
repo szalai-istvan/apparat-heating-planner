@@ -41,7 +41,7 @@ function recalculateBlueprintPositions() {
 
     let centerPoint = CreatePoint.createPoint(0, 0);
 
-    if (blueprints.length === 1) {
+    if (blueprints.length > 0) {
         const blueprint = blueprints[0];
         blueprint.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
             centerPoint,
@@ -49,7 +49,10 @@ function recalculateBlueprintPositions() {
             blueprint.data.height,
             BlueprintCalculations.getAngleRad(blueprint)
         );
-    } else {
+        blueprint.selectionBox = blueprint.boundingBox;
+    } 
+    
+    if (blueprints.length > 1) {
         let index = 1;
         while (index < blueprints.length) {
             const previousBlueprint = blueprints[index - 1];
@@ -85,11 +88,12 @@ function incrementBlueprintAngle(blueprint, angleRad) {
     }
 
     const blueprintMiddlePoint = blueprint.boundingBox.middlePoint;
-    const boundingBox = CreateRectangle.createRectangleByMiddlePoint(
+    blueprint.angleRad = BlueprintCalculations.getAngleRad(blueprint) + angleRad;
+    blueprint.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
         CreatePoint.createPoint(blueprintMiddlePoint.x, blueprintMiddlePoint.y),
         blueprint.data.width,
         blueprint.data.height,
-        BlueprintCalculations.getAngleRad(blueprint) + angleRad
+        blueprint.angleRad
     );
 
     recalculateBlueprintPositions();

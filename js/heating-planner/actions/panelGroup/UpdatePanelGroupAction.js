@@ -6,10 +6,13 @@ import { Errors } from "../../../common/errors/Errors.js";
 import { GridCalculations } from "../../../common/geometry/Grid/GridCalculations.js";
 import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
 import { Point } from "../../../common/geometry/Point/Point.js";
+import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
 import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
 import { Rectangle } from "../../../common/geometry/Rectangle/Rectangle.js";
+import { RoomService } from "../../../common/service/RoomService.js";
 import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
+import { UiCalculations } from "../../../common/ui/UICalculations.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { HeatingPlannerApplicationState } from "../../appdata/HeatingPlannerApplicationState.js";
 import { HeatingPlannerConstants } from "../../appdata/HeatingPlannerConstants.js";
@@ -30,6 +33,7 @@ function rotateSelectedPanelGroup() {
         return false;
     }
 
+    const room = RoomService.findById(panelGroup.roomId);
     panelGroup.alignment = (panelGroup.alignment + 1) % 4;
     updateAngleRadAndCenterPositions(panelGroup);
     updatePositionDataIncludingMembers(panelGroup);
@@ -37,7 +41,7 @@ function rotateSelectedPanelGroup() {
         panelGroup.alignment = (panelGroup.alignment + 3) % 4;
         updatePositionDataIncludingMembers(panelGroup);
         Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
-    } else if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.panelGroupAlignmentIsValid(panelGroup)) {
+    } else if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.panelGroupAlignmentIsValid(room, panelGroup)) {
         panelGroup.alignment = (panelGroup.alignment + 3) % 4;
         updatePositionDataIncludingMembers(panelGroup);
         Errors.throwError(ErrorCodes.INVALID_PANEL_ALIGNMENT);
@@ -190,16 +194,44 @@ function assignPanelGroupToRoom(panelGroup, room) {
 function calculateMiddlePointOfPanel(panelGroup, panel) {
     const clickedMemberIndex = panelGroup.clickedMemberIndex;
     const index = panelGroup.panelIds.indexOf(panel.id);
+    const length = panelGroup.panelIds.length;
     const offset = index - clickedMemberIndex;
-    const basePoint = panelGroup.isSelectedForDrag ?
-        GridCalculations.getClosestGlobalGridPointToCursorsCorrectedPosition() :
-        PanelService.findById(panelGroup.panelIds[clickedMemberIndex]).boundingBox.middlePoint;
+    const clickedPanel = PanelService.findById(panelGroup.panelIds[clickedMemberIndex]);
+    const basePoint = panelGroup.isSelectedForDrag ? MouseCursor.getMousePositionAbsolute() : clickedPanel.boundingBox.middlePoint;
     const width = panelGroup.widthInPixels;
-
-    return CreatePoint.createPoint(
-        basePoint.x + (width * offset * Number((panelGroup.alignment % 2) === 1)),
-        basePoint.y + (width * offset * Number((panelGroup.alignment % 2) === 0))
+    
+    const angleRad = panelGroup.angleRad + (Number(panelGroup.alignment % 2) + 1) * HALF_PI;
+    const vector = PointCalculations.multiplyPoint(
+        CreatePoint.createUnitVector(angleRad),
+        width * offset
     );
+    
+    const point = CreatePoint.createPoint(
+        basePoint.x + vector.x,
+        basePoint.y + vector.y
+    );
+
+    if (!panelGroup.isSelectedForDrag) {
+        return point;
+    }
+
+    const minimumX = (panelGroup.alignment % 2 === 1) ? 
+    Constants.ui.leftRibbonWidth + (length - clickedMemberIndex) * panelGroup.widthInPixels * ApplicationState.screenZoom: 
+    Constants.ui.leftRibbonWidth + 1 * panelGroup.lengthInPixels * ApplicationState.screenZoom;
+    
+    const minimumY = (panelGroup.alignment % 2 === 1) ? 
+    Constants.ui.topRibbonHeight + 1 * panelGroup.lengthInPixels * ApplicationState.screenZoom:
+    Constants.ui.topRibbonHeight + (clickedMemberIndex + 1) * panelGroup.widthInPixels * ApplicationState.screenZoom;
+    
+    const mousePosition = MouseCursor.getMousePosition();
+    const diffX = UiCalculations.calculateCorrector(minimumX, mousePosition.x);
+    const diffY = UiCalculations.calculateCorrector(minimumY, mousePosition.y);
+    console.log(`alignment=${panelGroup.alignment},\nlength=${length},\nindex=${index},\nclickedIndex=${clickedMemberIndex},\nminimumX=${minimumX},\nminimumY=${minimumY},\nmousePosition=${mousePosition.x},\ncorrector=${diffX}`);
+
+    return GridCalculations.getClosestGlobalGridPoint(CreatePoint.createPoint(
+        point.x + diffX,
+        point.y + diffY
+    ));
 }
 
 /**

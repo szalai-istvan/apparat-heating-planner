@@ -1,3 +1,6 @@
+import { RoomService } from "../../common/service/RoomService.js";
+import { PanelGroupService } from "../service/PanelGroupService.js";
+
 class QuotePanel {
     type;
     room;
@@ -8,25 +11,6 @@ class QuotePanel {
         this.details = details;
         this.room = room;
     }
-
-    static calculateQuotePanelArray(panel) {
-        let i = 0;
-        const firstPosition = PanelManager.getFirstCenterPositionAbsolute(panel);
-
-        const quotePanels = [];
-        while (i < panel.numberOfPanelsInGroup) {
-            const offsetPosition = {
-                x: firstPosition.x - i * (panel.alignment ? panel.widthInPixels : 0),
-                y: firstPosition.y + i * (panel.alignment ? 0 : panel.widthInPixels)
-            };
-
-            const room = roomContext.getRoomContainingPoint(offsetPosition);
-
-            quotePanels.push(new QuotePanel(panel.type, panel.details, room));
-            i++;
-        }
-        return quotePanels;
-    }
 }
 
 /**
@@ -35,12 +19,12 @@ class QuotePanel {
  * @returns {QuotePanel[]}
  */
 function calculateQuotePanelArray() {
-    const panelGroups = elementStore.panelGroups;
+    const panelGroups = PanelGroupService.findAll();
 
     /** @type {QuotePanel[]} */
     const quotePanels = [];
     for (let panelGroup of panelGroups) {
-        const room = getRoomById(panelGroup.roomId);
+        const room = RoomService.findById(panelGroup.roomId);
         const type = panelGroup.type;
         const details = panelGroup.details;
 
@@ -49,3 +33,7 @@ function calculateQuotePanelArray() {
 
     return quotePanels;
 }
+
+export const CalculateQuotePanels = {
+    calculateQuotePanelArray
+};

@@ -1,5 +1,6 @@
 import { Room } from "../../../common/entities/Room.js";
 import { PanelGroupService } from "../../service/PanelGroupService.js";
+import { PanelService } from "../../service/PanelService.js";
 import { StructureElementsService } from "../../service/StructureElementsService.js";
 import { DeletePanelGroupAction } from "../panelGroup/DeletePanelGroupAction.js";
 import { RecalculateStructureElements } from "../structureElements/RecalculateStructureElements.js";
@@ -24,6 +25,10 @@ function onSelectedRoomRemovedHeatingPlanner(room) {
     StructureElementsService.removeById(room.structureElementsId);
 
     const panelGroupsToDelete = PanelGroupService.findByRoomId(room.id);
+    panelGroupsToDelete.forEach(group => {
+        const panelIds = group.panelIds;
+        panelIds.forEach(id => PanelService.removeById(id));
+    });
     panelGroupsToDelete.forEach(pg => PanelGroupService.removeById(pg.id));
 }
 

@@ -15,10 +15,10 @@ import { RoomService } from "../../service/RoomService.js";
  */
 function getAngleRad(blueprint) {
     if (!blueprint) {
-        return;
+        return undefined;
     }
 
-    return blueprint.boundingBox.lines[1].angleRad;
+    return blueprint.angleRad || 0.00;
 }
 
 /**
@@ -55,13 +55,13 @@ function getDrawingBoundingBox() {
     const blueprints = BlueprintService.findAll();
     const rooms = RoomService.findAll();
 
-    blueprints.map(bp => bp.boundingBox).map(bb => bb.points).forEach(p => points = [...points, ...p]);
-    rooms.map(r => r.boundingBox).map(bb => bb.points).forEach(p => points = [...points, ...p]);
+    blueprints.map(bp => bp.boundingBox).filter(x => x).map(bb => bb.points).forEach(p => points = [...points, ...p]);
+    rooms.map(r => r.boundingBox).filter(x => x).map(bb => bb.points).forEach(p => points = [...points, ...p]);
 
-    const minX = points.map(p => p.x).reduce(ReducerFunctions.minimumFunction);
-    const maxX = points.map(p => p.x).reduce(ReducerFunctions.maximumFunction);
-    const minY = points.map(p => p.y).reduce(ReducerFunctions.minimumFunction);
-    const maxY = points.map(p => p.y).reduce(ReducerFunctions.maximumFunction);
+    const minX = points.map(p => p.x).reduce(ReducerFunctions.minimumFunction, 0);
+    const maxX = points.map(p => p.x).reduce(ReducerFunctions.maximumFunction, 0);
+    const minY = points.map(p => p.y).reduce(ReducerFunctions.minimumFunction, 0);
+    const maxY = points.map(p => p.y).reduce(ReducerFunctions.maximumFunction, 0);
 
     const width = maxX - minX;
     const height = maxY - minY;

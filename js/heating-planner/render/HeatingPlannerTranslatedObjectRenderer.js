@@ -1,3 +1,4 @@
+import { BlueprintCalculations } from "../../common/actions/blueprint/BlueprintCalculations.js";
 import { RenderRectangle } from "../../common/geometry/Rectangle/RenderRectangle.js";
 import { BlueprintService } from "../../common/service/BlueprintService.js";
 import { RoomService } from "../../common/service/RoomService.js";
@@ -39,7 +40,9 @@ function renderDebugOnlyTranslatedObjectsHeatingPlanner() {
     panelGroups.forEach(pg => RenderRectangle.renderRectangle(pg.boundingBox));
     panelGroups.forEach(pg => RenderRectangle.renderRectangle(pg.boundingBoxIncludingPipes));
     panels.forEach(p => RenderRectangle.renderRectangle(p.boundingBox));
-    panels.forEach(p => RenderRectangle.renderRectangle(p.textBox));
+    panels.forEach(p => RenderRectangle.renderRectangle(p.selectionBox));
+
+    RenderRectangle.renderRectangle(BlueprintCalculations.getDrawingBoundingBox());
 }
 
 /**
