@@ -12,6 +12,7 @@ import { ScalingDialog } from "../../ui/dialog/ScalingDialog.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
 import { UiCalculations } from "../../ui/UICalculations.js";
 import { Validators } from "../../validators/Validators.js";
+import { DeleteRoomAction } from "../room/DeleteRoomAction.js";
 import { RoomCalculations } from "../room/RoomCalculations.js";
 
 /** @type {Point} */
@@ -63,6 +64,7 @@ function clearScaling() {
     scalingSecondPoint = null;
     ApplicationState.pixelsPerMetersRatio = null;
     scaleRenderSizeValues();
+    DeleteRoomAction.clearRooms();
 }
 
 /**

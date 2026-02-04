@@ -1,4 +1,6 @@
-- Excel szerkesztés
+A födémizátorban a méretválasztó nem hívhat createOrReplace-t mert kapunk egy födémfűtőt ahányszor méretet állítunk!
+- Kell a méret settinghez egy külön API művelet
+Excel szerkesztés
 Minden második sor random színre befesteni
 Váltakozó színű téglalap a panelkák köré, random szín
 Excelben ugyanolyan színű a sor
@@ -14,11 +16,12 @@ Doboz szélesség 8 centi
 rádiusz 15 centi
 csőköz 4 centi
 Cső is piros-kék
-ferde szoba bugos!
 - Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
-hibakezelés egységesítés
 szobanév mozgatást újra meg kell csinálni.
-paraméteres hibaüzenetek
+hibakezelés egységesítés
+- paraméteres hibaüzenetek
+ferde szoba bugos!
+- Úg ytűnik akkor csúszik meg ha a kurzor nem pontosan a szoba sarkában van!
 
 long-term:
 - Pont törlése (pipeDriver) ??

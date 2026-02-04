@@ -1,3 +1,10 @@
+import { ApplicationState } from "../../../appdata/ApplicationState.js";
+import { Room } from "../../../entities/Room.js";
+import { GridCalculations } from "../../../geometry/Grid/GridCalculations.js";
+import { CreatePoint } from "../../../geometry/Point/CreatePoint.js";
+import { Point } from "../../../geometry/Point/Point.js";
+import { MouseCursor } from "../../../ui/MouseCursor.js";
+
 /**
  * Visszaadja a paraméterül kapott ponthoz legközelebbi, szobához rögzített grid pontot
  * 
@@ -6,12 +13,12 @@
  * @returns {Point} A legközelebbi grid pont
  */
 function getClosestRoomGridPoint(point, room) {
-    if (!gridSeed) {
+    if (!ApplicationState.gridSeed) {
         return point;
     }
 
     if (!room) {
-        return getClosestGlobalGridPoint(point);
+        return GridCalculations.getClosestGlobalGridPoint(point);
     }
 
     const p0 = room.roomGridDefinition.referencePoint;
@@ -23,12 +30,14 @@ function getClosestRoomGridPoint(point, room) {
     
     let a = deltaX * cosAlpha + deltaY * sinAlpha;
     let b = (a * sinAlpha - deltaY) / cosAlpha;
+
+    const gridResolutionPixel = ApplicationState.gridResolutionInPixels;
     a = Math.round(a / gridResolutionPixel) * gridResolutionPixel;
     b = Math.round(b / gridResolutionPixel) * gridResolutionPixel;
     
     const x = p0.x + a * cosAlpha + b * sinAlpha;
     const y = p0.y + a * sinAlpha - b * cosAlpha;
-    return createPoint(x, y);
+    return CreatePoint.createPoint(x, y);
 }
 
 /**
@@ -39,10 +48,10 @@ function getClosestRoomGridPoint(point, room) {
  */
 function getClosestRoomGridPointToCursor(room) {
     if (!room || room.angleRad === 0) {
-        return getClosestGlobalGridPoint();
+        return GridCalculations.getClosestGlobalGridPoint(MouseCursor.getMousePositionAbsolute());
     }
 
-    return getClosestRoomGridPoint(getMousePositionAbsolute());
+    return GridCalculations.getClosestRoomGridPoint(MouseCursor.getMousePositionAbsolute());
 }
 
 /**
@@ -53,8 +62,8 @@ function getClosestRoomGridPointToCursor(room) {
  */
 function getClosestRoomGridPointToCursorsCorrectedPosition(room) {
     if (!room || room.angleRad === 0) {
-        return getClosestGlobalGridPoint();
+        return GridCalculations.getClosestGlobalGridPoint(MouseCursor.getCorrectedMousePositionAbsolute());
     }
 
-    return getClosestRoomGridPoint(getCorrectedMousePositionAbsolute());
+    return GridCalculations.getClosestRoomGridPoint(MouseCursor.getCorrectedMousePositionAbsolute());
 }

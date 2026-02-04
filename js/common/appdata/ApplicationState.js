@@ -1,4 +1,4 @@
-import { Point } from "../geometry/Point/Point.js";
+import { Point } from "../geometry/point/Point.js";
 import { Blueprint } from "../entities/Blueprint.js";
 import { Room } from "../entities/Room.js";
 

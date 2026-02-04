@@ -1,3 +1,7 @@
+import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
+import { ClassUtil } from "../../../common/util/ClassUtil.js";
+import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
+
 /**
  * Mgszűnteti a pillanatnyi kijelölést és kiválasztja a paraméterül kapott objektumot
  * 
@@ -5,16 +9,21 @@
  * @returns 
  */
 function selectObjectSlabHeatingPlanner(obj) {
-    const className = getClassName(obj);
-    
-    if (className === CLASS_SLAB_HEATER_GROUP) {
+    const className = ClassUtil.getClassName(obj);
+
+    if (className === SlabHeatingPlannerConstants.classNames.slabHeaterGroup) {
         if (selectSlabHeaterGroup(obj)) {
-            selectedObject = obj;
+            ApplicationState.selectedObject = obj;
         }
-    } else if (className === CLASS_BOX_GROUP) {
+    } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
         if (selectBoxGroup(obj)) {
-            selectedObject = obj;
+            ApplicationState.selectedObject = obj;
         }
+    else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
+        if (selectPipeDriver(obj)) {
+            ApplicationState.selectedObject = obj;
+        }
+    }
     } else {
         throw new Error(`Unexpected class of selected object: ${className}`);
     }
@@ -28,11 +37,11 @@ function selectObjectSlabHeatingPlanner(obj) {
  */
 function deselectObjectSlabHeatingPlanner(className) {
     let successfulDeselect;
-    if (className === CLASS_SLAB_HEATER_GROUP) {
+    if (className === SlabHeatingPlannerConstants.classNames.slabHeaterGroup) {
         successfulDeselect = deselectSlabHeaterGroup();
-    } else if (className === CLASS_BOX_GROUP) {
+    } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
         successfulDeselect = deselectBoxGroup();
-    } else if (className === CLASS_PIPE_DRIVER) {
+    } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
         successfulDeselect = deselectPipeDriver();
     }
 
@@ -46,11 +55,11 @@ function deselectObjectSlabHeatingPlanner(className) {
  * @returns {undefined}
  */
 function removeSelectedObjectSlabHeatingPlanner(className) {
-    if (className === CLASS_SLAB_HEATER_GROUP) {
+    if (className === SlabHeatingPlannerConstants.classNames.slabHeaterGroup) {
         removeSelectedSlabHeaterGroup();
-    } else if (className === CLASS_BOX_GROUP) {
+    } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
         removeSelectedBoxGroup();
-    } else if (className === CLASS_PIPE_DRIVER) {
+    } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
         resetSelectedPipeDriver();
     }
 }
@@ -61,12 +70,32 @@ function removeSelectedObjectSlabHeatingPlanner(className) {
  * @returns {undefined}
  */
 function clearSelectionCacheSlabHeatingPlanner() {
-    cachedSelectableSlabHeaterGroup = null;
-    cachedSelectableBoxGroup = null;
-    cachedSelectablePipeDriver = null;
-
-    elementStore.rooms.forEach(r => r.cursorIsInsideCache = null);
-    elementStore.slabHeaterGroups.forEach(shg => clearSlabHeaterGroupSelectionCache(shg));
-    elementStore.boxGroups.forEach(bg => clearBoxGroupSelectionCache(bg));
-    elementStore.pipeDrivers.forEach(pd => clearPipeDriverSelectionCache(pd));
+    SelectSlabHeaterGroupAction.clearSlabHeaterGroupSelectionCache();
+    SelectBoxGroupAction.clearBoxGroupSelectionCache();
+    SelectPipeDriverAction.clearPipeDriverSelectionCache();
 }
+
+/**
+ * Elforgatja a kiválasztott objektumot a megadott irányba
+ * 
+ * @param {Number} direction
+ * @returns {undefined}
+ */
+function rotateSelectedObjectSlabHeatingPlanner(direction) {
+    if (selectedSlabHeaterGroup) {
+        rotateSelectedSlabHeaterGroup(direction);
+    } else if (selectedBoxGroup) {
+        rotateSelectedBoxGroup(-1 * direction);
+    }
+}
+
+/**
+ * Projekt specifikus választó műveletek.
+ */
+export const SlabHeatingPlannerSelectionAction = {
+    selectObjectSlabHeatingPlanner,
+    rotateSelectedObjectSlabHeatingPlanner,
+    deselectObjectSlabHeatingPlanner,
+    removeSelectedObjectSlabHeatingPlanner,
+    clearSelectionCacheSlabHeatingPlanner
+};

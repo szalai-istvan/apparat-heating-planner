@@ -5,8 +5,11 @@ import { Constants } from "../../common/appdata/Constants.js";
 import { ButtonWrapper } from "../../common/ui/buttons/ButtonWrapper.js";
 import { OptionsBar } from "../../common/ui/OptionsBar/OptionsBar.js";
 import { UiLayoutDefinition } from "../../common/ui/UiLayoutDefinition.js";
+import { SlabHeaterGroupAPI } from "../api/SlabHeaterGroupAPI.js";
 import { SlabHeatingPlannerApplicationState } from "../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../appdata/SlabHeatingPlannerConstants.js";
+import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";
+import { SlabHeaterMenuValueResolver } from "./SlabHeaterMenuValueResolver.js";
 
 /**
  * Létrehozza és regisztrálja a projekt specifikus UI vezérlőket.
@@ -28,22 +31,23 @@ function createButtonsSlabHeatingPlanner() {
         gap: { x: 0, y: Constants.ui.buttonGapY / 2 },
         columns: [{ buttons: [SlabHeatingPlannerConstants.slabHeater.slabHeaterTypes.width[0]] }, { buttons: [SlabHeatingPlannerConstants.slabHeater.slabHeaterTypes.width[1]] }],
         valueResolver: optionsBar => optionsBar.selected[0] ? Number(optionsBar.selected[0]) : undefined,
-        onchange: () => {},//updateSelectedSlabHeaterGroupDimensions(),
+        onchange: () => SlabHeaterGroupAPI.updateSelectedSlabHeaterGroupDimensions(), 
         title: 'Szélesség (m)',
         perColumnSelection: false,
-        shouldBeActive: () => {}//configuredRoomsExist()
+        shouldBeActive: () => RoomCalculations.configuredRoomsExist(),
     });
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.halfWidthButtonSize.y / 3 });
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.halfWidthButtonSize.y / 2 });
+    SlabHeatingPlannerApplicationState.widthMenu = slabHeaterWidthOptionsBar;
 
     const slabHeaterLengthOptionsBar = new OptionsBar({
         topLeftPosition: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
         buttonSize: Constants.ui.halfWidthButtonSize,
         gap: { x: 0, y: Constants.ui.buttonGapY / 2 },
         columns: [{ header: 'm', buttons: SlabHeatingPlannerConstants.slabHeater.slabHeaterTypes.length.m }, { header: 'cm', buttons: SlabHeatingPlannerConstants.slabHeater.slabHeaterTypes.length.cm }],
-        valueResolver: optionsBar => {},//resolveSlabHeaterLengthOptionBarValue(optionsBar),
-        onchange: () => {},//updateSelectedSlabHeaterGroupDimensions(),
-        shouldBeActive: () => {},//configuredRoomsExist(),
+        valueResolver: optionsBar => SlabHeaterMenuValueResolver.resolveSlabHeaterLengthOptionBarValue(optionsBar),
+        onchange: () => SlabHeaterGroupAPI.updateSelectedSlabHeaterGroupDimensions(), 
+        shouldBeActive: () => RoomCalculations.configuredRoomsExist(),
         title: 'Hosszúság',
         perColumnSelection: true
     });
@@ -54,12 +58,13 @@ function createButtonsSlabHeatingPlanner() {
     leftRibbonButtonSizes.push(Constants.ui.halfWidthButtonSize);
     leftRibbonButtonSizes.push(Constants.ui.halfWidthButtonSize);
     leftRibbonButtonSizes.push(Constants.ui.halfWidthButtonSize);
+    SlabHeatingPlannerApplicationState.lengthMenu = slabHeaterLengthOptionsBar;
 
     const addSlabHeaterButton = new ButtonWrapper({
         text: 'Hozzáadás',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => {},//createSlabHeaterGroup(),
+        onClick: () => SlabHeaterGroupAPI.createSlabHeaterGroup(),
         shouldBeActive: () => slabHeaterLengthOptionsBar.allValuesAreSet() && slabHeaterWidthOptionsBar.allValuesAreSet() && RoomCalculations.configuredRoomsExist()
     });
     leftRibbonButtonSizes.push(Constants.ui.smallButtonSize);
@@ -134,7 +139,7 @@ function createButtonsSlabHeatingPlanner() {
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
         onClick: () => {},
-        shouldBeActive: () => true//fullyConfiguredSlabHeaterGroupsExist()
+        shouldBeActive: () => SlabHeaterGroupService.findAll().length > 0
     });
     leftRibbonButtonSizes.push(Constants.ui.tallSmallButtonSize);
 }

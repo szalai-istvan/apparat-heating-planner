@@ -56,7 +56,7 @@ function loadProject(text = undefined) {
  * @param {object} projectState 
  * @returns {object} kiválasztható projektspecifikus objektum
  */
-function loadProjectSpecificObjects(projectState) { // todo ez a heating-plannerbe való
+function loadProjectSpecificObjects(projectState) {
     let selectableObject = null;
 
     for (let i = 0; i < projectSpecificLoadingSteps.length; i++) {

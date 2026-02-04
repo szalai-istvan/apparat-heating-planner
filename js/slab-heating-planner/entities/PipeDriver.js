@@ -1,5 +1,5 @@
 import { Line } from "../../common/geometry/Line/Line.js";
-import { Point } from "../../common/geometry/Point/Point.js";
+import { Point } from "../../common/geometry/point/Point.js";
 
 /**
  * Egy csőnyomvonalat reprezentáló típus
@@ -27,13 +27,13 @@ export class PipeDriver {
     pipes = [];
 
     constructor(slabHeaterGroup) {
-        this.id = createUniqueId();
+        // this.id = createUniqueId();
 
-        const firstPoint = calculatePipeDriverFirstPoint(slabHeaterGroup);
-        this.slabHeaterGroupId = slabHeaterGroup.id;
+        // const firstPoint = calculatePipeDriverFirstPoint(slabHeaterGroup);
+        // this.slabHeaterGroupId = slabHeaterGroup.id;
 
-        firstPoint && this.points.push(firstPoint);
+        // firstPoint && this.points.push(firstPoint);
 
-        elementStore.register(this);
+        // elementStore.register(this); todo
     }
 }

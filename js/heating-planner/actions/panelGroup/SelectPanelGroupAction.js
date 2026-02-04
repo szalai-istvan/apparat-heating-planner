@@ -124,7 +124,7 @@ function deselectPanelGroup() {
  * @param {PanelGroup} panelGroup 
  * @returns {undefined}
  */
-function setSelectedPanelGroupIndex(panelGroup) { // todo talán ez a beállítás lehetne a searchForSelectable metódus része
+function setSelectedPanelGroupIndex(panelGroup) {
     Validators.checkClass(panelGroup, HeatingPlannerConstants.classNames.panelGroup);
 
     let index = 0;

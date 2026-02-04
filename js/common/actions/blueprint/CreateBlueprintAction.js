@@ -14,7 +14,6 @@ import { UpdateBlueprintAction } from "./UpdateBlueprintAction.js";
 function createBlueprint(data) {
     const blueprint = new Blueprint(data);
     ElementStore.save(blueprint);
-    // todo select blueprint
     tryUntilSuccessfulRecalculatePositions(blueprint);
 }
 

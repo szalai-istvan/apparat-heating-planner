@@ -44,3 +44,11 @@ function renderDebugOnlyTranslatedObjectsSlabHeatingPlanner() {
     boxes.forEach(b => RenderRectangle.renderRectangle(b.boundingBox));
     boxes.forEach(b => RenderRectangle.renderRectangle(b.selectionBox));
 }
+
+/**
+ * Projekt specifikus renderelési műveletek.
+ */
+export const SlabHeatingPlannerTranslatedObjectRenderer = {
+    renderTranslatedObjectsSlabHeatingPlanner,
+    renderDebugOnlyTranslatedObjectsSlabHeatingPlanner
+};

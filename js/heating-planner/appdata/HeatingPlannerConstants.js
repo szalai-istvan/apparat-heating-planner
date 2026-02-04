@@ -105,7 +105,6 @@ export const HeatingPlannerConstants = {
     panel: {
         panelTextSizeInMeters: 0.18,
         panelTextPopFactor: 0.1,
-        panelSelectionMultiplier: 0.8, // TODO ez micsoda és van-e bármire használva?
         panelFillColor: 'white',
         panelContourLineThicknessInMeters: 0.02,
         panelLineThicknesInMeters: 0.01,

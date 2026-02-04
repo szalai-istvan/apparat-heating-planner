@@ -20,8 +20,6 @@ export class StructureElements {
     roomId;
 
     constructor(room) {
-        // this.id = createUniqueId(); todo
-
         this.roomId = room.id;
         room.structureElementsId = this.id;
     }

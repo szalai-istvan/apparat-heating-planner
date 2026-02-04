@@ -24,6 +24,16 @@ function findById(id) {
 }
 
 /**
+ * A megadott szoba-azonosítójú födémfűtő csoport lekérdezése.
+ * 
+ * @param {string} roomId 
+ * @returns {SlabHeaterGroup[]}
+ */
+function findByRoomId(roomId) {
+    return findAll().filter(shg => shg.roomId === roomId);
+}
+
+/**
  * Azonosító lista alapján födémfűtő csoportok lekérdezése.
  * 
  * @param {string[]} idList 
@@ -57,6 +67,7 @@ function removeAll() {
 export const SlabHeaterGroupService = {
     findAll,
     findById,
+    findByRoomId,
     findByIdList,
     removeById,
     removeAll

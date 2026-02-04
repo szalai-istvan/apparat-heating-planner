@@ -226,7 +226,6 @@ function calculateMiddlePointOfPanel(panelGroup, panel) {
     const mousePosition = MouseCursor.getMousePosition();
     const diffX = UiCalculations.calculateCorrector(minimumX, mousePosition.x);
     const diffY = UiCalculations.calculateCorrector(minimumY, mousePosition.y);
-    console.log(`alignment=${panelGroup.alignment},\nlength=${length},\nindex=${index},\nclickedIndex=${clickedMemberIndex},\nminimumX=${minimumX},\nminimumY=${minimumY},\nmousePosition=${mousePosition.x},\ncorrector=${diffX}`);
 
     return GridCalculations.getClosestGlobalGridPoint(CreatePoint.createPoint(
         point.x + diffX,
