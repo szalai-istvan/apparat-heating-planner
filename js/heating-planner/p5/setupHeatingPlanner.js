@@ -14,7 +14,7 @@ import { LoadHeatingPlanner } from "../io/loadHeatingPlanner.js";
 import { SaveHeatingPlanner } from "../io/SaveHeatingPlanner.js";
 import { HeatingPlannerTranslatedObjectRenderer } from "../render/HeatingPlannerTranslatedObjectRenderer.js";
 import { ElementStoreHeatingPlanner } from "../store/ElementStoreHeatingPlanner.js";
-import { UiLayoutHeatingPlanner } from "../ui/createButtonsHeatingPlanner.js";
+import { UiLayoutHeatingPlanner } from "../ui/UiLayoutHeatingPlanner.js";
 
 /**
  * Projekt specifikus setup műveletek

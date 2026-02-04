@@ -32,8 +32,8 @@ export class PanelGroup {
     angleRad = 0.00;
     /** @type {number} */
     clickedMemberIndex = undefined;
+    
     /** @type {string} */
-
     roomId = null;
     /** @type {string[]} */
     panelIds = [];
