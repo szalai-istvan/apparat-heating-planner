@@ -1,33 +1,31 @@
-A födémizátorban a méretválasztó nem hívhat createOrReplace-t mert kapunk egy födémfűtőt ahányszor méretet állítunk!
-- Kell a méret settinghez egy külön API művelet
 Excel szerkesztés
-Minden második sor random színre befesteni
-Váltakozó színű téglalap a panelkák köré, random szín
-Excelben ugyanolyan színű a sor
-Panelkákon legyen sorszám, egyezzen az Excellel
-Sorszám bekarikázva
+- Minden második sor random színre befesteni
+- Váltakozó színű téglalap a panelkák köré, random szín
+- Excelben ugyanolyan színű a sor
+- Panelkákon legyen sorszám, egyezzen az Excellel
+- Sorszám bekarikázva
+- F és G oszlop a két cső hossza, mindkét oszlopba a hosszabb kerül
+
 csövek rádiuszosak
-Csőnyomvonal rajzolás panelonként, nem csoportonként
-Minden panel fele piros másik fele kék, sorrend mindegy
-A panelen lévő labelen lévő csőhossz csak az egyik, a hosszabb cső
-Csőhossz az *1.1
-F és G oszlop a két cső hossza, mindkét oszlopba a hosszabb kerül
-Doboz szélesség 8 centi
 rádiusz 15 centi
 csőköz 4 centi
+Csőnyomvonal rajzolás panelonként, nem csoportonként
+A panelen lévő labelen lévő csőhossz csak az egyik, a hosszabb cső
+Csőhossz az *1.1
 Cső is piros-kék
-- Panelok szövegdoboz paddingját megcsinálni értelmesre -> ne konstans pixel hanem konstans méter legyen.
+
+Doboz szélesség 8 centi
 szobanév mozgatást újra meg kell csinálni.
-hibakezelés egységesítés
-- paraméteres hibaüzenetek
+paraméteres hibaüzenetek
 ferde szoba bugos!
 - Úg ytűnik akkor csúszik meg ha a kurzor nem pontosan a szoba sarkában van!
+szoba méret jelölő táv a szoba vonalától ne pixelben legyen hanem méterben!
+slabheatergroup ui alá becsúszás: kisebb padding kellene!
+
 
 long-term:
 - Pont törlése (pipeDriver) ??
 - boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
-- Szögek egységesítése (rad vs. deg)
-- "gridResolutionPixel" kettő van, ugyanaz az értéke, egyiket ki kéne vezetni
 - Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod

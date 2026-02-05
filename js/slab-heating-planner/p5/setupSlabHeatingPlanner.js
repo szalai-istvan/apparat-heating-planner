@@ -6,9 +6,11 @@ import { Load } from "../../common/io/load.js";
 import { Save } from "../../common/io/save.js";
 import { Draw } from "../../common/p5/draw.js";
 import { TranslatedObjectRenderer } from "../../common/render/TranslatedObjectRenderer.js";
+import { SelectBoxGroupAction } from "../actions/boxgroup/SelectBoxGroupAction.js";
 import { SlabHeatingPlannerDeleteRoomAction } from "../actions/room/SlabHeatingPlannerDeleteRoomAction.js";
 import { SlabHeatingPlannerScalingAction } from "../actions/scale/SlabHeatingPlannerScalingActions.js";
 import { SlabHeatingPlannerSelectionAction } from "../actions/selection/SlabHeatingPlannerSelectionAction.js";
+import { SelectSlabHeaterGroupAction } from "../actions/slabHeaterGroup/SelectSlabHeaterGroupAction.js";
 import { LoadSlabHeatingPlanner } from "../io/LoadSlabHeatingPlanner.js";
 import { SaveSlabHeatingPlanner } from "../io/SaveSlabHeatingPlanner.js";
 import { SlabHeatingPlannerTranslatedObjectRenderer } from "../render/RenderTranslatedObjectsSlabHeatingPlanner.js";
@@ -35,8 +37,8 @@ function setupSlabHeatingPlanner() {
     // selection config
     SelectionAction.setSelectableObjectSearchStep([
         SelectionAction.searchForSelectableRoom,
-        // searchForSelectableSlabHeaterGroup,
-        // searchForSelectableBoxGroup,
+        SelectSlabHeaterGroupAction.searchForSelectableSlabHeaterGroup,
+        SelectBoxGroupAction.searchForSelectableBoxGroup,
         // searchForSelectablePipeDriver, todo
         SelectionAction.searchForSelectableBlueprint
     ]);

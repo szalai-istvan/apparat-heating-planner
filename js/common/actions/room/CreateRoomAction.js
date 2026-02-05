@@ -64,6 +64,8 @@ function addPointToSelectedRoom() {
     }
 
     if (!pointCanBeAddedToSelectedRoom()) {
+        ElementStore.remove(selectedRoom);
+        ApplicationState.roomCreationTemp = {};
         Errors.throwError(ErrorCodes.ROOM_OVERLAP);
         return;
     }

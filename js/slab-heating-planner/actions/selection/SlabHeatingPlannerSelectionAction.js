@@ -1,6 +1,14 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { ClassUtil } from "../../../common/util/ClassUtil.js";
+import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
+import { DeleteBoxGroupAction } from "../boxgroup/DeleteBoxGroupAction.js";
+import { SelectBoxGroupAction } from "../boxgroup/SelectBoxGroupAction.js";
+import { UpdateBoxGroupAction } from "../boxgroup/UpdateBoxGroupAction.js";
+import { SelectPipeDriverAction } from "../pipeDriver/SelectPipeDriverAction.js";
+import { DeleteSlabHeaterGroupAction } from "../slabHeaterGroup/DeleteSlabHeaterGroupAction.js";
+import { SelectSlabHeaterGroupAction } from "../slabHeaterGroup/SelectSlabHeaterGroupAction.js";
+import { UpdateSlabHeaterGroupAction } from "../slabHeaterGroup/UpdateSlabHeaterGroupAction.js";
 
 /**
  * Mgszűnteti a pillanatnyi kijelölést és kiválasztja a paraméterül kapott objektumot
@@ -12,15 +20,15 @@ function selectObjectSlabHeatingPlanner(obj) {
     const className = ClassUtil.getClassName(obj);
 
     if (className === SlabHeatingPlannerConstants.classNames.slabHeaterGroup) {
-        if (selectSlabHeaterGroup(obj)) {
+        if (SelectSlabHeaterGroupAction.selectSlabHeaterGroup(obj)) {
             ApplicationState.selectedObject = obj;
         }
     } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
-        if (selectBoxGroup(obj)) {
+        if (SelectBoxGroupAction.selectBoxGroup(obj)) {
             ApplicationState.selectedObject = obj;
         }
     else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
-        if (selectPipeDriver(obj)) {
+        if (SelectPipeDriverAction.selectPipeDriver(obj)) {
             ApplicationState.selectedObject = obj;
         }
     }
@@ -38,11 +46,11 @@ function selectObjectSlabHeatingPlanner(obj) {
 function deselectObjectSlabHeatingPlanner(className) {
     let successfulDeselect;
     if (className === SlabHeatingPlannerConstants.classNames.slabHeaterGroup) {
-        successfulDeselect = deselectSlabHeaterGroup();
+        successfulDeselect = SelectSlabHeaterGroupAction.deselectSlabHeaterGroup();
     } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
-        successfulDeselect = deselectBoxGroup();
+        successfulDeselect = SelectBoxGroupAction.deselectBoxGroup();
     } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
-        successfulDeselect = deselectPipeDriver();
+        successfulDeselect = SelectPipeDriverAction.deselectPipeDriver();
     }
 
     return successfulDeselect;
@@ -56,11 +64,11 @@ function deselectObjectSlabHeatingPlanner(className) {
  */
 function removeSelectedObjectSlabHeatingPlanner(className) {
     if (className === SlabHeatingPlannerConstants.classNames.slabHeaterGroup) {
-        removeSelectedSlabHeaterGroup();
+        DeleteSlabHeaterGroupAction.removeSelectedSlabHeaterGroup();
     } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
-        removeSelectedBoxGroup();
+        DeleteBoxGroupAction.removeSelectedBoxGroup();
     } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
-        resetSelectedPipeDriver();
+        // resetSelectedPipeDriver(); todo
     }
 }
 
@@ -82,10 +90,36 @@ function clearSelectionCacheSlabHeatingPlanner() {
  * @returns {undefined}
  */
 function rotateSelectedObjectSlabHeatingPlanner(direction) {
-    if (selectedSlabHeaterGroup) {
-        rotateSelectedSlabHeaterGroup(direction);
-    } else if (selectedBoxGroup) {
-        rotateSelectedBoxGroup(-1 * direction);
+    if (SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup) {
+        UpdateSlabHeaterGroupAction.rotateSelectedSlabHeaterGroup(direction);
+    } else if (SlabHeatingPlannerApplicationState.selectedBoxGroup) {
+        UpdateBoxGroupAction.rotateSelectedBoxGroup(direction);
+    }
+}
+
+/**
+ * Hozzáad egy elemet a kiválasztott csoporthoz.
+ * 
+ * @returns {undefined}
+ */
+function addToSelectedGroup() {
+    if (SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup) {
+        UpdateSlabHeaterGroupAction.addSlabHeaterToSelectedGroup();
+    } else if (SlabHeatingPlannerApplicationState.selectedBoxGroup) {
+        UpdateBoxGroupAction.addBoxToSelectedGroup();
+    }
+}
+
+/**
+ * Eltávolítja az utolsó elemet a kiválasztott csoportból.
+ * 
+ * @returns {undefined}
+ */
+function removeLastFromSelectedGroup() {
+    if (SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup) {
+        UpdateSlabHeaterGroupAction.removeLastSlabHeaterFromSelectedGroup();
+    } else if (SlabHeatingPlannerApplicationState.selectedBoxGroup) {
+        UpdateBoxGroupAction.removeLastBoxFromSelectedGroup();
     }
 }
 
@@ -93,9 +127,11 @@ function rotateSelectedObjectSlabHeatingPlanner(direction) {
  * Projekt specifikus választó műveletek.
  */
 export const SlabHeatingPlannerSelectionAction = {
+    addToSelectedGroup,
+    removeLastFromSelectedGroup,
     selectObjectSlabHeatingPlanner,
-    rotateSelectedObjectSlabHeatingPlanner,
     deselectObjectSlabHeatingPlanner,
-    removeSelectedObjectSlabHeatingPlanner,
-    clearSelectionCacheSlabHeatingPlanner
+    clearSelectionCacheSlabHeatingPlanner,
+    rotateSelectedObjectSlabHeatingPlanner,
+    removeSelectedObjectSlabHeatingPlanner
 };

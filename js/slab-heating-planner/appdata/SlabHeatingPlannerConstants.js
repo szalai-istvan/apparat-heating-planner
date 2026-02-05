@@ -33,7 +33,7 @@ export const SlabHeatingPlannerConstants = {
         slabHeaterLineWeightInMeters: 0.02,
         slabHeaterTextSizeInMeters: 0.15,
         slabHeaterTypeRectPaddingInMeters: 0.1,
-        SLAB_HEATER_TEXT_POP_FACTOR: 0.05,
+        slabHeaterTextPopFactor: 0.05,
         SLAB_HEATER_CORRECTION_OFFSET: 10,
         slabHeaterTypes: {
             width: ['0.8', '1'],

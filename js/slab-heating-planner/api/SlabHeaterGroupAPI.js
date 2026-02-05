@@ -17,23 +17,6 @@ function createSlabHeaterGroup() {
 function updateSelectedSlabHeaterGroupDimensions() {
     UserActionHandler.handleUserActionNoParam(UpdateSlabHeaterGroupAction.updateSelectedSlabHeaterGroupDimensions);
 }
-/**
- * SlabHeater hozzáadása a kiválasztott csoporthoz.
- * 
- * @returns {undefined}
- */
-// function addSlabHeaterToSelectedGroup() {
-    // UserActionHandler.handleUserActionNoParam(UpdateSlabHeaterGroupAction.addSlabHeaterToSelectedGroup)
-// }
-
-/**
- * SlabHeater eltávolítása a kiválasztott csoportból.
- * 
- * @returns {undefined}
- */
-// function removeSlabHeaterFromSelectedGroup() {
-    // UserActionHandler.handleUserActionNoParam(UpdateSlabHeaterGroupAction.removeSlabHeaterFromSelectedGroup);
-// }
 
 /**
  * Fűtőelem csoportokkal kapcsolatos műveletek.
@@ -41,6 +24,4 @@ function updateSelectedSlabHeaterGroupDimensions() {
 export const SlabHeaterGroupAPI = {
     createSlabHeaterGroup,
     updateSelectedSlabHeaterGroupDimensions
-    // addSlabHeaterToSelectedGroup,
-    // removeSlabHeaterFromSelectedGroup
 };

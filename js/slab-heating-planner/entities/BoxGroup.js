@@ -1,4 +1,4 @@
-import { Point } from "../../common/geometry/Point/Point.js";
+import { Point } from "../../common/geometry/point/Point.js";
 import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
 
 /** 
@@ -19,7 +19,8 @@ export class BoxGroup {
     angleRad = 0.00;
     /** @type {number} */
     clickedMemberIndex = undefined;
-    
+    /** @type {Point} */
+    middlePoint;
     /** @type {Point} */
     pipeDriverEndNodeCoordinates = null;
     
@@ -29,17 +30,7 @@ export class BoxGroup {
     /** @type {string} */
     pipeDriverId = null;
 
-    constructor({box, alignment}) {
-        // this.id = createUniqueId();
-
-        // checkClass(box, CLASS_BOX, true);
-
-        // if (box) {
-            // this.boxIds.push(box.id);
-            // box.groupId = this.id;
-        // }
-        // this.alignment = alignment;
-
-        // elementStore.register(this); todo ez create
+    constructor() {
+        this.alignment = 1;
     }
 }

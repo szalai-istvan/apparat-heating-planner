@@ -24,7 +24,6 @@ function createRectangleByMiddlePoint(middlePoint, width, height, angleRad) {
     points.push(PointCalculations.addPoints([middlePoint, vector0, vector1Negative]));
     points.push(PointCalculations.addPoints([middlePoint, vector0Negative, vector1Negative]));
     points.push(PointCalculations.addPoints([middlePoint, vector0Negative, vector1]));
-
     return new Rectangle(points);
 }
 

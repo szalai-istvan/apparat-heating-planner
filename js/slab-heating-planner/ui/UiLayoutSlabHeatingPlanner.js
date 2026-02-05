@@ -5,6 +5,8 @@ import { Constants } from "../../common/appdata/Constants.js";
 import { ButtonWrapper } from "../../common/ui/buttons/ButtonWrapper.js";
 import { OptionsBar } from "../../common/ui/OptionsBar/OptionsBar.js";
 import { UiLayoutDefinition } from "../../common/ui/UiLayoutDefinition.js";
+import { BoxGroupAPI } from "../api/BoxGroupAPI.js";
+import { GroupManagementAPI } from "../api/GroupManagementAPI.js";
 import { SlabHeaterGroupAPI } from "../api/SlabHeaterGroupAPI.js";
 import { SlabHeatingPlannerApplicationState } from "../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../appdata/SlabHeatingPlannerConstants.js";
@@ -78,8 +80,8 @@ function createButtonsSlabHeatingPlanner() {
         text: 'Hozzáadás',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
-        onClick: () => {},//createBoxGroup(),
-        shouldBeActive: () => {},//configuredRoomsExist()
+        onClick: () => BoxGroupAPI.createBoxGroup(),
+        shouldBeActive: () => RoomCalculations.configuredRoomsExist()
     });
 
     leftRibbonButtonSizes.push(Constants.ui.smallButtonSize);
@@ -118,7 +120,7 @@ function createButtonsSlabHeatingPlanner() {
         text: '-',
         size: Constants.ui.halfWidthButtonSize,
         position: groupManagerPosition,
-        onClick: () => {},//removeLastFromSelectedGroup(),
+        onClick: () => GroupManagementAPI.removeLastFromSelectedGroup(),
         shouldBeActive: () => SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup || SlabHeatingPlannerApplicationState.selectedBoxGroup
     });
 
@@ -127,7 +129,7 @@ function createButtonsSlabHeatingPlanner() {
         text: '+',
         size: Constants.ui.halfWidthButtonSize,
         position: groupManagerPosition,
-        onClick: () => {},//addToSelectedGroup(),
+        onClick: () => GroupManagementAPI.addToSelectedGroup(),
         shouldBeActive: () => SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup || SlabHeatingPlannerApplicationState.selectedBoxGroup
     });
     leftRibbonButtonSizes.push(Constants.ui.halfWidthButtonSize);

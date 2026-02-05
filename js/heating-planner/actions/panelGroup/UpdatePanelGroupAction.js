@@ -5,7 +5,7 @@ import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
 import { Errors } from "../../../common/errors/Errors.js";
 import { GridCalculations } from "../../../common/geometry/Grid/GridCalculations.js";
 import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
-import { Point } from "../../../common/geometry/Point/Point.js";
+import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
 import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
 import { Rectangle } from "../../../common/geometry/Rectangle/Rectangle.js";
@@ -39,10 +39,12 @@ function rotateSelectedPanelGroup() {
     updatePositionDataIncludingMembers(panelGroup);
     if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.getContainingRoom(panelGroup)) {
         panelGroup.alignment = (panelGroup.alignment + 3) % 4;
+        updateAngleRadAndCenterPositions(panelGroup);
         updatePositionDataIncludingMembers(panelGroup);
         Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
     } else if (!panelGroup.isSelectedForDrag && !PanelGroupCalculations.panelGroupAlignmentIsValid(room, panelGroup)) {
         panelGroup.alignment = (panelGroup.alignment + 3) % 4;
+        updateAngleRadAndCenterPositions(panelGroup);
         updatePositionDataIncludingMembers(panelGroup);
         Errors.throwError(ErrorCodes.INVALID_PANEL_ALIGNMENT);
     }
@@ -255,7 +257,6 @@ function addPanelToSelectedGroup() {
     } else {
         RecalculateStructureElements.recalculateBeamDefinitionsByRoomId(panelGroup.roomId);
     }
-
 }
 
 /**
@@ -273,7 +274,7 @@ function removePanelFromSelectedGroup() {
         return;
     }
 
-    if (panelGroup.clickedMemberIndex === panelGroup.panelIds.length) {
+    if (panelGroup.clickedMemberIndex === (panelGroup.panelIds.length - 1)) {
         panelGroup.clickedMemberIndex--;
     }
 

@@ -44,7 +44,6 @@ function renderPanelGroupType(group) {
  * @returns {undefined}
  */
 function drawPanelType(panel, group) {
-    const ratio = ApplicationState.pixelsPerMetersRatio;
     const length = group.lengthInPixels;
     const width = group.widthInPixels;
     const centerCoordinates = panel.boundingBox.middlePoint;
@@ -98,7 +97,6 @@ function renderPanel(panel) {
     const width = group.widthInPixels;
     const alignment = group.alignment;
     const centerCoordinates = panel.boundingBox.middlePoint;
-    const type = group.type;
 
     push();
 

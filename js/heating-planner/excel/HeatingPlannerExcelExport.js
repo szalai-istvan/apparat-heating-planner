@@ -100,11 +100,9 @@ function createColumnsForRooms(context) {
         summarySheet.eachRow((row, rowIndex) => {
             const sourceCell = row.getCell(8);
             const targetCell = row.getCell(9);
-            console.log(sourceCell);
-            console.log(targetCell);
             targetCell.value = sourceCell.value;
             targetCell.style = { ...sourceCell.style };
-            // targetCell.formula = sourceCell.formula;
+            // targetCell.formula = sourceCell.formula; todo
         });
     }
 }

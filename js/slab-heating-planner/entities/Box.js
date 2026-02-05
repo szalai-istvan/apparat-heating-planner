@@ -14,10 +14,5 @@ export class Box {
     /** @type {string} */
     groupId;
 
-    constructor(centerPosition) {
-        // this.id = createUniqueId();
-
-        // this.centerPosition = centerPosition;
-        // elementStore.register(this); todo ez create
-    }
+    constructor() {}
 }

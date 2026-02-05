@@ -38,7 +38,7 @@ function handleError(error) {
             MessageDialog.displayMessage(translation);
         }
     } else {
-        // console.log(error);
+        console.log(error);
     }
 }
 

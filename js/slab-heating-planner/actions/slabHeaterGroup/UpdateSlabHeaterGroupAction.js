@@ -1,5 +1,6 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { Constants } from "../../../common/appdata/Constants.js";
+import { Room } from "../../../common/entities/Room.js";
 import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
 import { Errors } from "../../../common/errors/Errors.js";
 import { GridCalculations } from "../../../common/geometry/Grid/GridCalculations.js";
@@ -7,6 +8,7 @@ import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
 import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
+import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { UiCalculations } from "../../../common/ui/UICalculations.js";
 import { Validators } from "../../../common/validators/Validators.js";
@@ -16,6 +18,17 @@ import { SlabHeater } from "../../entities/SlabHeater.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
 import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
+
+/**
+ * Beállítja a szög és középpont értékeket.
+ * 
+ * @param {SlabHeaterGroup} slabHeaterGroup 
+ */
+function updateAngleRadAndCenterPositions(slabHeaterGroup) {
+    const room = SlabHeaterGroupCalculations.getContainingRoom(slabHeaterGroup);
+    slabHeaterGroup.angleRad = room ? room.angleRad : 0.00;
+    updatePositionDataIncludingMembers(slabHeaterGroup);
+}
 
 /**
  * Átállítja a födémfűtő csoport méreteit.
@@ -196,10 +209,104 @@ function assignSlabHeaterToGroup(slabHeater, group) {
 }
 
 /**
+ * Hozzáadja a szobához a födémfűtő
+ * 
+ * @param {SlabHeaterGroup} slabHeaterGroup 
+ * @param {Room} room 
+ * @returns {undefined}
+ */
+function assignSlabHeaterGroupToRoom(slabHeaterGroup, room) {
+    slabHeaterGroup.roomId = room.id;
+}
+
+/**
+ * Elforgatja a kiválasztott födémfűtő csoportot a megadott irányba
+ * 
+ * @param {Number} direction a forgatás iránya (>0 jobbra, <0 balra)
+* @returns {undefined}
+ */
+function rotateSelectedSlabHeaterGroup(direction) {
+    Validators.checkClass(direction, Constants.classNames.number);
+
+    const group = SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup;
+    if (!group) {
+        return;
+    }
+
+    group.alignment = (group.alignment + Math.sign(direction)) % 4;
+    while (group.alignment < 0) {
+        group.alignment += 4;
+    }
+
+    UpdateSlabHeaterGroupAction.updateAngleRadAndCenterPositions(group);
+    UpdateSlabHeaterGroupAction.updatePositionDataIncludingMembers(group);
+
+    const newPositionIsValid = group.isSelectedForDrag || SlabHeaterGroupCalculations.getContainingRoom(group);
+    if (!newPositionIsValid) {
+        rotateSelectedSlabHeaterGroup(-1 * direction);
+        Errors.throwError(ErrorCodes.SLAB_HEATER_GROUP_OUTSIDE_ROOM);
+    }
+}
+
+/**
+ * Hozzáad egy födémfűtőt a kiválasztott csoporthoz.
+ * 
+ * @returns {undefined}
+ */
+function addSlabHeaterToSelectedGroup() {
+    const slabHeaterGroup = SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup;
+    if (!slabHeaterGroup) {
+        return;
+    }
+
+    const slabHeater = new SlabHeater();
+    ElementStore.save(slabHeater);
+    assignSlabHeaterToGroup(slabHeater, slabHeaterGroup);
+    updatePositionDataIncludingMembers(slabHeaterGroup);
+
+    if (!slabHeaterGroup.isSelectedForDrag && !SlabHeaterGroupCalculations.getContainingRoom(slabHeaterGroup)) {
+        removeSlabHeaterFromSelectedGroup();
+        Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
+    }
+}
+
+/**
+ * Eltávolít egy födémfűtőt a kiválasztott csoportból.
+ * 
+ * @returns {undefined}
+ */
+function removeLastSlabHeaterFromSelectedGroup() {
+    const slabHeaterGroup = SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup;
+    if (!slabHeaterGroup) {
+        return;
+    }
+
+    if (slabHeaterGroup.slabHeaterIds.length < 2) {
+        return;
+    }
+
+    if (slabHeaterGroup.clickedMemberIndex === (slabHeaterGroup.slabHeaterIds.length - 1)) {
+        slabHeaterGroup.clickedMemberIndex--;
+    }
+
+    const lastId = slabHeaterGroup.slabHeaterIds[slabHeaterGroup.slabHeaterIds.length - 1];
+    slabHeaterGroup.slabHeaterIds = slabHeaterGroup.slabHeaterIds.filter(x => x !== lastId);
+    SlabHeaterService.removeById(lastId);
+
+    updatePositionDataIncludingMembers(slabHeaterGroup);
+}
+
+/**
  * Födémfűtők módosításával kapcsolatos műveletek
  */
 export const UpdateSlabHeaterGroupAction = {
     setSlabHeaterGroupType,
     assignSlabHeaterToGroup,
+    assignSlabHeaterGroupToRoom,
+    addSlabHeaterToSelectedGroup,
+    rotateSelectedSlabHeaterGroup,
+    updateAngleRadAndCenterPositions,
+    updatePositionDataIncludingMembers,
+    removeLastSlabHeaterFromSelectedGroup,
     updateSelectedSlabHeaterGroupDimensions
 };

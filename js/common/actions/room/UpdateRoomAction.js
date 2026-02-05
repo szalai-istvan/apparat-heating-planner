@@ -47,8 +47,9 @@ function finalizeRoom(room) {
 
     
     if (RoomCalculations.roomPositionIsInvalid(room)) {
-        Errors.throwError(ErrorCodes.ROOM_OVERLAP);
         ElementStore.remove(room);
+        ApplicationState.roomCreationTemp = {};
+        Errors.throwError(ErrorCodes.ROOM_OVERLAP);
         return;
     }
     

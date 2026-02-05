@@ -11,7 +11,8 @@ export const ErrorCodes = {
     PANEL_GROUP_OUTSIDE_ROOM: 'PANEL_GROUP_OUTSIDE_ROOM',
     INVALID_PANEL_ALIGNMENT: 'INVALID_PANEL_ALIGNMENT',
     INVALID_DISTANCE: 'INVALID_DISTANCE',
-    SLAB_HEATER_GROUP_OUTSIDE_ROOM: 'SLAB_HEATER_GROUP_OUTSIDE_ROOM'
+    SLAB_HEATER_GROUP_OUTSIDE_ROOM: 'SLAB_HEATER_GROUP_OUTSIDE_ROOM',
+    BOX_GROUP_OUTSIDE_ROOM: 'BOX_GROUP_OUTSIDE_ROOM'
 };
 
 /**
@@ -27,5 +28,6 @@ export const ErrorTranslations = {
     PANEL_GROUP_OUTSIDE_ROOM: 'A panelcsoport egy része szobán kívülre kerülne!',
     SLAB_HEATER_GROUP_OUTSIDE_ROOM: 'A födémfűtő csoport egy része szobán kívülre kerülne!',
     INVALID_PANEL_ALIGNMENT: 'Egymásra merőleges panelek nem lehetnek egy szobában!',
-    INVALID_DISTANCE: 'Érvénytelen távolság!'
+    INVALID_DISTANCE: 'Érvénytelen távolság!',
+    BOX_GROUP_OUTSIDE_ROOM: 'A födémáttörés csoportnak szobán belül kell lennie!'
 };
