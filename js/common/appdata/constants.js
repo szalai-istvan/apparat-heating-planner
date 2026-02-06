@@ -56,7 +56,8 @@ export const Constants = {
 
     debug: {
         saveToLocalStorageEnabled: true,
-        projectStateLoggingEnabled: true,
+        projectStateLoggingEnabled: false,
+        // @ts-ignore
         localStorageDataKey: window.location.href.split('/').filter(sp => sp.includes('html'))[0].replaceAll('.html', '') + '-project-save'
     },
 
@@ -135,9 +136,11 @@ export const Constants = {
         infiniteLineLength: 20000000,
         deltaXVerticalityThreshold: 0.00001,
         defaultRectangleColor: 'blue',
-        defaultRectangleStrokeWeight: 1
+        defaultRectangleStrokeWeight: 1,
+        floatingPointMaxDeviation: 0.00000001
 
     }
 };
 
+// @ts-ignore
 window.Constants = Constants;

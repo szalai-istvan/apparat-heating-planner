@@ -13,27 +13,29 @@ export class PipeDriver {
     isSelectedForDrag;
     /** @type {number} */
     selectedPointIndex;
+    /** @type {boolean} */
+    isFinalized = false;
     
     /** @type {Point[]} */
     points = [];
-    
-    /** @type {boolean} */
-    isFullyConfigured = false;
+    /** @type {Line[]} */
+    segments = [];
+
+    /** @type {Point[]} */
+    proposedPoints = [];
+    /** @type {Line[]} */
+    proposedSegments = [];
+
     /** @type {string} */
     slabHeaterId;
     /** @type {string} */
     boxId;
     /** @type {Line[]} */
-    pipes = [];
+    bluePipe = [];
+    /** @type {Line[]} */
+    redPipe = [];
 
-    constructor(slabHeaterGroup) {
-        // this.id = createUniqueId();
+    constructor() {
 
-        // const firstPoint = calculatePipeDriverFirstPoint(slabHeaterGroup);
-        // this.slabHeaterGroupId = slabHeaterGroup.id;
-
-        // firstPoint && this.points.push(firstPoint);
-
-        // elementStore.register(this); todo
     }
 }

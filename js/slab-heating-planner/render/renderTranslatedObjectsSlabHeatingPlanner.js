@@ -2,6 +2,7 @@ import { Constants } from "../../common/appdata/Constants.js";
 import { RenderRectangle } from "../../common/geometry/rectangle/RenderRectangle.js";
 import { RoomService } from "../../common/service/RoomService.js";
 import { RenderBoxGroup } from "../actions/boxgroup/RenderBoxGroup.js";
+import { RenderPipeDriver } from "../actions/pipeDriver/RenderPipeDriver.js";
 import { RenderSlabHeaterGroup } from "../actions/slabHeaterGroup/RenderSlabHeaterGroup.js";
 import { BoxGroupService } from "../service/BoxGroupService.js";
 import { BoxService } from "../service/BoxService.js";
@@ -19,6 +20,7 @@ function renderTranslatedObjectsSlabHeatingPlanner() {
     const slabHeaterGroups = SlabHeaterGroupService.findAll();
     const pipeDrivers = PipeDriverService.findAll();
 
+    pipeDrivers.forEach(pd => RenderPipeDriver.renderPipeDriver(pd));
     boxGroups.forEach(bg => RenderBoxGroup.renderBoxGroup(bg));
     slabHeaterGroups.forEach(shg => RenderSlabHeaterGroup.renderSlabHeaterGroup(shg));
 }

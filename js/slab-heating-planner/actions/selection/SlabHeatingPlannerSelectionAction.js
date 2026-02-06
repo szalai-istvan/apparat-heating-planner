@@ -5,6 +5,7 @@ import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerCon
 import { DeleteBoxGroupAction } from "../boxgroup/DeleteBoxGroupAction.js";
 import { SelectBoxGroupAction } from "../boxgroup/SelectBoxGroupAction.js";
 import { UpdateBoxGroupAction } from "../boxgroup/UpdateBoxGroupAction.js";
+import { DeletePipeDriverAction } from "../pipeDriver/DeletePipeDriverAction.js";
 import { SelectPipeDriverAction } from "../pipeDriver/SelectPipeDriverAction.js";
 import { DeleteSlabHeaterGroupAction } from "../slabHeaterGroup/DeleteSlabHeaterGroupAction.js";
 import { SelectSlabHeaterGroupAction } from "../slabHeaterGroup/SelectSlabHeaterGroupAction.js";
@@ -27,11 +28,10 @@ function selectObjectSlabHeatingPlanner(obj) {
         if (SelectBoxGroupAction.selectBoxGroup(obj)) {
             ApplicationState.selectedObject = obj;
         }
-    else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
+    } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
         if (SelectPipeDriverAction.selectPipeDriver(obj)) {
             ApplicationState.selectedObject = obj;
         }
-    }
     } else {
         throw new Error(`Unexpected class of selected object: ${className}`);
     }
@@ -68,7 +68,7 @@ function removeSelectedObjectSlabHeatingPlanner(className) {
     } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
         DeleteBoxGroupAction.removeSelectedBoxGroup();
     } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
-        // resetSelectedPipeDriver(); todo
+        DeletePipeDriverAction.resetSelectedPipeDriver();
     }
 }
 

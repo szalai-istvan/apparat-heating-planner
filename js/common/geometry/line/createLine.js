@@ -1,8 +1,8 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
-import { CreatePoint } from "../Point/CreatePoint.js";
-import { Point } from "../Point/Point.js";
-import { PointCalculations } from "../Point/PointCalculations.js";
+import { Constants } from "../../appdata/constants.js";
+import { CreatePoint } from "../point/createPoint.js";
+import { Point } from "../point/Point.js";
+import { PointCalculations } from "../point/PointCalculations.js";
 import { Line } from "./Line.js";
 
 /**
@@ -43,10 +43,65 @@ function createLineByPointAndAngle(p0, angleRad) {
 }
 
 /**
+ * Létrehoz és visszaad egy a paraméterül kapott vonallal párhuzamos vonalat, a megadott offsettel.
+ * 
+ * @param {Line} line 
+ * @param {number} offset 
+ * @returns {Line}
+ */
+function createOffsetParallelLine(line, offset) {
+    if (line.n === 0) { // line is vertical
+        const p0 = CreatePoint.createPoint(line.p0.x + offset, line.p0.y);
+        return createLineByPointAndAngle(p0, line.angleRad);
+    }
+
+    const p0 = CreatePoint.createPoint(
+        line.p0.x, 
+        line.p0.y + offset / Math.abs(Math.cos(line.angleRad))
+    );
+
+    return createLineByPointAndAngle(p0, line.angleRad);
+}
+
+/**
+ * Visszaad egy párhuzamos vonalat, amely átmegy a paraméterül kapott ponton
+ * 
+ * @param {Line} line 
+ * @param {Point} point
+ * @returns {Line}
+ */
+function createLineParallelTo(line, point) {
+    if (line.n === 0) { // line is vertical
+        return createLineByPointAndAngle(point, line.angleRad);
+    }
+
+    return createLineByPointAndAngle(point, line.angleRad);
+}
+
+/**
+ * Visszaad egy merőleges vonalat, amely átmegy a paraméterül kapott ponton
+ * 
+ * @param {Line} line 
+ * @param {Point} p 
+ * @returns {Line}
+ */
+function createPerpendicularLine(line, p) {
+    if (line.n === 0) {
+        return createLineByPointAndAngle(p, 0);
+    }
+
+    // @ts-ignore
+    return createLineByPointAndAngle(p, line.angleRad + HALF_PI);
+}
+
+/**
  * Vonal létrehozó függvények gyüjteménye.
  */
 export const CreateLine = {
     createLine,
-    createTestLine, 
+    createTestLine,
+    createLineParallelTo,
+    createPerpendicularLine,
+    createOffsetParallelLine,
     createLineByPointAndAngle
 };

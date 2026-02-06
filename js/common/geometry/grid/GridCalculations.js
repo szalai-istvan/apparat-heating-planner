@@ -1,7 +1,7 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
-import { Point } from "../Point/Point.js";
+import { Point } from "../point/Point.js";
 
 /**
  * Visszaadja a paraméterül kapott ponthoz legközelebbi globális grid pontot

@@ -13,6 +13,8 @@ export class Box {
    
     /** @type {string} */
     groupId;
+    /** @type {string} */
+    pipeDriverId;
 
     constructor() {}
 }

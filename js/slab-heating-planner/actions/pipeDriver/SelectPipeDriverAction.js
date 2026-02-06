@@ -8,6 +8,7 @@ import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPla
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { PipeDriverService } from "../../service/PipeDriverService.js";
+import { PipeDriverCalculations } from "./PipeDriverCalculations.js";
 
 /** @type {PipeDriver} */
 let cachedSelectablePipeDriver = null;
@@ -26,9 +27,11 @@ function selectPipeDriver(pipeDriver = undefined) {
         return;
     }
 
-    if (pipeDriver === SlabHeatingPlannerApplicationState.selectedPipeDriver) {
+    const selectForDrag = pipeDriver === SlabHeatingPlannerApplicationState.selectedPipeDriver || pipeDriver.points.length === 1;
+    if (selectForDrag) {
         pipeDriver.isSelected = true;
         pipeDriver.isSelectedForDrag = true;
+        SlabHeatingPlannerApplicationState.selectedPipeDriver = pipeDriver;
         setSelectedPipeDriverPointIndex(pipeDriver);
         return pipeDriver;
     }
@@ -69,7 +72,6 @@ function checkForSelectablePipeDriver() {
     return undefined;
 }
 
-
 /**
  * 
  * @param {PipeDriver} pipeDriver 
@@ -100,9 +102,15 @@ function deselectPipeDriver() {
         return true;
     }
 
+    if (pipeDriver.proposedPoints.length > 0) {
+        return false;
+    }
+
     pipeDriver.isSelected = false;
     pipeDriver.isSelectedForDrag = false;
     pipeDriver.selectedPointIndex = null;
+    pipeDriver.proposedPoints = [];
+    pipeDriver.proposedSegments = [];
     SlabHeatingPlannerApplicationState.selectedPipeDriver = null;
 
     return true;
@@ -147,5 +155,6 @@ function mouseCursorIsInsideNode(point) {
 export const SelectPipeDriverAction = {
     selectPipeDriver,
     deselectPipeDriver,
+    searchForSelectablePipeDriver,
     clearPipeDriverSelectionCache
 };

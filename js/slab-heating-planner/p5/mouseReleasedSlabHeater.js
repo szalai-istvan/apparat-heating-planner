@@ -1,8 +1,10 @@
+import { UpdatePipeDriverAction } from "../actions/pipeDriver/UpdatePipeDriverAction.js";
+
 /**
  * Jobb egérgomb elengedésekor futó függvény.
  */
 function slabHeatingPlannerRightMouseButtonReleased() {
-    // addPointToSelectedPipeDriver(); todo
+    UpdatePipeDriverAction.addProposedElementsToSelectedPipeDriver();
 }
 
 /**

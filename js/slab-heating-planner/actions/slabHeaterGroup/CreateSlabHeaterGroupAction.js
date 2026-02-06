@@ -2,8 +2,10 @@ import { SelectionAction } from "../../../common/actions/selection/SelectionActi
 import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
+import { PipeDriver } from "../../entities/PipeDriver.js";
 import { SlabHeater } from "../../entities/SlabHeater.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
+import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { UpdateSlabHeaterGroupAction } from "./UpdateSlabHeaterGroupAction.js";
 
 /**
@@ -30,6 +32,11 @@ function createSlabHeaterGroup(width = undefined, length = undefined) {
     group.clickedMemberIndex = 0;
     group.isSelected = true;
     group.isSelectedForDrag = true;
+    
+    const pipeDriver = new PipeDriver();
+    ElementStore.save(pipeDriver);
+    UpdateSlabHeaterGroupAction.assignPipeDriverToSlabHeater(pipeDriver, slabHeater);
+
     UpdateSlabHeaterGroupAction.setSlabHeaterGroupType(group, width, length);
 }
 

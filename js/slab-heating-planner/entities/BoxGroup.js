@@ -24,11 +24,8 @@ export class BoxGroup {
     /** @type {Point} */
     pipeDriverEndNodeCoordinates = null;
     
-    
     /** @type {string[]} */
     boxIds = [];
-    /** @type {string} */
-    pipeDriverId = null;
 
     constructor() {
         this.alignment = 1;

@@ -14,9 +14,12 @@ import { UiCalculations } from "../../../common/ui/UICalculations.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
+import { PipeDriver } from "../../entities/PipeDriver.js";
 import { SlabHeater } from "../../entities/SlabHeater.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
+import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
+import { UpdatePipeDriverAction } from "../pipeDriver/UpdatePipeDriverAction.js";
 import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
 
 /**
@@ -95,6 +98,13 @@ function updatePositionDataIncludingMembers(slabHeaterGroup) {
     const slabHeaterList = SlabHeaterService.findByIdList(slabHeaterGroup.slabHeaterIds);
     slabHeaterList.forEach(sh => updateSlabHeaterBoundingBoxAndSelectionBox(slabHeaterGroup, sh));
     updatePositionDataOfSlabHeaterGroup(slabHeaterGroup);
+
+    
+    const slabHeaters = SlabHeaterService.findByIdList(slabHeaterGroup.slabHeaterIds);
+    for (let slabHeater of slabHeaters) {
+        const pipeDriver = PipeDriverService.findById(slabHeater.pipeDriverId);
+        UpdatePipeDriverAction.updatePipeDriverFirstPointPosition(pipeDriver);
+    }
 }
 
 /**
@@ -138,6 +148,7 @@ function calculateMiddlePointOfSlabHeater(slabHeaterGroup, slabHeater) {
     const basePoint = slabHeaterGroup.isSelectedForDrag ? MouseCursor.getMousePositionAbsolute() : clickedSlabHeater.boundingBox.middlePoint;
     const width = slabHeaterGroup.widthInPixels;
 
+    // @ts-ignore
     const angleRad = slabHeaterGroup.angleRad + (Number(slabHeaterGroup.alignment % 2) + 1) * HALF_PI;
     const vector = PointCalculations.multiplyPoint(
         CreatePoint.createUnitVector(angleRad),
@@ -194,6 +205,7 @@ function updatePositionDataOfSlabHeaterGroup(slabHeaterGroup) {
         slabHeaterGroup.widthInPixels * slabHeaterGroup.slabHeaterIds.length,
         SlabHeaterGroupCalculations.getTotalAngleRad(slabHeaterGroup)
     );
+    slabHeaterGroup.middlePoint = slabHeaterGroup.boundingBox.middlePoint;
 }
 
 /**
@@ -217,6 +229,18 @@ function assignSlabHeaterToGroup(slabHeater, group) {
  */
 function assignSlabHeaterGroupToRoom(slabHeaterGroup, room) {
     slabHeaterGroup.roomId = room.id;
+}
+
+/**
+ * Hozzárendeli a csővezetőt a födémfűtőhöz.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @param {SlabHeater} slabHeater 
+ * @returns {undefined}
+ */
+function assignPipeDriverToSlabHeater(pipeDriver, slabHeater) {
+    pipeDriver.slabHeaterId = slabHeater.id;
+    slabHeater.pipeDriverId = pipeDriver.id;
 }
 
 /**
@@ -261,11 +285,15 @@ function addSlabHeaterToSelectedGroup() {
 
     const slabHeater = new SlabHeater();
     ElementStore.save(slabHeater);
+    const pipeDriver = new PipeDriver();
+    ElementStore.save(pipeDriver);
+    assignPipeDriverToSlabHeater(pipeDriver, slabHeater);
+
     assignSlabHeaterToGroup(slabHeater, slabHeaterGroup);
     updatePositionDataIncludingMembers(slabHeaterGroup);
 
     if (!slabHeaterGroup.isSelectedForDrag && !SlabHeaterGroupCalculations.getContainingRoom(slabHeaterGroup)) {
-        removeSlabHeaterFromSelectedGroup();
+        removeLastSlabHeaterFromSelectedGroup();
         Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
     }
 }
@@ -290,8 +318,11 @@ function removeLastSlabHeaterFromSelectedGroup() {
     }
 
     const lastId = slabHeaterGroup.slabHeaterIds[slabHeaterGroup.slabHeaterIds.length - 1];
+    const slabHeater = SlabHeaterService.findById(lastId);
+    const pipeDriverId = slabHeater.pipeDriverId;
     slabHeaterGroup.slabHeaterIds = slabHeaterGroup.slabHeaterIds.filter(x => x !== lastId);
     SlabHeaterService.removeById(lastId);
+    PipeDriverService.removeById(pipeDriverId);
 
     updatePositionDataIncludingMembers(slabHeaterGroup);
 }
@@ -304,6 +335,7 @@ export const UpdateSlabHeaterGroupAction = {
     assignSlabHeaterToGroup,
     assignSlabHeaterGroupToRoom,
     addSlabHeaterToSelectedGroup,
+    assignPipeDriverToSlabHeater,
     rotateSelectedSlabHeaterGroup,
     updateAngleRadAndCenterPositions,
     updatePositionDataIncludingMembers,

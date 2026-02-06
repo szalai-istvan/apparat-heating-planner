@@ -1,5 +1,6 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
+import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { SlabHeaterGroupService } from "../../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
 
@@ -14,6 +15,8 @@ function removeSelectedSlabHeaterGroup() {
         return;
     }
 
+    const slabHeaters = SlabHeaterService.findByIdList(slabHeaterGroup.slabHeaterIds);
+    slabHeaters.forEach(sh => PipeDriverService.removeById(sh.pipeDriverId));
     slabHeaterGroup.slabHeaterIds.forEach(pid => SlabHeaterService.removeById(pid));
     SlabHeaterGroupService.removeById(slabHeaterGroup.id);
     SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup = null;

@@ -24,6 +24,7 @@ function roundNumber(number, decimals) {
 function formatNumber(num) {
     if (!num) return num;
     if (typeof num !== Constants.classNames.number) return num;
+    // @ts-ignore
     return NUMBER_FORMAT_OBJECT.format(num).replaceAll(",", " ");
 }
 
@@ -38,10 +39,21 @@ function randomChoice(array) {
 }
 
 /**
+ * Megadja hogy a két szám megegyezik-e floating point precízión belül.
+ * 
+ * @param {number} a 
+ * @param {number} b 
+ */
+function floatingPointEquals(a, b) {
+    return Math.abs(a - b) < Constants.geometry.floatingPointMaxDeviation;
+}
+
+/**
  * Matematikai segítő függvények
  */
 export const MathTools = {
     roundNumber,
     formatNumber,
-    randomChoice
+    randomChoice,
+    floatingPointEquals
 };

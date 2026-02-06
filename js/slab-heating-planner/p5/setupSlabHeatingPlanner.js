@@ -7,6 +7,7 @@ import { Save } from "../../common/io/save.js";
 import { Draw } from "../../common/p5/draw.js";
 import { TranslatedObjectRenderer } from "../../common/render/TranslatedObjectRenderer.js";
 import { SelectBoxGroupAction } from "../actions/boxgroup/SelectBoxGroupAction.js";
+import { SelectPipeDriverAction } from "../actions/pipeDriver/SelectPipeDriverAction.js";
 import { SlabHeatingPlannerDeleteRoomAction } from "../actions/room/SlabHeatingPlannerDeleteRoomAction.js";
 import { SlabHeatingPlannerScalingAction } from "../actions/scale/SlabHeatingPlannerScalingActions.js";
 import { SlabHeatingPlannerSelectionAction } from "../actions/selection/SlabHeatingPlannerSelectionAction.js";
@@ -39,7 +40,7 @@ function setupSlabHeatingPlanner() {
         SelectionAction.searchForSelectableRoom,
         SelectSlabHeaterGroupAction.searchForSelectableSlabHeaterGroup,
         SelectBoxGroupAction.searchForSelectableBoxGroup,
-        // searchForSelectablePipeDriver, todo
+        SelectPipeDriverAction.searchForSelectablePipeDriver,
         SelectionAction.searchForSelectableBlueprint
     ]);
     SelectionAction.setProjectSpecificSelectObjectFunction(SlabHeatingPlannerSelectionAction.selectObjectSlabHeatingPlanner);

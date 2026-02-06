@@ -1,3 +1,15 @@
+csövek rádiuszosak
+rádiusz 15 centi
+csőköz 4 centi
+A panelen lévő labelen lévő csőhossz csak az egyik, a hosszabb cső
+Csőhossz az *1.1
+
+szobanév mozgatást újra meg kell csinálni.
+ferde szoba bugos!
+- Úg ytűnik akkor csúszik meg ha a kurzor nem pontosan a szoba sarkában van!
+szoba méret jelölő táv a szoba vonalától ne pixelben legyen hanem méterben!
+slabheatergroup ui alá becsúszás: kisebb padding kellene!
+
 Excel szerkesztés
 - Minden második sor random színre befesteni
 - Váltakozó színű téglalap a panelkák köré, random szín
@@ -6,26 +18,8 @@ Excel szerkesztés
 - Sorszám bekarikázva
 - F és G oszlop a két cső hossza, mindkét oszlopba a hosszabb kerül
 
-csövek rádiuszosak
-rádiusz 15 centi
-csőköz 4 centi
-Csőnyomvonal rajzolás panelonként, nem csoportonként
-A panelen lévő labelen lévő csőhossz csak az egyik, a hosszabb cső
-Csőhossz az *1.1
-Cső is piros-kék
-
-Doboz szélesség 8 centi
-szobanév mozgatást újra meg kell csinálni.
-paraméteres hibaüzenetek
-ferde szoba bugos!
-- Úg ytűnik akkor csúszik meg ha a kurzor nem pontosan a szoba sarkában van!
-szoba méret jelölő táv a szoba vonalától ne pixelben legyen hanem méterben!
-slabheatergroup ui alá becsúszás: kisebb padding kellene!
-
-
 long-term:
 - Pont törlése (pipeDriver) ??
-- boxgroup vagy slabheatergroup lehelyezésekor nézze meg rossz irányba indul-e a pipedriver és forgassa el ha szükséges
 - Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod

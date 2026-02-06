@@ -31,13 +31,13 @@ function selectBoxGroup(boxGroup = undefined) {
     if (boxGroup === SlabHeatingPlannerApplicationState.selectedBoxGroup) {
         boxGroup.isSelected = true;
         boxGroup.isSelectedForDrag = true;
-        setSelectedBoxGroupIndex(boxGroup);
         return boxGroup;
     }
-
+    
     if (SelectionAction.deselectObject()) {
         boxGroup.isSelected = true;
         SlabHeatingPlannerApplicationState.selectedBoxGroup = boxGroup;
+        setSelectedBoxGroupIndex(boxGroup);
         return boxGroup;
     }
 

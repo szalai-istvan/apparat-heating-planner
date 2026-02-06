@@ -14,6 +14,7 @@ import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPla
 import { Box } from "../../entities/Box.js";
 import { BoxGroup } from "../../entities/BoxGroup.js";
 import { BoxService } from "../../service/BoxService.js";
+import { PipeDriverCalculations } from "../pipeDriver/PipeDriverCalculations.js";
 import { BoxGroupCalculations } from "./BoxGroupCalculations.js";
 
 /**
@@ -147,8 +148,8 @@ function calculateMiddlePointOfBox(boxGroup, box) {
     const mousePosition = MouseCursor.getMousePosition();
     const diffX = UiCalculations.calculateCorrector(minimumX, mousePosition.x);
     const diffY = UiCalculations.calculateCorrector(minimumY, mousePosition.y);
-
-    return GridCalculations.getClosestGlobalGridPoint(CreatePoint.createPoint(
+    
+    return PipeDriverCalculations.mapPointToPipeDriverGrid(CreatePoint.createPoint(
         point.x + diffX,
         point.y + diffY
     ));

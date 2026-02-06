@@ -35,8 +35,6 @@ export class SlabHeaterGroup {
     /** @type {string[]} */
     slabHeaterIds = [];
 
-    /** @type {string} */
-    pipeDriverId;
     /** @type {number} */
     pipeLength = null;
 
@@ -47,6 +45,5 @@ export class SlabHeaterGroup {
 
     constructor() {
         this.alignment = 1;
-       // this.pipeDriverId = new PipeDriver(this).id; todo
     }
 }

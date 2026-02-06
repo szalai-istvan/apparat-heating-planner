@@ -2,12 +2,17 @@ import { SelectionAPI } from "../api/SelectionAPI.js";
 import { Constants } from "../appdata/Constants.js";
 import { AbsoluteObjectRenderer } from "../render/AbsoluteObjectRenderer.js";
 import { TranslatedObjectRenderer } from "../render/TranslatedObjectRenderer.js";
+import { ScreenActions } from "../screen/ScreenActions.js";
 import { MouseCursor } from "../ui/MouseCursor.js";
 
 /** {boolean} flag, hogy a renderelés be van-e kapcsolva. */
 let renderingEnabled = false;
 
 window.draw = function() {
+    if (MouseCursor.mouseCursorIsInsideUi()) {
+        ScreenActions.stopDragging();
+    }
+
     if (!renderingEnabled) {
         return;
     }

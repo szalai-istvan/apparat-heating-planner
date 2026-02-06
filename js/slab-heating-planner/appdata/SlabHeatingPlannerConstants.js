@@ -11,22 +11,19 @@ export const SlabHeatingPlannerConstants = {
     },
 
     pipeDriver: {
-        PIPE_DRIVER_DEFAULT_FILL_COLOR: 'white',
-        PIPE_DRIVER_SELECTABLE_FILL_COLOR: 'lightgray',
-        PIPE_DRIVER_SELECTED_COLOR: 'gray',
-        PIPE_DRIVER_OUTLINE_COLOR: 'black',
-        pipeDriverDiameterInMeters: 0.1,
+        pipeDriverDiameterInMeters: 0.078,
         pipeDriverThicknessInMeters: 0.02,
-        DIRECTION_X: 'x',
-        DIRECTION_Y: 'y',
         pipeLengthFirstSegmentMinimumLengthInMeters: 0.2,
         pipeDriverDistanceBetweenPipesInMeters: 0.05,
         PIPE_DRIVER_MAX_LENGTH_METERS: 20,
         pipeDriverPipeThicknessInMeters: 0.01,
-        PIPE_DRIVER_PIPE_COLOR: 'black',
         pipeDriverAdditionalOffsetShgInMeters: 0.15,
         pipeDriverAdditionalOffsetBgInMeters: 0.0,
         tubeDistanceInMeters: 0.1,
+        gridResolutionInMeters: 0.04,
+        minimumSegmentLengthInMeters: 0.5,
+        pipeDistanceFromMiddleLineInMeters: 0.02,
+        pipeLineWeightInMeters: 0.01
     },
 
     slabHeater: {
@@ -47,7 +44,7 @@ export const SlabHeatingPlannerConstants = {
     },
 
     box: {
-        boxWidthInMeters: 0.1,
+        boxWidthInMeters: 0.08,
         boxLengthInMeters: 0.35,
         BOX_CORRECTION_OFFSET: 10,
         boxLineWeightInMeters: 0.015

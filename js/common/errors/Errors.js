@@ -8,6 +8,7 @@ import { ErrorTranslations } from "./ErrorCodes.js";
  */
 export class AppError {
     messageCode;
+    stackTrace;
 
     constructor() { }
 }
@@ -19,30 +20,38 @@ export class AppError {
  * @returns {undefined}
  */
 function throwError(messageCode) {
+    const stackTrace = new Error().stack;
     const error = new AppError();
     error.messageCode = messageCode;
+    error.stackTrace = stackTrace;
     throw error;
 }
 
 /**
+ * Egységesített hibakezelő függvény
  * 
  * @param {AppError} error 
  * @returns {undefined}
  */
 function handleError(error) {
+    console.error(error);
     const className = ClassUtil.getClassName(error);
     if (className === Constants.classNames.appError) {
         const messageCode = error.messageCode;
+        const stackTrace = error.stackTrace;
         const translation = ErrorTranslations[messageCode];
         if (translation) {
             MessageDialog.displayMessage(translation);
+            console.error(stackTrace);
+        } else {
+            MessageDialog.displayMessage(messageCode);
+            console.error(stackTrace);
         }
-    } else {
-        console.log(error);
     }
 }
 
 window.onerror = function (event, source, lineno, colno, error) {
+    // @ts-ignore
     handleError(error);
 };
 

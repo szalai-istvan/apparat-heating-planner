@@ -1,7 +1,7 @@
-import { Constants } from "../../appdata/Constants.js";
-import { CreatePoint } from "../Point/CreatePoint.js";
-import { Point } from "../Point/Point.js";
-import { PointCalculations } from "../Point/PointCalculations.js";
+import { Constants } from "../../appdata/constants.js";
+import { CreatePoint } from "../point/createPoint.js";
+import { Point } from "../point/Point.js";
+import { PointCalculations } from "../point/PointCalculations.js";
 
 /**
  * Egy vonalat reprezentáló osztály.
@@ -41,6 +41,7 @@ export class Line {
             this.n = 0;
             this.a = 1;
             this.b = -1 * p0.x;
+            // @ts-ignore
             this.angleRad = HALF_PI;
         }
 

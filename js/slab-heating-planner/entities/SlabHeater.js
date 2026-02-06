@@ -15,10 +15,12 @@ export class SlabHeater {
     color;
     /** @type {string} */
     groupId;
+    /** @type {string} */
+    pipeDriverId;
+    /** @type {number} */
+    pipeLength;
 
     constructor() {
-        // this.id = createUniqueId();
-        // this.centerPosition = getCorrectedMousePositionAbsolute();
-        // elementStore.register(this); todo create ...
+
     }
 }

@@ -23,7 +23,7 @@ export const SlabHeatingPlannerApplicationState = {
     /** @type {Number} */
     pipeDriverNodeDiameterInPixels: null,
     /** @type {Number} */
-    pipeDriverThicknessInPixels: null,
+    pipeDriverNodeThicknessInPixels: null,
     /** @type {Number} */
     pipeLengthFirstSegmentMinimumLengthInPixels: null,
     /** @type {Number} */
@@ -51,7 +51,16 @@ export const SlabHeatingPlannerApplicationState = {
     /** @type {OptionsBar} */
     widthMenu: null,
     /** @type {OptionsBar} */
-    lengthMenu: null
+    lengthMenu: null,
+    /** @type {number} */
+    pipeDriverGridResolutionInPixels: null,
+    /** @type {number} */
+    pipeDriverSegmentMinimumLengthInPixels: null,
+    /** @type {number} */
+    pipeDistanceFromMiddleLineInPixels: null,
+    /** @type {number} */
+    pipeLineWeightInPixels: null
 };
 
+// @ts-ignore
 window.slabHeatingPlannerApplicationState = SlabHeatingPlannerApplicationState;
