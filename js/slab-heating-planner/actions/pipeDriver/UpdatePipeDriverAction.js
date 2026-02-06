@@ -156,7 +156,7 @@ function finalizePipeDriver(pipeDriver, box) {
     PipeDriverPipeCalculations.calculatePipesForPipeDriver(pipeDriver);
 
     const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
-    // todo csőhossz setting
+    slabHeater.pipeLength = PipeDriverCalculations.calculateLength(pipeDriver);
 }
 
 /**

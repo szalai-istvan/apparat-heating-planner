@@ -1,3 +1,4 @@
+import { LineCalculations } from "../line/LineCalculations.js";
 import { CreatePoint } from "../Point/CreatePoint.js";
 import { Point } from "../Point/Point.js";
 import { PointCalculations } from "../Point/PointCalculations.js";
@@ -28,8 +29,24 @@ function createRectangleByMiddlePoint(middlePoint, width, height, angleRad) {
 }
 
 /**
+ * Lemásolja a paraméterül kapott téglalapot eltérő középponttal
+ * 
+ * @param {Rectangle} rectangle,
+ * @param {Point} middlePoint,
+ * @returns {Rectangle}
+ */
+function copyRectangleAtMiddlePoint(rectangle, middlePoint) {
+    const width = rectangle.lines[1].length;
+    const height = rectangle.lines[0].length;
+    const angleRad = rectangle.lines[1].angleRad;
+
+    return createRectangleByMiddlePoint(middlePoint, width, height, angleRad);
+}
+
+/**
  * Téglalap létrehozásával kapcsolatos műveletek gyüjteménye.
  */
 export const CreateRectangle = {
-    createRectangleByMiddlePoint
+    createRectangleByMiddlePoint,
+    copyRectangleAtMiddlePoint
 };

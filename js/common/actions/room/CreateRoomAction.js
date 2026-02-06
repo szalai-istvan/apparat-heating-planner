@@ -1,11 +1,12 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { Room } from "../../entities/Room.js";
 import { ErrorCodes } from "../../errors/ErrorCodes.js";
 import { Errors } from "../../errors/Errors.js";
 import { GridActions } from "../../geometry/Grid/GridActions.js";
 import { GridCalculations } from "../../geometry/Grid/GridCalculations.js";
-import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
+import { CreatePoint } from "../../geometry/point/createPoint.js";
+import { PointCalculations } from "../../geometry/point/PointCalculations.js";
 import { RoomService } from "../../service/RoomService.js";
 import { ElementStore } from "../../store/ElementStore.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
@@ -65,7 +66,10 @@ function addPointToSelectedRoom() {
 
     if (!pointCanBeAddedToSelectedRoom()) {
         ElementStore.remove(selectedRoom);
+        // @ts-ignore
         ApplicationState.roomCreationTemp = {};
+        ApplicationState.selectedObject = null;
+        ApplicationState.selectedRoom = null;
         Errors.throwError(ErrorCodes.ROOM_OVERLAP);
         return;
     }
@@ -106,6 +110,7 @@ function addPointToRoom(room) {
     const firstPoint = ApplicationState.roomCreationTemp.first;
     const width = ApplicationState.roomCreationTemp.width;
     const height = ApplicationState.roomCreationTemp.height;
+    const angleRad = ApplicationState.roomCreationTemp.angleRad;
 
     if (!firstPoint) {
         ApplicationState.roomCreationTemp.first = mousePosition;
@@ -125,8 +130,10 @@ function addPointToRoom(room) {
         }
 
         if (!height) {
-            ApplicationState.roomCreationTemp.third = mousePosition;
             ApplicationState.roomCreationTemp.height = RoomCalculations.calculateHeightToMouseCursor(room);
+            let third = PointCalculations.rotatePoint(CreatePoint.createPoint(width, ApplicationState.roomCreationTemp.height), angleRad);
+            third = PointCalculations.addPoints([firstPoint, third]);
+            ApplicationState.roomCreationTemp.third = third;
             UpdateRoomAction.finalizeRoom(room);
         }
     } else {

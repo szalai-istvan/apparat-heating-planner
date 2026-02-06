@@ -95,11 +95,58 @@ function createPerpendicularLine(line, p) {
 }
 
 /**
+ * Levág a vonal elejéreől és visszaadja az eredményt.
+ * 
+ * @param {Line} line
+ * @param {number} clipSize
+ * @returns {Line}
+ */
+function clipLinesBeginning(line, clipSize) {
+    const lineUnitVector = CreatePoint.createUnitVector(line.angleRad);
+    const clipVector = PointCalculations.multiplyPoint(lineUnitVector, clipSize);
+
+    const p0 = PointCalculations.addPoints([line.p0, clipVector]);
+
+    return createLine(p0, line.p1);
+}
+
+/**
+ * Levág a vonal végéről és visszaadja az eredményt.
+ * 
+ * @param {Line} line
+ * @param {number} clipSize
+ * @returns {Line}
+ */
+function clipLinesEnd(line, clipSize) {
+    const lineUnitVector = PointCalculations.rotatePoint(CreatePoint.createUnitVector(line.angleRad), -1);
+    const clipVector = PointCalculations.multiplyPoint(lineUnitVector, clipSize);
+
+    const p1 = PointCalculations.addPoints([line.p1, clipVector]);
+
+    return createLine(line.p0, p1);
+}
+
+/**
+ * Levág egy vonal mindkét végéről és visszaadja az eredményt.
+ * 
+ * @param {Line} line 
+ * @param {number} clipSize 
+ * @returns {Line}
+ */
+function clipLine(line, clipSize) {
+    line = clipLinesBeginning(line, clipSize);
+    return clipLinesEnd(line, clipSize);
+}
+
+/**
  * Vonal létrehozó függvények gyüjteménye.
  */
 export const CreateLine = {
+    clipLine,
     createLine,
+    clipLinesEnd,
     createTestLine,
+    clipLinesBeginning,
     createLineParallelTo,
     createPerpendicularLine,
     createOffsetParallelLine,

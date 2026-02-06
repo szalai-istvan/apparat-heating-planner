@@ -30,8 +30,8 @@ function calculatePipesForPipeDriver(pipeDriver) {
 
     pipeDriver.bluePipe = calculatePipe(pipeDriver, bluePipeStartingPoint);
     pipeDriver.redPipe = calculatePipe(pipeDriver, redPipeStartingPoint);
-    applyRadiusToPipes(pipeDriver.bluePipe);
-    applyRadiusToPipes(pipeDriver.redPipe);
+    // applyRadiusToPipes(pipeDriver.bluePipe);
+    // applyRadiusToPipes(pipeDriver.redPipe);
 }
 
 /**
@@ -110,7 +110,6 @@ function calculatePipe(pipeDriver, startingPoint) {
         pipeLines.push(CreateLine.createLine(pipePoints[i - 1], pipePoints[i]))
         i++;
     }
-    console.log('\n\n');
     return pipeLines;
 }
 
@@ -201,6 +200,18 @@ function compareDistanceFromIntersection(p1, p2, intersection) {
  * @returns {undefined}
  */
 function applyRadiusToPipes(pipes) {
+    const clipSize = SlabHeatingPlannerApplicationState.pipeRadiusInPixels;
+    const lastIndex = pipes.length - 1;
+    const firstPipe = pipes[0];
+    const lastPipe = pipes[lastIndex];
+
+    pipes[0] = CreateLine.clipLinesEnd(firstPipe, clipSize);
+    pipes[lastIndex] = CreateLine.clipLinesBeginning(lastPipe, clipSize);
+    let i = 1;
+    while (i < lastIndex) {
+        pipes[i] = CreateLine.clipLine(pipes[i], clipSize);
+        i++;
+    }
 
 }
 

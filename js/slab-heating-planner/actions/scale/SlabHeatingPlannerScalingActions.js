@@ -32,6 +32,7 @@ function updateRenderSizeValuesSlabHeatingPlanner() {
     SlabHeatingPlannerApplicationState.pipeDriverSegmentMinimumLengthInPixels = ratio ? SlabHeatingPlannerConstants.pipeDriver.minimumSegmentLengthInMeters * ratio : undefined;
     SlabHeatingPlannerApplicationState.pipeDistanceFromMiddleLineInPixels = ratio ? SlabHeatingPlannerConstants.pipeDriver.pipeDistanceFromMiddleLineInMeters * ratio : undefined;
     SlabHeatingPlannerApplicationState.pipeLineWeightInPixels = ratio ? SlabHeatingPlannerConstants.pipeDriver.pipeLineWeightInMeters * ratio : undefined;
+    SlabHeatingPlannerApplicationState.pipeRadiusInPixels = ratio ? SlabHeatingPlannerConstants.pipeDriver.pipeRadiusInMeters * ratio : undefined;
     
     if (SlabHeatingPlannerApplicationState.slabHeaterTextSizeInPixels && SlabHeatingPlannerApplicationState.slabHeaterTypeRectPaddingInPixels) {
         // @ts-ignore

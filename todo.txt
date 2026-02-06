@@ -1,25 +1,19 @@
-csövek rádiuszosak
-rádiusz 15 centi
-csőköz 4 centi
-A panelen lévő labelen lévő csőhossz csak az egyik, a hosszabb cső
-Csőhossz az *1.1
-
-szobanév mozgatást újra meg kell csinálni.
-ferde szoba bugos!
-- Úg ytűnik akkor csúszik meg ha a kurzor nem pontosan a szoba sarkában van!
 szoba méret jelölő táv a szoba vonalától ne pixelben legyen hanem méterben!
-slabheatergroup ui alá becsúszás: kisebb padding kellene!
+slabheatergroup ui alá becsúszás: kisebb padding kellene! boxgroup ugyanez
+Váltakozó színű téglalap a panelkák köré, random szín
 
 Excel szerkesztés
-- Minden második sor random színre befesteni
-- Váltakozó színű téglalap a panelkák köré, random szín
+- Minden sor random színre befesteni
 - Excelben ugyanolyan színű a sor
 - Panelkákon legyen sorszám, egyezzen az Excellel
 - Sorszám bekarikázva
 - F és G oszlop a két cső hossza, mindkét oszlopba a hosszabb kerül
 
+- pipe pontok mozgathatóak, és doboz vagy födémfűtő felemelése forgatása törlése +/- esetén reset.
+
 long-term:
-- Pont törlése (pipeDriver) ??
+- csövek rádiuszosak, rádiusz 15 centi
+- Pont törlése (pipeDriver)
 - Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
 - Szobák ne téglalap hanem körberajzolhatóak legyenek
     - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod

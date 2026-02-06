@@ -5,7 +5,9 @@ import { Errors } from "../../errors/Errors.js";
 import { GridDefinition } from "../../geometry/Grid/GridDefinition.js";
 import { CreateLine } from "../../geometry/Line/CreateLine.js";
 import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
+import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
 import { ElementStore } from "../../store/ElementStore.js";
+import { MouseCursor } from "../../ui/MouseCursor.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { RoomCalculations } from "./RoomCalculations.js";
 
@@ -45,19 +47,22 @@ function finalizeRoom(room) {
     room.selectionBox = CreateRectangle.createRectangleByMiddlePoint(centerPoint, roomTextWidth, roomTextSize, angleRad);
     pop();
 
-    
+
     if (RoomCalculations.roomPositionIsInvalid(room)) {
         ElementStore.remove(room);
         ApplicationState.roomCreationTemp = {};
+        ApplicationState.selectedObject = null;
+        ApplicationState.selectedRoom = null;
         Errors.throwError(ErrorCodes.ROOM_OVERLAP);
         return;
     }
-    
+
     room.roomGridDefinition = new GridDefinition();
     room.roomGridDefinition.angleRad = angleRad;
     room.roomGridDefinition.referencePoint = firstPoint;
     room.roomGridDefinition.cosAlpha = Math.cos(angleRad);
     room.roomGridDefinition.sinAlpha = Math.sin(angleRad);
+    // @ts-ignore
     ApplicationState.roomCreationTemp = {};
 
     SelectionAction.deselectObject();
@@ -70,7 +75,10 @@ function finalizeRoom(room) {
  * @returns {undefined} 
  */
 function updateRoomSelectionBox(room) {
-    
+    const proposedSelectionBox = CreateRectangle.copyRectangleAtMiddlePoint(room.selectionBox, MouseCursor.getMousePositionAbsolute());
+    if (RectangleCalculations.rectangleIsInsideRectangle(proposedSelectionBox, room.boundingBox)) {
+        room.selectionBox = proposedSelectionBox;
+    }
 }
 
 /**

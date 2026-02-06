@@ -1,7 +1,10 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { Room } from "../../entities/Room.js";
+import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
+import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
 import { RoomService } from "../../service/RoomService.js";
+import { MouseCursor } from "../../ui/MouseCursor.js";
 import { Validators } from "../../validators/Validators.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { SelectionCriteria } from "../selection/SelectionCriteria.js";

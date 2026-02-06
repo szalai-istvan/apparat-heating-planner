@@ -1,5 +1,5 @@
 import { SelectionCriteria } from "../../../common/actions/selection/SelectionCriteria.js";
-import { Constants } from "../../../common/appdata/Constants.js";
+import { Constants } from "../../../common/appdata/constants.js";
 import { MathTools } from "../../../common/math/MathTools.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
@@ -126,8 +126,9 @@ function renderSlabHeater(slabHeater, group) {
         rotate(PI);
     }
 
+    const label = slabHeater.pipeLength > 0 ? type + '\n' + slabHeater.pipeLength + ' m' : type;
     // @ts-ignore
-    text(type, 0, 0);
+    text(label, 0, 0);
 
     // @ts-ignore
     pop();

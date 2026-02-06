@@ -1,9 +1,11 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
+import { LineCalculations } from "../../../common/geometry/line/LineCalculations.js";
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
 import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
 import { MathTools } from "../../../common/math/MathTools.js";
+import { ReducerFunctions } from "../../../common/math/ReducerFunctions.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { Box } from "../../entities/Box.js";
@@ -158,9 +160,31 @@ function pipeDriverIsSetUpForExtension(pipeDriver) {
 }
 
 /**
+ * Visszaadja a födémfűtő elemre írandó hosszt.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {number}
+ */
+function calculateLength(pipeDriver) {
+    if (!pipeDriver.isFinalized) {
+        return undefined;
+    }
+
+    const blueLength = pipeDriver.bluePipe
+        .map(line => LineCalculations.calculateLengthOfLineInMeters(line))
+        .reduce(ReducerFunctions.sumFunction);
+    const redLength = pipeDriver.redPipe
+        .map(line => LineCalculations.calculateLengthOfLineInMeters(line))
+        .reduce(ReducerFunctions.sumFunction);
+
+    return MathTools.roundNumber(Math.max(redLength, blueLength) * 1.1, 1);
+}
+
+/**
  * Csőnyomvonal kalkulációk
  */
 export const PipeDriverCalculations = {
+    calculateLength,
     getAttachableBox,
     getPointsCloseToMouse,
     mapPointToPipeDriverGrid,

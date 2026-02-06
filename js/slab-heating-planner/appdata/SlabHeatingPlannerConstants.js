@@ -23,7 +23,8 @@ export const SlabHeatingPlannerConstants = {
         gridResolutionInMeters: 0.04,
         minimumSegmentLengthInMeters: 0.5,
         pipeDistanceFromMiddleLineInMeters: 0.02,
-        pipeLineWeightInMeters: 0.01
+        pipeLineWeightInMeters: 0.01,
+        pipeRadiusInMeters: 0.15
     },
 
     slabHeater: {
@@ -40,7 +41,7 @@ export const SlabHeatingPlannerConstants = {
             }
         },
         slabHeaterStopDrawingThresholdInMeters: 0.05,
-        SLAB_HEATER_COLORS: ['black', 'darkgrey', 'blue', 'darkgreen', 'teal', 'darkred', 'purple'],
+        slabHeaterColors: ['black', 'blue', 'darkgreen', 'teal', 'darkred', 'purple', 'cyan', 'magenta', 'pink', 'brown'],
     },
 
     box: {

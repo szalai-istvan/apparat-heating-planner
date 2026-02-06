@@ -1,8 +1,8 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { Room } from "../../entities/Room.js";
 import { GridCalculations } from "../../geometry/Grid/GridCalculations.js";
-import { PointCalculations } from "../../geometry/Point/PointCalculations.js";
+import { PointCalculations } from "../../geometry/point/PointCalculations.js";
 import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
 import { MathTools } from "../../math/MathTools.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
@@ -155,7 +155,7 @@ function renderRoomName(room) {
         return;
     }
 
-    const center = room.selectionBox.middlePoint;
+    const center = room.isSelected ? MouseCursor.getMousePositionAbsolute() : room.selectionBox.middlePoint;
 
     push();
 
