@@ -130,13 +130,13 @@ function drawRoomSize(room, roomWidth, roomHeight, angleRad) {
     if (roomWidth) {
         const width = `${MathTools.roundNumber(Math.abs(roomWidth / pixelsPerMetersRatio), 1)} m`;
         textAlign(CENTER, BOTTOM);
-        text(width, roomWidth / 2, (Math.min(roomHeight, 0) || 0) - 5);
+        text(width, roomWidth / 2, (Math.min(roomHeight, 0) || 0) - 0.03 * ApplicationState.pixelsPerMetersRatio);
     }
 
     if (roomHeight) {
         const height = `${MathTools.roundNumber(Math.abs(roomHeight / pixelsPerMetersRatio), 1)} m`;
         textAlign(LEFT, CENTER);
-        text(height, Math.max(roomWidth, 0) + 5, roomHeight / 2);
+        text(height, Math.max(roomWidth, 0) + 0.03 * ApplicationState.pixelsPerMetersRatio, roomHeight / 2);
     }
 
     pop();
@@ -175,7 +175,7 @@ function renderRoomName(room) {
  * @returns {undefined}
  */
 function drawSettings(room) {
-    const thickness = ApplicationState.roomLineWeight * (1 + room.isSelected * Constants.room.roomTextPopFactor);
+    const thickness = ApplicationState.roomLineWeight * (1 + Number(room.isSelected) * Constants.room.roomTextPopFactor);
     const color = room.isSelected ? Constants.ui.selectedTextColor : Constants.room.roomDefaultTextColor;
     strokeWeight(thickness);
     stroke(color);

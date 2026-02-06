@@ -27,6 +27,8 @@ function updateRenderSizeValuesSlabHeatingPlanner() {
     SlabHeatingPlannerApplicationState.slabHeaterTypeRectPaddingInPixels = ratio ? SlabHeatingPlannerConstants.slabHeater.slabHeaterTypeRectPaddingInMeters * ratio : undefined;
     SlabHeatingPlannerApplicationState.slabHeaterStopDrawingThresholdInPixels = ratio ? SlabHeatingPlannerConstants.slabHeater.slabHeaterStopDrawingThresholdInMeters * ratio : undefined;
     SlabHeatingPlannerApplicationState.slabHeaterTextSizeInPixels = ratio ? SlabHeatingPlannerConstants.slabHeater.slabHeaterTextSizeInMeters * ratio : undefined;
+    SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels = ratio ? SlabHeatingPlannerConstants.slabHeater.rowNumberBubbleDistanceFromLabelInMeter * ratio : undefined;
+    SlabHeatingPlannerApplicationState.rowNumberBubbleDiameterInPixels = ratio ? SlabHeatingPlannerConstants.slabHeater.rowNumberBubbleDiameterInMeters * ratio : undefined;
     
     SlabHeatingPlannerApplicationState.pipeDriverGridResolutionInPixels = ratio ? SlabHeatingPlannerConstants.pipeDriver.gridResolutionInMeters * ratio : undefined;
     SlabHeatingPlannerApplicationState.pipeDriverSegmentMinimumLengthInPixels = ratio ? SlabHeatingPlannerConstants.pipeDriver.minimumSegmentLengthInMeters * ratio : undefined;

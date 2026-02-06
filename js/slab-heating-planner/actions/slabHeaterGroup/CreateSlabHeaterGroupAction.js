@@ -38,6 +38,7 @@ function createSlabHeaterGroup(width = undefined, length = undefined) {
     UpdateSlabHeaterGroupAction.assignPipeDriverToSlabHeater(pipeDriver, slabHeater);
 
     UpdateSlabHeaterGroupAction.setSlabHeaterGroupType(group, width, length);
+    UpdateSlabHeaterGroupAction.updateNumberings();
 }
 
 export const CreateSlabHeaterGroupAction = {

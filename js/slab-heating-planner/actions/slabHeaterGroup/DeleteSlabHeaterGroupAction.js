@@ -3,6 +3,7 @@ import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPla
 import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { SlabHeaterGroupService } from "../../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
+import { UpdateSlabHeaterGroupAction } from "./UpdateSlabHeaterGroupAction.js";
 
 /**
  * Eltávolítja a kiválasztott kapott födémfűtő csoportot.
@@ -21,6 +22,7 @@ function removeSelectedSlabHeaterGroup() {
     SlabHeaterGroupService.removeById(slabHeaterGroup.id);
     SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup = null;
     ApplicationState.selectedObject = null;
+    UpdateSlabHeaterGroupAction.updateNumberings();
 }
 
 /**
@@ -34,6 +36,7 @@ function clearSlabHeaterGroups() {
     
     SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup = null;
     ApplicationState.selectedObject = null;
+    UpdateSlabHeaterGroupAction.updateNumberings();
 }
 
 /**

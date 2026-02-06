@@ -18,6 +18,7 @@ import { PipeDriver } from "../../entities/PipeDriver.js";
 import { SlabHeater } from "../../entities/SlabHeater.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
 import { PipeDriverService } from "../../service/PipeDriverService.js";
+import { SlabHeaterGroupService } from "../../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
 import { UpdatePipeDriverAction } from "../pipeDriver/UpdatePipeDriverAction.js";
 import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
@@ -29,7 +30,8 @@ import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
  */
 function updateAngleRadAndCenterPositions(slabHeaterGroup) {
     const room = SlabHeaterGroupCalculations.getContainingRoom(slabHeaterGroup);
-    slabHeaterGroup.angleRad = room ? room.angleRad : 0.00;
+    // slabHeaterGroup.angleRad = room ? room.angleRad : 0.00;
+    slabHeaterGroup.angleRad = 0.00;
     updatePositionDataIncludingMembers(slabHeaterGroup);
 }
 
@@ -119,7 +121,7 @@ function updateSlabHeaterBoundingBoxAndSelectionBox(slabHeaterGroup, slabHeater)
 
     slabHeater.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
         middlePoint,
-        slabHeaterGroup.lengthInPixels,
+        slabHeaterGroup.lengthInPixels + SlabHeatingPlannerApplicationState.tubeDistanceInPixels,
         slabHeaterGroup.widthInPixels,
         SlabHeaterGroupCalculations.getTotalAngleRad(slabHeaterGroup)
     );
@@ -166,10 +168,10 @@ function calculateMiddlePointOfSlabHeater(slabHeaterGroup, slabHeater) {
 
     const minimumX = (slabHeaterGroup.alignment % 2 === 1) ?
         Constants.ui.leftRibbonWidth + (length - clickedMemberIndex) * slabHeaterGroup.widthInPixels * ApplicationState.screenZoom :
-        Constants.ui.leftRibbonWidth + 1 * slabHeaterGroup.lengthInPixels * ApplicationState.screenZoom;
+        Constants.ui.leftRibbonWidth + 0.5 * slabHeaterGroup.lengthInPixels * ApplicationState.screenZoom;
 
     const minimumY = (slabHeaterGroup.alignment % 2 === 1) ?
-        Constants.ui.topRibbonHeight + 1 * slabHeaterGroup.lengthInPixels * ApplicationState.screenZoom :
+        Constants.ui.topRibbonHeight + 0.5 * slabHeaterGroup.lengthInPixels * ApplicationState.screenZoom :
         Constants.ui.topRibbonHeight + (clickedMemberIndex + 1) * slabHeaterGroup.widthInPixels * ApplicationState.screenZoom;
 
     const mousePosition = MouseCursor.getMousePosition();
@@ -294,8 +296,10 @@ function addSlabHeaterToSelectedGroup() {
 
     if (!slabHeaterGroup.isSelectedForDrag && !SlabHeaterGroupCalculations.getContainingRoom(slabHeaterGroup)) {
         removeLastSlabHeaterFromSelectedGroup();
-        Errors.throwError(ErrorCodes.PANEL_GROUP_OUTSIDE_ROOM);
+        Errors.throwError(ErrorCodes.SLAB_HEATER_GROUP_OUTSIDE_ROOM);
     }
+
+    updateNumberings();
 }
 
 /**
@@ -325,12 +329,30 @@ function removeLastSlabHeaterFromSelectedGroup() {
     PipeDriverService.removeById(pipeDriverId);
 
     updatePositionDataIncludingMembers(slabHeaterGroup);
+    updateNumberings();
+}
+
+/**
+ * Újraszámozza a födémfűtő elemeket
+ * 
+ * @returns {undefined}
+ */
+function updateNumberings() {
+    const slabHeaterGroups = SlabHeaterGroupService.findAll();
+    let i = 1;
+    for (let shg of slabHeaterGroups) {
+        const slabHeaters = SlabHeaterService.findByIdList(shg.slabHeaterIds);
+        for (let sh of slabHeaters) {
+            sh.rowNumber = i++;
+        }
+    }
 }
 
 /**
  * Födémfűtők módosításával kapcsolatos műveletek
  */
 export const UpdateSlabHeaterGroupAction = {
+    updateNumberings,
     setSlabHeaterGroupType,
     assignSlabHeaterToGroup,
     assignSlabHeaterGroupToRoom,

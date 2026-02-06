@@ -36,7 +36,8 @@ function assignBoxToGroup(box, group) {
  */
 function updateAngleRadAndCenterPositions(boxGroup) {
     const room = BoxGroupCalculations.getContainingRoom(boxGroup);
-    boxGroup.angleRad = room ? room.angleRad : 0.00;
+    // boxGroup.angleRad = room ? room.angleRad : 0.00;
+    boxGroup.angleRad = 0.00;
     updatePositionDataIncludingMembers(boxGroup);
 }
 
@@ -138,11 +139,11 @@ function calculateMiddlePointOfBox(boxGroup, box) {
     }
 
     const minimumX = (boxGroup.alignment % 2 === 1) ? 
-    Constants.ui.leftRibbonWidth + (length - clickedMemberIndex) * width * ApplicationState.screenZoom: 
+    Constants.ui.leftRibbonWidth + (length - clickedMemberIndex) * width * ApplicationState.screenZoom : 
     Constants.ui.leftRibbonWidth + 1 * lengthInPixel * ApplicationState.screenZoom;
     
     const minimumY = (boxGroup.alignment % 2 === 1) ? 
-    Constants.ui.topRibbonHeight + 1 * lengthInPixel * ApplicationState.screenZoom:
+    Constants.ui.topRibbonHeight + 1 * lengthInPixel * ApplicationState.screenZoom :
     Constants.ui.topRibbonHeight + (clickedMemberIndex + 1) * width * ApplicationState.screenZoom;
     
     const mousePosition = MouseCursor.getMousePosition();
@@ -150,8 +151,8 @@ function calculateMiddlePointOfBox(boxGroup, box) {
     const diffY = UiCalculations.calculateCorrector(minimumY, mousePosition.y);
     
     return PipeDriverCalculations.mapPointToPipeDriverGrid(CreatePoint.createPoint(
-        point.x + diffX,
-        point.y + diffY
+        point.x + 0,
+        point.y + 0
     ));
 }
 

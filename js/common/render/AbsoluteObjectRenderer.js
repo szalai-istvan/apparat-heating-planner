@@ -1,12 +1,17 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { DebugTools } from "../debug/Debug.js";
 import { ElementStore } from "../store/ElementStore.js";
 import { ButtonWrapperActions } from "../ui/buttons/ButtonWrapperActions.js";
 import { DocumentData } from "../ui/DocumentData.js";
 import { ImageAssets } from "../ui/ImageAssets.js";
 import { RenderMenuLine } from "../ui/MenuLine/RenderMenuLine.js";
+import { MouseCursor } from "../ui/MouseCursor.js";
 import { RenderOptionsBar } from "../ui/OptionsBar/RenderOptionsBar.js";
+
+let showCicisNeni = false;
+let timeoutId = null;
+const cicisNeniScale = 0.4;
 
 /**
  * Felrajzolja a kijelzőre az abszolút pozíciójú elemeket.
@@ -63,7 +68,28 @@ function drawUiBackground() {
 
     image(ImageAssets.getApparatLogo(), documentSize.x - 293, 5, 287, 49.5);
 
+    if (mouseIsInsideLogo()) {
+        if (!timeoutId) {
+            timeoutId = setTimeout(() => showCicisNeni = true, 3_000);
+        }
+    } else {
+        timeoutId && clearTimeout(timeoutId);
+        showCicisNeni = false;
+        timeoutId = null;
+    }
+
+    if (showCicisNeni) {
+        image(ImageAssets.getCicisNeni(), documentSize.x - 313, 49, 316 * cicisNeniScale, 762 * cicisNeniScale);
+    }
+
     pop();
+}
+
+function mouseIsInsideLogo() {
+    const mouse = MouseCursor.getMousePosition();
+    const documentSize = DocumentData.getDocumentSize();
+
+    return mouse.x > documentSize.x - 293 && mouse.x < documentSize.x - 5 && mouse.y > 5 && mouse.y < 55;
 }
 
 /**

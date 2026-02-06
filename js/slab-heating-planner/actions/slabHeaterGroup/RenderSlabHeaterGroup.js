@@ -1,4 +1,5 @@
 import { SelectionCriteria } from "../../../common/actions/selection/SelectionCriteria.js";
+import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { Constants } from "../../../common/appdata/constants.js";
 import { MathTools } from "../../../common/math/MathTools.js";
 import { Validators } from "../../../common/validators/Validators.js";
@@ -7,6 +8,7 @@ import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerCon
 import { SlabHeater } from "../../entities/SlabHeater.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
+import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
 import { UpdateSlabHeaterGroupAction } from "./UpdateSlabHeaterGroupAction.js";
 
 /**
@@ -36,6 +38,7 @@ function renderSlabHeater(slabHeater, group) {
     const centerPosition = slabHeater.boundingBox.middlePoint;
     const lineWeight = SlabHeatingPlannerApplicationState.slabHeaterLineWeightInPixels;
     const width = group.widthInPixels;
+    const length = group.lengthInPixels;
     const tubeDistance = MathTools.roundNumber(SlabHeatingPlannerApplicationState.tubeDistanceInPixels, 2);
     const lengthFrom = - group.lengthInPixels / 2;
     const lengthTo = group.lengthInPixels / 2;
@@ -48,6 +51,7 @@ function renderSlabHeater(slabHeater, group) {
     const isSelected = group.isSelected;
     const p = SlabHeatingPlannerConstants.slabHeater.slabHeaterTextPopFactor;
     const pointIsInsideGroupMemberTextBox = SelectionCriteria.evaluateSelectionCriteria(slabHeater);
+    const rowNumber = slabHeater.rowNumber;
 
     if (!centerPosition) {
         return;
@@ -129,6 +133,21 @@ function renderSlabHeater(slabHeater, group) {
     const label = slabHeater.pipeLength > 0 ? type + '\n' + slabHeater.pipeLength + ' m' : type;
     // @ts-ignore
     text(label, 0, 0);
+
+    
+    stroke(slabHeater.outlineColor);
+    noFill();
+    rect(0, 0, length + SlabHeatingPlannerApplicationState.tubeDistanceInPixels * 1.5, width - 0.02 * ApplicationState.pixelsPerMetersRatio);
+    
+    const bubbleDiameter = SlabHeatingPlannerApplicationState.rowNumberBubbleDiameterInPixels;
+    const numberCoordX = -1 * (bubbleDiameter / 2 + rectWidth / 2 + SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels);
+    stroke(Constants.strings.black);
+    fill(Constants.strings.white);
+    ellipse(numberCoordX, 0, bubbleDiameter, bubbleDiameter);
+    fill(Constants.strings.black);
+    textSize(textSizePixels);
+    noStroke();
+    text(rowNumber, numberCoordX, 0);
 
     // @ts-ignore
     pop();

@@ -1,6 +1,4 @@
-szoba méret jelölő táv a szoba vonalától ne pixelben legyen hanem méterben!
-slabheatergroup ui alá becsúszás: kisebb padding kellene! boxgroup ugyanez
-Váltakozó színű téglalap a panelkák köré, random szín
+boxgroup ui alá becsúszás: kisebb padding kellene!
 
 Excel szerkesztés
 - Minden sor random színre befesteni
@@ -14,6 +12,3 @@ Excel szerkesztés
 long-term:
 - csövek rádiuszosak, rádiusz 15 centi
 - Pont törlése (pipeDriver)
-- Blueprint forgatás legyen érzékeny arra, hogy melyik gombot nyomtam meg.
-- Szobák ne téglalap hanem körberajzolhatóak legyenek
-    - Szoba hozzáadása gombon radio button hogyha körbe rajzolni akarod

@@ -41,7 +41,9 @@ export const SlabHeatingPlannerConstants = {
             }
         },
         slabHeaterStopDrawingThresholdInMeters: 0.05,
-        slabHeaterColors: ['black', 'blue', 'darkgreen', 'teal', 'darkred', 'purple', 'cyan', 'magenta', 'pink', 'brown'],
+        slabHeaterColors: ['black', 'blue', 'green', 'purple', 'cyan', 'magenta', 'pink', 'teal', 'orange'],
+        rowNumberBubbleDistanceFromLabelInMeter: 0.1,
+        rowNumberBubbleDiameterInMeters: 0.3
     },
 
     box: {

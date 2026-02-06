@@ -61,7 +61,11 @@ export const SlabHeatingPlannerApplicationState = {
     /** @type {number} */
     pipeLineWeightInPixels: null,
     /** @type {number} */
-    pipeRadiusInPixels: null
+    pipeRadiusInPixels: null,
+    /** @type {number} */
+    rowNumberBubbleDistanceFromLabelInPixels: null,
+    /** @type {number} */
+    rowNumberBubbleDiameterInPixels: null
 };
 
 // @ts-ignore
