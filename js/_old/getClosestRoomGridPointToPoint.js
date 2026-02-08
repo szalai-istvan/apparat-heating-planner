@@ -1,9 +1,9 @@
-import { ApplicationState } from "../../../appdata/ApplicationState.js";
-import { Room } from "../../../entities/Room.js";
-import { GridCalculations } from "../../../geometry/Grid/GridCalculations.js";
-import { CreatePoint } from "../../../geometry/Point/CreatePoint.js";
-import { Point } from "../../../geometry/Point/Point.js";
-import { MouseCursor } from "../../../ui/MouseCursor.js";
+import { ApplicationState } from "../common/appdata/ApplicationState.js";
+import { Room } from "../common/entities/Room.js";
+import { GridCalculations } from "../common/geometry/Grid/GridCalculations.js";
+import { CreatePoint } from "../common/geometry/Point/CreatePoint.js";
+import { Point } from "../common/geometry/Point/Point.js";
+import { MouseCursor } from "../common/ui/MouseCursor.js";
 
 /**
  * Visszaadja a paraméterül kapott ponthoz legközelebbi, szobához rögzített grid pontot

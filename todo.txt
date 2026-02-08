@@ -1,14 +1,8 @@
 boxgroup ui alá becsúszás: kisebb padding kellene!
-
-Excel szerkesztés
-- Minden sor random színre befesteni
-- Excelben ugyanolyan színű a sor
-- Panelkákon legyen sorszám, egyezzen az Excellel
-- Sorszám bekarikázva
-- F és G oszlop a két cső hossza, mindkét oszlopba a hosszabb kerül
-
+- buborékok MINDIG ellentétes oldalon legyenek mint a cső
 - pipe pontok mozgathatóak, és doboz vagy födémfűtő felemelése forgatása törlése +/- esetén reset.
+- csövek rádiuszosak, rádiusz 15 centi
+- zoom szerkesztés Excel exportnál?
 
 long-term:
-- csövek rádiuszosak, rádiusz 15 centi
 - Pont törlése (pipeDriver)

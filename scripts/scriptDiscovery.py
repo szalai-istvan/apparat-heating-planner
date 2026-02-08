@@ -12,8 +12,7 @@ P5 = 'p5'
 
 HTML_FILE_PROJECT_MAPPING = {
     'heating-planner.html': ['common', 'heating-planner'],
-    'slab-heating-planner.html': ['common', 'slab-heating-planner'],
-    'dummy.html': ['old-slab-heating-planner']
+    'slab-heating-planner.html': ['common', 'slab-heating-planner']
 }
 
 

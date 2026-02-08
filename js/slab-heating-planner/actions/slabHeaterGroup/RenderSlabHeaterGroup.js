@@ -142,7 +142,7 @@ function renderSlabHeater(slabHeater, group) {
     const bubbleDiameter = SlabHeatingPlannerApplicationState.rowNumberBubbleDiameterInPixels;
     const numberCoordX = -1 * (bubbleDiameter / 2 + rectWidth / 2 + SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels);
     stroke(Constants.strings.black);
-    fill(Constants.strings.white);
+    fill(slabHeater.outlineColor);
     ellipse(numberCoordX, 0, bubbleDiameter, bubbleDiameter);
     fill(Constants.strings.black);
     textSize(textSizePixels);

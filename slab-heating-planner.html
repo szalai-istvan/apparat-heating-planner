@@ -124,7 +124,6 @@
     <script type="module" src="js/common/actions/room/RoomCalculations.js"></script>
     <script type="module" src="js/common/actions/room/SelectRoomAction.js"></script>
     <script type="module" src="js/common/actions/room/UpdateRoomAction.js"></script>
-    <script type="module" src="js/common/actions/room/old_files/getClosestRoomGridPointToPoint.js"></script>
     <script type="module" src="js/common/actions/scaling/ScalingActions.js"></script>
     <script type="module" src="js/common/actions/selection/SelectionAction.js"></script>
     <script type="module" src="js/common/actions/selection/SelectionCriteria.js"></script>
@@ -146,24 +145,25 @@
     <script type="module" src="js/common/errors/ErrorCodes.js"></script>
     <script type="module" src="js/common/errors/Errors.js"></script>
 
-    <script type="module" src="js/common/event/customEventTypes.js"></script>
+    <script type="module" src="js/common/event/CustomEventTypes.js"></script>
     <script type="module" src="js/common/event/Events.js"></script>
 
     <script type="module" src="js/common/excel/excelGeneratorUtil.js"></script>
+    <script type="module" src="js/common/excel/WorkbookWrapper.js"></script>
 
-    <script type="module" src="js/common/geometry/grid/GridActions.js"></script>
-    <script type="module" src="js/common/geometry/grid/GridCalculations.js"></script>
-    <script type="module" src="js/common/geometry/grid/GridDefinition.js"></script>
-    <script type="module" src="js/common/geometry/line/createLine.js"></script>
-    <script type="module" src="js/common/geometry/line/Line.js"></script>
-    <script type="module" src="js/common/geometry/line/LineCalculations.js"></script>
-    <script type="module" src="js/common/geometry/point/createPoint.js"></script>
-    <script type="module" src="js/common/geometry/point/Point.js"></script>
-    <script type="module" src="js/common/geometry/point/PointCalculations.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/createRectangle.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/Rectangle.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/RectangleCalculations.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/RenderRectangle.js"></script>
+    <script type="module" src="js/common/geometry/Grid/GridActions.js"></script>
+    <script type="module" src="js/common/geometry/Grid/GridCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Grid/GridDefinition.js"></script>
+    <script type="module" src="js/common/geometry/Line/createLine.js"></script>
+    <script type="module" src="js/common/geometry/Line/Line.js"></script>
+    <script type="module" src="js/common/geometry/Line/LineCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Point/CreatePoint.js"></script>
+    <script type="module" src="js/common/geometry/Point/Point.js"></script>
+    <script type="module" src="js/common/geometry/Point/PointCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/createRectangle.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/Rectangle.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/RectangleCalculations.js"></script>
+    <script type="module" src="js/common/geometry/Rectangle/RenderRectangle.js"></script>
 
     <script type="module" src="js/common/io/load.js"></script>
     <script type="module" src="js/common/io/save.js"></script>
@@ -198,10 +198,10 @@
     <script type="module" src="js/common/ui/dialog/RotateBlueprintDialog.js"></script>
     <script type="module" src="js/common/ui/dialog/ScalingDialog.js"></script>
     <script type="module" src="js/common/ui/keystroke/keystrokeRecorder.js"></script>
-    <script type="module" src="js/common/ui/MenuLine/MenuLine.js"></script>
-    <script type="module" src="js/common/ui/MenuLine/RenderMenuLine.js"></script>
-    <script type="module" src="js/common/ui/OptionsBar/OptionsBar.js"></script>
-    <script type="module" src="js/common/ui/OptionsBar/RenderOptionsBar.js"></script>
+    <script type="module" src="js/common/ui/menuLine/MenuLine.js"></script>
+    <script type="module" src="js/common/ui/menuLine/RenderMenuLine.js"></script>
+    <script type="module" src="js/common/ui/optionsBar/OptionsBar.js"></script>
+    <script type="module" src="js/common/ui/optionsBar/RenderOptionsBar.js"></script>
 
     <script type="module" src="js/common/util/ClassUtil.js"></script>
 
@@ -243,11 +243,14 @@
     <script type="module" src="js/slab-heating-planner/entities/SlabHeater.js"></script>
     <script type="module" src="js/slab-heating-planner/entities/SlabHeaterGroup.js"></script>
 
+    <script type="module" src="js/slab-heating-planner/excel/SlabHeatingPlannerExcelConstants.js"></script>
+    <script type="module" src="js/slab-heating-planner/excel/SlabHeatingPlannerExcelGenerator.js"></script>
+
     <script type="module" src="js/slab-heating-planner/io/LoadSlabHeatingPlanner.js"></script>
     <script type="module" src="js/slab-heating-planner/io/SaveSlabHeatingPlanner.js"></script>
 
 
-    <script type="module" src="js/slab-heating-planner/render/RenderTranslatedObjectsSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/slab-heating-planner/render/renderTranslatedObjectsSlabHeatingPlanner.js"></script>
 
     <script type="module" src="js/slab-heating-planner/service/BoxGroupService.js"></script>
     <script type="module" src="js/slab-heating-planner/service/BoxService.js"></script>

@@ -10,6 +10,7 @@ import { GroupManagementAPI } from "../api/GroupManagementAPI.js";
 import { SlabHeaterGroupAPI } from "../api/SlabHeaterGroupAPI.js";
 import { SlabHeatingPlannerApplicationState } from "../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../appdata/SlabHeatingPlannerConstants.js";
+import { SlabHeatingPlannerExcelGenerator } from "../excel/SlabHeatingPlannerExcelGenerator.js";
 import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";
 import { SlabHeaterMenuValueResolver } from "./SlabHeaterMenuValueResolver.js";
 
@@ -140,7 +141,7 @@ function createButtonsSlabHeatingPlanner() {
         text: 'Árkalkuláció letöltése',
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
-        onClick: () => {},
+        onClick: () => SlabHeatingPlannerExcelGenerator.generateExcel(),
         shouldBeActive: () => SlabHeaterGroupService.findAll().length > 0
     });
     leftRibbonButtonSizes.push(Constants.ui.tallSmallButtonSize);

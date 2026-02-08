@@ -41,7 +41,21 @@ export const SlabHeatingPlannerConstants = {
             }
         },
         slabHeaterStopDrawingThresholdInMeters: 0.05,
-        slabHeaterColors: ['black', 'blue', 'green', 'purple', 'cyan', 'magenta', 'pink', 'teal', 'orange'],
+        slabHeaterColors: [
+            '#FFB3BA', // Light Red / Pink
+            '#FFE0BA', // sand
+            '#BAE0FF', // sky blue
+            '#00FFFF', // cyan
+            '#BAE1FF', // Light blue
+            '#008000', // green
+            '#E6BAFF', // Light purple
+            '#A95C68', // puce
+            '#FF00FF', // magenta
+            '#FFC0CB',  // pink
+            '#008080', // teal
+            '#E3BAFF', // levander
+            '#FFA500' // orange
+        ],
         rowNumberBubbleDistanceFromLabelInMeter: 0.1,
         rowNumberBubbleDiameterInMeters: 0.3
     },

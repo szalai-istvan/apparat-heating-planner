@@ -24,6 +24,24 @@ function getProjectedSizeX(rectangle) {
 }
 
 /**
+ * Kiszámítja a téglalap y irányú vetületét.
+ * 
+ * @param {Rectangle} rectangle
+ * @returns {number} Téglalap y irányú mérete
+ */
+function getProjectedSizeY(rectangle) {
+    if (!rectangle) {
+        return 0;
+    }
+
+    const xCoordinates = rectangle.points.map(p => p.y);
+    const minY = xCoordinates.reduce(ReducerFunctions.minimumFunction);
+    const maxY = xCoordinates.reduce(ReducerFunctions.maximumFunction);
+
+    return Math.abs(maxY - minY);
+}
+
+/**
  * Megállapítja, hogy a paraméterül kapott pont a paraméterül kapott téglalapban található-e.
  * 
  * @param {Point} point
@@ -103,6 +121,7 @@ function calculateRectangleCircumference(rectangle) {
  */
 export const RectangleCalculations = {
     getProjectedSizeX,
+    getProjectedSizeY,
     pointIsInsideRectangle,
     rectanglesOverlap,
     rectangleIsInsideRectangle,

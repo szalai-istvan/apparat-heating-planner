@@ -6,5 +6,5 @@
     "baseUrl": "./",
     "moduleResolution": "bundler"
   },
-  "include": ["**/js/common/**/*.js", "**/js/heating-planner/**/*.js", "**/js/slab-heating-planner/**/*.js", "**/*.html"]
+  "include": ["**/js/common/**/*.js", "**/js/heating-planner/**/*.js", "**/js/slab-heating-planner/**/*.js", "**/*.html", "js/_old/getClosestRoomGridPointToPoint.js"]
 }
