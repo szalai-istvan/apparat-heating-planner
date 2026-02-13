@@ -1,4 +1,5 @@
 import { WorkbookWrapper } from "../../common/excel/WorkbookWrapper.js";
+import { RenderPipeDriver } from "../actions/pipeDriver/RenderPipeDriver.js";
 import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../service/SlabHeaterService.js";
 import { SlabHeatingPlannerExcelConstants } from "./SlabHeatingPlannerExcelConstants.js";
@@ -16,7 +17,12 @@ async function generateExcel() {
 
     fillOutSlabHeaterData(workbook);
     workbook.selectSheetByName(SlabHeatingPlannerExcelConstants.blueprintSheetName);
-    workbook.exportBlueprint();
+    try {
+        RenderPipeDriver.disableMiddleLineRendering();
+        workbook.exportBlueprint();
+    } finally {
+        RenderPipeDriver.enableMiddleLineRendering();
+    }
 
     workbook.download();
 }

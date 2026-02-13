@@ -126,6 +126,8 @@ function drawRoomSize(room, roomWidth, roomHeight, angleRad) {
     textSettings(room);
     translate(firstPoint.x, firstPoint.y);
     rotate(angleRad);
+    stroke(Constants.room.roomDefaultTextColor);
+    strokeWeight(0.5); // ezek majd konstansok todo
 
     if (roomWidth) {
         const width = `${MathTools.roundNumber(Math.abs(roomWidth / pixelsPerMetersRatio), 1)} m`;
@@ -162,6 +164,8 @@ function renderRoomName(room) {
     textSettings(room);
     translate(center.x, center.y);
     rotate(room.angleRad);
+    stroke(Constants.room.roomDefaultTextColor);
+    strokeWeight(0.5); // ezek majd konstansok todo
 
     text(room.name, 0, 0);
 

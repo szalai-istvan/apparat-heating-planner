@@ -8,6 +8,9 @@ import { PipeDriver } from "../../entities/PipeDriver.js";
 import { PipeDriverCalculations } from "./PipeDriverCalculations.js";
 import { UpdatePipeDriverAction } from "./UpdatePipeDriverAction.js";
 
+/** @type {boolean} */
+let middleLineRenderingEnabled = true;
+
 /**
  * Felrajzolja a képernyőre a paraméterül kapott csővezetőt
  * 
@@ -18,6 +21,7 @@ function renderPipeDriver(pipeDriver) {
     Validators.checkClass(pipeDriver, SlabHeatingPlannerConstants.classNames.pipeDriver);
 
     UpdatePipeDriverAction.updatePropositions(pipeDriver);
+    UpdatePipeDriverAction.updateSelectedPointPosition(pipeDriver);
 
     const isSelected = pipeDriver.isSelected;
     const mouseCursorIsInsidePoint = PipeDriverCalculations.mouseCursorIsInsidePipeDriversPoint(pipeDriver);
@@ -27,7 +31,7 @@ function renderPipeDriver(pipeDriver) {
     const regularColor = (isSelected || mouseCursorIsInsidePoint) ? Constants.strings.red : Constants.strings.black;
     const proposedColor = Constants.strings.darkgrey;
     const selectedPoint = pipeDriver.points[pipeDriver.selectedPointIndex];
-    
+
     const points = pipeDriver.points;
     const proposedPoints = pipeDriver.proposedPoints;
     const segments = pipeDriver.segments;
@@ -36,32 +40,40 @@ function renderPipeDriver(pipeDriver) {
     push();
     ellipseMode(CENTER);
     strokeWeight(lineThickness);
-    
+
     stroke(regularColor);
-    for (let segment of segments) {
-        line(segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
+    if (middleLineRenderingEnabled) {
+        for (let segment of segments) {
+            line(segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
+        }
     }
     stroke(proposedColor);
-    for (let segment of proposedSegments) {
-        line(segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
+    if (middleLineRenderingEnabled) {
+        for (let segment of proposedSegments) {
+            line(segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
+        }
     }
 
     strokeWeight(circleThickness);
     stroke(regularColor);
-    for (let p of points.filter(p => p !== selectedPoint)) {
-        ellipse(p.x, p.y, diameter, diameter);
+    if (middleLineRenderingEnabled) {
+        for (let p of points.filter(p => p !== selectedPoint)) {
+            ellipse(p.x, p.y, diameter, diameter);
+        }
+        if (selectedPoint) {
+            push();
+            fill(Constants.strings.darkgrey);
+            ellipse(selectedPoint.x, selectedPoint.y, diameter, diameter);
+            pop();
+        }
     }
 
-    if (selectedPoint) {
-        push();
-        fill(Constants.strings.darkgrey);
-        ellipse(selectedPoint.x, selectedPoint.y, diameter, diameter);
-        pop();
-    }
 
     stroke(proposedColor);
-    for (let p of proposedPoints) {
-        ellipse(p.x, p.y, diameter, diameter);
+    if (middleLineRenderingEnabled) {
+        for (let p of proposedPoints) {
+            ellipse(p.x, p.y, diameter, diameter);
+        }
     }
 
     strokeWeight(SlabHeatingPlannerApplicationState.pipeLineWeightInPixels);
@@ -69,7 +81,7 @@ function renderPipeDriver(pipeDriver) {
     for (let bluePipe of pipeDriver.bluePipe) {
         line(bluePipe.p0.x, bluePipe.p0.y, bluePipe.p1.x, bluePipe.p1.y);
     }
-    
+
     stroke(Constants.strings.red);
     for (let redPipe of pipeDriver.redPipe) {
         line(redPipe.p0.x, redPipe.p0.y, redPipe.p1.x, redPipe.p1.y);
@@ -79,8 +91,28 @@ function renderPipeDriver(pipeDriver) {
 }
 
 /**
+ * Kikapcsolja a középvonal renderelését
+ * 
+ * @returns {undefined}
+ */
+function disableMiddleLineRendering() {
+    middleLineRenderingEnabled = false;
+}
+
+/**
+ * Bekapcsolja a középvonal renderelését
+ * 
+ * @returns {undefined}
+ */
+function enableMiddleLineRendering() {
+    middleLineRenderingEnabled = true;
+}
+
+/**
  * Csőnyomvonalak rajzolásához kapcsolódó műveletek. 
  */
 export const RenderPipeDriver = {
-    renderPipeDriver
+    renderPipeDriver,
+    enableMiddleLineRendering,
+    disableMiddleLineRendering,
 };

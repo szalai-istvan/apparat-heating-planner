@@ -3,6 +3,7 @@ import { LineCalculations } from "../../../common/geometry/line/LineCalculations
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
+import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
 import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
 import { MathTools } from "../../../common/math/MathTools.js";
 import { ReducerFunctions } from "../../../common/math/ReducerFunctions.js";
@@ -181,11 +182,35 @@ function calculateLength(pipeDriver) {
 }
 
 /**
+ * Kiszámítja és visszaadja a piepDriver második pontját.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {Point}
+ */
+function calculateSecondPoint(pipeDriver) {
+    if (!pipeDriver) {
+        return undefined;
+    }
+
+    const firstPoint = pipeDriver.points[0];
+    const cursorPosition = getMousePositionOnPipeDriverGrid();
+    const possiblePoints = [
+        CreatePoint.createPoint(firstPoint.x, cursorPosition.y),
+        CreatePoint.createPoint(cursorPosition.x, firstPoint.y)
+    ];
+
+    return possiblePoints.sort((p0, p1) => {
+        return PointCalculations.calculateDistance(p0, cursorPosition) - PointCalculations.calculateDistance(p1, cursorPosition);
+    })[0];
+}
+
+/**
  * Csőnyomvonal kalkulációk
  */
 export const PipeDriverCalculations = {
     calculateLength,
     getAttachableBox,
+    calculateSecondPoint,
     getPointsCloseToMouse,
     mapPointToPipeDriverGrid,
     calculateNextPointConstraint,

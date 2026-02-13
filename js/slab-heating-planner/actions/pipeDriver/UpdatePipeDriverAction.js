@@ -5,6 +5,7 @@ import { CreateLine } from "../../../common/geometry/Line/CreateLine.js";
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
 import { MathTools } from "../../../common/math/MathTools.js";
+import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { Box } from "../../entities/Box.js";
 import { PipeDriver } from "../../entities/PipeDriver.js";
@@ -54,11 +55,17 @@ function updatePropositions(pipeDriver) {
         return;
     }
 
-    let nextPointConstraints = PipeDriverCalculations.calculateNextPointConstraint({ pipeDriver, secondToLastPoint, lastPoint });
-    const nextPoint = CreatePoint.createPoint(
-        nextPointConstraints.x || cursorPosition.x,
-        nextPointConstraints.y || cursorPosition.y
-    );
+    let nextPoint = undefined;
+    let nextPointConstraints = undefined;
+    if (pipeDriver.points.length === 1) {
+        nextPoint = PipeDriverCalculations.calculateSecondPoint(pipeDriver);
+    } else {
+        nextPointConstraints = PipeDriverCalculations.calculateNextPointConstraint({ pipeDriver, secondToLastPoint, lastPoint });
+        nextPoint = CreatePoint.createPoint(
+            nextPointConstraints.x || cursorPosition.x,
+            nextPointConstraints.y || cursorPosition.y
+        );
+    }
 
     if (PointCalculations.calculateDistance(lastPoint, nextPoint) < minimumSegmentLength) {
         pipeDriver.proposedPoints = [];
@@ -172,10 +179,82 @@ function popPipeDriver(pipeDriver) {
 }
 
 /**
+ * A kiválasztott pont helyzetének updatelése.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {undefined}
+ */
+function updateSelectedPointPosition(pipeDriver) {
+    if (!pipeDriver || !pipeDriver.isSelectedForDrag) {
+        return;
+    }
+
+    if (MouseCursor.mouseCursorIsInsideUi()) {
+        return;
+    }
+
+    const index = pipeDriver.selectedPointIndex;
+    if (index < 2 || index >= pipeDriver.points.length - 2) {
+        return;
+    }
+
+    const point = pipeDriver.points[index];
+    const mouseCursor = PipeDriverCalculations.mapPointToPipeDriverGrid(MouseCursor.getMousePositionAbsolute());
+
+    const violatingPoints = pipeDriver.points
+        .filter(p => p !== point)
+        .map(p => PointCalculations.calculateDistance(p, mouseCursor))
+        .filter(dist => dist < SlabHeatingPlannerApplicationState.pipeDriverSegmentMinimumLengthInPixels);
+
+    if (violatingPoints.length > 0) {
+        return;
+    }
+
+    const previousPoint = pipeDriver.points[index - 1];
+    const nextPoint = pipeDriver.points[index + 1];
+
+    if (MathTools.floatingPointEquals(previousPoint.x, point.x)) {
+        previousPoint.x = mouseCursor.x;
+    } else if (MathTools.floatingPointEquals(previousPoint.y, point.y)) {
+        previousPoint.y = mouseCursor.y;
+    }
+
+    if (MathTools.floatingPointEquals(nextPoint.x, point.x)) {
+        nextPoint.x = mouseCursor.x;
+    } else if (MathTools.floatingPointEquals(nextPoint.y, point.y)) {
+        nextPoint.y = mouseCursor.y;
+    }
+
+    pipeDriver.points[index] = mouseCursor;
+    pipeDriver.segments[index - 2] && (pipeDriver.segments[index - 2] = CreateLine.createLine(pipeDriver.points[index - 2], previousPoint));
+    pipeDriver.segments[index - 1] = CreateLine.createLine(previousPoint, point);
+    pipeDriver.segments[index] = CreateLine.createLine(point, nextPoint);
+    pipeDriver.segments[index + 1] && (pipeDriver.segments[index + 1] = CreateLine.createLine(nextPoint, pipeDriver.points[index + 2]));
+}
+
+/**
+ * Szegmensek újrakalkulálása, gyors egérmozgás közbeni deselect esetén szükséges.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {undefined}
+ */
+function recalculateSegments(pipeDriver) {
+    let index = 0;
+    while (index < pipeDriver.points.length - 2) {
+        const p0 = pipeDriver.points[index];
+        const p1 = pipeDriver.points[index + 1];
+        pipeDriver.segments[index] = CreateLine.createLine(p0, p1);
+        index++;
+    }
+}
+
+/**
  * Csőnyomvonal updatelő műveletek
  */
 export const UpdatePipeDriverAction = {
     updatePropositions,
+    recalculateSegments,
+    updateSelectedPointPosition,
     updatePipeDriverFirstPointPosition,
     addProposedElementsToSelectedPipeDriver
 };

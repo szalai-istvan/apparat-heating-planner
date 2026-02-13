@@ -131,15 +131,18 @@ export class WorkbookWrapper {
 
         const blueprintSheet = this.selectedSheet;
         const screenSumDrag = ApplicationState.screenSumDrag;
-        const screenZoom = ApplicationState.screenZoom;
+        let screenZoom = ApplicationState.screenZoom;
         const beforeScreenData = { x: screenSumDrag.x, y: screenSumDrag.y, zoom: screenZoom };
         const canvasOriginalSize = DocumentData.getCanvasSize();
 
         try {
             ApplicationState.screenZoom = 4;
+            screenZoom = ApplicationState.screenZoom;
+
             const leftRibbonWidth = Constants.ui.leftRibbonWidth;
             const topRibbonHeight = Constants.ui.topRibbonHeight;
             const contentBoundingBox = BlueprintCalculations.getDrawingBoundingBox();
+
             ApplicationState.screenSumDrag = contentBoundingBox.middlePoint;
             const contentWidth = screenZoom * (RectangleCalculations.getProjectedSizeX(contentBoundingBox) + leftRibbonWidth);
             const contentHeight = screenZoom * (RectangleCalculations.getProjectedSizeY(contentBoundingBox) + topRibbonHeight);
@@ -182,7 +185,9 @@ export class WorkbookWrapper {
 
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = `apparat_excel_${Math.random().toString().substring(2)}.xlsx`;
+            const date = new Date();
+            const filenameSuffix = `${date.getYear()+1900}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}_${Math.random().toString().substring(2, 7)}`;
+            link.download = `apparat_excel_${filenameSuffix}.xlsx`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

@@ -9,6 +9,7 @@ import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerCon
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { PipeDriverCalculations } from "./PipeDriverCalculations.js";
+import { UpdatePipeDriverAction } from "./UpdatePipeDriverAction.js";
 
 /** @type {PipeDriver} */
 let cachedSelectablePipeDriver = null;
@@ -39,6 +40,7 @@ function selectPipeDriver(pipeDriver = undefined) {
     if (SelectionAction.deselectObject()) {
         pipeDriver.isSelected = true;
         SlabHeatingPlannerApplicationState.selectedPipeDriver = pipeDriver;
+        ApplicationState.selectedObject = pipeDriver;
         return pipeDriver;
     }
 
@@ -112,6 +114,7 @@ function deselectPipeDriver() {
     pipeDriver.proposedPoints = [];
     pipeDriver.proposedSegments = [];
     SlabHeatingPlannerApplicationState.selectedPipeDriver = null;
+    UpdatePipeDriverAction.recalculateSegments(pipeDriver);
 
     return true;
 }

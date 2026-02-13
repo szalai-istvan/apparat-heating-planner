@@ -1,8 +1,12 @@
-boxgroup ui alá becsúszás: kisebb padding kellene!
-- buborékok MINDIG ellentétes oldalon legyenek mint a cső
-- pipe pontok mozgathatóak, és doboz vagy födémfűtő felemelése forgatása törlése +/- esetén reset.
-- csövek rádiuszosak, rádiusz 15 centi
-- zoom szerkesztés Excel exportnál?
+Szállításos dialog rádió gomboökkal
 
-long-term:
-- Pont törlése (pipeDriver)
+Excel
+    - mindenhol egy tizedesjegy
+    - Cső: 160 Ft/m
+    - Fűtő: 6500 Ft/m2
+    - Doboz: 1000 Ft/db
+    - Szállítás: 20000 + 240 Ft/km
+Sorszám buborék nagyobb, ha 1 m-es a fűtő
+boxgroup ui alá becsúszás: kisebb padding kellene!
+- doboz vagy födémfűtő felemelése forgatása törlése +/- esetén reset.
+- Pont igazítás amikor dobozba fordul a cső: utolsó előtti is!

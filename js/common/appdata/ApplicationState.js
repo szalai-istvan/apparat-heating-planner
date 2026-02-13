@@ -22,7 +22,7 @@ export const ApplicationState = {
     /** @type {boolean} */
     screenDraggingInProgress: false,
     /** @type {boolean} */
-    debugEnabled: true,
+    debugEnabled: false,
     /** @type {Array} */
     delimiterPositions: [],
     /** @type {Array} */
@@ -69,4 +69,5 @@ export const ApplicationState = {
 
 };
 
+// @ts-ignore
 window.applicationState = ApplicationState;

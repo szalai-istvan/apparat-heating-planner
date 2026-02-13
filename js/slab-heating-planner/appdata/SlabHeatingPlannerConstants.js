@@ -21,8 +21,8 @@ export const SlabHeatingPlannerConstants = {
         pipeDriverAdditionalOffsetBgInMeters: 0.0,
         tubeDistanceInMeters: 0.1,
         gridResolutionInMeters: 0.04,
-        minimumSegmentLengthInMeters: 0.5,
-        pipeDistanceFromMiddleLineInMeters: 0.02,
+        minimumSegmentLengthInMeters: 0.1,
+        pipeDistanceFromMiddleLineInMeters: 0.015,
         pipeLineWeightInMeters: 0.01,
         pipeRadiusInMeters: 0.15
     },

@@ -4,6 +4,7 @@ import { LineCalculations } from "../../../common/geometry/line/LineCalculations
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
+import { MathTools } from "../../../common/math/MathTools.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { SlabHeater } from "../../entities/SlabHeater.js";
@@ -90,6 +91,18 @@ function calculateBluePipeStartingPoint(slabHeater, slabHeaterGroup) {
 function calculatePipe(pipeDriver, startingPoint) {
     const pipePoints = [startingPoint];
 
+    if (firstSegmentIsPerpendicular(pipeDriver)) {
+        const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
+        const cornerLine = calculateCornerLineByThreePoints(slabHeater.boundingBox.middlePoint, pipeDriver.points[0], pipeDriver.points[1]);
+        const pipeLine = CreateLine.createPerpendicularLine(pipeDriver.segments[0], startingPoint);
+        const offsetLines = calculateOffsetLinesAtIndex(pipeDriver, 0);
+
+        const cornerLinePipeLineIntersection = LineCalculations.calculateIntersectionPointOfTwoLines(cornerLine, pipeLine);
+        const offsetLinePipeLineIntersections = offsetLines.map(offsetLine => LineCalculations.calculateIntersectionPointOfTwoLines(offsetLine, pipeLine));
+        const intersection = offsetLinePipeLineIntersections.sort((ip1, ip2) => compareDistanceFromIntersection(ip1, ip2, cornerLinePipeLineIntersection))[0];
+        pipePoints.push(intersection);
+    }
+
     let i = 1;
     while (i < pipeDriver.points.length) {
         const cornerLine = calculateCornerLineAtIndex(pipeDriver, i);
@@ -135,6 +148,18 @@ function calculateCornerLineAtIndex(pipeDriver, i) {
         return CreateLine.createPerpendicularLine(lastSegment, p1);
     }
 
+    return calculateCornerLineByThreePoints(p0, p1, p2);
+}
+
+/**
+ * Kiszámítja a sarokvonalat három pont alapján.
+ * 
+ * @param {Point} p0 
+ * @param {Point} p1 
+ * @param {Point} p2 
+ * @returns {Line}
+ */
+function calculateCornerLineByThreePoints(p0, p1, p2) {
     const deltaX = p2.x - p0.x;
     const deltaY = p2.y - p0.y;
     const direction = Math.sign(deltaX * deltaY) * -1;
@@ -152,7 +177,7 @@ function calculateCornerLineAtIndex(pipeDriver, i) {
  * @returns {Line}
 */
 function calculatePipeLineAtIndex(pipeDriver, pipePoints, i) {
-    const pipePoint = pipePoints[i - 1];
+    const pipePoint = pipePoints[pipePoints.length - 1];
     const segment = pipeDriver.segments[i - 1];
 
     return CreateLine.createLineParallelTo(segment, pipePoint);
@@ -191,6 +216,23 @@ function calculateOffsetLinesAtIndex(pipeDriver, i) {
  */
 function compareDistanceFromIntersection(p1, p2, intersection) {
     return PointCalculations.calculateDistance(p1, intersection) - PointCalculations.calculateDistance(p2, intersection);
+}
+
+/**
+ * Megállapítja, hogy az első szegmens merőleges-e a födémfűtő panelre.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {boolean}
+ */
+function firstSegmentIsPerpendicular(pipeDriver) {
+    const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
+    const middlePoint = slabHeater.selectionBox.middlePoint;
+    const secondPoint = pipeDriver.points[1];
+
+    const deltaX = secondPoint.x - middlePoint.x;
+    const deltaY = secondPoint.y - middlePoint.y;
+
+    return !MathTools.floatingPointEquals(deltaX * deltaY, 0);
 }
 
 /**

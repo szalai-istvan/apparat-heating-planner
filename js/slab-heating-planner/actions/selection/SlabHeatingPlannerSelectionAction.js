@@ -68,7 +68,7 @@ function removeSelectedObjectSlabHeatingPlanner(className) {
     } else if (className === SlabHeatingPlannerConstants.classNames.boxGroup) {
         DeleteBoxGroupAction.removeSelectedBoxGroup();
     } else if (className === SlabHeatingPlannerConstants.classNames.pipeDriver) {
-        DeletePipeDriverAction.resetSelectedPipeDriver();
+        DeletePipeDriverAction.performDeleteOnSelectedPipeDriver();
     }
 }
 

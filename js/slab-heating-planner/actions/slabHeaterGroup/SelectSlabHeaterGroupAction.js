@@ -8,8 +8,10 @@ import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
+import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { SlabHeaterGroupService } from "../../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
+import { DeletePipeDriverAction } from "../pipeDriver/DeletePipeDriverAction.js";
 import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
 import { UpdateSlabHeaterGroupAction } from "./UpdateSlabHeaterGroupAction.js";
 
@@ -32,10 +34,7 @@ function selectSlabHeaterGroup(slabHeaterGroup = undefined) {
     }
 
     if (slabHeaterGroup === SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup) {
-        slabHeaterGroup.isSelected = true;
-        slabHeaterGroup.isSelectedForDrag = true;
-        setSelectedSlabHeaterGroupIndex(slabHeaterGroup);
-        slabHeaterGroup.roomId = null;
+        selectForDrag(slabHeaterGroup);
         return slabHeaterGroup;
     }
 
@@ -155,6 +154,27 @@ function deselectSlabHeaterGroup() {
  */
 function clearSlabHeaterGroupSelectionCache() {
     cachedSelectableSlabHeaterGroup = null;
+}
+
+/**
+ * Kiválasztja mozgatásra a paraméterül kapott födémfűtőt
+ * 
+ * @param {SlabHeaterGroup} slabHeaterGroup 
+ * @returns {undefined}
+ */
+function selectForDrag(slabHeaterGroup) {
+    slabHeaterGroup.isSelected = true;
+    slabHeaterGroup.isSelectedForDrag = true;
+    setSelectedSlabHeaterGroupIndex(slabHeaterGroup);
+    slabHeaterGroup.roomId = null;
+
+    const slabHeaters = SlabHeaterService.findByIdList(slabHeaterGroup.slabHeaterIds);
+    for (let sh of slabHeaters) {
+        const pipeDriver = PipeDriverService.findById(sh.pipeDriverId);
+        if (pipeDriver) {
+            DeletePipeDriverAction.resetPipeDriver(pipeDriver);
+        }
+    }
 }
 
 /**

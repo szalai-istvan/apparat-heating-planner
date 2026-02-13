@@ -140,7 +140,7 @@ function renderSlabHeater(slabHeater, group) {
     rect(0, 0, length + SlabHeatingPlannerApplicationState.tubeDistanceInPixels * 1.5, width - 0.02 * ApplicationState.pixelsPerMetersRatio);
     
     const bubbleDiameter = SlabHeatingPlannerApplicationState.rowNumberBubbleDiameterInPixels;
-    const numberCoordX = -1 * (bubbleDiameter / 2 + rectWidth / 2 + SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels);
+    const numberCoordX = -1 * (alignment < 2 ? -1 : 1) * (bubbleDiameter / 2 + rectWidth / 2 + SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels);
     stroke(Constants.strings.black);
     fill(slabHeater.outlineColor);
     ellipse(numberCoordX, 0, bubbleDiameter, bubbleDiameter);
