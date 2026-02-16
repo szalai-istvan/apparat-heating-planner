@@ -1,5 +1,8 @@
+import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
 import { WorkbookWrapper } from "../../common/excel/WorkbookWrapper.js";
+import { HeatingPlannerExcelConstants } from "../../heating-planner/excel/ExcelConstants.js";
 import { RenderPipeDriver } from "../actions/pipeDriver/RenderPipeDriver.js";
+import { BoxService } from "../service/BoxService.js";
 import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../service/SlabHeaterService.js";
 import { SlabHeatingPlannerExcelConstants } from "./SlabHeatingPlannerExcelConstants.js";
@@ -10,12 +13,15 @@ let excelArrayBuffer = null;
 /**
  * Legenerálja az összesítőt, árkalkulációt és a végleges tervrajzot tartalmazó Excel fájlt.
  * 
+ * @param {number} km
  * @returns {Promise<undefined>}
  */
-async function generateExcel() {
+async function generateExcel(km) {
+    km = Math.abs(km);
     const workbook = await loadExcelTemplate();
 
     fillOutSlabHeaterData(workbook);
+    fillOutSummary(workbook, km);
     workbook.selectSheetByName(SlabHeatingPlannerExcelConstants.blueprintSheetName);
     try {
         RenderPipeDriver.disableMiddleLineRendering();
@@ -76,6 +82,41 @@ function fillOutSlabHeaterData(workbook) {
         }
     }
     workbook.deleteRow(nextRow);
+}
+
+/**
+ * Rendelés összesítő kitöltése
+ * 
+ * @param {WorkbookWrapper} workbook
+ * @param {number} km 
+ * @returns {undefined}
+ */
+function fillOutSummary(workbook, km) {
+    const L = SlabHeaterService.findAll().length;
+
+    workbook.setCellValue(L + 6, 6, `=SUM(F4:F${L+3})`);
+    workbook.setCellValue(L + 6, 8, `=SUM(H4:H${L+3})`);
+
+    workbook.setCellValue(L + 7, 6, SlabHeatingPlannerExcelConstants.pipePricePerMeter);
+    workbook.setCellValue(L + 7, 8, SlabHeatingPlannerExcelConstants.slabHeaterPricePerSquareMeter);
+
+    workbook.setCellValue(L + 8, 6, `=F${L+6}*F${L+7}`);
+    workbook.setCellValue(L + 8, 8, `=H${L+6} + H${L+7}`);
+
+    workbook.setCellValue(L + 9, 8, 8800);
+    workbook.setCellValue(L + 10, 8, `=F${L+8} + H${L+8}`);
+
+    workbook.setCellValue(L + 11, 6, BoxService.findAll().length);
+    workbook.setCellValue(L + 11, 7, SlabHeatingPlannerExcelConstants.boxPricePerPiece);
+    workbook.setCellValue(L + 11, 8, `=F${L+11} * G${L+11}`);
+
+    workbook.setCellValue(L + 12, 7, km);
+    workbook.setCellValue(L + 12, 8, km > 0 ? SlabHeatingPlannerExcelConstants.transportPrice.a * km + SlabHeatingPlannerExcelConstants.transportPrice.b : 0);
+
+    workbook.addValuesToRow(L + 14, [
+        ...ExcelGeneratorUtils.emptyCells(7),
+        `=SUM(H${L+9}:H${L+12})`
+    ]);
 }
 
 export const SlabHeatingPlannerExcelGenerator = {

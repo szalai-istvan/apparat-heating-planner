@@ -110,12 +110,33 @@ export class WorkbookWrapper {
 
         let column = 1;
         for (let value of values) {
-            if (value.toString().startsWith('=')) {
+            if (value && value.toString().startsWith('=')) {
                 row.getCell(column).value = { formula: value };
             } else {
-                row.getCell(column).value = value;
+                row.getCell(column).value = value || '';
             }
             column++;
+        }
+    }
+
+    /**
+     * Beállítja a megadott cella értékét.
+     * 
+     * @param {number} rowNumber 
+     * @param {number} column 
+     * @param {number | string} value 
+     * @returns {undefined}
+     */
+    setCellValue(rowNumber, column, value) {
+        if (!this.selectedSheet) {
+            throw new Error('No sheet selected!');
+        }
+
+        const row = this.selectedSheet.getRow(rowNumber);
+        if (value && value.toString().startsWith('=')) {
+            row.getCell(column).value = { formula: value };
+        } else {
+            row.getCell(column).value = value || '';
         }
     }
 
@@ -151,7 +172,7 @@ export class WorkbookWrapper {
             resizeCanvas(contentWidth + leftRibbonWidth * 2, contentHeight + topRibbonHeight * 2);
             // @ts-ignore
             draw();
-            
+
             // @ts-ignore
             let buffer = createGraphics(contentWidth, contentHeight);
             // @ts-ignore
@@ -186,7 +207,7 @@ export class WorkbookWrapper {
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             const date = new Date();
-            const filenameSuffix = `${date.getYear()+1900}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}_${Math.random().toString().substring(2, 7)}`;
+            const filenameSuffix = `${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}_${Math.random().toString().substring(2, 7)}`;
             link.download = `apparat_excel_${filenameSuffix}.xlsx`;
             document.body.appendChild(link);
             link.click();

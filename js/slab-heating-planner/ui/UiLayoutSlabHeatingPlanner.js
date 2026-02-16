@@ -13,6 +13,7 @@ import { SlabHeatingPlannerConstants } from "../appdata/SlabHeatingPlannerConsta
 import { SlabHeatingPlannerExcelGenerator } from "../excel/SlabHeatingPlannerExcelGenerator.js";
 import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";
 import { SlabHeaterMenuValueResolver } from "./SlabHeaterMenuValueResolver.js";
+import { TransportDialog } from "./TransportDialog.js";
 
 /**
  * Létrehozza és regisztrálja a projekt specifikus UI vezérlőket.
@@ -141,7 +142,7 @@ function createButtonsSlabHeatingPlanner() {
         text: 'Árkalkuláció letöltése',
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
-        onClick: () => SlabHeatingPlannerExcelGenerator.generateExcel(),
+        onClick: () => TransportDialog.openTransportDialog(),
         shouldBeActive: () => SlabHeaterGroupService.findAll().length > 0
     });
     leftRibbonButtonSizes.push(Constants.ui.tallSmallButtonSize);
