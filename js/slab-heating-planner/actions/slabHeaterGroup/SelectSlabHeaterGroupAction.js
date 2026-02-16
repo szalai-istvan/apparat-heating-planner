@@ -18,7 +18,6 @@ import { UpdateSlabHeaterGroupAction } from "./UpdateSlabHeaterGroupAction.js";
 /** @type {SlabHeaterGroup} */
 let cachedSelectableSlabHeaterGroup = null;
 
-
 /**
  * Megkeresi és kiválasztja a födémfűtő csoportot és visszaadja
  * 

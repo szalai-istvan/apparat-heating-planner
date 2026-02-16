@@ -1,3 +1,4 @@
+import { SelectionAction } from "../../common/actions/selection/SelectionAction.js";
 import { Constants } from "../../common/appdata/constants.js";
 import { Dialogs } from "../../common/ui/dialog/Dialogs.js";
 import { SlabHeatingPlannerExcelGenerator } from "../excel/SlabHeatingPlannerExcelGenerator.js";
@@ -16,6 +17,7 @@ const nem = document.getElementById('nem');
  * @returns {undefined}
  */
 function openTransportDialog() {
+    SelectionAction.deselectObject();
     // @ts-ignore
     transportDialog.showModal();
     Dialogs.toggleScreenControls();

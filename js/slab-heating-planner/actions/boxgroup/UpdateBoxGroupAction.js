@@ -1,6 +1,5 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { Constants } from "../../../common/appdata/Constants.js";
-import { GridCalculations } from "../../../common/geometry/Grid/GridCalculations.js";
 import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
@@ -9,11 +8,12 @@ import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { UiCalculations } from "../../../common/ui/UICalculations.js";
 import { Validators } from "../../../common/validators/Validators.js";
-import { GroupManagementAPI } from "../../api/GroupManagementAPI.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { Box } from "../../entities/Box.js";
 import { BoxGroup } from "../../entities/BoxGroup.js";
 import { BoxService } from "../../service/BoxService.js";
+import { PipeDriverService } from "../../service/PipeDriverService.js";
+import { DeletePipeDriverAction } from "../pipeDriver/DeletePipeDriverAction.js";
 import { PipeDriverCalculations } from "../pipeDriver/PipeDriverCalculations.js";
 import { BoxGroupCalculations } from "./BoxGroupCalculations.js";
 
@@ -97,7 +97,7 @@ function updatePositionDataOfBoxGroup(boxGroup) {
         (firstBoxMiddle.x + lastBoxMiddle.x) / 2,
         (firstBoxMiddle.y + lastBoxMiddle.y) / 2
     );
-    
+
     boxGroup.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
         middlePoint,
         widthInPixels * boxGroup.boxIds.length,
@@ -122,13 +122,13 @@ function calculateMiddlePointOfBox(boxGroup, box) {
     const basePoint = boxGroup.isSelectedForDrag ? MouseCursor.getMousePositionAbsolute() : clickedBox.boundingBox.middlePoint;
     const width = SlabHeatingPlannerApplicationState.boxWidthInPixels;
     const lengthInPixel = SlabHeatingPlannerApplicationState.boxLengthInPixels;
-    
+
     const angleRad = boxGroup.angleRad + (Number(boxGroup.alignment % 2)) * HALF_PI;
     const vector = PointCalculations.multiplyPoint(
         CreatePoint.createUnitVector(angleRad),
         width * offset,
     );
-    
+
     const point = CreatePoint.createPoint(
         basePoint.x + vector.x,
         basePoint.y + vector.y
@@ -138,18 +138,18 @@ function calculateMiddlePointOfBox(boxGroup, box) {
         return point;
     }
 
-    const minimumX = (boxGroup.alignment % 2 === 1) ? 
-    Constants.ui.leftRibbonWidth + (length - clickedMemberIndex) * width * ApplicationState.screenZoom : 
-    Constants.ui.leftRibbonWidth + 1 * lengthInPixel * ApplicationState.screenZoom;
-    
-    const minimumY = (boxGroup.alignment % 2 === 1) ? 
-    Constants.ui.topRibbonHeight + 1 * lengthInPixel * ApplicationState.screenZoom :
-    Constants.ui.topRibbonHeight + (clickedMemberIndex + 1) * width * ApplicationState.screenZoom;
-    
+    const minimumX = (boxGroup.alignment % 2 === 1) ?
+        Constants.ui.leftRibbonWidth + (length - clickedMemberIndex) * width * ApplicationState.screenZoom :
+        Constants.ui.leftRibbonWidth + 1 * lengthInPixel * ApplicationState.screenZoom;
+
+    const minimumY = (boxGroup.alignment % 2 === 1) ?
+        Constants.ui.topRibbonHeight + 1 * lengthInPixel * ApplicationState.screenZoom :
+        Constants.ui.topRibbonHeight + (clickedMemberIndex + 1) * width * ApplicationState.screenZoom;
+
     const mousePosition = MouseCursor.getMousePosition();
     const diffX = UiCalculations.calculateCorrector(minimumX, mousePosition.x);
     const diffY = UiCalculations.calculateCorrector(minimumY, mousePosition.y);
-    
+
     return PipeDriverCalculations.mapPointToPipeDriverGrid(CreatePoint.createPoint(
         point.x + 0,
         point.y + 0
@@ -177,6 +177,7 @@ function rotateSelectedBoxGroup(direction) {
 
     updateAngleRadAndCenterPositions(group);
     updatePositionDataIncludingMembers(group); // todo ez lehet hogy nem kell
+    resetPipeDrivers(group);
 }
 
 /**
@@ -223,9 +224,28 @@ function removeLastBoxFromSelectedGroup() {
 }
 
 /**
+ * Visszaállítja a dobozcsoport csőnyomvezetőit.
+ * 
+ * @param {BoxGroup} boxGroup 
+ * @returns {undefined}
+ */
+function resetPipeDrivers(boxGroup) {
+    const boxes = BoxService.findByIdList(boxGroup.boxIds);
+    for (let b of boxes) {
+        if (b.pipeDriverId) {
+            const pipeDriver = PipeDriverService.findById(b.pipeDriverId);
+            if (pipeDriver) {
+                DeletePipeDriverAction.resetPipeDriver(pipeDriver);
+            }
+        }
+    }
+}
+
+/**
  * Dobozcsoportokat módosító műveletek
  */
 export const UpdateBoxGroupAction = {
+    resetPipeDrivers,
     assignBoxToGroup,
     addBoxToSelectedGroup,
     rotateSelectedBoxGroup,

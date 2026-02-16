@@ -20,6 +20,7 @@ import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
 import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { SlabHeaterGroupService } from "../../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
+import { DeletePipeDriverAction } from "../pipeDriver/DeletePipeDriverAction.js";
 import { UpdatePipeDriverAction } from "../pipeDriver/UpdatePipeDriverAction.js";
 import { SlabHeaterGroupCalculations } from "./SlabHeaterGroupCalculations.js";
 
@@ -101,7 +102,7 @@ function updatePositionDataIncludingMembers(slabHeaterGroup) {
     slabHeaterList.forEach(sh => updateSlabHeaterBoundingBoxAndSelectionBox(slabHeaterGroup, sh));
     updatePositionDataOfSlabHeaterGroup(slabHeaterGroup);
 
-    
+
     const slabHeaters = SlabHeaterService.findByIdList(slabHeaterGroup.slabHeaterIds);
     for (let slabHeater of slabHeaters) {
         const pipeDriver = PipeDriverService.findById(slabHeater.pipeDriverId);
@@ -271,6 +272,8 @@ function rotateSelectedSlabHeaterGroup(direction) {
     if (!newPositionIsValid) {
         rotateSelectedSlabHeaterGroup(-1 * direction);
         Errors.throwError(ErrorCodes.SLAB_HEATER_GROUP_OUTSIDE_ROOM);
+    } else {
+        resetPipeDrivers(group);
     }
 }
 
@@ -349,9 +352,26 @@ function updateNumberings() {
 }
 
 /**
+ * Visszaállítja a födémfűtő csoport csőnyomvezetőit.
+ * 
+ * @param {SlabHeaterGroup} slabHeaterGroup 
+ * @returns {undefined}
+ */
+function resetPipeDrivers(slabHeaterGroup) {
+    const slabHeaters = SlabHeaterService.findByIdList(slabHeaterGroup.slabHeaterIds);
+    for (let sh of slabHeaters) {
+        const pipeDriver = PipeDriverService.findById(sh.pipeDriverId);
+        if (pipeDriver) {
+            DeletePipeDriverAction.resetPipeDriver(pipeDriver);
+        }
+    }
+}
+
+/**
  * Födémfűtők módosításával kapcsolatos műveletek
  */
 export const UpdateSlabHeaterGroupAction = {
+    resetPipeDrivers,
     updateNumberings,
     setSlabHeaterGroupType,
     assignSlabHeaterToGroup,

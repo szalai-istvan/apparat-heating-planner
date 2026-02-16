@@ -152,6 +152,7 @@ function finalizePipeDriver(pipeDriver, box) {
         }
     }
 
+    // adjustSecondToLastPoint(pipeDriver); todo ezt majd meg kéne oldani
     pipeDriver.boxId = box.id;
     box.pipeDriverId = pipeDriver.id;
     pipeDriver.isFinalized = true;
@@ -246,6 +247,31 @@ function recalculateSegments(pipeDriver) {
         pipeDriver.segments[index] = CreateLine.createLine(p0, p1);
         index++;
     }
+}
+
+/**
+ * Utolsóelőtti pont igazítása.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {undefined}
+ */
+function adjustSecondToLastPoint(pipeDriver) {
+    if (pipeDriver.points.length <= 2) {
+        return;
+    }
+
+    const lastPoint = pipeDriver.points[pipeDriver.points.length - 1];
+    const secondToLastPoint = pipeDriver.points[pipeDriver.points.length - 2];
+
+    const deltaX = Math.abs(lastPoint.x - secondToLastPoint.x);
+    const deltaY = Math.abs(lastPoint.y - secondToLastPoint.y);
+    if (deltaX < deltaY) {
+        secondToLastPoint.x = lastPoint.x;
+    } else if (deltaY < deltaX) {
+        secondToLastPoint.y = lastPoint.y;
+    }
+
+    recalculateSegments(pipeDriver);
 }
 
 /**

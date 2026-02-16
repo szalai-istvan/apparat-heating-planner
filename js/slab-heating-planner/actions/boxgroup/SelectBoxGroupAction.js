@@ -1,15 +1,13 @@
 import { SelectionAction } from "../../../common/actions/selection/SelectionAction.js";
 import { SelectionCriteria } from "../../../common/actions/selection/SelectionCriteria.js";
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
-import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
-import { Errors } from "../../../common/errors/Errors.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
 import { BoxGroup } from "../../entities/BoxGroup.js";
 import { BoxGroupService } from "../../service/BoxGroupService.js";
 import { BoxService } from "../../service/BoxService.js";
-import { BoxGroupCalculations } from "./BoxGroupCalculations.js";
+import { UpdateBoxGroupAction } from "./UpdateBoxGroupAction.js";
 
 /** @type {BoxGroup} */
 let cachedSelectableBoxGroup = null;
@@ -31,6 +29,7 @@ function selectBoxGroup(boxGroup = undefined) {
     if (boxGroup === SlabHeatingPlannerApplicationState.selectedBoxGroup) {
         boxGroup.isSelected = true;
         boxGroup.isSelectedForDrag = true;
+        UpdateBoxGroupAction.resetPipeDrivers(boxGroup);
         return boxGroup;
     }
     

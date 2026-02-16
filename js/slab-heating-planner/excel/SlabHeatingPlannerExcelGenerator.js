@@ -110,13 +110,10 @@ function fillOutSummary(workbook, km) {
     workbook.setCellValue(L + 11, 7, SlabHeatingPlannerExcelConstants.boxPricePerPiece);
     workbook.setCellValue(L + 11, 8, `=F${L+11} * G${L+11}`);
 
-    workbook.setCellValue(L + 12, 7, km);
+    workbook.setCellValue(L + 12, 7, km > 0 ? km : 'Nem');
     workbook.setCellValue(L + 12, 8, km > 0 ? SlabHeatingPlannerExcelConstants.transportPrice.a * km + SlabHeatingPlannerExcelConstants.transportPrice.b : 0);
 
-    workbook.addValuesToRow(L + 14, [
-        ...ExcelGeneratorUtils.emptyCells(7),
-        `=SUM(H${L+9}:H${L+12})`
-    ]);
+    workbook.setCellValue(L + 14, 8, `=SUM(H${L+9}:H${L+12})`);
 }
 
 export const SlabHeatingPlannerExcelGenerator = {
