@@ -20,7 +20,7 @@ import { SlabHeaterGroupCalculations } from "../slabHeaterGroup/SlabHeaterGroupC
  * @returns {undefined}
  */
 function calculatePipesForPipeDriver(pipeDriver) {
-    if (!pipeDriver) {
+    if (!pipeDriver || !pipeDriver.isFinalized) {
         return;
     }
 

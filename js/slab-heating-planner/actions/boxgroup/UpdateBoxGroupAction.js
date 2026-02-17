@@ -216,6 +216,7 @@ function removeLastBoxFromSelectedGroup() {
         boxGroup.clickedMemberIndex--;
     }
 
+    resetPipeDrivers(boxGroup);
     const lastId = boxGroup.boxIds[boxGroup.boxIds.length - 1];
     boxGroup.boxIds = boxGroup.boxIds.filter(x => x !== lastId);
     BoxService.removeById(lastId);

@@ -62,7 +62,7 @@ function renderPipeDriver(pipeDriver) {
         }
         if (selectedPoint) {
             push();
-            fill(Constants.strings.darkgrey);
+            fill(Constants.strings.red);
             ellipse(selectedPoint.x, selectedPoint.y, diameter, diameter);
             pop();
         }

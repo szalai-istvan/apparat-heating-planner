@@ -152,7 +152,7 @@ function finalizePipeDriver(pipeDriver, box) {
         }
     }
 
-    // adjustSecondToLastPoint(pipeDriver); todo ezt majd meg kéne oldani
+    adjustSecondToLastPoint(pipeDriver);
     pipeDriver.boxId = box.id;
     box.pipeDriverId = pipeDriver.id;
     pipeDriver.isFinalized = true;

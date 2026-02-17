@@ -9,6 +9,7 @@ import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerCon
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { PipeDriverService } from "../../service/PipeDriverService.js";
 import { PipeDriverCalculations } from "./PipeDriverCalculations.js";
+import { PipeDriverPipeCalculations } from "./PipeDriverPipeCalculation.js";
 import { UpdatePipeDriverAction } from "./UpdatePipeDriverAction.js";
 
 /** @type {PipeDriver} */
@@ -115,6 +116,7 @@ function deselectPipeDriver() {
     pipeDriver.proposedSegments = [];
     SlabHeatingPlannerApplicationState.selectedPipeDriver = null;
     UpdatePipeDriverAction.recalculateSegments(pipeDriver);
+    PipeDriverPipeCalculations.calculatePipesForPipeDriver(pipeDriver);
 
     return true;
 }
