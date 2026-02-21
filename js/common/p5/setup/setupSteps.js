@@ -139,7 +139,7 @@ function initModalsAndEnterableButtons() {
     const modals = Array.prototype.slice.call(document.getElementsByTagName(Constants.strings.dialog), 0);
 
     Constants.ui.enterableButtons = buttons;
-    Constants.ui.modals = modals;
+    modals.forEach(element => Constants.ui.modals.push(element));
 }
 
 /**

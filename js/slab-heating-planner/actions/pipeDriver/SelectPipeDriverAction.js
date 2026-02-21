@@ -8,7 +8,6 @@ import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPla
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { PipeDriverService } from "../../service/PipeDriverService.js";
-import { PipeDriverCalculations } from "./PipeDriverCalculations.js";
 import { PipeDriverPipeCalculations } from "./PipeDriverPipeCalculation.js";
 import { UpdatePipeDriverAction } from "./UpdatePipeDriverAction.js";
 
@@ -30,7 +29,7 @@ function selectPipeDriver(pipeDriver = undefined) {
     }
 
     const selectForDrag = pipeDriver === SlabHeatingPlannerApplicationState.selectedPipeDriver || pipeDriver.points.length === 1;
-    if (selectForDrag) {
+    if (selectForDrag && SelectionAction.deselectObject()) {
         pipeDriver.isSelected = true;
         pipeDriver.isSelectedForDrag = true;
         SlabHeatingPlannerApplicationState.selectedPipeDriver = pipeDriver;
@@ -155,9 +154,27 @@ function mouseCursorIsInsideNode(point) {
 }
 
 /**
+ * Kiválasztja a legutolsó pontot.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @returns {undefined}
+ */
+function selectLastPoint(pipeDriver) {
+    if (!pipeDriver) {
+        return;
+    }
+    if (selectPipeDriver(pipeDriver)) {
+        ApplicationState.selectedObject = pipeDriver;
+        pipeDriver.isSelectedForDrag = true;
+        pipeDriver.selectedPointIndex = pipeDriver.points.length - 1;
+    }
+}
+
+/**
  * Csőnyomvonalak kiválasztásának műveletei
  */
 export const SelectPipeDriverAction = {
+    selectLastPoint,
     selectPipeDriver,
     deselectPipeDriver,
     searchForSelectablePipeDriver,

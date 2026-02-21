@@ -1,1 +1,0 @@
-- Pont igazítás amikor dobozba fordul a cső: utolsó előtti is!

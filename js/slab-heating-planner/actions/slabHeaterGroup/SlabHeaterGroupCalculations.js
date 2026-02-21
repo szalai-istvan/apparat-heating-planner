@@ -29,9 +29,20 @@ function getTotalAngleRad(slabHeaterGroup) {
 }
 
 /**
+ * Megállapítja, hogy nagy betűkkel kell-e írni a födémfűtő típusát.
+ * 
+ * @param {SlabHeaterGroup} slabHeaterGroup 
+ * @returns {boolean}
+ */
+function shouldUseLargeText(slabHeaterGroup) {
+    return (slabHeaterGroup.width > 0.8 && slabHeaterGroup.length > 1.6) || (slabHeaterGroup.width < 0.9 && slabHeaterGroup.length > 1.9);
+}
+
+/**
  * Födémfűtő csoportokkal kapcsolatos kalkulációk.
  */
 export const SlabHeaterGroupCalculations = {
     getTotalAngleRad,
-    getContainingRoom
+    getContainingRoom,
+    shouldUseLargeText
 };

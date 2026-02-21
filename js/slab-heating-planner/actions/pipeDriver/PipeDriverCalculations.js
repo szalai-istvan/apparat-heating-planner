@@ -173,10 +173,10 @@ function calculateLength(pipeDriver) {
 
     const blueLength = pipeDriver.bluePipe
         .map(line => LineCalculations.calculateLengthOfLineInMeters(line))
-        .reduce(ReducerFunctions.sumFunction);
+        .reduce(ReducerFunctions.sumFunction, 0);
     const redLength = pipeDriver.redPipe
         .map(line => LineCalculations.calculateLengthOfLineInMeters(line))
-        .reduce(ReducerFunctions.sumFunction);
+        .reduce(ReducerFunctions.sumFunction, 0);
 
     return MathTools.roundNumber(Math.max(redLength, blueLength) * 1.1, 1);
 }

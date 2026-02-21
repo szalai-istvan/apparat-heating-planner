@@ -8,6 +8,7 @@ import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
 import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
+import { MathTools } from "../../../common/math/MathTools.js";
 import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { UiCalculations } from "../../../common/ui/UICalculations.js";
@@ -41,11 +42,15 @@ function updateAngleRadAndCenterPositions(slabHeaterGroup) {
  * 
  * @param {number} width opcionális
  * @param {number} length opcionális
+ * @param {boolean} shouldResetPipeDriver opcionális
  * @returns {undefined}
  */
-function updateSelectedSlabHeaterGroupDimensions(width = undefined, length = undefined) {
-    width = width || SlabHeatingPlannerApplicationState.widthMenu.getValue();
-    length = length || SlabHeatingPlannerApplicationState.lengthMenu.getValue();
+function updateSelectedSlabHeaterGroupDimensions(width = undefined, length = undefined, shouldResetPipeDriver = true) {
+    const optionBarW = SlabHeatingPlannerApplicationState.widthMenu;
+    const optionBarL = SlabHeatingPlannerApplicationState.lengthMenu;
+
+    width = width || optionBarW.getValue();
+    length = length || optionBarL.getValue();
 
     const selectedSlabHeaterGroup = SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup;
 
@@ -58,10 +63,20 @@ function updateSelectedSlabHeaterGroupDimensions(width = undefined, length = und
     UpdateSlabHeaterGroupAction.setSlabHeaterGroupType(selectedSlabHeaterGroup, width, length);
 
     if (!selectedSlabHeaterGroup.isSelectedForDrag && !SlabHeaterGroupCalculations.getContainingRoom(selectedSlabHeaterGroup)) {
-        updateSelectedSlabHeaterGroupDimensions(originalWidth, originalLength);
+        updateSelectedSlabHeaterGroupDimensions(originalWidth, originalLength, false);
+
+        optionBarW.setValue(0, originalWidth.toString(), false);
+        const meter = Math.floor(originalLength).toString();
+        const cm = (Math.floor(MathTools.roundNumber(originalLength - Math.floor(originalLength), 2) * 100)).toString();
+        optionBarL.setValue(0, meter, false);
+        optionBarL.setValue(1, cm, false);
+
         Errors.throwError(ErrorCodes.SLAB_HEATER_GROUP_OUTSIDE_ROOM);
     }
 
+    if (shouldResetPipeDriver) {
+        resetPipeDrivers(selectedSlabHeaterGroup);
+    }
 }
 
 /**
@@ -119,6 +134,7 @@ function updatePositionDataIncludingMembers(slabHeaterGroup) {
  */
 function updateSlabHeaterBoundingBoxAndSelectionBox(slabHeaterGroup, slabHeater) {
     const middlePoint = calculateMiddlePointOfSlabHeater(slabHeaterGroup, slabHeater);
+    const largeText = SlabHeaterGroupCalculations.shouldUseLargeText(slabHeaterGroup);
 
     slabHeater.boundingBox = CreateRectangle.createRectangleByMiddlePoint(
         middlePoint,
@@ -129,8 +145,8 @@ function updateSlabHeaterBoundingBoxAndSelectionBox(slabHeaterGroup, slabHeater)
 
     slabHeater.selectionBox = CreateRectangle.createRectangleByMiddlePoint(
         middlePoint,
-        SlabHeatingPlannerApplicationState.slabHeaterTextboxWidthInPixels,
-        SlabHeatingPlannerApplicationState.slabHeaterTextboxHeightInPixels,
+        SlabHeatingPlannerApplicationState.slabHeaterTextboxWidthInPixels * (largeText ? 1.6 : 1),
+        SlabHeatingPlannerApplicationState.slabHeaterTextboxHeightInPixels * (largeText ? 1.6 : 1),
         SlabHeaterGroupCalculations.getTotalAngleRad(slabHeaterGroup)
     );
 }

@@ -1,8 +1,10 @@
-import { SelectionAction } from "../../../common/actions/selection/SelectionAction.js";
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
+import { ClassUtil } from "../../../common/util/ClassUtil.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
+import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { BoxService } from "../../service/BoxService.js";
+import { PipeDriverCalculations } from "./PipeDriverCalculations.js";
 import { SelectPipeDriverAction } from "./SelectPipeDriverAction.js";
 import { UpdatePipeDriverAction } from "./UpdatePipeDriverAction.js";
 
@@ -23,7 +25,7 @@ function performDeleteOnSelectedPipeDriver() {
         resetPipeDriver(pipeDriver);
     }
 
-    SelectionAction.deselectObject();
+    setTimeout(() => ApplicationState.selectedObject = pipeDriver, 100);
 }
 
 /**
@@ -48,20 +50,22 @@ function resetPipeDriver(pipeDriver) {
 
     pipeDriver.bluePipe = [];
     pipeDriver.redPipe = [];
-    pipeDriver.points = [pipeDriver.points[0]];
+    pipeDriver.points = [PipeDriverCalculations.calculateFirstPointOfPipeDriver(pipeDriver)];
     pipeDriver.segments = [];
     pipeDriver.proposedPoints = [];
     pipeDriver.proposedSegments = [];
-    pipeDriver.isFinalized = false;
+    UpdatePipeDriverAction.setIsFinalized(pipeDriver, false);
 
     const box = BoxService.findById(pipeDriver.boxId);
     if (box) {
-        box.pipeDriverId = null
+        box.pipeDriverId = null;
     }
     pipeDriver.boxId = null;
 
     SlabHeatingPlannerApplicationState.selectedPipeDriver = null;
-    ApplicationState.selectedObject = null;
+    if (ClassUtil.getClassName(ApplicationState.selectedObject) === SlabHeatingPlannerConstants.classNames.pipeDriver) {
+        ApplicationState.selectedObject = null;
+    }
     pipeDriver.isSelected = false;
     pipeDriver.isSelectedForDrag = false;
 }
@@ -77,7 +81,7 @@ function removeLastPoint(pipeDriver) {
         return;
     }
 
-    if (pipeDriver.selectedPointIndex < pipeDriver.points.length - 2) {
+    if (!pipeDriver.selectedPointIndex) {
         return;
     }
 
@@ -90,9 +94,10 @@ function removeLastPoint(pipeDriver) {
     pipeDriver.redPipe = [];
     pipeDriver.proposedPoints = [];
     pipeDriver.proposedSegments = [];
-    pipeDriver.isFinalized = false;
+    UpdatePipeDriverAction.setIsFinalized(pipeDriver, false);
 
     UpdatePipeDriverAction.recalculateSegments(pipeDriver);
+    SelectPipeDriverAction.selectLastPoint(pipeDriver);
 }
 
 /**

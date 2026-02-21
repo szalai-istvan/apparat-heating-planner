@@ -1,5 +1,5 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 
 /**
  * Be- vagy kikapcsolja a képernyő kontrollokat annak függvényében, hogy van-e megnyitva modal ablak
@@ -16,7 +16,8 @@ function toggleScreenControls() {
  * @returns {boolean} true, ha egy dialógus sincs megnyitva
  */
 function noModalsAreOpened() {
-    return Constants.ui.modals.filter((modal) => modalIsOpen(modal)).length === 0;
+    const modals = Array.prototype.slice.call(document.getElementsByTagName(Constants.strings.dialog), 0);
+    return modals.filter((modal) => modalIsOpen(modal)).length === 0;
 }
 
 /**

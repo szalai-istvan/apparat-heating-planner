@@ -2,6 +2,8 @@ import { Room } from "../../../common/entities/Room.js";
 import { SlabHeaterGroup } from "../../entities/SlabHeaterGroup.js";
 import { SlabHeaterGroupService } from "../../service/SlabHeaterGroupService.js";
 import { SlabHeaterService } from "../../service/SlabHeaterService.js";
+import { DeleteBoxGroupAction } from "../boxgroup/DeleteBoxGroupAction.js";
+import { DeleteSlabHeaterGroupAction } from "../slabHeaterGroup/DeleteSlabHeaterGroupAction.js";
 
 /**
  * Kiválasztott szoba törlése utáni műveletek
@@ -29,7 +31,8 @@ function onSelectedRoomRemovedSlabHeatingPlanner(room) {
  * @returns {undefined}
  */
 function onRoomsClearedSlabHeatingPlanner() {
-    // clearSlabHeaterGroups(); todo
+    DeleteSlabHeaterGroupAction.clearSlabHeaterGroups();
+    DeleteBoxGroupAction.clearBoxGroups();
 }
 
 /**

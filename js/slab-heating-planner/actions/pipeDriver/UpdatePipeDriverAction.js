@@ -74,6 +74,9 @@ function updatePropositions(pipeDriver) {
     }
 
     if (PointCalculations.calculateDistance(cursorPosition, nextPoint) < minimumSegmentLength) {
+        if (box) {
+            nextPoint = cursorPosition;
+        }
         pipeDriver.proposedPoints = [nextPoint];
         pipeDriver.proposedSegments = [CreateLine.createLine(lastPoint, nextPoint)];
         return;
@@ -155,7 +158,7 @@ function finalizePipeDriver(pipeDriver, box) {
     adjustSecondToLastPoint(pipeDriver);
     pipeDriver.boxId = box.id;
     box.pipeDriverId = pipeDriver.id;
-    pipeDriver.isFinalized = true;
+    setIsFinalized(pipeDriver, true);
 
     SlabHeatingPlannerApplicationState.selectedPipeDriver = null;
     ApplicationState.selectedObject = null;
@@ -241,7 +244,7 @@ function updateSelectedPointPosition(pipeDriver) {
  */
 function recalculateSegments(pipeDriver) {
     let index = 0;
-    while (index < pipeDriver.points.length - 2) {
+    while (index <= pipeDriver.points.length - 2) {
         const p0 = pipeDriver.points[index];
         const p1 = pipeDriver.points[index + 1];
         pipeDriver.segments[index] = CreateLine.createLine(p0, p1);
@@ -256,7 +259,7 @@ function recalculateSegments(pipeDriver) {
  * @returns {undefined}
  */
 function adjustSecondToLastPoint(pipeDriver) {
-    if (pipeDriver.points.length <= 2) {
+    if (pipeDriver.points.length < 2) {
         return;
     }
 
@@ -266,18 +269,32 @@ function adjustSecondToLastPoint(pipeDriver) {
     const deltaX = Math.abs(lastPoint.x - secondToLastPoint.x);
     const deltaY = Math.abs(lastPoint.y - secondToLastPoint.y);
     if (deltaX < deltaY) {
-        secondToLastPoint.x = lastPoint.x;
+        pipeDriver.points[pipeDriver.points.length - 2].x = lastPoint.x;
     } else if (deltaY < deltaX) {
-        secondToLastPoint.y = lastPoint.y;
+        pipeDriver.points[pipeDriver.points.length - 2].y = lastPoint.y;
     }
 
     recalculateSegments(pipeDriver);
 }
 
 /**
+ * Beállítja a véglegesség értékét.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @param {boolean} isFinalized 
+ * @returns {undefined}
+ */
+function setIsFinalized(pipeDriver, isFinalized) {
+    pipeDriver.isFinalized = isFinalized;
+    const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
+    slabHeater.pipeLength = PipeDriverCalculations.calculateLength(pipeDriver);
+}
+
+/**
  * Csőnyomvonal updatelő műveletek
  */
 export const UpdatePipeDriverAction = {
+    setIsFinalized,
     updatePropositions,
     recalculateSegments,
     updateSelectedPointPosition,

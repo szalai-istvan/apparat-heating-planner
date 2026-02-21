@@ -92,6 +92,7 @@ function calculatePipe(pipeDriver, startingPoint) {
     const pipePoints = [startingPoint];
 
     if (firstSegmentIsPerpendicular(pipeDriver)) {
+        console.log('fsp');
         const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
         const cornerLine = calculateCornerLineByThreePoints(slabHeater.boundingBox.middlePoint, pipeDriver.points[0], pipeDriver.points[1]);
         const pipeLine = CreateLine.createPerpendicularLine(pipeDriver.segments[0], startingPoint);
@@ -101,6 +102,8 @@ function calculatePipe(pipeDriver, startingPoint) {
         const offsetLinePipeLineIntersections = offsetLines.map(offsetLine => LineCalculations.calculateIntersectionPointOfTwoLines(offsetLine, pipeLine));
         const intersection = offsetLinePipeLineIntersections.sort((ip1, ip2) => compareDistanceFromIntersection(ip1, ip2, cornerLinePipeLineIntersection))[0];
         pipePoints.push(intersection);
+    } else if (pipeDriver.points.length === 2) {
+        calculateTwoPointPipe(pipeDriver, pipePoints);
     }
 
     let i = 1;
@@ -232,7 +235,8 @@ function firstSegmentIsPerpendicular(pipeDriver) {
     const deltaX = secondPoint.x - middlePoint.x;
     const deltaY = secondPoint.y - middlePoint.y;
 
-    return !MathTools.floatingPointEquals(deltaX * deltaY, 0);
+    return Math.abs(deltaX) > SlabHeatingPlannerApplicationState.pipeDriverSegmentMinimumLengthInPixels
+     && Math.abs(deltaY) > SlabHeatingPlannerApplicationState.pipeDriverSegmentMinimumLengthInPixels;
 }
 
 /**
@@ -255,6 +259,41 @@ function applyRadiusToPipes(pipes) {
         i++;
     }
 
+}
+
+/**
+ * Kiszámítja a két pontból álló csőnyomvonalat.
+ * 
+ * @param {PipeDriver} pipeDriver 
+ * @param {Point[]} pipePoints 
+ */
+function calculateTwoPointPipe(pipeDriver, pipePoints) {
+    const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
+    const slabHeaterGroup = SlabHeaterGroupService.findById(slabHeater.groupId);
+    const alignment = slabHeaterGroup.alignment;
+    const offset = SlabHeatingPlannerApplicationState.tubeDistanceInPixels;
+    /** @type {Point} */
+    let offsetCoordinates;
+    if (alignment === 0) {
+        offsetCoordinates = CreatePoint.createPoint(-offset, 0);
+    } else if (alignment === 1) {
+        offsetCoordinates = CreatePoint.createPoint(0, -offset);
+    } else if (alignment === 2) {
+        offsetCoordinates = CreatePoint.createPoint(offset, 0);
+    } else {
+        offsetCoordinates = CreatePoint.createPoint(0, offset);
+    }
+    const secondPoint = PointCalculations.addPoints([pipePoints[0], offsetCoordinates]);
+    pipePoints.push(secondPoint);
+
+    const offsetLines = calculateOffsetLinesAtIndex(pipeDriver, 0);
+    const perpendicularLine = CreateLine.createPerpendicularLine(offsetLines[0], secondPoint);
+
+    const offsetLinePipeLineIntersections = offsetLines.map(offsetLine => LineCalculations.calculateIntersectionPointOfTwoLines(offsetLine, perpendicularLine));
+    console.log(pipePoints);
+    console.log(offsetLinePipeLineIntersections);
+    const intersection = offsetLinePipeLineIntersections.sort((ip1, ip2) => compareDistanceFromIntersection(ip1, ip2, secondPoint))[0];
+    pipePoints.push(intersection);
 }
 
 /**

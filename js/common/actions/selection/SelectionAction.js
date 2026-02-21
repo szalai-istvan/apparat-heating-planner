@@ -4,6 +4,7 @@ import { Blueprint } from "../../entities/Blueprint.js";
 import { Room } from "../../entities/Room.js";
 import { CustomEventTypes } from "../../event/CustomEventTypes.js";
 import { Events } from "../../event/Events.js";
+import { DeleteBlueprintConfirmDialog } from "../../ui/dialog/DeleteBlueprintConfirmDialog.js";
 import { RotateBlueprintDialog } from "../../ui/dialog/RotateBlueprintDialog.js";
 import { ClassUtil } from "../../util/ClassUtil.js";
 import { DeleteBlueprintAction } from "../blueprint/DeleteBlueprintAction.js";
@@ -136,7 +137,8 @@ function removeSelectedObject() {
     if (className === Constants.classNames.room) {
         DeleteRoomAction.removeSelectedRoom();
     } else if (className === Constants.classNames.blueprint) {
-        DeleteBlueprintAction.removeSelectedBlueprint();
+        DeleteBlueprintConfirmDialog.openDialog();
+        return;
     } else {
         Events.dispatchCustomEvent(CustomEventTypes.removeSelectedObject, className);
     }

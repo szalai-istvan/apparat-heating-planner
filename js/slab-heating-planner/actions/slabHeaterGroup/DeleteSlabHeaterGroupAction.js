@@ -33,7 +33,8 @@ function removeSelectedSlabHeaterGroup() {
 function clearSlabHeaterGroups() {
     SlabHeaterGroupService.removeAll();
     SlabHeaterService.removeAll();
-    
+    PipeDriverService.removeAll(); 
+
     SlabHeatingPlannerApplicationState.selectedSlabHeaterGroup = null;
     ApplicationState.selectedObject = null;
     UpdateSlabHeaterGroupAction.updateNumberings();

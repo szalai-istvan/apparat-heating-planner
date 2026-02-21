@@ -34,6 +34,7 @@ function renderSlabHeaterGroup(slabHeaterGroup) {
  * @returns {undefined}
  */
 function renderSlabHeater(slabHeater, group) {
+    const largeText = SlabHeaterGroupCalculations.shouldUseLargeText(group);
     const alignment = group.alignment;
     const centerPosition = slabHeater.boundingBox.middlePoint;
     const lineWeight = SlabHeatingPlannerApplicationState.slabHeaterLineWeightInPixels;
@@ -44,10 +45,10 @@ function renderSlabHeater(slabHeater, group) {
     const lengthTo = group.lengthInPixels / 2;
     const diameter = tubeDistance;
     const stopThreshold = SlabHeatingPlannerApplicationState.slabHeaterStopDrawingThresholdInPixels;
-    const textSizePixels = SlabHeatingPlannerApplicationState.slabHeaterTextSizeInPixels;
+    const textSizePixels = (largeText ? 1.6 : 1) * SlabHeatingPlannerApplicationState.slabHeaterTextSizeInPixels;
     const type = group.type;
-    const rectWidth = SlabHeatingPlannerApplicationState.slabHeaterTextboxWidthInPixels;
-    const rectHeight = SlabHeatingPlannerApplicationState.slabHeaterTextboxHeightInPixels;
+    const rectWidth = (largeText ? 1.6 : 1) * SlabHeatingPlannerApplicationState.slabHeaterTextboxWidthInPixels;
+    const rectHeight = (largeText ? 1.6 : 1) * SlabHeatingPlannerApplicationState.slabHeaterTextboxHeightInPixels;
     const isSelected = group.isSelected;
     const p = SlabHeatingPlannerConstants.slabHeater.slabHeaterTextPopFactor;
     const pointIsInsideGroupMemberTextBox = SelectionCriteria.evaluateSelectionCriteria(slabHeater);
@@ -59,6 +60,9 @@ function renderSlabHeater(slabHeater, group) {
 
     // @ts-ignore
     push();
+    
+    // @ts-ignore
+    textStyle(BOLD);
 
     // @ts-ignore
     translate(centerPosition.x, centerPosition.y);
@@ -130,7 +134,7 @@ function renderSlabHeater(slabHeater, group) {
         rotate(PI);
     }
 
-    const label = slabHeater.pipeLength > 0 ? type + '\n' + slabHeater.pipeLength + ' m' : type;
+    const label = slabHeater.pipeLength > 0 ? type + '\n' + slabHeater.pipeLength.toString().replace('.', ',') + ' m' : type;
     // @ts-ignore
     text(label, 0, 0);
 
@@ -139,8 +143,8 @@ function renderSlabHeater(slabHeater, group) {
     noFill();
     rect(0, 0, length + SlabHeatingPlannerApplicationState.tubeDistanceInPixels * 1.5, width - 0.02 * ApplicationState.pixelsPerMetersRatio);
     
-    const bubbleDiameter = SlabHeatingPlannerApplicationState.rowNumberBubbleDiameterInPixels;
-    const numberCoordX = -1 * (alignment < 2 ? -1 : 1) * (bubbleDiameter / 2 + rectWidth / 2 + SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels);
+    const bubbleDiameter = (largeText ? 1.6 : 1) * SlabHeatingPlannerApplicationState.rowNumberBubbleDiameterInPixels;
+    let numberCoordX = -1 * (alignment < 2 ? -1 : 1) * (bubbleDiameter / 2 + rectWidth / 2 + SlabHeatingPlannerApplicationState.rowNumberBubbleDistanceFromLabelInPixels);
     stroke(Constants.strings.black);
     fill(slabHeater.outlineColor);
     ellipse(numberCoordX, 0, bubbleDiameter, bubbleDiameter);
