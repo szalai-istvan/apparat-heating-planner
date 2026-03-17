@@ -1,6 +1,8 @@
 import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
+import { Constants } from "../appdata/constants.js";
 import { DocumentData } from "../ui/DocumentData.js";
+import { WorkbookWrapper } from "./WorkbookWrapper.js";
 
 const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -53,14 +55,7 @@ function getCellName(cell) {
 }
 
 function setFormula(cell, formula) {
-    try {
-        cell.formula = formula;
-        cell.formulaType = 1;
-        cell.value = { formula };
-    } catch (error) {
-        cell.formulaType = 1;
-        cell.value = { formula };
-    }
+    cell.value = { formula };
 }
 
 function addOptionTableAndReturnOptionsRange(sheet, column, options, formula = false) {
@@ -71,7 +66,7 @@ function addOptionTableAndReturnOptionsRange(sheet, column, options, formula = f
         if (formula) {
             setFormula(sheet.getRow(rowIndex).getCell(column), key);
             setFormula(sheet.getRow(rowIndex).getCell(column + 1), value);
-        } else {                
+        } else {
             sheet.getRow(rowIndex).getCell(column).value = key;
             sheet.getRow(rowIndex).getCell(column + 1).value = value;
         }
@@ -169,56 +164,14 @@ function getCollectorConfig(context) {
     first = first < 2 ? 'nem kell' : first + ' körös osztógyűjtő';
     second = second < 2 ? 'nem kell' : second + ' körös osztógyűjtő';
 
-    return {first, second};
+    return { first, second };
 }
 
 function addPicture(context) {
     const workbook = context.workbook;
-    const blueprintSheet = context.sheets.blueprintSheet;
-
-    const screenSumDrag = ApplicationState.screenSumDrag;
-    const screenZoom = ApplicationState.screenZoom;
-
-    const beforeScreenData = { x: screenSumDrag.x, y: screenSumDrag.y, zoom: screenZoom };
-    const canvasOriginalSize = DocumentData.getCanvasSize();
-    
-    try {
-        const contentBoundingBox = BlueprintCalculations.getDrawingBoundingBox();
-
-        // zoom = 1
-        // sumDrag = middlePoint
-        // canvasSize = width, height
-        // draw
-
-        const contentSize = getBlueprintContentSize();
-        const contentWidth = screenZoom * contentSize.w + 100;
-        const contentHeight = screenZoom * contentSize.h + 100;
-        resizeCanvas(contentWidth + LEFT_RIBBON_WIDTH, contentHeight + TOP_RIBBON_HEIGHT);
-        adjustScreenForExport();
-        draw();
-
-        let buffer = createGraphics(contentWidth, contentHeight);
-        extracted = get(LEFT_RIBBON_WIDTH, TOP_RIBBON_HEIGHT, contentWidth, contentHeight);
-        buffer.image(extracted, 0, 0);
-
-        const base64Image = buffer.elt.toDataURL("image/png");
-
-        const imageId = workbook.addImage({
-            buffer: base64ToArrayBuffer(base64Image.split(',')[1]),
-            extension: "png"
-        });
-
-        blueprintSheet.addImage(imageId, {
-            tl: { col: 0, row: 0 },
-            ext: { width: contentWidth, height: contentHeight }
-        });
-
-
-    } finally {
-        screenSumDrag = {x: beforeScreenData.x, y: beforeScreenData.y};
-        screenZoom = beforeScreenData.zoom;
-        resizeCanvas(canvasOriginalSize.x, canvasOriginalSize.y);
-    }
+    const wrapper = new WorkbookWrapper(workbook);
+    wrapper.selectSheetByName('Tervrajz');
+    wrapper.exportBlueprint();
 }
 
 function base64ToArrayBuffer(base64) {
