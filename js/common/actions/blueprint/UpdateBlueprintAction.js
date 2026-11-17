@@ -1,7 +1,7 @@
 import { Blueprint } from "../../entities/Blueprint.js";
-import { CreatePoint } from "../../geometry/Point/CreatePoint.js";
-import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
-import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
+import { CreatePoint } from "../../geometry/point/createPoint.js";
+import { CreateRectangle } from "../../geometry/rectangle/createRectangle.js";
+import { RectangleCalculations } from "../../geometry/rectangle/RectangleCalculations.js";
 import { BlueprintService } from "../../service/BlueprintService.js";
 import { BlueprintCalculations } from "./BlueprintCalculations.js";
 

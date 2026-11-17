@@ -1,7 +1,7 @@
-import { Constants } from "../../../common/appdata/Constants.js";
-import { Line } from "../../../common/geometry/Line/Line.js";
+import { Constants } from "../../../common/appdata/constants.js";
+import { Line } from "../../../common/geometry/line/Line.js";
 import { LineCalculations } from "../../../common/geometry/line/LineCalculations.js";
-import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
+import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
 import { RoomService } from "../../../common/service/RoomService.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { HeatingPlannerApplicationState } from "../../appdata/HeatingPlannerApplicationState.js";

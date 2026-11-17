@@ -1,7 +1,7 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { CustomEventTypes } from "../../event/CustomEventTypes.js";
+import { CustomEventTypes } from "../../event/customEventTypes.js";
 import { Events } from "../../event/Events.js";
-import { GridActions } from "../../geometry/Grid/GridActions.js";
+import { GridActions } from "../../geometry/grid/GridActions.js";
 import { RoomService } from "../../service/RoomService.js";
 import { SelectionAction } from "../selection/SelectionAction.js";
 import { SelectRoomAction } from "./SelectRoomAction.js";

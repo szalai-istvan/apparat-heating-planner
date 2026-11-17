@@ -1,4 +1,4 @@
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 
 const NUMBER_FORMAT_OBJECT = new Intl.NumberFormat('en-US');
 

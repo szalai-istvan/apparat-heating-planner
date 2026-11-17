@@ -2,7 +2,7 @@ import { Blueprint } from "../entities/Blueprint.js";
 import { Room } from "../entities/Room.js";
 import { ID } from "../math/ID.js";
 import { ButtonWrapper } from "../ui/buttons/ButtonWrapper.js";
-import { MenuLine } from "../ui/menuLine/MenuLine.js";
+import { MenuLine } from "../ui/MenuLine/MenuLine.js";
 import { OptionsBar } from "../ui/OptionsBar/OptionsBar.js";
 import { ClassUtil } from "../util/ClassUtil.js";
 

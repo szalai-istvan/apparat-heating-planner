@@ -1,6 +1,6 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
-import { CreatePoint } from "../Point/CreatePoint.js";
+import { CreatePoint } from "../point/createPoint.js";
 import { Point } from "../point/Point.js";
 
 /**

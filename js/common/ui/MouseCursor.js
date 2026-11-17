@@ -1,10 +1,10 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
-import { CreatePoint } from "../geometry/Point/CreatePoint.js";
-import { Point } from "../geometry/Point/Point.js";
+import { Constants } from "../appdata/constants.js";
+import { CreatePoint } from "../geometry/point/createPoint.js";
+import { Point } from "../geometry/point/Point.js";
 import { ScreenActions } from "../screen/ScreenActions.js";
 import { DocumentData } from "./DocumentData.js";
-import { UiCalculations } from "./UICalculations.js";
+import { UiCalculations } from "./UiCalculations.js";
 
 /**
  * Megállapítja, hogy a kurzor a UI paneleken belül található-e.

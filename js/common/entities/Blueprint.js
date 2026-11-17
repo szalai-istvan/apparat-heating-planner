@@ -1,4 +1,4 @@
-import { Rectangle } from "../geometry/Rectangle/Rectangle.js";
+import { Rectangle } from "../geometry/rectangle/Rectangle.js";
 
 /**
  * Tervrajz entitás osztály.

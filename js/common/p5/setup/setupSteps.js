@@ -1,6 +1,6 @@
 import { SelectionAPI } from "../../api/SelectionAPI.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { DocumentData } from "../../ui/DocumentData.js";
 
 /**

@@ -4,15 +4,15 @@ import { BlueprintAPI } from "../api/BlueprintAPI.js";
 import { RoomAPI } from "../api/RoomAPI.js";
 import { ScalingAPI } from "../api/ScalingAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
-import { CreatePoint } from "../geometry/Point/CreatePoint.js";
-import { Point } from "../geometry/Point/Point.js";
+import { Constants } from "../appdata/constants.js";
+import { CreatePoint } from "../geometry/point/createPoint.js";
+import { Point } from "../geometry/point/Point.js";
 import { Load } from "../io/load.js";
 import { Save } from "../io/save.js";
 import { ReducerFunctions } from "../math/ReducerFunctions.js";
 import { ButtonWrapper } from "./buttons/ButtonWrapper.js";
 import { LoadProjectButton } from "./buttons/LoadProjectButton.js";
-import { MenuLine } from "./menuLine/MenuLine.js";
+import { MenuLine } from "./MenuLine/MenuLine.js";
 
 /**
  * Létrehozza a minden projekthez szükséges gombot.

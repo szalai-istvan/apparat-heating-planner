@@ -1,5 +1,5 @@
 import { BlueprintCalculations } from "../../common/actions/blueprint/BlueprintCalculations.js";
-import { RenderRectangle } from "../../common/geometry/Rectangle/RenderRectangle.js";
+import { RenderRectangle } from "../../common/geometry/rectangle/RenderRectangle.js";
 import { BlueprintService } from "../../common/service/BlueprintService.js";
 import { RoomService } from "../../common/service/RoomService.js";
 import { RenderPanelGroup } from "../actions/panelGroup/RenderPanelGroup.js";

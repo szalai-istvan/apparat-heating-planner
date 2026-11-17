@@ -1,9 +1,9 @@
 import { SelectionAPI } from "../api/SelectionAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { CustomEventTypes } from "../event/customEventTypes.js";
 import { Events } from "../event/Events.js";
-import { PointCalculations } from "../geometry/Point/PointCalculations.js";
+import { PointCalculations } from "../geometry/point/PointCalculations.js";
 import { ScreenActions } from "../screen/ScreenActions.js";
 import { MouseCursor } from "../ui/MouseCursor.js";
 

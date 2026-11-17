@@ -1,12 +1,12 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
-import { Constants } from "../../../common/appdata/Constants.js";
-import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
+import { Constants } from "../../../common/appdata/constants.js";
+import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
-import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
-import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
+import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
+import { CreateRectangle } from "../../../common/geometry/rectangle/createRectangle.js";
 import { ElementStore } from "../../../common/store/ElementStore.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
-import { UiCalculations } from "../../../common/ui/UICalculations.js";
+import { UiCalculations } from "../../../common/ui/UiCalculations.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { Box } from "../../entities/Box.js";

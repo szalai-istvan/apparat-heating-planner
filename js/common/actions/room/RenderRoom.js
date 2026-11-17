@@ -1,9 +1,9 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/constants.js";
 import { Room } from "../../entities/Room.js";
-import { GridCalculations } from "../../geometry/Grid/GridCalculations.js";
+import { GridCalculations } from "../../geometry/grid/GridCalculations.js";
 import { PointCalculations } from "../../geometry/point/PointCalculations.js";
-import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
+import { RectangleCalculations } from "../../geometry/rectangle/RectangleCalculations.js";
 import { MathTools } from "../../math/MathTools.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
 import { Validators } from "../../validators/Validators.js";

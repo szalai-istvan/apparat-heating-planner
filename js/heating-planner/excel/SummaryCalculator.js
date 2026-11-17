@@ -1,8 +1,8 @@
 // @ts-nocheck
 import { ApplicationState } from "../../common/appdata/ApplicationState.js";
 import { Room } from "../../common/entities/Room.js";
-import { PointCalculations } from "../../common/geometry/Point/PointCalculations.js";
-import { RectangleCalculations } from "../../common/geometry/Rectangle/RectangleCalculations.js";
+import { PointCalculations } from "../../common/geometry/point/PointCalculations.js";
+import { RectangleCalculations } from "../../common/geometry/rectangle/RectangleCalculations.js";
 import { ReducerFunctions } from "../../common/math/ReducerFunctions.js";
 import { RoomService } from "../../common/service/RoomService.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";

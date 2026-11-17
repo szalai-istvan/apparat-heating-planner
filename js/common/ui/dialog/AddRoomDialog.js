@@ -1,10 +1,10 @@
 import { CreateRoomAction } from "../../actions/room/CreateRoomAction.js";
 import { RoomCalculations } from "../../actions/room/RoomCalculations.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { ErrorCodes } from "../../errors/ErrorCodes.js";
 import { Errors } from "../../errors/Errors.js";
-import { UiCalculations } from "../UICalculations.js";
+import { UiCalculations } from "../UiCalculations.js";
 import { Dialogs } from "./Dialogs.js";
 
 /** @type {HTMLDialogElement} */

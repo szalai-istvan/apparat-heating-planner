@@ -1,6 +1,6 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { CreatePoint } from "../geometry/Point/CreatePoint.js";
-import { Point } from "../geometry/Point/Point.js";
+import { CreatePoint } from "../geometry/point/createPoint.js";
+import { Point } from "../geometry/point/Point.js";
 
 /**
  * Visszaadja a dokumntum befoglaló méreteit

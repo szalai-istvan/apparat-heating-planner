@@ -3,8 +3,8 @@ import { LineCalculations } from "../../../common/geometry/line/LineCalculations
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
-import { CreateRectangle } from "../../../common/geometry/Rectangle/CreateRectangle.js";
-import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
+import { CreateRectangle } from "../../../common/geometry/rectangle/createRectangle.js";
+import { RectangleCalculations } from "../../../common/geometry/rectangle/RectangleCalculations.js";
 import { MathTools } from "../../../common/math/MathTools.js";
 import { ReducerFunctions } from "../../../common/math/ReducerFunctions.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";

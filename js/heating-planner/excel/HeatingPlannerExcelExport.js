@@ -1,8 +1,8 @@
 import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js";
-import { Constants } from "../../common/appdata/Constants.js";
+import { Constants } from "../../common/appdata/constants.js";
 import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
-import { HeatingPlannerExcelConstants } from "./ExcelConstants.js";
+import { HeatingPlannerExcelConstants } from "./excelConstants.js";
 import { summaryCalculator } from "./SummaryCalculator.js";
 
 let EXCEL_ARRAY_BUFFER = null;

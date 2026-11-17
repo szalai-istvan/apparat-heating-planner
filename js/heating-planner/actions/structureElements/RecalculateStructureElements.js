@@ -1,11 +1,11 @@
-import { Constants } from "../../../common/appdata/Constants.js";
+import { Constants } from "../../../common/appdata/constants.js";
 import { Room } from "../../../common/entities/Room.js";
-import { CreateLine } from "../../../common/geometry/Line/CreateLine.js";
-import { Line } from "../../../common/geometry/Line/Line.js";
+import { CreateLine } from "../../../common/geometry/line/createLine.js";
+import { Line } from "../../../common/geometry/line/Line.js";
 import { LineCalculations } from "../../../common/geometry/line/LineCalculations.js";
-import { CreatePoint } from "../../../common/geometry/Point/CreatePoint.js";
-import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
-import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
+import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
+import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
+import { RectangleCalculations } from "../../../common/geometry/rectangle/RectangleCalculations.js";
 import { ReducerFunctions } from "../../../common/math/ReducerFunctions.js";
 import { RoomService } from "../../../common/service/RoomService.js";
 import { Validators } from "../../../common/validators/Validators.js";

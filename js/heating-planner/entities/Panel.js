@@ -1,4 +1,4 @@
-import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
+import { Rectangle } from "../../common/geometry/rectangle/Rectangle.js";
 
 /**
  * Egy fűtőpanelt reprezentáló entitás

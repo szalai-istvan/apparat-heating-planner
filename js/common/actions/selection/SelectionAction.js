@@ -1,13 +1,12 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { Blueprint } from "../../entities/Blueprint.js";
 import { Room } from "../../entities/Room.js";
-import { CustomEventTypes } from "../../event/CustomEventTypes.js";
+import { CustomEventTypes } from "../../event/customEventTypes.js";
 import { Events } from "../../event/Events.js";
 import { DeleteBlueprintConfirmDialog } from "../../ui/dialog/DeleteBlueprintConfirmDialog.js";
 import { RotateBlueprintDialog } from "../../ui/dialog/RotateBlueprintDialog.js";
 import { ClassUtil } from "../../util/ClassUtil.js";
-import { DeleteBlueprintAction } from "../blueprint/DeleteBlueprintAction.js";
 import { SelectBlueprintAction } from "../blueprint/SelectBlueprintAction.js";
 import { DeleteRoomAction } from "../room/DeleteRoomAction.js";
 import { SelectRoomAction } from "../room/SelectRoomAction.js";

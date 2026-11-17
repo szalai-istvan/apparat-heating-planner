@@ -1,6 +1,6 @@
 import { SelectionCriteria } from "../../../common/actions/selection/SelectionCriteria.js";
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
-import { Constants } from "../../../common/appdata/Constants.js";
+import { Constants } from "../../../common/appdata/constants.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { HeatingPlannerApplicationState } from "../../appdata/HeatingPlannerApplicationState.js";
 import { HeatingPlannerConstants } from "../../appdata/HeatingPlannerConstants.js";

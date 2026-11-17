@@ -1,4 +1,4 @@
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { Dialogs } from "./Dialogs.js";
 import { UpdateBlueprintAction } from "../../actions/blueprint/UpdateBlueprintAction.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";

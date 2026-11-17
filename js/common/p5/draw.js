@@ -1,5 +1,5 @@
 import { SelectionAPI } from "../api/SelectionAPI.js";
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { AbsoluteObjectRenderer } from "../render/AbsoluteObjectRenderer.js";
 import { TranslatedObjectRenderer } from "../render/TranslatedObjectRenderer.js";
 import { ScreenActions } from "../screen/ScreenActions.js";

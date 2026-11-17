@@ -65,8 +65,10 @@ export const ApplicationState = {
     /** @type {Blueprint} */
     selectedBlueprint: null,
     /** @type {Room} */
-    selectedRoom: null
+    selectedRoom: null,
 
+    /** @type {'hu' | 'ro'} */
+    language: 'hu'
 };
 
 // @ts-ignore

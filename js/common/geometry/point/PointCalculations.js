@@ -2,7 +2,7 @@ import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { ReducerFunctions } from "../../math/ReducerFunctions.js";
 import { ScreenActions } from "../../screen/ScreenActions.js";
 import { DocumentData } from "../../ui/DocumentData.js";
-import { CreatePoint } from "./CreatePoint.js";
+import { CreatePoint } from "./createPoint.js";
 import { Point } from "./Point.js";
 
 /**

@@ -1,6 +1,6 @@
 import { SelectionAction } from "../../common/actions/selection/SelectionAction.js";
-import { Constants } from "../../common/appdata/Constants.js";
-import { CustomEventTypes } from "../../common/event/CustomEventTypes.js";
+import { Constants } from "../../common/appdata/constants.js";
+import { CustomEventTypes } from "../../common/event/customEventTypes.js";
 import { Events } from "../../common/event/Events.js";
 import { Load } from "../../common/io/load.js";
 import { Save } from "../../common/io/save.js";
@@ -14,7 +14,7 @@ import { SlabHeatingPlannerSelectionAction } from "../actions/selection/SlabHeat
 import { SelectSlabHeaterGroupAction } from "../actions/slabHeaterGroup/SelectSlabHeaterGroupAction.js";
 import { LoadSlabHeatingPlanner } from "../io/LoadSlabHeatingPlanner.js";
 import { SaveSlabHeatingPlanner } from "../io/SaveSlabHeatingPlanner.js";
-import { SlabHeatingPlannerTranslatedObjectRenderer } from "../render/RenderTranslatedObjectsSlabHeatingPlanner.js";
+import { SlabHeatingPlannerTranslatedObjectRenderer } from "../render/renderTranslatedObjectsSlabHeatingPlanner.js";
 import { ElementStoreSlabHeatingPlanner } from "../store/ElementStoreSlabHeatingPlanner.js";
 import { UiLayoutSlabHeatingPlanner } from "../ui/UiLayoutSlabHeatingPlanner.js";
 import { SlabHeatingPlannerRightMouseButton } from "./mouseReleasedSlabHeater.js";

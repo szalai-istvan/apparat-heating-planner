@@ -1,4 +1,4 @@
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { MessageDialog } from "../ui/dialog/MessageDialog.js";
 import { ClassUtil } from "../util/ClassUtil.js";
 import { ErrorTranslations } from "./ErrorCodes.js";

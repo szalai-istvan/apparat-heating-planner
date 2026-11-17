@@ -4,9 +4,9 @@ import { UpdateBlueprintAction } from "../actions/blueprint/UpdateBlueprintActio
 import { ScalingActions } from "../actions/scaling/ScalingActions.js";
 import { SelectionAction } from "../actions/selection/SelectionAction.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
-import { GridActions } from "../geometry/Grid/GridActions.js";
-import { CreatePoint } from "../geometry/Point/CreatePoint.js";
+import { Constants } from "../appdata/constants.js";
+import { GridActions } from "../geometry/grid/GridActions.js";
+import { CreatePoint } from "../geometry/point/createPoint.js";
 import { Draw } from "../p5/draw.js";
 import { BlueprintService } from "../service/BlueprintService.js";
 import { ElementStore } from "../store/ElementStore.js";

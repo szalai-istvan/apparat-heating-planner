@@ -1,7 +1,7 @@
 import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js";
 import { SelectionAPI } from "../../common/api/SelectionAPI.js";
 import { ApplicationState } from "../../common/appdata/ApplicationState.js";
-import { Constants } from "../../common/appdata/Constants.js";
+import { Constants } from "../../common/appdata/constants.js";
 import { ButtonWrapper } from "../../common/ui/buttons/ButtonWrapper.js";
 import { OptionsBar } from "../../common/ui/OptionsBar/OptionsBar.js";
 import { UiLayoutDefinition } from "../../common/ui/UiLayoutDefinition.js";
@@ -10,7 +10,6 @@ import { GroupManagementAPI } from "../api/GroupManagementAPI.js";
 import { SlabHeaterGroupAPI } from "../api/SlabHeaterGroupAPI.js";
 import { SlabHeatingPlannerApplicationState } from "../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../appdata/SlabHeatingPlannerConstants.js";
-import { SlabHeatingPlannerExcelGenerator } from "../excel/SlabHeatingPlannerExcelGenerator.js";
 import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";
 import { SlabHeaterMenuValueResolver } from "./SlabHeaterMenuValueResolver.js";
 import { TransportDialog } from "./TransportDialog.js";

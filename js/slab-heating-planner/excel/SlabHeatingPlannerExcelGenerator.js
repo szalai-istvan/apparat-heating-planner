@@ -1,6 +1,4 @@
-import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
 import { WorkbookWrapper } from "../../common/excel/WorkbookWrapper.js";
-import { HeatingPlannerExcelConstants } from "../../heating-planner/excel/ExcelConstants.js";
 import { RenderPipeDriver } from "../actions/pipeDriver/RenderPipeDriver.js";
 import { BoxService } from "../service/BoxService.js";
 import { SlabHeaterGroupService } from "../service/SlabHeaterGroupService.js";

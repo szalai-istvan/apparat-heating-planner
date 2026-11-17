@@ -1,5 +1,5 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 
 /**
  * Rögzíti a megnyomott billentyűt.

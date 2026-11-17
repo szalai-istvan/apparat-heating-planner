@@ -1,8 +1,8 @@
 import { Blueprint } from "../../entities/Blueprint.js";
-import { CreatePoint } from "../../geometry/Point/CreatePoint.js";
-import { Point } from "../../geometry/Point/Point.js";
-import { CreateRectangle } from "../../geometry/Rectangle/CreateRectangle.js";
-import { Rectangle } from "../../geometry/Rectangle/Rectangle.js";
+import { CreatePoint } from "../../geometry/point/createPoint.js";
+import { Point } from "../../geometry/point/Point.js";
+import { CreateRectangle } from "../../geometry/rectangle/createRectangle.js";
+import { Rectangle } from "../../geometry/rectangle/Rectangle.js";
 import { ReducerFunctions } from "../../math/ReducerFunctions.js";
 import { BlueprintService } from "../../service/BlueprintService.js";
 import { RoomService } from "../../service/RoomService.js";

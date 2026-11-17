@@ -1,5 +1,5 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { Blueprint } from "../../entities/Blueprint.js";
 import { BlueprintService } from "../../service/BlueprintService.js";
 import { Validators } from "../../validators/Validators.js";

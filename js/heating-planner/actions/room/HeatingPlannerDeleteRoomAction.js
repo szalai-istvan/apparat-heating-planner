@@ -3,7 +3,6 @@ import { PanelGroupService } from "../../service/PanelGroupService.js";
 import { PanelService } from "../../service/PanelService.js";
 import { StructureElementsService } from "../../service/StructureElementsService.js";
 import { DeletePanelGroupAction } from "../panelGroup/DeletePanelGroupAction.js";
-import { RecalculateStructureElements } from "../structureElements/RecalculateStructureElements.js";
 
 /**
  * Szobák törlése utáni projektspecifikus műveletek

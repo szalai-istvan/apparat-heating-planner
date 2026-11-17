@@ -1,4 +1,4 @@
-import { Line } from "../../common/geometry/Line/Line.js";
+import { Line } from "../../common/geometry/line/Line.js";
 
 /**
  * Egy szoba szerkezeti elemeit reprezentáló osztály

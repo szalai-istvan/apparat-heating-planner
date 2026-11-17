@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Constants } from "../../../common/appdata/Constants.js";
+import { Constants } from "../../../common/appdata/constants.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { SlabHeatingPlannerConstants } from "../../appdata/SlabHeatingPlannerConstants.js";

@@ -1,7 +1,7 @@
 import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/constants.js";
-import { RectangleCalculations } from "../geometry/Rectangle/RectangleCalculations.js";
+import { RectangleCalculations } from "../geometry/rectangle/RectangleCalculations.js";
 import { DocumentData } from "../ui/DocumentData.js";
 
 /**

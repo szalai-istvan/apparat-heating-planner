@@ -1,4 +1,4 @@
-import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
+import { RectangleCalculations } from "../../geometry/rectangle/RectangleCalculations.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
 
 /**

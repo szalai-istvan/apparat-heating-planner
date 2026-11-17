@@ -1,7 +1,7 @@
 import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js";
 import { SelectionAPI } from "../../common/api/SelectionAPI.js";
 import { ApplicationState } from "../../common/appdata/ApplicationState.js";
-import { Constants } from "../../common/appdata/Constants.js";
+import { Constants } from "../../common/appdata/constants.js";
 import { ButtonWrapper } from "../../common/ui/buttons/ButtonWrapper.js";
 import { UiLayoutDefinition } from "../../common/ui/UiLayoutDefinition.js";
 import { PanelGroupCalculations } from "../actions/panelGroup/PanelGroupCalculations.js";

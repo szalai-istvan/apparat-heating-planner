@@ -1,6 +1,6 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Blueprint } from "../../entities/Blueprint.js";
-import { CreatePoint } from "../../geometry/Point/CreatePoint.js";
+import { CreatePoint } from "../../geometry/point/createPoint.js";
 import { ElementStore } from "../../store/ElementStore.js";
 import { BlueprintCalculations } from "./BlueprintCalculations.js";
 import { UpdateBlueprintAction } from "./UpdateBlueprintAction.js";

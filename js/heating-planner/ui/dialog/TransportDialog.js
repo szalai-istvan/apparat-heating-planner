@@ -1,4 +1,4 @@
-import { Constants } from "../../../common/appdata/Constants.js";
+import { Constants } from "../../../common/appdata/constants.js";
 import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
 import { Errors } from "../../../common/errors/Errors.js";
 import { Dialogs } from "../../../common/ui/dialog/Dialogs.js";

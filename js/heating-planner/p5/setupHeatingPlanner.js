@@ -1,6 +1,6 @@
 import { SelectionAction } from "../../common/actions/selection/SelectionAction.js";
-import { Constants } from "../../common/appdata/Constants.js";
-import { CustomEventTypes } from "../../common/event/CustomEventTypes.js";
+import { Constants } from "../../common/appdata/constants.js";
+import { CustomEventTypes } from "../../common/event/customEventTypes.js";
 import { Events } from "../../common/event/Events.js";
 import { Load } from "../../common/io/load.js";
 import { Save } from "../../common/io/save.js";

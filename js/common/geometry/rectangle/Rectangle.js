@@ -1,9 +1,9 @@
 import { ReducerFunctions } from "../../math/ReducerFunctions.js";
-import { CreateLine } from "../Line/CreateLine.js";
-import { Line } from "../Line/Line.js";
-import { CreatePoint } from "../Point/CreatePoint.js";
-import { Point } from "../Point/Point.js";
-import { PointCalculations } from "../Point/PointCalculations.js";
+import { CreateLine } from "../line/createLine.js";
+import { Line } from "../line/Line.js";
+import { CreatePoint } from "../point/createPoint.js";
+import { Point } from "../point/Point.js";
+import { PointCalculations } from "../point/PointCalculations.js";
 
 /**
  * Téglalap osztály.

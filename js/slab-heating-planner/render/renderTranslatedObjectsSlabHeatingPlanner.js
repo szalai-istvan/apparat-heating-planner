@@ -1,4 +1,4 @@
-import { Constants } from "../../common/appdata/Constants.js";
+import { Constants } from "../../common/appdata/constants.js";
 import { RenderRectangle } from "../../common/geometry/rectangle/RenderRectangle.js";
 import { RoomService } from "../../common/service/RoomService.js";
 import { RenderBoxGroup } from "../actions/boxgroup/RenderBoxGroup.js";

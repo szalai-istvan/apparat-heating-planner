@@ -1,5 +1,5 @@
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Constants } from "../../appdata/Constants.js";
+import { Constants } from "../../appdata/constants.js";
 import { ErrorCodes } from "../../errors/ErrorCodes.js";
 import { Errors } from "../../errors/Errors.js";
 import { Dialogs } from "../../ui/dialog/Dialogs.js";

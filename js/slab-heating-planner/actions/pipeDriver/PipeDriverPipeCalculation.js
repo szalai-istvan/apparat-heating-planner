@@ -1,5 +1,5 @@
-import { CreateLine } from "../../../common/geometry/Line/CreateLine.js";
-import { Line } from "../../../common/geometry/Line/Line.js";
+import { CreateLine } from "../../../common/geometry/line/createLine.js";
+import { Line } from "../../../common/geometry/line/Line.js";
 import { LineCalculations } from "../../../common/geometry/line/LineCalculations.js";
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";

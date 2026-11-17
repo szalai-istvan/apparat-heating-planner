@@ -1,7 +1,7 @@
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
 import { Errors } from "../../../common/errors/Errors.js";
-import { CreateLine } from "../../../common/geometry/Line/CreateLine.js";
+import { CreateLine } from "../../../common/geometry/line/createLine.js";
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
 import { MathTools } from "../../../common/math/MathTools.js";

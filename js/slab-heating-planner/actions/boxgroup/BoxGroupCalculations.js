@@ -1,5 +1,5 @@
 import { Room } from "../../../common/entities/Room.js";
-import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
+import { RectangleCalculations } from "../../../common/geometry/rectangle/RectangleCalculations.js";
 import { RoomService } from "../../../common/service/RoomService.js";
 import { BoxGroup } from "../../entities/BoxGroup.js";
 

@@ -1,4 +1,4 @@
-import { Point } from "../Point/Point.js";
+import { Point } from "../point/Point.js";
 
 /**
  * Egy négyzetrácsot reprezentáló osztály.

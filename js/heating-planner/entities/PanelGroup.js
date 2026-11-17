@@ -1,5 +1,5 @@
-import { Point } from "../../common/geometry/Point/Point.js";
-import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
+import { Point } from "../../common/geometry/point/Point.js";
+import { Rectangle } from "../../common/geometry/rectangle/Rectangle.js";
 
 /**
  * Egy panelcsoportot reprezentáló osztály.

@@ -1,11 +1,12 @@
-import { Constants } from "../../appdata/Constants.js";
-import { RoomService } from "../../service/RoomService.js";
-import { Room } from "../../entities/Room.js";
+import { Constants } from "../../../common/appdata/constants.js";
+import { Point } from "../../../common/geometry/point/Point.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { RectangleCalculations } from "../../geometry/Rectangle/RectangleCalculations.js";
+import { Room } from "../../entities/Room.js";
+import { GridCalculations } from "../../geometry/grid/GridCalculations.js";
+import { RectangleCalculations } from "../../geometry/rectangle/RectangleCalculations.js";
+import { RoomService } from "../../service/RoomService.js";
 import { MouseCursor } from "../../ui/MouseCursor.js";
 import { Validators } from "../../validators/Validators.js";
-import { GridCalculations } from "../../geometry/Grid/GridCalculations.js";
 
 /**
  * Megállapítja, hogy létezik-e legalább egy konfigurált szoba

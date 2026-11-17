@@ -1,7 +1,7 @@
 import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculations.js";
 import { RoomCalculations } from "../actions/room/RoomCalculations.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { Blueprint } from "../entities/Blueprint.js";
 import { MathTools } from "../math/MathTools.js";
 import { Draw } from "../p5/draw.js";

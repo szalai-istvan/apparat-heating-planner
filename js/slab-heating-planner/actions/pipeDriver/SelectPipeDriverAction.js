@@ -1,7 +1,7 @@
 import { SelectionAction } from "../../../common/actions/selection/SelectionAction.js";
 import { ApplicationState } from "../../../common/appdata/ApplicationState.js";
 import { Point } from "../../../common/geometry/point/Point.js";
-import { PointCalculations } from "../../../common/geometry/Point/PointCalculations.js";
+import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
 import { MouseCursor } from "../../../common/ui/MouseCursor.js";
 import { Validators } from "../../../common/validators/Validators.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";

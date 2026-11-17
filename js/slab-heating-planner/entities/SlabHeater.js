@@ -1,4 +1,4 @@
-import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
+import { Rectangle } from "../../common/geometry/rectangle/Rectangle.js";
 import { MathTools } from "../../common/math/MathTools.js";
 import { SlabHeatingPlannerConstants } from "../appdata/SlabHeatingPlannerConstants.js";
 

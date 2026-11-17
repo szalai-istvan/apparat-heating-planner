@@ -1,5 +1,5 @@
 import { Point } from "../../common/geometry/point/Point.js";
-import { Rectangle } from "../../common/geometry/Rectangle/Rectangle.js";
+import { Rectangle } from "../../common/geometry/rectangle/Rectangle.js";
 
 /** 
  * Egy csoportnyi födémátvezető dobozt reprezentáló típus

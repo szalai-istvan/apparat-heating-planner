@@ -1,5 +1,5 @@
 import { SelectionAction } from "../../../common/actions/selection/SelectionAction.js";
-import { Constants } from "../../../common/appdata/Constants.js";
+import { Constants } from "../../../common/appdata/constants.js";
 import { ErrorCodes } from "../../../common/errors/ErrorCodes.js";
 import { Errors } from "../../../common/errors/Errors.js";
 import { ElementStore } from "../../../common/store/ElementStore.js";

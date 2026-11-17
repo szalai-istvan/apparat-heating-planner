@@ -1,9 +1,9 @@
 import { Line } from "./Line.js";
-import { Constants } from "../../appdata/Constants.js";
-import { CreatePoint } from "../Point/CreatePoint.js";
+import { Constants } from "../../appdata/constants.js";
+import { CreatePoint } from "../point/createPoint.js";
 import { Validators } from "../../validators/Validators.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
-import { Point } from "../Point/Point.js";
+import { Point } from "../point/Point.js";
 
 /**
  * 

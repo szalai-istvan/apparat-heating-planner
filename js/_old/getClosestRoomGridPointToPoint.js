@@ -1,8 +1,8 @@
 import { ApplicationState } from "../common/appdata/ApplicationState.js";
 import { Room } from "../common/entities/Room.js";
-import { GridCalculations } from "../common/geometry/Grid/GridCalculations.js";
-import { CreatePoint } from "../common/geometry/Point/CreatePoint.js";
-import { Point } from "../common/geometry/Point/Point.js";
+import { GridCalculations } from "../common/geometry/grid/GridCalculations.js";
+import { CreatePoint } from "../common/geometry/point/createPoint.js";
+import { Point } from "../common/geometry/point/Point.js";
 import { MouseCursor } from "../common/ui/MouseCursor.js";
 
 /**

@@ -1,4 +1,4 @@
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { Blueprint } from "../entities/Blueprint.js";
 import { ElementStore } from "../store/ElementStore.js";
 

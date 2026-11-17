@@ -1,9 +1,9 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
-import { Constants } from "../appdata/Constants.js";
+import { Constants } from "../appdata/constants.js";
 import { CustomEventTypes } from "../event/customEventTypes.js";
 import { Events } from "../event/Events.js";
-import { CreatePoint } from "../geometry/Point/CreatePoint.js";
-import { Point } from "../geometry/Point/Point.js";
+import { CreatePoint } from "../geometry/point/createPoint.js";
+import { Point } from "../geometry/point/Point.js";
 import { DocumentData } from "../ui/DocumentData.js";
 import { ImageAssets } from "../ui/ImageAssets.js";
 import { SetupSteps } from "./setup/setupSteps.js";

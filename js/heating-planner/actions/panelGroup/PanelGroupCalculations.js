@@ -1,6 +1,6 @@
 import { Room } from "../../../common/entities/Room.js";
-import { Point } from "../../../common/geometry/Point/Point.js";
-import { RectangleCalculations } from "../../../common/geometry/Rectangle/RectangleCalculations.js";
+import { Point } from "../../../common/geometry/point/Point.js";
+import { RectangleCalculations } from "../../../common/geometry/rectangle/RectangleCalculations.js";
 import { RoomService } from "../../../common/service/RoomService.js";
 import { Panel } from "../../entities/Panel.js";
 import { PanelGroup } from "../../entities/PanelGroup.js";
