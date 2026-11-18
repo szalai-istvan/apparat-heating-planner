@@ -5,8 +5,11 @@ import { RoomAPI } from "../api/RoomAPI.js";
 import { ScalingAPI } from "../api/ScalingAPI.js";
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/constants.js";
+import { CustomEventTypes } from "../event/customEventTypes.js";
+import { Events } from "../event/Events.js";
 import { CreatePoint } from "../geometry/point/createPoint.js";
 import { Point } from "../geometry/point/Point.js";
+import { Languages } from "../i18n/Languages.js";
 import { Load } from "../io/load.js";
 import { Save } from "../io/save.js";
 import { ReducerFunctions } from "../math/ReducerFunctions.js";
@@ -22,7 +25,7 @@ import { MenuLine } from "./MenuLine/MenuLine.js";
  */
 function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
     const fileUploadButton = new ButtonWrapper({
-        text: 'Alaprajz feltöltése',
+        translationKey: 'ui.button.uploadBlueprint',
         size: Constants.ui.regularButtonSize,
         position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: BlueprintAPI.uploadNewBlueprint,
@@ -31,7 +34,7 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
     topRibbonButtonSizes.push(Constants.ui.regularButtonSize);
     
     const scaleButton = new ButtonWrapper({
-        text: 'Méretarány felvétele',
+        translationKey: 'ui.button.setScale',
         size: Constants.ui.regularButtonSize,
         position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: ScalingAPI.startScaling,
@@ -40,7 +43,7 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
     topRibbonButtonSizes.push(Constants.ui.regularButtonSize);
 
     const addRoomsButton = new ButtonWrapper({
-        text: 'Helyiség felvétele',
+        translationKey: 'ui.button.addRoom',
         size: Constants.ui.regularButtonSize,
         position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: RoomAPI.showAddRoomDialog,
@@ -48,15 +51,28 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
     });
     topRibbonButtonSizes.push(Constants.ui.regularButtonSize);
 
+    const changeLanguageButton = new ButtonWrapper({
+        translationKey: null,
+        text: '🇭🇺/🇷🇴',
+        size: Constants.ui.regularButtonSize,
+        position: topRibbonButtonPosition(topRibbonButtonSizes),
+        onClick: () => {
+            Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, ApplicationState.language === Languages.hu ? Languages.ro : Languages.hu)
+        },
+        shouldBeActive: () => true
+    });
+    topRibbonButtonSizes.push(Constants.ui.regularButtonSize);
+
     addTopRibbonDelimeter(topRibbonButtonPosition(topRibbonButtonSizes).x);
     topRibbonButtonSizes.push(Constants.ui.regularButtonSize);
 
     const saveLoadMenu = new MenuLine({
+        translationKey: 'ui.menu.project',
+        text: 'Projekt',
         position: sidePanelButtonPosition(leftRibbonButtonSizes),
         size: Constants.ui.tallSmallButtonSize,
         optionSize: Constants.ui.tallSmallButtonSize,
-        text: 'Projekt',
-        buttons: ['Új projekt', 'Projekt mentése', 'Projekt betöltése'],
+        buttons: ['ui.menu.newProject', 'ui.menu.saveProject', 'ui.menu.loadProject'],
         buttonsClickFunctions: [() => DeleteBlueprintAction.clearBlueprints(), () => Save.downloadProjectState(), () => LoadProjectButton.uploadProject()],
         selectionMenuMode: false,
         shouldBeActive: () => true

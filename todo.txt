@@ -1,4 +1,13 @@
-setup-kor le kell futnia egy nyelvesítésnek
-Kell egy gomb, ami kiad egy nyelvesítési eseményt
-Mindkét projektbe kell specifikus nyelvesítő függvény
+Mindkét projektbe kell specifikus nyelvesítő függvény (új árak betöltése)
 Excelekből kell magyar és román
+Összes UI elem definíció tartalmazzon kulcs és szöveg megadás opciókat
+Megjegyezni a nyelvet
+Szobák neve
+Exceleket is kéne nyelvesíteni, valami ${key} módon.
+
+---
+
+Így nemzetközisítve az Enterezésre sokkal értelmesebb megoldás lenne, ha nem "(Enter)" szöveget keresne a gombban,
+hanem lenne mondjuk egy enterable attribute
+
+Error log?

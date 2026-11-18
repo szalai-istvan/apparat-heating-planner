@@ -4,6 +4,7 @@ import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/constants.js";
 import { ErrorCodes } from "../../errors/ErrorCodes.js";
 import { Errors } from "../../errors/Errors.js";
+import { i18n } from "../../i18n/i18n.js";
 import { UiCalculations } from "../UiCalculations.js";
 import { Dialogs } from "./Dialogs.js";
 
@@ -43,7 +44,7 @@ function checkRadioButtons() {
     const roomNames = RoomCalculations.getRoomNames();
     for (let radioButton of ApplicationState.roomPrefillButtons) {
         const inputElement = radioButton.childNodes[0];
-        if (roomNames.includes(inputElement.value)) {
+        if (roomNames.includes(i18n.translateKey(inputElement.value))) {
             inputElement.setAttribute(Constants.strings.disabled, true);
         } else {
             inputElement.removeAttribute(Constants.strings.disabled);

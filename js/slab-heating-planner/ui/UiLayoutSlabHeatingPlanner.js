@@ -64,7 +64,7 @@ function createButtonsSlabHeatingPlanner() {
     SlabHeatingPlannerApplicationState.lengthMenu = slabHeaterLengthOptionsBar;
 
     const addSlabHeaterButton = new ButtonWrapper({
-        text: 'Hozzáadás',
+        translationKey: 'common.action.add',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => SlabHeaterGroupAPI.createSlabHeaterGroup(),
@@ -78,7 +78,7 @@ function createButtonsSlabHeatingPlanner() {
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.uiTextSize / 2 });
 
     const addBoxGroupButton = new ButtonWrapper({
-        text: 'Hozzáadás',
+        translationKey: 'common.action.add',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => BoxGroupAPI.createBoxGroup(),
@@ -89,7 +89,7 @@ function createButtonsSlabHeatingPlanner() {
     UiLayoutDefinition.addLeftRibbonDelimeter(UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
 
     const deleteButton = new ButtonWrapper({
-        text: 'Törlés',
+        translationKey: 'common.action.delete',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => SelectionAPI.removeSelectedObject(),
@@ -138,7 +138,7 @@ function createButtonsSlabHeatingPlanner() {
     UiLayoutDefinition.addLeftRibbonDelimeter(UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
     const downloadButtonPos = UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes);
     const downloadSummaryButton = new ButtonWrapper({
-        text: 'Árkalkuláció letöltése',
+        translationKey: 'ui.button.downloadPriceCalculation',
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
         onClick: () => TransportDialog.openTransportDialog(),

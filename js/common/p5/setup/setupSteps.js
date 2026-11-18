@@ -1,6 +1,7 @@
 import { SelectionAPI } from "../../api/SelectionAPI.js";
 import { ApplicationState } from "../../appdata/ApplicationState.js";
 import { Constants } from "../../appdata/constants.js";
+import { i18n } from "../../i18n/i18n.js";
 import { DocumentData } from "../../ui/DocumentData.js";
 
 /**
@@ -90,9 +91,9 @@ function enableEnterForConfirm() {
  */
 function createRoomPrefillRadioButtons() {
     const div = document.getElementById('roomPrefillRadioSet');
-    for (let option of Constants.room.prefillRoomNames) {
-        const onchange = () => addRoomInput.value = option;
-        const radioButton = createRadioButton('roomPrefill', option, onchange);
+    for (let key of Constants.room.prefillRoomNameKeys) {
+        const onchange = () => {addRoomInput.value = i18n.translateKey(key)};
+        const radioButton = createRadioButton('roomPrefill', key, onchange);
         div.appendChild(radioButton);
         ApplicationState.roomPrefillButtons.push(radioButton);
     }
@@ -102,21 +103,23 @@ function createRoomPrefillRadioButtons() {
  * Létrehoz egy rádio gombot és a hozzá tartozó címkét egy span elemben.
  * 
  * @param {string} name 
- * @param {string} value 
+ * @param {string} key 
  * @param {Function} onchange 
  * @returns {HTMLSpanElement}
  */
-function createRadioButton(name, value, onchange) {
+function createRadioButton(name, key, onchange) {
     const input = document.createElement(Constants.strings.input);
     input.setAttribute(Constants.strings.type, Constants.strings.radio);
-    const id = value.toLowerCase();
+    const id = key.toLowerCase();
     input.setAttribute(Constants.strings.id, id);
     input.setAttribute(Constants.strings.name, name);
-    input.setAttribute(Constants.strings.value, value);
+    input.setAttribute(Constants.strings.value, key);
 
     const label = document.createElement(Constants.strings.label);
     label.setAttribute(Constants.strings.for, id)
-    label.innerHTML = value;
+    label.setAttribute('translated', 'true');
+    label.setAttribute('key', key);
+    label.innerHTML = key;
     label.classList.add(Constants.strings.radioLabel);
 
     const span = document.createElement(Constants.strings.span);

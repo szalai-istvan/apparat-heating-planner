@@ -63,6 +63,7 @@ function setupSlabHeatingPlanner() {
         Load.loadProject();
     }
 
+    Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, 'hu');
     Draw.enableRendering();
 }
 

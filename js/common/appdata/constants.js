@@ -9,21 +9,21 @@ export const Constants = {
         roomDefaultTextColor: 'green',
         roomFillColor: '#FFFFFFA0',
         roomNameOutlineWidthInMeters: 0.0035,
-        prefillRoomNames: [
-            'Szoba 1',
-            'Nappali',
-            'Szoba 2',
-            'Hálószoba 1',
-            'Szoba 3',
-            'Hálószoba 2',
-            'Folyosó',
-            'Gyerekszoba 1',
-            'Dolgozószoba',
-            'Gyerekszoba 2',
-            'Gardrób',
-            'Konyha',
-            'Fürdőszoba',
-            'Előszoba'
+        prefillRoomNameKeys: [
+            'rooms.prefill.room1',
+            'rooms.prefill.livingroom',
+            'rooms.prefill.room2',
+            'rooms.prefill.bedroom1',
+            'rooms.prefill.room3',
+            'rooms.prefill.bedroom2',
+            'rooms.prefill.corridor',
+            'rooms.prefill.kidsroom1',
+            'rooms.prefill.study',
+            'rooms.prefill.kidsroom2',
+            'rooms.prefill.wardrobe',
+            'rooms.prefill.kitchen',
+            'rooms.prefill.bathroom',
+            'rooms.prefill.hall',
         ]
     },
 
@@ -55,7 +55,7 @@ export const Constants = {
     },
 
     debug: {
-        saveToLocalStorageEnabled: true,
+        saveToLocalStorageEnabled: false,
         projectStateLoggingEnabled: false,
         // @ts-ignore
         localStorageDataKey: window.location.href.split('/').filter(sp => sp.includes('html'))[0].replaceAll('.html', '') + '-project-save'

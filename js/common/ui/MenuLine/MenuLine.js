@@ -15,13 +15,17 @@ export class MenuLine {
     valueSet = {};
     shouldBeActive;
     selectionMenuMode;
+    translationKey;
+    buttonTranslationKeys;
 
-    constructor({position, size, optionSize, text, buttons, labelerFunc = undefined, shouldBeActive, buttonsClickFunctions, selectionMenuMode}) {
+    constructor({position, size, optionSize, translationKey, text, buttons, labelerFunc = undefined, shouldBeActive, buttonsClickFunctions, selectionMenuMode}) {
         this.position = position;
         this.size = size;
         this.text = text + ' >';
         this.shouldBeActive = shouldBeActive;
         this.selectionMenuMode = selectionMenuMode ?? true;
+        this.translationKey = translationKey;
+        this.buttonTranslationKeys = buttons;
 
         this.baseButton = createButton(this.text);
         const baseButton = this.baseButton;

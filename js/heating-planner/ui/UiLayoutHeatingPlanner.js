@@ -34,7 +34,7 @@ function createButtonsHeatingPlanner() {
     UiLayoutDefinition.addLeftRibbonDelimeter(UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
 
     new ButtonWrapper({
-        text: 'Forgatás',
+        translationKey: 'common.action.rotate',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => SelectionAPI.rotateSelectedObject(1),
@@ -62,7 +62,7 @@ function createButtonsHeatingPlanner() {
     leftRibbonButtonSizes.push(Constants.ui.halfWidthButtonSize);
 
     new ButtonWrapper({
-        text: 'Törlés',
+        translationKey: 'common.action.delete',
         size: Constants.ui.smallButtonSize,
         position: UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes),
         onClick: () => SelectionAPI.removeSelectedObject(),
@@ -73,7 +73,7 @@ function createButtonsHeatingPlanner() {
     const downloadButtonPos = UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes);
     downloadButtonPos.y += Constants.ui.smallButtonSize.y + Constants.ui.buttonGapY;
     const downloadSummaryButton = new ButtonWrapper({
-        text: 'Árkalkuláció letöltése',
+        translationKey: 'ui.button.downloadPriceCalculation',
         size: Constants.ui.tallSmallButtonSize,
         position: downloadButtonPos,
         onClick: () => TransportDialog.openTransportDialog(),

@@ -10,9 +10,12 @@ export class ButtonWrapper {
     shouldBeActive = null;
     /** @type {boolean} */
     lastResult = false;
+    /** @type {string} */
+    translationKey = null;
 
-    constructor({translationKey, text, size, position, onClick, shouldBeActive}) {
-        this.button = createButton(text);
+    constructor({translationKey = null, text = null, size, position, onClick, shouldBeActive}) {
+        this.translationKey = translationKey;
+        this.button = createButton(text || '');
         this.shouldBeActive = shouldBeActive;
         this.lastResult = true;
 

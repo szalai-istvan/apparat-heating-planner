@@ -1,10 +1,11 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Languages } from "./Languages.js";
+import { TranslateP5UiElements } from "./translateP5UiElements.js";
 
 /** @type {{[key: string]: string}} */
 let translationFile = null;
-/** @type {(translations: {[key: string]: string}) => undefined} */
-let projectSpecificI18nFunction = (translations) => { };
+/** @type {() => undefined} */
+let projectSpecificI18nFunction = () => { };
 
 /**
  * Betölti az applikáció paramétereknek megfelelő nyelvi fájlt és elvégzi a nemzetközisítő műveleteket
@@ -23,8 +24,9 @@ function changeLanguage(newLanguage) {
             return response.json();
         })
         .then(json => { translationFile = json })
-        .then(replaceTextsInHtmlSource)
-        .then(() => projectSpecificI18nFunction(translationFile))
+        .then(translateHtmlSource)
+        .then(TranslateP5UiElements.translateP5UiElements)
+        .then(projectSpecificI18nFunction)
         .catch(() => { }); // todo error handling
 }
 
@@ -41,7 +43,7 @@ function translateKey(key) {
 /**
  * Beállítja a projektspecifikus nemzetközisítő függvényt.
  * 
- * @param {(translations: {[key: string]: string}) => undefined} func 
+ * @param {() => undefined} func 
  */
 function setProjectSpecificI18nFunction(func) {
     projectSpecificI18nFunction = func
@@ -52,7 +54,7 @@ function setProjectSpecificI18nFunction(func) {
  * 
  * @returns {undefined} 
  */
-function replaceTextsInHtmlSource() {
+function translateHtmlSource() {
     const translatedElements = document.querySelectorAll('[translated]');
     for (let element of translatedElements) {
         const key = element.getAttribute('key');
