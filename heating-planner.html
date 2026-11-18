@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>APPARAT Rajzolátor</title>
+    <title translated key="app.heatingPlanner.title"></title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
@@ -11,13 +11,13 @@
     <!-- buttons -->
     <div hidden>
         <div class="side-panel">
-            <label for="imageInput" class="button">Fájlfeltöltés</label>
+            <label for="imageInput" class="button" translated key="ui.button.fileUpload"></label>
             <input type="file" id="imageInput" accept="image/jpeg, image/png, application/pdf" hidden />
         </div>
     </div>
     <div hidden>
         <div class="side-panel">
-            <label for="jsonInput" class="button">Fájlfeltöltés</label>
+            <label for="jsonInput" class="button" translated key="ui.button.fileUpload"></label>
             <input type="file" id="jsonInput" accept="application/JSON" hidden />
         </div>
     </div>
@@ -30,89 +30,88 @@
     </dialog>
 
     <dialog id="fileUploadDialogConfirm">
-        <p>A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket. Folytatja?
-        </p>
+        <p translated key="dialog.fileUploadConfirm.message"></p>
         <hr>
         <div class="center">
-            <button id="fileUploadDialogConfirmButton">Igen (Enter)</button>
-            <button id="fileUploadDialogCancelButton">Nem</button>
+            <button id="fileUploadDialogConfirmButton" translated key="common.button.yesEnter"></button>
+            <button id="fileUploadDialogCancelButton" translated key="common.button.no"></button>
         </div>
     </dialog>
 
     <dialog id="scalingDialogConfirm">
-        <p>A rajz újraskálázása törölni fogja a korábban felvett szobákat és paneleket. Folytatja?</p>
+        <p translated key="dialog.scalingConfirm.message"></p>
         <hr>
         <div class="center">
-            <button id="scalingDialogConfirmButton">Igen (Enter)</button>
-            <button id="scalingDialogCancelButton">Nem</button>
+            <button id="scalingDialogConfirmButton" translated key="common.button.yesEnter"></button>
+            <button id="scalingDialogCancelButton" translated key="common.button.no"></button>
         </div>
     </dialog>
 
     <dialog id="scalingDialog">
-        <p>Adja meg a kijelölt szakasz hosszát, méter mértékegységben:</p>
-        <p><label for="scalingInput">Hossz:</label><input type="text" id="scalingInput"> m</p>
+        <p translated key="dialog.scaling.prompt"></p>
+        <p><label for="scalingInput" translated key="common.lengthColon"></label><input type="text" id="scalingInput"> m</p>
         <hr>
         <div class="center"><button id="scalingDialogCloseButton">OK (Enter)</button></div>
     </dialog>
 
     <dialog id="addRoomDialog">
-        <span><p><label for="addRoomInput">Helyiség neve:</label><input type="text" id="addRoomInput"></p></span>
+        <span><p><label for="addRoomInput" translated key="dialog.addRoom.roomNameColon"></label><input type="text" id="addRoomInput"></p></span>
 
         <hr>
         <span>
             <input type="checkbox" id="3pointdefinition" name="3pointdefinition" value="3pointdefinition">
-            <label for="3pointdefinition">Ferde szoba</label><br>
+            <label for="3pointdefinition" translated key="dialog.addRoom.slantedRoom"></label><br>
         </span>
 
         <hr>
         <span>
-            <p>Gyors kitöltés:</p>
+            <p translated key="dialog.addRoom.quickFillColon"></p>
             <div class="radio-group" id="roomPrefillRadioSet"></div>
         </span>
         <hr>
         <div class="center">
-            <button id="addRoomButton">Szoba hozzáadása (Enter)</button>
-            <button id="closeRoomDialogButton">Bezárás</button>
+            <button id="addRoomButton" translated key="dialog.addRoom.addButtonEnter"></button>
+            <button id="closeRoomDialogButton" translated key="common.button.close"></button>
         </div>
     </dialog>
 
     <dialog id="pdfUploadDialog">
         <p id="pdfUploadDialogParagraph"></p>
-        <p><label>Oldalszám:</label><input type="text" id="pdfUploadDialogInput"></p>
+        <p><label translated key="dialog.pdfUpload.pageNumberColon"></label><input type="text" id="pdfUploadDialogInput"></p>
         <hr>
         <div class="center"><button id="pdfUploadDialogCloseButton">OK (Enter)</button></div>
     </dialog>
 
     <dialog id="transportDialog">
-        <p>Amennyiben kér szállítást a rendeléshez, kérjük adja meg itt, km mértékegységben:</p>
-        <p><label for="transportInput">Hossz:</label><input type="text" id="transportInput"> km</p>
+        <p translated key="dialog.transport.heatingPlannerPrompt"></p>
+        <p><label for="transportInput" translated key="common.lengthColon"></label><input type="text" id="transportInput"> km</p>
         <hr>
-        <div class="center"><button id="transportDialogOkButton">Letöltése (Enter)</button><button
-                id="transportDialogCloseButton">Mégsem</button></div>
+        <div class="center"><button id="transportDialogOkButton" translated key="common.button.downloadEnter"></button><button
+                id="transportDialogCloseButton" translated key="common.button.cancel"></button></div>
     </dialog>
 
     <dialog id="rotateBlueprintDialog" class="nobackdrop">
-        <p id="rotateBlueprintParagraph">Alaprajz elforgatása:</p>
+        <p id="rotateBlueprintParagraph" translated key="dialog.rotateBlueprint.title"></p>
         <p><label>Szög:</label><input type="number" id="rotateBlueprintDialogInput"> ° </p>
         <hr>
         <div class="center">
             <button id="rotateBlueprintDialogOkButton">OK (Enter)</button>
-            <button id="rotateBlueprintDialogCloseButton">Mégsem</button>
+            <button id="rotateBlueprintDialogCloseButton" translated key="common.button.cancel"></button>
         </div>
     </dialog>
 
     <dialog id="summaryTableDialog" class="big-dialog">
         <div id="summaryTableDialogTablePlaceHolder" class="big-dialog-div"></div>
         <hr>
-        <div class="center"><button id="summaryTableDialogCloseButton">Bezárás</button></div>
+        <div class="center"><button id="summaryTableDialogCloseButton" translated key="common.button.close"></button></div>
     </dialog>
 
     <dialog id="deleteBlueprintConfirmDialog">
-        <p>Biztosan törli a kiválasztott tervrajzot?</p>
+        <p translated key="dialog.deleteBlueprintConfirm.message"></p>
         <hr>
         <div class="center">
-            <button id="deleteBlueprintConfirmButton">Igen (Enter)</button>
-            <button id="deleteBlueprintCancelButton">Nem</button>
+            <button id="deleteBlueprintConfirmButton" translated key="common.button.yesEnter"></button>
+            <button id="deleteBlueprintCancelButton" translated key="common.button.no"></button>
         </div>
     </dialog>
 

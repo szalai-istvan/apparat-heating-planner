@@ -1,0 +1,4 @@
+setup-kor le kell futnia egy nyelvesítésnek
+Kell egy gomb, ami kiad egy nyelvesítési eseményt
+Mindkét projektbe kell specifikus nyelvesítő függvény
+Excelekből kell magyar és román

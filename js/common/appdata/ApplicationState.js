@@ -67,7 +67,7 @@ export const ApplicationState = {
     /** @type {Room} */
     selectedRoom: null,
 
-    /** @type {'hu' | 'ro'} */
+    /** @type {string} */
     language: 'hu'
 };
 

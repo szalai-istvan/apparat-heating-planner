@@ -11,7 +11,7 @@ export class ButtonWrapper {
     /** @type {boolean} */
     lastResult = false;
 
-    constructor({text, size, position, onClick, shouldBeActive}) {
+    constructor({translationKey, text, size, position, onClick, shouldBeActive}) {
         this.button = createButton(text);
         this.shouldBeActive = shouldBeActive;
         this.lastResult = true;

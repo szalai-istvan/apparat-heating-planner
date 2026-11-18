@@ -15,6 +15,8 @@ import { SaveHeatingPlanner } from "../io/SaveHeatingPlanner.js";
 import { HeatingPlannerTranslatedObjectRenderer } from "../render/HeatingPlannerTranslatedObjectRenderer.js";
 import { ElementStoreHeatingPlanner } from "../store/ElementStoreHeatingPlanner.js";
 import { UiLayoutHeatingPlanner } from "../ui/UiLayoutHeatingPlanner.js";
+import { HeatingPlannerI18n } from "../i18n/HeatingPlannerI18n.js";
+import { i18n } from "../../common/i18n/internationalization.js";
 
 /**
  * Projekt specifikus setup műveletek
@@ -45,6 +47,9 @@ function setupHeatingPlanner() {
     TranslatedObjectRenderer.setProjectSpecificRenderTranslatedObjects(HeatingPlannerTranslatedObjectRenderer.renderTranslatedObjectsHeatingPlanner);
     TranslatedObjectRenderer.setProjectSpecificDebugOnlyRenderTranslatedObjects(HeatingPlannerTranslatedObjectRenderer.renderDebugOnlyTranslatedObjectsHeatingPlanner);
 
+    // i18n config
+    i18n.setProjectSpecificI18nFunction(HeatingPlannerI18n.internationalizeHeatingPlanner);
+
     // other listeners
     Events.registerEventListener(CustomEventTypes.roomsCleared, HeatingPlannerDeleteRoomAction.onRoomsClearedHeatingPlanner);
     Events.registerEventListener(CustomEventTypes.rotateSelectedObject, UpdatePanelGroupAction.rotateSelectedPanelGroup);
@@ -56,6 +61,7 @@ function setupHeatingPlanner() {
         Load.loadProject();
     }
 
+    Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, 'hu');
     Draw.enableRendering();
 }
 

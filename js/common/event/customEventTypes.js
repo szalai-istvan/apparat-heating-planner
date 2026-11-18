@@ -8,5 +8,6 @@ export const CustomEventTypes = {
     setup: 'setup',
     removeSelectedObject: 'removeSelectedObject',
     updateRenderSizeValues: 'updateRenderSizeValues',
-    rightMouseButtonReleased: 'rightMouseButtonReleased'
+    rightMouseButtonReleased: 'rightMouseButtonReleased',
+    changeLanguage: 'changeLanguage'
 };

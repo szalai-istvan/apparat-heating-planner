@@ -4,6 +4,7 @@ import { CustomEventTypes } from "../event/customEventTypes.js";
 import { Events } from "../event/Events.js";
 import { CreatePoint } from "../geometry/point/createPoint.js";
 import { Point } from "../geometry/point/Point.js";
+import { i18n } from "../i18n/internationalization.js";
 import { DocumentData } from "../ui/DocumentData.js";
 import { ImageAssets } from "../ui/ImageAssets.js";
 import { SetupSteps } from "./setup/setupSteps.js";
@@ -32,6 +33,7 @@ window.setup = function() {
     
     angleMode(RADIANS);
 
+    Events.registerEventListener(CustomEventTypes.changeLanguage, i18n.changeLanguage);
     Events.dispatchCustomEvent(CustomEventTypes.setup, {});
 }
 
