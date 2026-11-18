@@ -16,7 +16,7 @@ import { HeatingPlannerTranslatedObjectRenderer } from "../render/HeatingPlanner
 import { ElementStoreHeatingPlanner } from "../store/ElementStoreHeatingPlanner.js";
 import { UiLayoutHeatingPlanner } from "../ui/UiLayoutHeatingPlanner.js";
 import { HeatingPlannerI18n } from "../i18n/HeatingPlannerI18n.js";
-import { i18n } from "../../common/i18n/internationalization.js";
+import { i18n } from "../../common/i18n/i18n.js";
 
 /**
  * Projekt specifikus setup műveletek

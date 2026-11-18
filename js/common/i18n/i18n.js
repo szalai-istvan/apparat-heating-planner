@@ -34,7 +34,7 @@ function changeLanguage(newLanguage) {
  * @param {string} key 
  * @returns {string}
  */
-function translate(key) {
+function translateKey(key) {
     return translationFile[key] || key;
 }
 
@@ -56,7 +56,7 @@ function replaceTextsInHtmlSource() {
     const translatedElements = document.querySelectorAll('[translated]');
     for (let element of translatedElements) {
         const key = element.getAttribute('key');
-        element.innerHTML = translate(key);
+        element.innerHTML = translateKey(key);
     }
 }
 
@@ -64,7 +64,7 @@ function replaceTextsInHtmlSource() {
  * Nemzetközisítés műveletek
  */
 export const i18n = {
-    translate,
+    translateKey,
     changeLanguage,
     setProjectSpecificI18nFunction
 };
