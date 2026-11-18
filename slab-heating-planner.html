@@ -134,168 +134,170 @@
 
     <!-- scripts -->
 
-    <script type="module" src="js/common/actions/blueprint/BlueprintCalculations.js"></script>
-    <script type="module" src="js/common/actions/blueprint/CreateBlueprintAction.js"></script>
-    <script type="module" src="js/common/actions/blueprint/DeleteBlueprintAction.js"></script>
-    <script type="module" src="js/common/actions/blueprint/RenderBlueprint.js"></script>
-    <script type="module" src="js/common/actions/blueprint/SelectBlueprintAction.js"></script>
-    <script type="module" src="js/common/actions/blueprint/UpdateBlueprintAction.js"></script>
-    <script type="module" src="js/common/actions/blueprint/UploadNewBlueprint.js"></script>
-    <script type="module" src="js/common/actions/room/CreateRoomAction.js"></script>
-    <script type="module" src="js/common/actions/room/DeleteRoomAction.js"></script>
-    <script type="module" src="js/common/actions/room/RenderRoom.js"></script>
-    <script type="module" src="js/common/actions/room/RoomCalculations.js"></script>
-    <script type="module" src="js/common/actions/room/SelectRoomAction.js"></script>
-    <script type="module" src="js/common/actions/room/UpdateRoomAction.js"></script>
-    <script type="module" src="js/common/actions/scaling/ScalingActions.js"></script>
-    <script type="module" src="js/common/actions/selection/SelectionAction.js"></script>
-    <script type="module" src="js/common/actions/selection/SelectionCriteria.js"></script>
-
-    <script type="module" src="js/common/api/BlueprintAPI.js"></script>
-    <script type="module" src="js/common/api/RoomAPI.js"></script>
-    <script type="module" src="js/common/api/ScalingAPI.js"></script>
-    <script type="module" src="js/common/api/SelectionAPI.js"></script>
-    <script type="module" src="js/common/api/userActionHandler/UserActionHandler.js"></script>
-
-    <script type="module" src="js/common/appdata/ApplicationState.js"></script>
-    <script type="module" src="js/common/appdata/constants.js"></script>
-
-    <script type="module" src="js/common/debug/Debug.js"></script>
-
-    <script type="module" src="js/common/entities/Blueprint.js"></script>
-    <script type="module" src="js/common/entities/Room.js"></script>
-
-    <script type="module" src="js/common/errors/ErrorCodes.js"></script>
-    <script type="module" src="js/common/errors/Errors.js"></script>
-
-    <script type="module" src="js/common/event/customEventTypes.js"></script>
-    <script type="module" src="js/common/event/Events.js"></script>
+    <script type="module" src="js/common/render/TranslatedObjectRenderer.js"></script>
+    <script type="module" src="js/common/render/AbsoluteObjectRenderer.js"></script>
 
     <script type="module" src="js/common/excel/excelGeneratorUtil.js"></script>
     <script type="module" src="js/common/excel/WorkbookWrapper.js"></script>
 
-    <script type="module" src="js/common/geometry/grid/GridActions.js"></script>
-    <script type="module" src="js/common/geometry/grid/GridCalculations.js"></script>
-    <script type="module" src="js/common/geometry/grid/GridDefinition.js"></script>
-    <script type="module" src="js/common/geometry/line/createLine.js"></script>
-    <script type="module" src="js/common/geometry/line/Line.js"></script>
+    <script type="module" src="js/common/api/RoomAPI.js"></script>
+    <script type="module" src="js/common/api/ScalingAPI.js"></script>
+    <script type="module" src="js/common/api/SelectionAPI.js"></script>
+    <script type="module" src="js/common/api/BlueprintAPI.js"></script>
+    <script type="module" src="js/common/api/userActionHandler/UserActionHandler.js"></script>
+
+    <script type="module" src="js/common/store/ElementStore.js"></script>
+
+    <script type="module" src="js/common/debug/Debug.js"></script>
+
+    <script type="module" src="js/common/screen/ScreenActions.js"></script>
+
+    <script type="module" src="js/common/entities/Blueprint.js"></script>
+    <script type="module" src="js/common/entities/Room.js"></script>
+
     <script type="module" src="js/common/geometry/line/LineCalculations.js"></script>
+    <script type="module" src="js/common/geometry/line/Line.js"></script>
+    <script type="module" src="js/common/geometry/line/createLine.js"></script>
+    <script type="module" src="js/common/geometry/grid/GridDefinition.js"></script>
+    <script type="module" src="js/common/geometry/grid/GridCalculations.js"></script>
+    <script type="module" src="js/common/geometry/grid/GridActions.js"></script>
+    <script type="module" src="js/common/geometry/rectangle/Rectangle.js"></script>
+    <script type="module" src="js/common/geometry/rectangle/RenderRectangle.js"></script>
+    <script type="module" src="js/common/geometry/rectangle/createRectangle.js"></script>
+    <script type="module" src="js/common/geometry/rectangle/RectangleCalculations.js"></script>
+    <script type="module" src="js/common/geometry/point/PointCalculations.js"></script>
     <script type="module" src="js/common/geometry/point/createPoint.js"></script>
     <script type="module" src="js/common/geometry/point/Point.js"></script>
-    <script type="module" src="js/common/geometry/point/PointCalculations.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/createRectangle.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/Rectangle.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/RectangleCalculations.js"></script>
-    <script type="module" src="js/common/geometry/rectangle/RenderRectangle.js"></script>
+
+    <script type="module" src="js/common/ui/MouseCursor.js"></script>
+    <script type="module" src="js/common/ui/UiCalculations.js"></script>
+    <script type="module" src="js/common/ui/UiLayoutDefinition.js"></script>
+    <script type="module" src="js/common/ui/ImageAssets.js"></script>
+    <script type="module" src="js/common/ui/DocumentData.js"></script>
+    <script type="module" src="js/common/ui/buttons/LoadProjectButton.js"></script>
+    <script type="module" src="js/common/ui/buttons/ButtonWrapperActions.js"></script>
+    <script type="module" src="js/common/ui/buttons/ButtonWrapper.js"></script>
+    <script type="module" src="js/common/ui/keystroke/keystrokeRecorder.js"></script>
+    <script type="module" src="js/common/ui/OptionsBar/OptionsBar.js"></script>
+    <script type="module" src="js/common/ui/OptionsBar/RenderOptionsBar.js"></script>
+    <script type="module" src="js/common/ui/dialog/RotateBlueprintDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/AddRoomDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/MessageDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/ScalingDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/DeleteBlueprintConfirmDialog.js"></script>
+    <script type="module" src="js/common/ui/dialog/Dialogs.js"></script>
+    <script type="module" src="js/common/ui/MenuLine/RenderMenuLine.js"></script>
+    <script type="module" src="js/common/ui/MenuLine/MenuLine.js"></script>
+
+    <script type="module" src="js/common/event/Events.js"></script>
+    <script type="module" src="js/common/event/customEventTypes.js"></script>
+
 
     <script type="module" src="js/common/io/load.js"></script>
     <script type="module" src="js/common/io/save.js"></script>
 
     <script type="module" src="js/common/math/ID.js"></script>
-    <script type="module" src="js/common/math/MathTools.js"></script>
     <script type="module" src="js/common/math/ReducerFunctions.js"></script>
+    <script type="module" src="js/common/math/MathTools.js"></script>
     <script type="module" src="js/common/math/UnitConversions.js"></script>
 
-
-    <script type="module" src="js/common/render/AbsoluteObjectRenderer.js"></script>
-    <script type="module" src="js/common/render/TranslatedObjectRenderer.js"></script>
-
-    <script type="module" src="js/common/screen/ScreenActions.js"></script>
+    <script type="module" src="js/common/errors/Errors.js"></script>
+    <script type="module" src="js/common/errors/ErrorCodes.js"></script>
 
     <script type="module" src="js/common/service/BlueprintService.js"></script>
     <script type="module" src="js/common/service/RoomService.js"></script>
 
-    <script type="module" src="js/common/store/ElementStore.js"></script>
-
-    <script type="module" src="js/common/ui/DocumentData.js"></script>
-    <script type="module" src="js/common/ui/ImageAssets.js"></script>
-    <script type="module" src="js/common/ui/MouseCursor.js"></script>
-    <script type="module" src="js/common/ui/UiCalculations.js"></script>
-    <script type="module" src="js/common/ui/UiLayoutDefinition.js"></script>
-    <script type="module" src="js/common/ui/buttons/ButtonWrapper.js"></script>
-    <script type="module" src="js/common/ui/buttons/ButtonWrapperActions.js"></script>
-    <script type="module" src="js/common/ui/buttons/LoadProjectButton.js"></script>
-    <script type="module" src="js/common/ui/dialog/AddRoomDialog.js"></script>
-    <script type="module" src="js/common/ui/dialog/DeleteBlueprintConfirmDialog.js"></script>
-    <script type="module" src="js/common/ui/dialog/Dialogs.js"></script>
-    <script type="module" src="js/common/ui/dialog/MessageDialog.js"></script>
-    <script type="module" src="js/common/ui/dialog/RotateBlueprintDialog.js"></script>
-    <script type="module" src="js/common/ui/dialog/ScalingDialog.js"></script>
-    <script type="module" src="js/common/ui/keystroke/keystrokeRecorder.js"></script>
-    <script type="module" src="js/common/ui/MenuLine/MenuLine.js"></script>
-    <script type="module" src="js/common/ui/MenuLine/RenderMenuLine.js"></script>
-    <script type="module" src="js/common/ui/OptionsBar/OptionsBar.js"></script>
-    <script type="module" src="js/common/ui/OptionsBar/RenderOptionsBar.js"></script>
-
-    <script type="module" src="js/common/util/ClassUtil.js"></script>
+    <script type="module" src="js/common/actions/blueprint/SelectBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/DeleteBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/UploadNewBlueprint.js"></script>
+    <script type="module" src="js/common/actions/blueprint/BlueprintCalculations.js"></script>
+    <script type="module" src="js/common/actions/blueprint/CreateBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/blueprint/RenderBlueprint.js"></script>
+    <script type="module" src="js/common/actions/blueprint/UpdateBlueprintAction.js"></script>
+    <script type="module" src="js/common/actions/selection/SelectionCriteria.js"></script>
+    <script type="module" src="js/common/actions/selection/SelectionAction.js"></script>
+    <script type="module" src="js/common/actions/scaling/ScalingActions.js"></script>
+    <script type="module" src="js/common/actions/room/RenderRoom.js"></script>
+    <script type="module" src="js/common/actions/room/SelectRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/DeleteRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/CreateRoomAction.js"></script>
+    <script type="module" src="js/common/actions/room/RoomCalculations.js"></script>
+    <script type="module" src="js/common/actions/room/UpdateRoomAction.js"></script>
 
     <script type="module" src="js/common/validators/Validators.js"></script>
 
-    <script type="module" src="js/slab-heating-planner/actions/boxgroup/BoxGroupCalculations.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/boxgroup/CreateBoxGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/boxgroup/DeleteBoxGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/boxgroup/RenderBoxGroup.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/boxgroup/SelectBoxGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/boxgroup/UpdateBoxGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/DeletePipeDriverAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/PipeDriverCalculations.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/PipeDriverPipeCalculation.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/RenderPipeDriver.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/SelectPipeDriverAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/UpdatePipeDriverAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/room/SlabHeatingPlannerDeleteRoomAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/scale/SlabHeatingPlannerScalingActions.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/selection/SlabHeatingPlannerSelectionAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/CreateSlabHeaterGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/DeleteSlabHeaterGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/RenderSlabHeaterGroup.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/SelectSlabHeaterGroupAction.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/SlabHeaterGroupCalculations.js"></script>
-    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/UpdateSlabHeaterGroupAction.js"></script>
+    <script type="module" src="js/common/appdata/constants.js"></script>
+    <script type="module" src="js/common/appdata/ApplicationState.js"></script>
 
-    <script type="module" src="js/slab-heating-planner/api/BoxGroupAPI.js"></script>
-    <script type="module" src="js/slab-heating-planner/api/GroupManagementAPI.js"></script>
-    <script type="module" src="js/slab-heating-planner/api/RotationAPI.js"></script>
-    <script type="module" src="js/slab-heating-planner/api/SlabHeaterGroupAPI.js"></script>
+    <script type="module" src="js/common/util/ClassUtil.js"></script>
 
-    <script type="module" src="js/slab-heating-planner/appdata/SlabHeatingPlannerApplicationState.js"></script>
-    <script type="module" src="js/slab-heating-planner/appdata/SlabHeatingPlannerConstants.js"></script>
+    <script type="module" src="js/common/i18n/internationalization.js"></script>
 
-    <script type="module" src="js/slab-heating-planner/entities/Box.js"></script>
-    <script type="module" src="js/slab-heating-planner/entities/BoxGroup.js"></script>
-    <script type="module" src="js/slab-heating-planner/entities/PipeDriver.js"></script>
-    <script type="module" src="js/slab-heating-planner/entities/SlabHeater.js"></script>
-    <script type="module" src="js/slab-heating-planner/entities/SlabHeaterGroup.js"></script>
+    <script type="module" src="js/slab-heating-planner/render/renderTranslatedObjectsSlabHeatingPlanner.js"></script>
 
     <script type="module" src="js/slab-heating-planner/excel/SlabHeatingPlannerExcelConstants.js"></script>
     <script type="module" src="js/slab-heating-planner/excel/SlabHeatingPlannerExcelGenerator.js"></script>
 
-    <script type="module" src="js/slab-heating-planner/io/LoadSlabHeatingPlanner.js"></script>
-    <script type="module" src="js/slab-heating-planner/io/SaveSlabHeatingPlanner.js"></script>
-
-
-    <script type="module" src="js/slab-heating-planner/render/renderTranslatedObjectsSlabHeatingPlanner.js"></script>
-
-    <script type="module" src="js/slab-heating-planner/service/BoxGroupService.js"></script>
-    <script type="module" src="js/slab-heating-planner/service/BoxService.js"></script>
-    <script type="module" src="js/slab-heating-planner/service/PipeDriverService.js"></script>
-    <script type="module" src="js/slab-heating-planner/service/SlabHeaterGroupService.js"></script>
-    <script type="module" src="js/slab-heating-planner/service/SlabHeaterService.js"></script>
+    <script type="module" src="js/slab-heating-planner/api/SlabHeaterGroupAPI.js"></script>
+    <script type="module" src="js/slab-heating-planner/api/GroupManagementAPI.js"></script>
+    <script type="module" src="js/slab-heating-planner/api/RotationAPI.js"></script>
+    <script type="module" src="js/slab-heating-planner/api/BoxGroupAPI.js"></script>
 
     <script type="module" src="js/slab-heating-planner/store/ElementStoreSlabHeatingPlanner.js"></script>
 
-    <script type="module" src="js/slab-heating-planner/ui/SlabHeaterMenuValueResolver.js"></script>
-    <script type="module" src="js/slab-heating-planner/ui/TransportDialog.js"></script>
-    <script type="module" src="js/slab-heating-planner/ui/UiLayoutSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/slab-heating-planner/entities/PipeDriver.js"></script>
+    <script type="module" src="js/slab-heating-planner/entities/SlabHeaterGroup.js"></script>
+    <script type="module" src="js/slab-heating-planner/entities/Box.js"></script>
+    <script type="module" src="js/slab-heating-planner/entities/BoxGroup.js"></script>
+    <script type="module" src="js/slab-heating-planner/entities/SlabHeater.js"></script>
 
-    <script type="module" src="js/common/p5/draw.js"></script>
-    <script type="module" src="js/common/p5/mousePressed.js"></script>
-    <script type="module" src="js/common/p5/mouseReleased.js"></script>
+    <script type="module" src="js/slab-heating-planner/ui/UiLayoutSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/slab-heating-planner/ui/TransportDialog.js"></script>
+    <script type="module" src="js/slab-heating-planner/ui/SlabHeaterMenuValueResolver.js"></script>
+
+
+    <script type="module" src="js/slab-heating-planner/io/SaveSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/slab-heating-planner/io/LoadSlabHeatingPlanner.js"></script>
+
+    <script type="module" src="js/slab-heating-planner/service/PipeDriverService.js"></script>
+    <script type="module" src="js/slab-heating-planner/service/BoxGroupService.js"></script>
+    <script type="module" src="js/slab-heating-planner/service/SlabHeaterService.js"></script>
+    <script type="module" src="js/slab-heating-planner/service/SlabHeaterGroupService.js"></script>
+    <script type="module" src="js/slab-heating-planner/service/BoxService.js"></script>
+
+    <script type="module" src="js/slab-heating-planner/actions/selection/SlabHeatingPlannerSelectionAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/boxgroup/BoxGroupCalculations.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/boxgroup/UpdateBoxGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/boxgroup/SelectBoxGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/boxgroup/RenderBoxGroup.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/boxgroup/CreateBoxGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/boxgroup/DeleteBoxGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/PipeDriverPipeCalculation.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/UpdatePipeDriverAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/SelectPipeDriverAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/RenderPipeDriver.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/PipeDriverCalculations.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/pipeDriver/DeletePipeDriverAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/scale/SlabHeatingPlannerScalingActions.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/SlabHeaterGroupCalculations.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/SelectSlabHeaterGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/UpdateSlabHeaterGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/DeleteSlabHeaterGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/CreateSlabHeaterGroupAction.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/slabHeaterGroup/RenderSlabHeaterGroup.js"></script>
+    <script type="module" src="js/slab-heating-planner/actions/room/SlabHeatingPlannerDeleteRoomAction.js"></script>
+
+    <script type="module" src="js/slab-heating-planner/appdata/SlabHeatingPlannerApplicationState.js"></script>
+    <script type="module" src="js/slab-heating-planner/appdata/SlabHeatingPlannerConstants.js"></script>
+
     <script type="module" src="js/common/p5/mouseWheel.js"></script>
     <script type="module" src="js/common/p5/setup.js"></script>
+    <script type="module" src="js/common/p5/mouseReleased.js"></script>
+    <script type="module" src="js/common/p5/mousePressed.js"></script>
+    <script type="module" src="js/common/p5/draw.js"></script>
     <script type="module" src="js/common/p5/setup/setupSteps.js"></script>
-    <script type="module" src="js/slab-heating-planner/p5/mouseReleasedSlabHeater.js"></script>
     <script type="module" src="js/slab-heating-planner/p5/setupSlabHeatingPlanner.js"></script>
+    <script type="module" src="js/slab-heating-planner/p5/mouseReleasedSlabHeater.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,167 @@
+Magyar nyelvű szöveg,Román fordítás
+gerincvezeték,conductă principală / coloană
+Összesen,Total
+sorszám,nr. crt. (număr curent)
+szélesség,lățime
+hosszúság,lungime
+A vezeték,Conducta A
+B vezeték,Conducta B
+Cső,Țeavă
+Terület,Suprafață
+Összesen:,Total:
+Egységár:,Preț unitar:
+üvegszövetvágás hull.:,deșeu tăiere plasă fibră de sticlă:
+Cső és panel ár:,Preț țeavă și panou:
+födémátv. Dobozok:,Doze trecere planșeu:
+Szállítás:,Transport:
+Összesen bruttó:,Total brut:
+rendeléstől 7 munkanap,7 zile lucrătoare de la comandă
+Bruttó darab,Bucată brut / Preț brut pe bucată
+16x2 szigetelt cső,Țeavă izolată 16x2
+"16x2 -3/4"" eurokónusz","Eurocon 16x2 - 3/4"""
+2 körös osztógyűjtő,Distribuitor-colector cu 2 circuite
+3 körös osztógyűjtő,Distribuitor-colector cu 3 circuite
+4 körös osztógyűjtő,Distribuitor-colector cu 4 circuite
+5 körös osztógyűjtő,Distribuitor-colector cu 5 circuite
+6 körös osztógyűjtő,Distribuitor-colector cu 6 circuite
+7 körös osztógyűjtő,Distribuitor-colector cu 7 circuite
+8 körös osztógyűjtő,Distribuitor-colector cu 8 circuite
+9 körös osztógyűjtő,Distribuitor-colector cu 9 circuite
+10 körös osztógyűjtő,Distribuitor-colector cu 10 circuite
+11 körös osztógyűjtő,Distribuitor-colector cu 11 circuite
+12 körös osztógyűjtő,Distribuitor-colector cu 12 circuite
+Szállítás alapdíj,Taxă de bază transport
+km díj,Tarif pe km
+lemez hossz,lungime placă / tablă
+ívtől ívig hossz,lungime de la cot la cot
+felület,suprafață
+hűtés,răcire
+fűtés,încălzire
+Cső hossza,Lungimea țevii
+Termék név,Nume produs
+darabszám,număr de bucăți / cantitate
+össz hűtő teljesítmény,putere totală de răcire
+össz fűtő teljesítmény,putere totală de încălzire
+Panelok összesen,Total panouri
+Csőhossz,Lungime țeavă
+Módosítható kalkulációs paraméterek,Parametri de calcul modificabili
+Hűtő-fűtő közeg hőmérséklet,Temperatura agentului de răcire-încălzire
+ÖSSZESEN,TOTAL
+anyag bruttó:,materiale brut:
+mennyezet,tavan / plafon
+panelok összesen:,total panouri:
+szobahőm.,temp. camerei
+előremenő,tur
+Változás,Variație / Diferență (ΔT)
+Fajlagos telj.,Putere specifică
+130m/osztókör,130 m/circuit distribuitor
+szerelési díj osztóig (azzal együtt),manoperă montaj până la distribuitor (inclusiv acesta)
+idomok PPSU,fitinguri PPSU
+Szükséges osztó körök száma:,Număr necesar de circuite distribuitor:
+Panel terület:,Suprafață panouri:
+Összesen bruttó:,Total brut:
+osztógyűjtők,distribuitoare-colectoare
+Szoba páratartalom:,Umiditatea camerei:
+CD30/60 profil,Profil CD30/60
+UD30 profil,Profil UD30
+gerinc cső+héj 16x2,țeavă coloană + izolație 16x2
+eurokónusz,eurocon
+osztószekrény,cutie distribuitor
+szállítás,transport
+Összesen bruttó anyag és díj,Total brut materiale și manoperă
+Hőmérséklet:,Temperatură:
+Páratartalom:,Umiditate:
+Becsült harmatponti hőmérséklet:,Temperatura estimată a punctului de rouă:
+"FIGYELEM: A megadott hűtési paraméterek mellett a harmatponti hőmérséklet (16.3°C) alacsonyabb a hűtőközeg bemenő hőmérsékleténél, ami kicsapódást okozhat!","ATENȚIE: La parametrii de răcire specificați, temperatura punctului de rouă (16,3°C) este mai mică decât temperatura de intrare a agentului de răcire, ceea ce poate provoca condens!"
+2. fájl: TEMPLATE(3).xlsx (Részletes hőtani segédlet),
+λacél=,λoțel=
+λgipszkarton=,λgips-carton=
+αbelső=,αinterior=
+αkülső=,αexterior=
+D cső belső =,D țeavă interior =
+D cső külső =,D țeavă exterior =
+Csőköz:,Pas țeavă (distanța între țevi):
+Csőszám:,Număr de țevi:
+[db],[buc]
+Hossz:,Lungime:
+Tengelytáv:,Distanță între axe:
+Lemezvast.:,Grosime tablă:
+Gipszk. vast.:,Grosime gips-carton:
+ΔT víz fűtés=,ΔT apă încălzire=
+ΔT víz hűtés =,ΔT apă răcire =
+Belépő víz hőm. [°C],Temp. apă intrare [°C]
+Levegő hőm. [°C],Temp. aer [°C]
+Hűtő-fűtő közeg hőmérs.,Temp. agent răcire-încălzire
+Belépő,Intrare (tur)
+Kilépő,Ieșire (retur)
+Helyiség levegő hőmérséklet,Temperatura aerului din încăpere
+Cső belső átmérő,Diametrul interior al țevii
+Cső külső átmérő,Diametrul exterior al țevii
+Lemez ív külső átmérő,Diametrul exterior al arcului tablei
+Cső falvastagság,Grosimea peretelui țevii
+Lemez falvastagság,Grosimea peretelui tablei
+Gipszkarton falvasagság,Grosimea plăcii de gips-carton
+Egy cső belső felülete,Suprafața interioară a unei țevi
+Egy cső külső felülete,Suprafața exterioară a unei țevi
+Lemez 1 db ív külső felület,Suprafața exterioară a 1 buc. arc de tablă
+Lemez összes sík fűtőfelülete,Suprafața plană totală de încălzire a tablei
+Befoglaló téglalap felülete,Suprafața dreptunghiului circumscris
+Folyadék és csőfal közti hőátbocsátás,Transfer termic între lichid și peretele țevii
+Gipszkarton felület és levegő közti hőátbocsátás,Transfer termic între suprafața de gips-carton și aer
+Folyadék és csőfal közti fázishatár ellenállás,Rezistență termică superficială între lichid și peretele țevii
+Gipszkarton felület és levegő közötti fázishatár ellenállás,Rezistență termică superficială între suprafața de gips-carton și aer
+Lemez ív külső felület és levegő közötti fázishatár ellenállás,Rezistență termică superficială între suprafața exterioară a arcului tablei și aer
+Csőfalban való hővezetés ellenállása,Rezistență la conducție termică în peretele țevii
+Lemezfalban való hővezetés ellenállása,Rezistență la conducție termică în peretele tablei
+Gipszkarton falban való hőáramlás ellenállása,Rezistență la transferul termic în placa de gips-carton
+Hőellenállások soros összege folyadéktól lemezív külső felületig,Suma în serie a rezistențelor termice de la lichid până la suprafața exterioară a arcului tablei
+Hőellenállások soros összege folyadéktól gipszk. külső felületével érintkező levegőig,Suma în serie a rezistențelor termice de la lichid până la aerul în contact cu suprafața exterioară a gips-cartonului
+Hőellenállások soros összege folyadéktól lemezív külső felületével érintkező levegőig,Suma în serie a rezistențelor termice de la lichid până la aerul în contact cu suprafața exterioară a arcului tablei
+Bordaparaméter,Parametru nervură
+Borda magassága,Înălțimea nervurii
+Borda hatásfoka,Randamentul nervurii
+érvényes? / érvényes,valid? / valid
+hűtés?,răcire?
+tátlag,tmediu
+3. fájl: magyar román.xlsx (Munka1),
+magyar,maghiară
+román,română
+APPARAT Rajzolátor,APPARAT Desenator
+Fájlfeltöltés,Încărcare fișier
+"A tervrajzok törlése törölni fogja a meglévő skálázást,<br>a korábban felvett szobákat és paneleket. Folytatja?","Ștergerea planurilor va șterge scalarea existentă,<br>încăperile și panourile adăugate anterior. Continuați?"
+Igen (Enter),Da (Enter)
+Nem,Nu
+A rajz újraskálázása törölni fogja a korábban felvett szobákat és paneleket. Folytatja?,Rescalarea desenului va șterge încăperile și panourile adăugate anterior. Continuați?
+"Adja meg a kijelölt szakasz hosszát, méter mértékegységben:","Introduceți lungimea segmentului selectat, în metri:"
+Helyiség neve:,Numele încăperii:
+Ferde szoba,Încăpere oblică / înclinată
+Gyors kitöltés:,Completare rapidă:
+Szoba hozzáadása (Enter),Adăugare încăpere (Enter)
+Bezárás,Închidere
+Oldalszám:,Numărul paginii:
+"Amennyiben kér szállítást a rendeléshez, kérjük adja meg itt, km mértékegységben:","Dacă solicitați transport pentru comandă, vă rugăm să îl introduceți aici, în km:"
+Letöltés (Enter),Descărcare (Enter)
+Mégsem,Anulare
+Alaprajz elforgatása:,Rotirea planului:
+Biztosan törli a kiválasztott tervrajzot?,Sigur ștergeți planul selectat?
+Kér szállítást a rendeléshez?,Solicitați transport pentru comandă?
+"Amennyiben igen, adja meg a távolságot:","Dacă da, introduceți distanța:"
+Mi a meló ma?,Ce lucrăm azi?
+Rajzolátor,Desenator
+Födémizátor,Planșeizator
+APPARAT Födémizátor,APPARAT Planșeizator
+Érvénytelen oldalszám. Az első oldal lesz megjelenítve.,Număr de pagină invalid. Va fi afișată prima pagină.
+"Váratlan fájl típus!<br/>Válasszon jpg, png vagy pdf fájlt a folytatáshoz.","Tip de fișier neașteptat!<br/>Selectați un fișier jpg, png sau pdf pentru a continua."
+Ilyen nevű szoba már létezik. Egyedi nevet kell megadni.,Există deja o încăpere cu acest nume. Trebuie introdus un nume unic.
+A pont felvétele átfedést okozna a szobák között. Válasszon másik pontot.,Adăugarea punctului ar cauza o suprapunere între încăperi. Selectați alt punct.
+Érvénytelen méretarány. Csak pozitív szám adható meg!,Scară invalidă. Se poate introduce doar un număr pozitiv!
+Név nélkül nem vehető fel szoba!,Nu se poate adăuga o încăpere fără nume!
+A panelcsoport egy része szobán kívülre kerülne!,O parte a grupului de panouri ar ajunge în afara încăperii!
+A födémfűtő csoport egy része szobán kívülre kerülne!,O parte a grupului de încălzire în planșeu ar ajunge în afara încăperii!
+Egymásra merőleges panelek nem lehetnek egy szobában!,Nu pot exista panouri perpendiculare unele pe altele în aceeași încăpere!
+Érvénytelen távolság!,Distanță invalidă!
+A födémáttörés csoportnak szobán belül kell lennie!,Grupul de treceri prin planșeu trebuie să fie în interiorul încăperii!
+A csőnyomvonal nem megfelelő irányból közelíti meg a dobozt!,Traseul țevii se apropie de doză dintr-o direcție necorespunzătoare!
+Forgatás,Rotire
+Törlés,Ștergere
+Hozzáadás,Adăugare
