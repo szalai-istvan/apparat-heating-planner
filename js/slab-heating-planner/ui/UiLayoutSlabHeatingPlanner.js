@@ -25,7 +25,7 @@ function createButtonsSlabHeatingPlanner() {
     UiLayoutDefinition.createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes);
 
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.uiTextSize / 2 });
-    UiLayoutDefinition.addSidePanelText('Födémfűtés elemek', UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
+    UiLayoutDefinition.addSidePanelText('ui.text.slabheaters', UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.uiTextSize / 2 });
 
     const slabHeaterWidthOptionsBar = new OptionsBar({
@@ -35,7 +35,7 @@ function createButtonsSlabHeatingPlanner() {
         columns: [{ buttons: [SlabHeatingPlannerConstants.slabHeater.slabHeaterTypes.width[0]] }, { buttons: [SlabHeatingPlannerConstants.slabHeater.slabHeaterTypes.width[1]] }],
         valueResolver: optionsBar => optionsBar.selected[0] ? Number(optionsBar.selected[0]) : undefined,
         onchange: () => SlabHeaterGroupAPI.updateSelectedSlabHeaterGroupDimensions(), 
-        title: 'Szélesség (m)',
+        title: 'common.width',
         perColumnSelection: false,
         shouldBeActive: () => RoomCalculations.configuredRoomsExist(),
     });
@@ -51,7 +51,7 @@ function createButtonsSlabHeatingPlanner() {
         valueResolver: optionsBar => SlabHeaterMenuValueResolver.resolveSlabHeaterLengthOptionBarValue(optionsBar),
         onchange: () => SlabHeaterGroupAPI.updateSelectedSlabHeaterGroupDimensions(), 
         shouldBeActive: () => RoomCalculations.configuredRoomsExist(),
-        title: 'Hosszúság',
+        title: 'common.length',
         perColumnSelection: true
     });
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.halfWidthButtonSize.y / 3 });
@@ -74,7 +74,7 @@ function createButtonsSlabHeatingPlanner() {
     UiLayoutDefinition.addLeftRibbonDelimeter(UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
 
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.uiTextSize / 2 });
-    UiLayoutDefinition.addSidePanelText('Födémáttörések', UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
+    UiLayoutDefinition.addSidePanelText('ui.text.boxes', UiLayoutDefinition.sidePanelButtonPosition(leftRibbonButtonSizes).y);
     leftRibbonButtonSizes.push({ x: 0, y: Constants.ui.uiTextSize / 2 });
 
     const addBoxGroupButton = new ButtonWrapper({

@@ -1,3 +1,4 @@
+import { ApplicationState } from "../../common/appdata/ApplicationState.js";
 import { WorkbookWrapper } from "../../common/excel/WorkbookWrapper.js";
 import { RenderPipeDriver } from "../actions/pipeDriver/RenderPipeDriver.js";
 import { BoxService } from "../service/BoxService.js";
@@ -38,7 +39,7 @@ async function generateExcel(km) {
  */
 async function loadExcelTemplate() {
     if (!excelArrayBuffer) {
-        const path = SlabHeatingPlannerExcelConstants.path;
+        const path = SlabHeatingPlannerExcelConstants.path.replace('{language}', ApplicationState.language.toUpperCase());
         const response = await fetch(path);
         if (!response.ok) throw new Error("Failed to fetch Excel template from path " + path);
         excelArrayBuffer = await response.arrayBuffer();

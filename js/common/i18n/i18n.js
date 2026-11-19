@@ -1,9 +1,10 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
+import { Constants } from "../appdata/constants.js";
 import { Languages } from "./Languages.js";
 import { TranslateP5UiElements } from "./translateP5UiElements.js";
 
 /** @type {{[key: string]: string}} */
-let translationFile = null;
+let translationFile = {};
 /** @type {() => undefined} */
 let projectSpecificI18nFunction = () => { };
 
@@ -15,6 +16,7 @@ let projectSpecificI18nFunction = () => { };
  */
 function changeLanguage(newLanguage) {
     ApplicationState.language = Languages[newLanguage] || ApplicationState.language;
+    localStorage.setItem(Constants.i18n.languageKeyLocalStorage, ApplicationState.language);
 
     fetch(`i18n/languages/${ApplicationState.language}.json`)
         .then(response => {

@@ -4,7 +4,6 @@ import { LineCalculations } from "../../../common/geometry/line/LineCalculations
 import { CreatePoint } from "../../../common/geometry/point/createPoint.js";
 import { Point } from "../../../common/geometry/point/Point.js";
 import { PointCalculations } from "../../../common/geometry/point/PointCalculations.js";
-import { MathTools } from "../../../common/math/MathTools.js";
 import { SlabHeatingPlannerApplicationState } from "../../appdata/SlabHeatingPlannerApplicationState.js";
 import { PipeDriver } from "../../entities/PipeDriver.js";
 import { SlabHeater } from "../../entities/SlabHeater.js";
@@ -92,7 +91,6 @@ function calculatePipe(pipeDriver, startingPoint) {
     const pipePoints = [startingPoint];
 
     if (firstSegmentIsPerpendicular(pipeDriver)) {
-        console.log('fsp');
         const slabHeater = SlabHeaterService.findById(pipeDriver.slabHeaterId);
         const cornerLine = calculateCornerLineByThreePoints(slabHeater.boundingBox.middlePoint, pipeDriver.points[0], pipeDriver.points[1]);
         const pipeLine = CreateLine.createPerpendicularLine(pipeDriver.segments[0], startingPoint);
@@ -258,7 +256,6 @@ function applyRadiusToPipes(pipes) {
         pipes[i] = CreateLine.clipLine(pipes[i], clipSize);
         i++;
     }
-
 }
 
 /**
@@ -290,8 +287,6 @@ function calculateTwoPointPipe(pipeDriver, pipePoints) {
     const perpendicularLine = CreateLine.createPerpendicularLine(offsetLines[0], secondPoint);
 
     const offsetLinePipeLineIntersections = offsetLines.map(offsetLine => LineCalculations.calculateIntersectionPointOfTwoLines(offsetLine, perpendicularLine));
-    console.log(pipePoints);
-    console.log(offsetLinePipeLineIntersections);
     const intersection = offsetLinePipeLineIntersections.sort((ip1, ip2) => compareDistanceFromIntersection(ip1, ip2, secondPoint))[0];
     pipePoints.push(intersection);
 }

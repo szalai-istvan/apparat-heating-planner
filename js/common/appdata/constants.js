@@ -138,7 +138,10 @@ export const Constants = {
         defaultRectangleColor: 'blue',
         defaultRectangleStrokeWeight: 1,
         floatingPointMaxDeviation: 0.00000001
+    },
 
+    i18n: {
+        languageKeyLocalStorage: 'apparat-suite-language'
     }
 };
 

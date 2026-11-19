@@ -1,7 +1,7 @@
 import { Constants } from "../appdata/constants.js";
+import { i18n } from "../i18n/i18n.js";
 import { MessageDialog } from "../ui/dialog/MessageDialog.js";
 import { ClassUtil } from "../util/ClassUtil.js";
-import { ErrorTranslations } from "./ErrorCodes.js";
 
 /**
  * Egy hibát reprezentáló entitás.
@@ -39,14 +39,13 @@ function handleError(error) {
     if (className === Constants.classNames.appError) {
         const messageCode = error.messageCode;
         const stackTrace = error.stackTrace;
-        const translation = ErrorTranslations[messageCode];
+        const translation = i18n.translateKey(messageCode);
         if (translation) {
             MessageDialog.displayMessage(translation);
-            console.error(stackTrace);
         } else {
             MessageDialog.displayMessage(messageCode);
-            console.error(stackTrace);
         }
+        console.error(stackTrace);
     }
 }
 

@@ -2,6 +2,7 @@ import { SelectionAction } from "../../common/actions/selection/SelectionAction.
 import { Constants } from "../../common/appdata/constants.js";
 import { CustomEventTypes } from "../../common/event/customEventTypes.js";
 import { Events } from "../../common/event/Events.js";
+import { i18n } from "../../common/i18n/i18n.js";
 import { Load } from "../../common/io/load.js";
 import { Save } from "../../common/io/save.js";
 import { Draw } from "../../common/p5/draw.js";
@@ -12,6 +13,7 @@ import { SlabHeatingPlannerDeleteRoomAction } from "../actions/room/SlabHeatingP
 import { SlabHeatingPlannerScalingAction } from "../actions/scale/SlabHeatingPlannerScalingActions.js";
 import { SlabHeatingPlannerSelectionAction } from "../actions/selection/SlabHeatingPlannerSelectionAction.js";
 import { SelectSlabHeaterGroupAction } from "../actions/slabHeaterGroup/SelectSlabHeaterGroupAction.js";
+import { SlabHeatingPlannerI18n } from "../i18n/SlabHeatingPlannerI18n.js";
 import { LoadSlabHeatingPlanner } from "../io/LoadSlabHeatingPlanner.js";
 import { SaveSlabHeatingPlanner } from "../io/SaveSlabHeatingPlanner.js";
 import { SlabHeatingPlannerTranslatedObjectRenderer } from "../render/renderTranslatedObjectsSlabHeatingPlanner.js";
@@ -51,6 +53,9 @@ function setupSlabHeatingPlanner() {
     TranslatedObjectRenderer.setProjectSpecificRenderTranslatedObjects(SlabHeatingPlannerTranslatedObjectRenderer.renderTranslatedObjectsSlabHeatingPlanner);
     TranslatedObjectRenderer.setProjectSpecificDebugOnlyRenderTranslatedObjects(SlabHeatingPlannerTranslatedObjectRenderer.renderDebugOnlyTranslatedObjectsSlabHeatingPlanner);
 
+    // i18n config
+    i18n.setProjectSpecificI18nFunction(SlabHeatingPlannerI18n.internationalizeSlabHeatingPlanner);
+    
     // other listeners
     Events.registerEventListener(CustomEventTypes.roomsCleared, SlabHeatingPlannerDeleteRoomAction.onRoomsClearedSlabHeatingPlanner);
     Events.registerEventListener(CustomEventTypes.selectedRoomRemoved, SlabHeatingPlannerDeleteRoomAction.onSelectedRoomRemovedSlabHeatingPlanner);
@@ -63,7 +68,8 @@ function setupSlabHeatingPlanner() {
         Load.loadProject();
     }
 
-    Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, 'hu');
+    const lang = localStorage.getItem(Constants.i18n.languageKeyLocalStorage) || 'hu';
+    Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, lang);
     Draw.enableRendering();
 }
 

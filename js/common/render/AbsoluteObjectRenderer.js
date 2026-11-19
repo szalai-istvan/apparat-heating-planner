@@ -1,6 +1,7 @@
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/constants.js";
 import { DebugTools } from "../debug/Debug.js";
+import { i18n } from "../i18n/i18n.js";
 import { ElementStore } from "../store/ElementStore.js";
 import { ButtonWrapperActions } from "../ui/buttons/ButtonWrapperActions.js";
 import { DocumentData } from "../ui/DocumentData.js";
@@ -63,7 +64,7 @@ function drawUiBackground() {
     noStroke();
     fill(Constants.ui.defaultTextColor);
     for (let uiText of ApplicationState.uiTexts) {
-        text(uiText.text, uiText.position.x, uiText.position.y);
+        text(i18n.translateKey(uiText.text), uiText.position.x, uiText.position.y);
     }
 
     image(ImageAssets.getApparatLogo(), documentSize.x - 293, 5, 287, 49.5);

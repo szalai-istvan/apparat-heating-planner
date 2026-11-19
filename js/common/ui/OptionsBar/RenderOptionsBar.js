@@ -1,4 +1,5 @@
 import { Constants } from "../../appdata/constants.js";
+import { i18n } from "../../i18n/i18n.js";
 import { OptionsBar } from "./OptionsBar.js";
 
 /**
@@ -24,7 +25,7 @@ function renderOptionsBar(optionsBar) {
         text(columnHeader, headerPosition.x, headerPosition.y);
     }
 
-    const title = optionsBar.title;
+    const title = i18n.translateKey(optionsBar.title);
     const titlePosition = optionsBar.titlePosition;
     text(title, titlePosition.x, titlePosition.y);
     pop();

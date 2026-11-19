@@ -1,4 +1,5 @@
 import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js";
+import { ApplicationState } from "../../common/appdata/ApplicationState.js";
 import { Constants } from "../../common/appdata/constants.js";
 import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
@@ -65,8 +66,9 @@ async function createExcelFile(summary) {
 
 async function loadExcelTemplate() {
     if (!EXCEL_ARRAY_BUFFER) {
-        const response = await fetch(HeatingPlannerExcelConstants.FILE_PATH);
-        if (!response.ok) throw new Error("Failed to fetch Excel template from path " + HeatingPlannerExcelConstants.FILE_PATH);
+        const path = HeatingPlannerExcelConstants.FILE_PATH.replace('{language}', ApplicationState.language.toUpperCase());
+        const response = await fetch(path);
+        if (!response.ok) throw new Error("Failed to fetch Excel template from path " + path);
         EXCEL_ARRAY_BUFFER = await response.arrayBuffer();
     }
 

@@ -2,7 +2,7 @@
  * Födémfűtő Excel konstansok.
  */
 export const SlabHeatingPlannerExcelConstants = {
-    path: 'xlsx/SLAB_HEATING_TEMPLATE.xlsx',
+    path: 'xlsx/SLAB_HEATING_TEMPLATE_{language}.xlsx',
     summarySheetName: 'Számolgatós',
     blueprintSheetName: 'Alaprajz',
 

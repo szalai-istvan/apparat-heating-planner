@@ -1,9 +1,6 @@
-Mindkét projektbe kell specifikus nyelvesítő függvény (új árak betöltése)
-Excelekből kell magyar és román
-Összes UI elem definíció tartalmazzon kulcs és szöveg megadás opciókat
-Megjegyezni a nyelvet
-Szobák neve
-Exceleket is kéne nyelvesíteni, valami ${key} módon.
+Nyelvváltoztatáskor új árakat kell betölteni
+Excelekre nyelvesített sheet nevek is kellenek!
+Román Exceleken a Forintos formázás -> Lei
 
 ---
 

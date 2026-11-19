@@ -61,7 +61,8 @@ function setupHeatingPlanner() {
         Load.loadProject();
     }
 
-    Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, 'hu');
+    const lang = localStorage.getItem(Constants.i18n.languageKeyLocalStorage) || 'hu';
+    Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, lang);
     Draw.enableRendering();
 }
 

@@ -9,7 +9,7 @@ export const HeatingPlannerExcelConstants = {
     SECOND_LINE_FIRST_HALF: ['Lemez hossz', 'Ívtől ívig hossz', 'Felület', 'Hűtés', 'Fűtés', 'Cső hossza', 'Termék név'],
     SECOND_LINE_SECOND_HALF: ['Termék név', 'Darabszám', 'Össz hűtő teljesítmény', 'Össz Fűtő teljesítmény', 'Panelok összesen', 'Csőhossz', 'Felület'],
     HEADER_COLOR: 'BFBFBF',
-    FILE_PATH: 'xlsx/TEMPLATE.xlsx',
+    FILE_PATH: 'xlsx/TEMPLATE_{language}.xlsx',
     ALPHABET: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
     ALAP_ROW: {
         'F100': 2,
