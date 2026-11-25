@@ -39,7 +39,7 @@ function handleError(error) {
     if (className === Constants.classNames.appError) {
         const messageCode = error.messageCode;
         const stackTrace = error.stackTrace;
-        const translation = i18n.translateKey(messageCode);
+        const translation = i18n.translateKey('error.' + messageCode);
         if (translation) {
             MessageDialog.displayMessage(translation);
         } else {

@@ -2,6 +2,7 @@ import { BlueprintCalculations } from "../actions/blueprint/BlueprintCalculation
 import { ApplicationState } from "../appdata/ApplicationState.js";
 import { Constants } from "../appdata/constants.js";
 import { RectangleCalculations } from "../geometry/rectangle/RectangleCalculations.js";
+import { ReducerFunctions } from "../math/ReducerFunctions.js";
 import { DocumentData } from "../ui/DocumentData.js";
 
 /**
@@ -79,6 +80,26 @@ export class WorkbookWrapper {
 
             column++;
         }
+    }
+
+    /**
+     * Visszaadja a megadott cellában lévő értéket
+     * 
+     * @param {number} row
+     * @param {number} column
+     * 
+     * @returns {string} A cella értéke
+     */
+    readCell(row, column) {
+        if (!this.selectedSheet) {
+            throw new Error('No sheet selected!');
+        }
+
+        const value = this.selectedSheet.getRow(row).getCell(column).value;
+        if (value && typeof value === 'object' && 'richText' in value) {
+            return value.richText.map(rt => rt.text).reduce(ReducerFunctions.sumFunction, '');
+        }
+        return this.selectedSheet.getRow(row).getCell(column).value;
     }
 
     /**

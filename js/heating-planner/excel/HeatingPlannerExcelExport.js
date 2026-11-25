@@ -2,6 +2,7 @@ import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js"
 import { ApplicationState } from "../../common/appdata/ApplicationState.js";
 import { Constants } from "../../common/appdata/constants.js";
 import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
+import { i18n } from "../../common/i18n/i18n.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 import { HeatingPlannerExcelConstants } from "./excelConstants.js";
 import { summaryCalculator } from "./SummaryCalculator.js";
@@ -24,9 +25,10 @@ const SUM = ExcelGeneratorUtils.SUM;
 const IF = ExcelGeneratorUtils.IF;
 const IFERROR = ExcelGeneratorUtils.IFERROR;
 const VLOOKUP = ExcelGeneratorUtils.VLOOKUP;
-const PRICES = HeatingPlannerConstants.prices;
+let PRICES = HeatingPlannerConstants.prices;
 
 function startExcelExport(transportKm) {
+    PRICES = HeatingPlannerConstants.prices;
     const summary = summaryCalculator.calculateSummary();
     summary.additionalElements.transport = transportKm || null;
     createExcelFile(summary);
@@ -46,6 +48,7 @@ async function createExcelFile(summary) {
     const blueprintSheet = workbook.getWorksheet(HeatingPlannerExcelConstants.BLUEPRINT_SHEET_NAME);
     context.sheets = { summarySheet, blueprintSheet };
 
+    fillPrices(context);
     createColumnsForRooms(context);
     fillRoomNames(context);
     fillPanelCounts(context);
@@ -90,6 +93,48 @@ function downloadExcel(context) {
         link.click();
         document.body.removeChild(link);
     });
+}
+
+function fillPrices(context) {
+    const workbook = context.workbook;
+    const sheet = workbook.getWorksheet('Alap');
+    const pricesToFill = [
+        HeatingPlannerConstants.prices.panels.F100,
+        HeatingPlannerConstants.prices.panels.F150,
+        HeatingPlannerConstants.prices.panels.F200,
+        HeatingPlannerConstants.prices.panels.F250,
+        HeatingPlannerConstants.prices.panels.F300,
+        HeatingPlannerConstants.prices.panels.F350,
+        HeatingPlannerConstants.prices.panels.F400,
+        HeatingPlannerConstants.prices.tElement, // 16-10-16 PPSU
+        HeatingPlannerConstants.prices.confusor, // 16-10 PPSU
+        HeatingPlannerConstants.prices.eurokonusz, // 10-10 PPSU
+        HeatingPlannerConstants.prices.tube, // 16x2 szigetelt cső
+        HeatingPlannerConstants.prices.eurokonusz, // 16x2 -3/4" eurokónusz
+        HeatingPlannerConstants.prices.collectorTypes._2circuits, // 2 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._3circuits, // 3 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._4circuits, // 4 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._5circuits, // 5 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._6circuits, // 6 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._7circuits, // 7 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._8circuits, // 8 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._9circuits, // 9 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._10circuits, // 10 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._11circuits, // 11 körös osztógyűjtő
+        HeatingPlannerConstants.prices.collectorTypes._12circuits, // 12 körös osztógyűjtő
+        HeatingPlannerConstants.prices.transport.b, // Szállítás alapdíj
+        HeatingPlannerConstants.prices.transport.a, // km díj
+        HeatingPlannerConstants.prices.cd30_60, // CD 30/60
+        HeatingPlannerConstants.prices.ud30, // UD 30
+    ];
+
+    let row = 2;
+    for (let price of pricesToFill) {
+        const sheetrow = sheet.getRow(row);
+        const cell = sheetrow.getCell(2);
+        cell.value = price;
+        row++;
+    }
 }
 
 function createColumnsForRooms(context) {
@@ -340,7 +385,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
 
     const collectorConfig = getCollectorConfig(context);
-    const collectorsOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 5, alapPair('A', 'B', 14, 24), true);
+    const collectorsOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 5, alapPair('A', 'B', 14, 24), '', true);
     createDropDown(firstCell, collectorsOptionsRange.dropdown);
     firstCell.value = collectorConfig.first;
     setFormula(secondCell, IFERROR(VLOOKUP(firstCell.address, collectorsOptionsRange.searchTable, 2, 'FALSE'), 0));
@@ -397,9 +442,9 @@ function fillSummaryTable(context) {
     firstCell = row.getCell(firstColumn);
     secondCell = row.getCell(secondColumn);
 
-    const distBoxOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 8, PRICES.distBox);
+    const distBoxOptionsRange = addOptionTableAndReturnOptionsRange(summarySheet, secondColumn + 8, PRICES.distBox, 'distBox.');
     createDropDown(firstCell, distBoxOptionsRange.dropdown);
-    firstCell.value = Constants.strings.nemKell;
+    firstCell.value = i18n.translateKey('distBox.none');
     setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
     rowIndex++;
 
@@ -409,7 +454,7 @@ function fillSummaryTable(context) {
     secondCell = row.getCell(secondColumn);
 
     createDropDown(firstCell, distBoxOptionsRange.dropdown);
-    firstCell.value = Constants.strings.nemKell;
+    firstCell.value = i18n.translateKey('distBox.none');
     setFormula(secondCell, VLOOKUP(firstCell.address, distBoxOptionsRange.searchTable, 2, 'FALSE'));
     rowIndex += 3;
 

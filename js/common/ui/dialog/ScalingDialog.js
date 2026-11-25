@@ -15,7 +15,7 @@ const scalingDialogCancelButton = document.getElementById('scalingDialogCancelBu
 
 scalingDialogCloseButton.addEventListener(Constants.strings.click, (event) => {
     const scalingValue = scalingInput.value.replace(",", ".");
-    if (Number(scalingValue) > 0) {
+    if (scalingValue) {
         ScalingActions.processScalingValue(scalingValue);
         scalingDialog.close();
         Dialogs.toggleScreenControls();

@@ -1,6 +1,4 @@
-Nyelvváltoztatáskor új árakat kell betölteni
 Excelekre nyelvesített sheet nevek is kellenek!
-Román Exceleken a Forintos formázás -> Lei
 
 ---
 

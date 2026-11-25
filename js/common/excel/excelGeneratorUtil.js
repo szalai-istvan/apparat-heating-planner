@@ -1,3 +1,4 @@
+import { i18n } from "../i18n/i18n.js";
 import { WorkbookWrapper } from "./WorkbookWrapper.js";
 
 const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -54,16 +55,16 @@ function setFormula(cell, formula) {
     cell.value = { formula };
 }
 
-function addOptionTableAndReturnOptionsRange(sheet, column, options, formula = false) {
+function addOptionTableAndReturnOptionsRange(sheet, column, options, optionsPrefix = '', formula = false) {
     let rowIndex = 1;
     for (let key in options) {
         let value = options[key];
 
         if (formula) {
-            setFormula(sheet.getRow(rowIndex).getCell(column), key);
+            setFormula(sheet.getRow(rowIndex).getCell(column), i18n.translateKey(optionsPrefix + key));
             setFormula(sheet.getRow(rowIndex).getCell(column + 1), value);
         } else {
-            sheet.getRow(rowIndex).getCell(column).value = key;
+            sheet.getRow(rowIndex).getCell(column).value = i18n.translateKey(optionsPrefix + key);
             sheet.getRow(rowIndex).getCell(column + 1).value = value;
         }
 
@@ -157,10 +158,13 @@ function getCollectorConfig(context) {
     first = Math.min(first, 12);
     second = Math.min(second, 12);
 
-    first = first < 2 ? 'nem kell' : first + ' körös osztógyűjtő';
-    second = second < 2 ? 'nem kell' : second + ' körös osztógyűjtő';
+    first = first < 2 ? 'none' : '_' + first + 'circuits';
+    second = second < 2 ? 'none' : '_' + second + 'circuits';
 
-    return { first, second };
+    return { 
+        first: i18n.translateKey('collectorTypes.' + first), 
+        second: i18n.translateKey('collectorTypes.' + second)
+    };
 }
 
 function addPicture(context) {
