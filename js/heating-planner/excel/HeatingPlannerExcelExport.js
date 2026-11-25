@@ -2,6 +2,7 @@ import { RoomCalculations } from "../../common/actions/room/RoomCalculations.js"
 import { ApplicationState } from "../../common/appdata/ApplicationState.js";
 import { Constants } from "../../common/appdata/constants.js";
 import { ExcelGeneratorUtils } from "../../common/excel/excelGeneratorUtil.js";
+import { WorkbookWrapper } from "../../common/excel/WorkbookWrapper.js";
 import { i18n } from "../../common/i18n/i18n.js";
 import { HeatingPlannerConstants } from "../appdata/HeatingPlannerConstants.js";
 import { HeatingPlannerExcelConstants } from "./excelConstants.js";
@@ -28,6 +29,7 @@ const VLOOKUP = ExcelGeneratorUtils.VLOOKUP;
 let PRICES = HeatingPlannerConstants.prices;
 
 function startExcelExport(transportKm) {
+    EXCEL_ARRAY_BUFFER = null;
     PRICES = HeatingPlannerConstants.prices;
     const summary = summaryCalculator.calculateSummary();
     summary.additionalElements.transport = transportKm || null;
@@ -82,17 +84,7 @@ async function loadExcelTemplate() {
 
 function downloadExcel(context) {
     const workbook = context.workbook;
-
-    workbook.xlsx.writeBuffer().then((buffer) => {
-        const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `apparat_excel_${Math.random().toString().substring(2)}.xlsx`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
+    new WorkbookWrapper(workbook).download();
 }
 
 function fillPrices(context) {

@@ -1,7 +1,3 @@
-Excelekre nyelvesített sheet nevek is kellenek!
-
----
-
 Így nemzetközisítve az Enterezésre sokkal értelmesebb megoldás lenne, ha nem "(Enter)" szöveget keresne a gombban,
 hanem lenne mondjuk egy enterable attribute
 

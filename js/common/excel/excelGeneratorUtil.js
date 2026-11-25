@@ -112,7 +112,7 @@ function IFERROR(expression, fallback) {
 }
 
 function alap(cell) {
-    return `Alap!${cell}`;
+    return `${i18n.translateKey(HeatingPlannerExcelConstants.FIRST_SHEET_NAME)}!${cell}`;
 }
 
 function alapArr(cells) {
