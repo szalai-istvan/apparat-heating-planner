@@ -10,7 +10,6 @@ import { Events } from "../event/Events.js";
 import { CreatePoint } from "../geometry/point/createPoint.js";
 import { Point } from "../geometry/point/Point.js";
 import { Languages } from "../i18n/Languages.js";
-import { Load } from "../io/load.js";
 import { Save } from "../io/save.js";
 import { ReducerFunctions } from "../math/ReducerFunctions.js";
 import { ButtonWrapper } from "./buttons/ButtonWrapper.js";
@@ -57,7 +56,7 @@ function createCommonButtons(topRibbonButtonSizes, leftRibbonButtonSizes) {
         size: Constants.ui.regularButtonSize,
         position: topRibbonButtonPosition(topRibbonButtonSizes),
         onClick: () => {
-            Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, ApplicationState.language === Languages.hu ? Languages.ro : Languages.hu)
+            Events.dispatchCustomEvent(CustomEventTypes.changeLanguage, Languages.next())
         },
         shouldBeActive: () => true
     });

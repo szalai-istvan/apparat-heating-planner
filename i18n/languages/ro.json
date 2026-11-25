@@ -198,5 +198,6 @@
     "INVALID_PANEL_ALIGNMENT": "Nu pot exista panouri perpendiculare unele pe altele în aceeași încăpere!",
     "INVALID_DISTANCE": "Distanță invalidă!",
     "BOX_GROUP_OUTSIDE_ROOM": "Grupul de treceri prin planșeu trebuie să fie în interiorul încăperii!",
-    "INVALID_DIRECTION_TO_BOX": "Traseul țevii se apropie de doză dintr-o direcție necorespunzătoare!"
+    "INVALID_DIRECTION_TO_BOX": "Traseul țevii se apropie de doză dintr-o direcție necorespunzătoare!",
+    "landingpage.title": "APPARAT Busolă"
 }
