@@ -1,3 +1,4 @@
+import { HeatingPlannerExcelConstants } from "../../heating-planner/excel/excelConstants.js";
 import { i18n } from "../i18n/i18n.js";
 import { WorkbookWrapper } from "./WorkbookWrapper.js";
 
@@ -170,7 +171,7 @@ function getCollectorConfig(context) {
 function addPicture(context) {
     const workbook = context.workbook;
     const wrapper = new WorkbookWrapper(workbook);
-    wrapper.selectSheetByName('Tervrajz');
+    wrapper.selectSheetByName(i18n.translateKey(HeatingPlannerExcelConstants.BLUEPRINT_SHEET_NAME));
     wrapper.exportBlueprint();
 }
 

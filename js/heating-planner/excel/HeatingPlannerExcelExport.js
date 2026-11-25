@@ -44,8 +44,8 @@ async function createExcelFile(summary) {
     const workbook = await loadExcelTemplate();
     context.workbook = workbook;
 
-    const summarySheet = workbook.getWorksheet(HeatingPlannerExcelConstants.SUMMARY_SHEET_NAME);
-    const blueprintSheet = workbook.getWorksheet(HeatingPlannerExcelConstants.BLUEPRINT_SHEET_NAME);
+    const summarySheet = workbook.getWorksheet(i18n.translateKey(HeatingPlannerExcelConstants.SUMMARY_SHEET_NAME));
+    const blueprintSheet = workbook.getWorksheet(i18n.translateKey(HeatingPlannerExcelConstants.BLUEPRINT_SHEET_NAME));
     context.sheets = { summarySheet, blueprintSheet };
 
     fillPrices(context);
@@ -97,7 +97,7 @@ function downloadExcel(context) {
 
 function fillPrices(context) {
     const workbook = context.workbook;
-    const sheet = workbook.getWorksheet('Alap');
+    const sheet = workbook.getWorksheet(i18n.translateKey(HeatingPlannerExcelConstants.FIRST_SHEET_NAME));
     const pricesToFill = [
         HeatingPlannerConstants.prices.panels.F100,
         HeatingPlannerConstants.prices.panels.F150,

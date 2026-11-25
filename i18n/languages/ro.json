@@ -223,5 +223,8 @@
     "distBox.freestanding5_8": "Cutie distribuitor aparentă 5-8",
     "distBox.freestanding9_10": "Cutie distribuitor aparentă 9-10",
     "distBox.freestanding11_12": "Cutie distribuitor aparentă 11-12",
-    "distBox.freestanding12_14": "Cutie distribuitor aparentă 12-14"
+    "distBox.freestanding12_14": "Cutie distribuitor aparentă 12-14",
+    "excel.sheet.base": "Bază",
+    "excel.sheet.details": "Detaliile ofertei",
+    "excel.sheet.blueprint": "Plan"
 }

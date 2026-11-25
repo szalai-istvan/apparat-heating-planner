@@ -223,5 +223,8 @@
     "distBox.freestanding5_8": "Falon kívüli osztószekrény 5-8",
     "distBox.freestanding9_10": "Falon kívüli osztószekrény 9-10",
     "distBox.freestanding11_12": "Falon kívüli osztószekrény 11-12",
-    "distBox.freestanding12_14": "Falon kívüli osztószekrény 12-14"
+    "distBox.freestanding12_14": "Falon kívüli osztószekrény 12-14",
+    "excel.sheet.base": "Alap",
+    "excel.sheet.details": "Ajánlat részletek",
+    "excel.sheet.blueprint": "Tervrajz"
 }
